@@ -1,0 +1,20 @@
+<script>
+window.fbAsyncInit = function() {
+    FB.init({
+        appId      : '151746018611227',
+        xfbml      : true,
+        version    : 'v2.7'
+    });
+};
+
+(function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+</script>
+
+https://developers.facebook.com/quickstarts/151746018611227/?platform=web
+https://developers.facebook.com/docs/sharing/reference/share-dialog

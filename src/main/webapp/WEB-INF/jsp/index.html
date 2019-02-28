@@ -1,0 +1,563 @@
+!DOCTYPE html>
+<!--<html xmlns="http://www.w3.org/1999/xhtml">-->
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Custom Theme files -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Osoma</title>
+    <meta name="description" content="osoma"/>
+    <meta name="keywords" content="osoma"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+    <link href="assets/bootstrap/css/bootstrap.min.css" rel='stylesheet' type='text/css'/>
+
+    <!--    awesome font-->
+    <link rel="stylesheet" href="assets/bootstrap/css/font-awesome.css">
+
+    <!-- Custom Theme files -->
+    <link href="css/style.css" rel='stylesheet' type='text/css'/>
+    <!--    web fonts-->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800,700' rel='stylesheet' type='text/css'>
+    <link rel="shortcut icon" href="images/fav.png"/>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="js/jquery.min.js"></script>
+
+    <!--    bootstrap js-->
+    <script type="text/javascript" src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/exams-page.js"></script>
+</head>
+<body>
+
+
+
+<!-- Static navbar -->
+<nav class="navbar navbar-fixed-top navbar-custom">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <div class="logo">
+                <a href="/"><img src="images/logo2.png" title="logo"/></a>
+            </div>
+
+        </div>
+
+
+        <div class="hidden-xs hidden-sm">
+            <form class="navbar-form navbar-left" method="post" action="/search">
+                <div class="form-group">
+                    <input type="text" name="q" class="form-control"
+                           placeholder="Search...">
+                    <button type="submit" class="btn btn-default">
+                        Search</button>
+                </div>
+            </form>
+        </div>
+
+
+        <div id="navbar" class="navbar-collapse collapse">
+            <!--                    temporary-->
+            <img src="images/giphy.gif" title="under construction" height="32" style="margin-left: 50px;"/>
+
+            <ul class="nav navbar-nav navbar-right">
+
+
+                <li>
+                    <a href="/?page=login">
+                        <i class="fa fa-user" aria-hidden="true"></i>
+                        Login                            </a>
+
+                </li>
+
+
+                <li>
+
+                    <a class="change-lang" href="#"
+                       hreflang="pt"
+
+                       rel="en_pt"
+                    >
+
+                        <img src="images/lang/pt.png"
+                             alt="PT">
+                    </a>
+
+                </li>
+            </ul>
+
+
+        </div> <!--/.nav-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+
+<br/>
+<br/>
+<br/>
+
+<div class="container">
+
+    <p>ola olal lalal </p>
+    <h1 th:text="#{greeting}"></h1>
+
+    <span th:text="#{lang.change}"></span>:
+    <select id="locales">
+        <option value=""></option>
+        <option value="en" th:text="#{lang.eng}"></option>
+        <option value="pt" th:text="#{lang.pt}"></option>
+    </select>
+
+    <h1 th:text="#{greeting}"></h1>
+
+    <!--side nav-->
+    <div class="col-lg-3 col-md-3 col-sm-4">
+
+        <div class="row">
+            <!--Ano filter-->
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel"
+                     aria-labelledby="headingOne">
+                    <div class="panel-body">
+                        <ul class="nav nav-sidebar">
+                            <p>
+                                <strong>Years</strong>
+                            </p>
+
+                            <div class="load_more_years" id="years_more">
+
+                                <li>
+                                    <div class="tickbox">
+                                        <input type="checkbox" name="YearCheckFilter"
+                                               id="ano_2005"
+                                               value="ano_2005"
+                                        />
+                                        <span> 2005</span>
+                                        <span class="pull-right">7</span>
+                                    </div>
+                                </li>
+
+                                <li>
+                                    <div class="tickbox">
+                                        <input type="checkbox" name="YearCheckFilter"
+                                               id="ano_2007"
+                                               value="ano_2007"
+                                        />
+                                        <span> 2007</span>
+                                        <span class="pull-right">1</span>
+                                    </div>
+                                </li>
+
+                                <div class="remove_row_year">
+                                    <a href="#" data-year="2007"
+                                       class="btn_more_years">show more</a>
+                                </div>
+
+                            </div>
+
+                            <div class="divider"></div>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!--university filter-->
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div id="collapseTree" class="panel-collapse collapse in" role="tabpanel"
+                     aria-labelledby="headingOne">
+                    <div class="panel-body">
+                        <ul class="nav nav-sidebar">
+                            <p>
+                                <strong>Universities</strong>
+                            </p>
+
+                            <div class="load_more_uni" id="uni_more">
+                                <li>
+                                    <div class="tickbox">
+                                        <input type="checkbox" name="UniCheckFilter"
+                                               id="universidade_2"
+                                               value="universidade_2"
+                                        />
+                                        <span>
+                                                UEM                                            </span>
+                                        <span class="pull-right">
+                                                7                                            </span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="tickbox">
+                                        <input type="checkbox" name="UniCheckFilter"
+                                               id="universidade_12"
+                                               value="universidade_12"
+                                        />
+                                        <span>
+                                                UniLúrio                                            </span>
+                                        <span class="pull-right">
+                                                1                                            </span>
+                                    </div>
+                                </li>
+
+                                <div class="remove_row_uni">
+                                    <a href="#" data-uni="UniLúrio"
+                                       class="btn_more_unis">show more</a>
+                                </div>
+                            </div>
+                            <div class="divider"></div>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Exames filters-->
+
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel"
+                     aria-labelledby="headingOne">
+                    <div class="panel-body">
+                        <ul class="nav nav-sidebar">
+                            <p>
+                                <strong>Exams</strong>
+                            </p>
+
+                            <div class="load_more_exam" id="exam_more">
+                                <li>
+                                    <div class="tickbox">
+                                        <input type="checkbox" name="SubcheckFilter"
+                                               id="exame_92"
+                                               value="exame_92"
+                                        />
+                                        <span>biologia</span>
+                                        <span class="pull-right">1</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="tickbox">
+                                        <input type="checkbox" name="SubcheckFilter"
+                                               id="exame_82"
+                                               value="exame_82"
+                                        />
+                                        <span>
+                                                filosofia                                            </span>
+                                        <span class="pull-right">
+                                                1                                            </span>
+                                    </div>
+                                </li>
+
+                                <div class="remove_row_exam">
+                                    <a href="#" data-exam="filosofia"
+                                       class="btn_more_exams">show more</a>
+                                </div>
+
+
+                            </div>
+                            <div class="divider"></div>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <!--Main content-->
+    <div class="col-md-9">
+
+
+        <!--From DB-->
+
+
+        <div class="row">
+
+
+            <p align="center"> Has been found <b>9 Exams</b></p>
+
+            </br>
+
+            <div class="col-sm-6 col-md-3">
+
+
+                <a href="/?page=exam-details&amp;exam=112" class="thumb">
+                    <div class="thumbnail">
+                        <img src="images/disciplinas/portugues.png" alt="img-português"
+                             class="img-rounded responsive">
+                        <div class="caption">
+                            <h5>Exame de Portugues</h5>
+                            <p>2005</p>
+                        </div>
+                    </div>
+                </a>
+
+
+            </div>
+
+
+
+            <div class="col-sm-6 col-md-3">
+
+
+                <a href="/?page=exam-details&amp;exam=72" class="thumb">
+                    <div class="thumbnail">
+                        <img src="images/disciplinas/quimica.png" alt="img-química"
+                             class="img-rounded responsive">
+                        <div class="caption">
+                            <h5>Exame de Química</h5>
+                            <p>2005</p>
+                        </div>
+                    </div>
+                </a>
+
+
+            </div>
+
+
+
+            <div class="col-sm-6 col-md-3">
+
+
+                <a href="/?page=exam-details&amp;exam=52" class="thumb">
+                    <div class="thumbnail">
+                        <img src="images/disciplinas/biologia.png" alt="img-biologia"
+                             class="img-rounded responsive">
+                        <div class="caption">
+                            <h5>Exame de Biologia</h5>
+                            <p>2005</p>
+                        </div>
+                    </div>
+                </a>
+
+
+            </div>
+
+
+
+            <div class="col-sm-6 col-md-3">
+
+
+                <a href="/?page=exam-details&amp;exam=92" class="thumb">
+                    <div class="thumbnail">
+                        <img src="images/disciplinas/ingles.png" alt="img-inglês"
+                             class="img-rounded responsive">
+                        <div class="caption">
+                            <h5>Exame de Ingles</h5>
+                            <p>2005</p>
+                        </div>
+                    </div>
+                </a>
+
+
+            </div>
+
+
+
+            <div class="col-sm-6 col-md-3">
+
+
+                <a href="/?page=exam-details&amp;exam=2" class="thumb">
+                    <div class="thumbnail">
+                        <img src="images/disciplinas/matematica.png" alt="img-matématica"
+                             class="img-rounded responsive">
+                        <div class="caption">
+                            <h5>Exame de Matématica</h5>
+                            <p>2005</p>
+                        </div>
+                    </div>
+                </a>
+
+
+            </div>
+
+
+
+            <div class="col-sm-6 col-md-3">
+
+
+                <a href="/?page=exam-details&amp;exam=22" class="thumb">
+                    <div class="thumbnail">
+                        <img src="images/disciplinas/geografia.png" alt="img-geografia"
+                             class="img-rounded responsive">
+                        <div class="caption">
+                            <h5>Exame de Geografia</h5>
+                            <p>2005</p>
+                        </div>
+                    </div>
+                </a>
+
+
+            </div>
+
+
+
+            <div class="col-sm-6 col-md-3">
+
+
+                <a href="/?page=exam-details&amp;exam=62" class="thumb">
+                    <div class="thumbnail">
+                        <img src="images/disciplinas/fisica.png" alt="img-física"
+                             class="img-rounded responsive">
+                        <div class="caption">
+                            <h5>Exame de Fisica</h5>
+                            <p>2005</p>
+                        </div>
+                    </div>
+                </a>
+
+
+            </div>
+
+
+
+            <div class="col-sm-6 col-md-3">
+
+
+                <a href="/?page=exam-details&amp;exam=12" class="thumb">
+                    <div class="thumbnail">
+                        <img src="images/disciplinas/frances.png" alt="img-francês"
+                             class="img-rounded responsive">
+                        <div class="caption">
+                            <h5>Exame de Frances</h5>
+                            <p>2007</p>
+                        </div>
+                    </div>
+                </a>
+
+
+            </div>
+
+
+
+        </div>
+
+        <div class="row"><div class="col-md-12"><div class="pagination-centered"><ul class="pagination "><li><span style='color: #C6C4C6'>First</span></li><li><span style='color: #C6C4C6' aria-hidden="true">&laquo;</span></li><li><a href="/?page=exams&amp;pg=2" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li><li><a href="/?page=exams&amp;pg=2">Last</a></li></ul></div></div></div>
+    </div>
+
+
+</div>
+
+
+<div class="footer">
+    <div style="height: 0.5px; width:100%; display:block; overflow: hidden; background-color: #c2cbd4;">
+
+    </div>
+    <div class="container">
+        <div class="footer-grids">
+            <div class="col-md-3 footer-grid about-info">
+                <!-- <a href="#"><img src="web/images/logo.png" title="Umbrella" /></a> -->
+                <br/>
+                <p style="text-align: center">Cimenta o seu futuro com o auxilio do <b>Osoma</b></p>
+                <a href="/"><img src="../images/28468.jpg" width="200"/></a>
+
+            </div>
+            <div class="col-md-3 footer-grid subscribe">
+                <h3>Subscribe </h3>
+                <%--<form>--%>
+                <%--<input type="text" placeholder="" required/>--%>
+                <%--<input type="submit" value=""/>--%>
+                <%--</form>--%>
+                <a href="#">Register</a>
+            </div>
+            <div class="col-md-3 footer-grid explore">
+                <h3>Explore</h3>
+                <ul class="col-md-6">
+                    <li><a href="#">Online placement Exams</a></li>
+                    <%--<li><a href="#">Themecurve</a></li>--%>
+                    <%--<li><a href="#">Kreativeshowcase</a></li>--%>
+                    <%--<li><a href="#">Freebiescurve</a></li>--%>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+
+
+
+            <div class="col-md-3 footer-grid copy-right">
+
+                <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-5">
+                    <ul class="list-unstyled list-inline social text-center">
+                        <li class="list-inline-item"><a href="javascript:void();"><i class="fa fa-facebook"></i></a></li>
+                        <li class="list-inline-item"><a href="javascript:void();"><i class="fa fa-twitter"></i></a></li>
+                        <li class="list-inline-item"><a href="javascript:void();"><i class="fa fa-instagram"></i></a></li>
+                    </ul>
+                </div>
+                <p>Eusmod tempor incididunt ut labore et dolore magna aliqua. ut labore et dolore magna aliqua. </p>
+                <%--<p class="copy">Template by <a href="http://w3layouts.com/">w3layouts</a></p>--%>
+            </div>
+            <div class="clearfix"></div>
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    /*
+                     var defaults = {
+                     containerID: 'toTop', // fading element id
+                     containerHoverID: 'toTopHover', // fading element hover id
+                     scrollSpeed: 1200,
+                     easingType: 'linear'
+                     };
+                     */
+
+                    $().UItoTop({easingType: 'easeOutQuart'});
+
+                });
+            </script>
+            <a href="#" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
+        </div>
+    </div>
+</div>
+<!---//footer----->
+
+
+<!---- start-smoth-scrolling---->
+<script type="text/javascript" src="js/move-top.js"></script>
+<script type="text/javascript" src="js/easing.js"></script>
+<script type="text/javascript">
+    jQuery(document).ready(function ($) {
+        $(".scroll").click(function (event) {
+            event.preventDefault();
+            $('html,body').animate({scrollTop: $(this.hash).offset().top}, 1000);
+        });
+    });
+</script>
+<script type="application/x-javascript"> addEventListener("load", function () {
+    setTimeout(hideURLbar, 0);
+}, false);
+function hideURLbar() {
+    window.scrollTo(0, 1);
+}
+</script>
+
+<script>
+    $(function () {
+        var pull = $('#pull');
+        menu = $('nav ul');
+        menuHeight = menu.height();
+        $(pull).on('click', function (e) {
+            e.preventDefault();
+            menu.slideToggle();
+        });
+        $(window).resize(function () {
+            var w = $(window).width();
+            if (w > 320 && menu.is(':hidden')) {
+                menu.removeAttr('style');
+            }
+        });
+    });
+</script>
+<!----//End-top-nav-script---->
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#locales").change(function () {
+            var selectedOption = $('#locales').val();
+            if (selectedOption != ''){
+                window.location.replace('?lang=' + selectedOption);
+            }
+        });
+    });
+</script>
+</body>
+</html>
