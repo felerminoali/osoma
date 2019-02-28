@@ -34,14 +34,17 @@ public class HibernateConf {
     @Bean
     public DriverManagerDataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/osoma");
-        dataSource.setUsername("root");
-        dataSource.setPassword("root");
 
-//        dataSource.setUrl("jdbc:postgresql://ec2-75-101-138-165.compute-1.amazonaws.com/d2d3u704al5gi3");
-//        dataSource.setUsername("znfzlpxnwaveij");
-//        dataSource.setPassword("87b7b46433d0c67ee5613c8c416b0f08948f438b80db80bbc01dfc3fee92b26f");
+        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
+
+
+//        dataSource.setUrl("jdbc:mysql://localhost:3306/osoma");
+//        dataSource.setUsername("root");
+//        dataSource.setPassword("root");
+
+        dataSource.setUrl("jdbc:mysql://us-cdbr-iron-east-03.cleardb.net:3306/heroku_9a0deeafda252b2");
+        dataSource.setUsername("bfaa4dbfc34090");
+        dataSource.setPassword("637b79e7");
 
         return dataSource;
     }
