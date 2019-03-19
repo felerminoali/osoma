@@ -22,13 +22,14 @@ public class HomeController {
 	@Qualifier("CRUDServiceImpl")
 	private CRUDService crudService;
 
-	@RequestMapping(value = "/{page}", method = RequestMethod.GET)
-	public String index(@PathVariable(value = "page") Long page, Model model) {
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public ModelAndView index() {
 
 		List<Exam> exams =  crudService.getAll(Exam.class);
-		model.addAttribute("exams",exams);
+		ModelAndView model = new ModelAndView("index");
+		model.addObject("exams", exams);
 
-		return "index";
+		return model;
 	}
 
 //	@RequestMapping(value = "/", method = RequestMethod.GET)

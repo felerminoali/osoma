@@ -1,10 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
 </head>
 <body>
 
+
+<!-- Insert content into the layouts/layout.html -->
+<th:block layout:fragment="content">
+
+    <div class="container">
+        <p>Ola galera</p>
+    </div>
+</th:block>
 </body>
 </html>

@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout}">
-<!-- rrrrrrr  -->
+
 <head>
 </head>
 <body>
@@ -10,6 +10,8 @@
 
 <!-- Insert content into the layouts/layout.html -->
 <th:block layout:fragment="content">
+
+
    <div class="container">
 
       <!--side nav-->
@@ -164,18 +166,12 @@
 
       </div>
 
-
-
       <!--Main content-->
       <div class="col-md-9">
 
-
          <!--From DB-->
-
-
          <div class="row">
 
-            <!--<h2 th:case="null"><p th:text="#{greeting}"></p></h2>-->
 
             <div th:switch="${exams}">
                <h2 th:case="null"><p th:text="#{no-exam}"></p></h2>
@@ -184,7 +180,7 @@
                <div th:case="*">
                   <div th:each="exam: ${exams}">
                      <div class="col-sm-6 col-md-3">
-                        <a href="/exam/details/110" th:href="@{/exam/details/{id}(id = ${exam.examId})}" class="thumb">
+                        <a th:href="@{/exam/details/{id}(id = ${exam.examId})}" class="thumb">
                            <div class="thumbnail">
                               <img th:src="${exam.category.image}" th:alt="${exam.category.name}"
                                    class="img-rounded responsive">
@@ -194,160 +190,15 @@
                               </div>
                            </div>
                         </a>
-
-
                      </div>
                   </div>
                </div>
             </div>
 
-
-
-
-
-
-
-
-
-            <!--<div class="col-sm-6 col-md-3">-->
-
-
-               <!--<a href="/?page=exam-details&amp;exam=72" class="thumb">-->
-                  <!--<div class="thumbnail">-->
-                     <!--<img src="images/disciplinas/quimica.png" alt="img-química"-->
-                          <!--class="img-rounded responsive">-->
-                     <!--<div class="caption">-->
-                        <!--<h5>Exame de Química</h5>-->
-                        <!--<p>2005</p>-->
-                     <!--</div>-->
-                  <!--</div>-->
-               <!--</a>-->
-
-
-            <!--</div>-->
-
-
-
-            <!--<div class="col-sm-6 col-md-3">-->
-
-
-               <!--<a href="/?page=exam-details&amp;exam=52" class="thumb">-->
-                  <!--<div class="thumbnail">-->
-                     <!--<img src="images/disciplinas/biologia.png" alt="img-biologia"-->
-                          <!--class="img-rounded responsive">-->
-                     <!--<div class="caption">-->
-                        <!--<h5>Exame de Biologia</h5>-->
-                        <!--<p>2005</p>-->
-                     <!--</div>-->
-                  <!--</div>-->
-               <!--</a>-->
-
-
-            <!--</div>-->
-
-
-
-            <!--<div class="col-sm-6 col-md-3">-->
-
-
-               <!--<a href="/?page=exam-details&amp;exam=92" class="thumb">-->
-                  <!--<div class="thumbnail">-->
-                     <!--<img src="images/disciplinas/ingles.png" alt="img-inglês"-->
-                          <!--class="img-rounded responsive">-->
-                     <!--<div class="caption">-->
-                        <!--<h5>Exame de Ingles</h5>-->
-                        <!--<p>2005</p>-->
-                     <!--</div>-->
-                  <!--</div>-->
-               <!--</a>-->
-
-
-            <!--</div>-->
-
-
-
-            <!--<div class="col-sm-6 col-md-3">-->
-
-
-               <!--<a href="/?page=exam-details&amp;exam=2" class="thumb">-->
-                  <!--<div class="thumbnail">-->
-                     <!--<img src="images/disciplinas/matematica.png" alt="img-matématica"-->
-                          <!--class="img-rounded responsive">-->
-                     <!--<div class="caption">-->
-                        <!--<h5>Exame de Matématica</h5>-->
-                        <!--<p>2005</p>-->
-                     <!--</div>-->
-                  <!--</div>-->
-               <!--</a>-->
-
-
-            <!--</div>-->
-
-
-
-            <!--<div class="col-sm-6 col-md-3">-->
-
-
-               <!--<a href="/?page=exam-details&amp;exam=22" class="thumb">-->
-                  <!--<div class="thumbnail">-->
-                     <!--<img src="images/disciplinas/geografia.png" alt="img-geografia"-->
-                          <!--class="img-rounded responsive">-->
-                     <!--<div class="caption">-->
-                        <!--<h5>Exame de Geografia</h5>-->
-                        <!--<p>2005</p>-->
-                     <!--</div>-->
-                  <!--</div>-->
-               <!--</a>-->
-
-
-            <!--</div>-->
-
-
-
-            <!--<div class="col-sm-6 col-md-3">-->
-
-
-               <!--<a href="/?page=exam-details&amp;exam=62" class="thumb">-->
-                  <!--<div class="thumbnail">-->
-                     <!--<img src="images/disciplinas/fisica.png" alt="img-física"-->
-                          <!--class="img-rounded responsive">-->
-                     <!--<div class="caption">-->
-                        <!--<h5>Exame de Fisica</h5>-->
-                        <!--<p>2005</p>-->
-                     <!--</div>-->
-                  <!--</div>-->
-               <!--</a>-->
-
-
-            <!--</div>-->
-
-
-
-            <!--<div class="col-sm-6 col-md-3">-->
-
-
-               <!--<a href="/?page=exam-details&amp;exam=12" class="thumb">-->
-                  <!--<div class="thumbnail">-->
-                     <!--<img src="images/disciplinas/frances.png" alt="img-francês"-->
-                          <!--class="img-rounded responsive">-->
-                     <!--<div class="caption">-->
-                        <!--<h5>Exame de Frances</h5>-->
-                        <!--<p>2007</p>-->
-                     <!--</div>-->
-                  <!--</div>-->
-               <!--</a>-->
-
-
-            <!--</div>-->
-
-
-
          </div>
 
          <div class="row"><div class="col-md-12"><div class="pagination-centered"><ul class="pagination "><li><span style='color: #C6C4C6'>First</span></li><li><span style='color: #C6C4C6' aria-hidden="true">&laquo;</span></li><li><a href="/?page=exams&amp;pg=2" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li><li><a href="/?page=exams&amp;pg=2">Last</a></li></ul></div></div></div>
       </div>
-
-
    </div>
 </th:block>
 </body>
