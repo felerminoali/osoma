@@ -1,5 +1,6 @@
 package mz.co.osoma.controller;
 
+import mz.co.osoma.model.Category;
 import mz.co.osoma.model.Exam;
 import mz.co.osoma.model.University;
 import mz.co.osoma.service.CRUDService;
@@ -25,14 +26,64 @@ public class HomeController {
 	private HashMap<String, Object> paramentos;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public ModelAndView index(@RequestParam("ano") Optional<Integer> ano, @RequestParam Optional<Integer> universidade ) {
+	public ModelAndView index(@RequestParam("ano") Optional<Integer> ano1, @RequestParam Optional<Integer> universidade,
+							  @RequestParam ("exame") Optional<Integer>  exame1 ) {
+
 
 		List<Exam> exams ;//=  crudService.getAll(Exam.class);
 		paramentos = new HashMap<String, Object>(1);
 
 		HashMap<String, Object> parametroAux = new HashMap<String, Object>(1);
+		HashMap<String, Object> auxDisciplina = new HashMap<String, Object>(1);
+
 		StringBuilder sql = new StringBuilder();
+
 		sql.append("SELECT e FROM Exam e ");
+		//disc.append(" ");
+
+		// concatenacao
+	/*	if(universidade.hashCode()!=0 && ano1.hashCode()!=0){
+
+
+
+			//	if(exame1.hashCode()!=0){
+
+			sql.append("WHERE e.university = :university");
+			StringBuilder query = new StringBuilder();
+
+			query.append("SELECT u FROM University u WHERE u.id = :id and e.examYear = :ano ");
+			parametroAux.put("id", universidade.hashCode());
+			University university = crudService.findEntByJPQuery(query.toString(), parametroAux);
+
+			paramentos.put("university", university);
+
+				//	sql.append("WHERE e.examYear = :ano");
+					paramentos.put("ano", ano1.hashCode());
+
+			//		sql.append("WHERE e.category = :category");
+
+			//		StringBuilder disc = new StringBuilder();
+
+			//		disc.append("SELECT c FROM Category c WHERE c.id = :id");
+			//		auxDisciplina.put("id", exame1.hashCode());
+			//		Category category = crudService.findEntByJPQuery(disc.toString(), auxDisciplina);
+
+			//		paramentos.put("category", category);
+
+
+
+		}*/
+
+
+
+
+
+
+
+
+
+
+		// o if abaixo devolve os exames seleccionados pelo nome da universidade
 
 		if(universidade.hashCode()!=0){
 			sql.append("WHERE e.university = :university");
@@ -41,15 +92,32 @@ public class HomeController {
 
 			query.append("SELECT u FROM University u WHERE u.id = :id");
 			parametroAux.put("id", universidade.hashCode());
-			University university = crudService.findEntByJPQuery(query.toString(),
-					parametroAux);
+			University university = crudService.findEntByJPQuery(query.toString(), parametroAux);
 
 			paramentos.put("university", university);
 
 
-		}else if(ano.hashCode()!=0){
+		}
+
+
+		// o if abaixo devolve os exames seleccionados pelo ano de realizacao
+		else if(ano1.hashCode()!=0){
 			sql.append("WHERE e.examYear = :ano");
-			paramentos.put("ano", ano.hashCode());
+			paramentos.put("ano", ano1.hashCode());
+		}
+		//o if abaixo devolve os exames seleccionados pelo nome da disciplina
+
+		else if(exame1.hashCode()!=0){
+			sql.append("WHERE e.category = :category");
+
+			StringBuilder disc = new StringBuilder();
+
+			disc.append("SELECT c FROM Category c WHERE c.id = :id");
+			auxDisciplina.put("id", exame1.hashCode());
+			Category category = crudService.findEntByJPQuery(disc.toString(), auxDisciplina);
+
+			paramentos.put("category", category);
+
 		}
 
 
