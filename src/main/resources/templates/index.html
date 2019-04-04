@@ -5,7 +5,7 @@
 
 <head>
 </head>
-<body>
+<body onload = "myfunction();" >
 
 
 <!-- Insert content into the layouts/layout.html -->
@@ -26,31 +26,29 @@
                      <ul class="nav nav-sidebar">
                         <p>
                            <strong>Years</strong>
+                           <strong> <p align="center" th:text="${ano}"></p></strong>
                         </p>
 
                         <div class="load_more_years" id="years_more">
 
-                           <li>
-                              <div class="tickbox">
-                                 <input type="checkbox" name="YearCheckFilter"
-                                        id="ano_2005"
-                                        value="ano_2005"
-                                 />
-                                 <span> 2005</span>
-                                 <span class="pull-right">7</span>
-                              </div>
-                           </li>
 
-                           <li>
-                              <div class="tickbox">
-                                 <input type="checkbox" name="YearCheckFilter"
-                                        id="ano_2007"
-                                        value="ano_2007"
-                                 />
-                                 <span> 2007</span>
-                                 <span class="pull-right">1</span>
-                              </div>
-                           </li>
+                            <tr
+                            th:each="year: ${years}"
+                                <li th>
+                                    <div class="tickbox">
+                                        <!--/*@thymesVar id="year" type=""*/-->
+                                        <input type="checkbox" name="YearCheckFilter"
+
+                                               th:id="${year}"
+                                               th:value="'ano_'+${year}"
+                                               th:checked="${ano == year} ? 'checked'"
+                                        />
+                                        <span th:text="${year}">  </span>
+                                        <span class="pull-right">7</span>
+                                    </div>
+                                </li>
+
+                            </tr>
 
                            <div class="remove_row_year">
                               <a href="#" data-year="2007"
@@ -75,32 +73,22 @@
                         <p>
                            <strong>Universities</strong>
                         </p>
-
+                        <strong> <p align="center" th:text="${universidade}"></p></strong>
                         <div class="load_more_uni" id="uni_more">
-                           <li>
-                              <div class="tickbox">
-                                 <input type="checkbox" name="UniCheckFilter"
-                                        id="universidade_2"
-                                        value="universidade_2"
-                                 />
-                                 <span>
-                                                UEM                                            </span>
-                                 <span class="pull-right">
-                                                7                                            </span>
-                              </div>
-                           </li>
-                           <li>
-                              <div class="tickbox">
-                                 <input type="checkbox" name="UniCheckFilter"
-                                        id="universidade_12"
-                                        value="universidade_12"
-                                 />
-                                 <span>
-                                                UniLúrio                                            </span>
-                                 <span class="pull-right">
-                                                1                                            </span>
-                              </div>
-                           </li>
+
+                            <tr th:each="u: ${universities}">
+                               <li>
+                                  <div class="tickbox">
+                                     <input type="checkbox" name="UniCheckFilter"
+                                            th:id="'universidade_' + ${u.id}  "
+                                            th:value="'universidade_' + ${u.id}"
+                                            th:checked="${u.id == universidade} ? 'checked'"
+                                     />
+                                     <span th:text = "${u.shortname}">   </span>
+                                     <span class="pull-right">7 </span>
+                                  </div>
+                               </li>
+                            </tr>
 
                            <div class="remove_row_uni">
                               <a href="#" data-uni="UniLúrio"
@@ -125,37 +113,26 @@
                            <strong>Exams</strong>
                         </p>
 
-                        <div class="load_more_exam" id="exam_more">
-                           <li>
-                              <div class="tickbox">
-                                 <input type="checkbox" name="SubcheckFilter"
-                                        id="exame_92"
-                                        value="exame_92"
-                                 />
-                                 <span>biologia</span>
-                                 <span class="pull-right">1</span>
-                              </div>
-                           </li>
-                           <li>
-                              <div class="tickbox">
-                                 <input type="checkbox" name="SubcheckFilter"
-                                        id="exame_82"
-                                        value="exame_82"
-                                 />
-                                 <span>
-                                                filosofia                                            </span>
-                                 <span class="pull-right">
-                                                1                                            </span>
-                              </div>
-                           </li>
+                         <div class ="load_more_exam" id="exam_more">
+                            <tr th:each="s : ${subjects}">
+                                <li>
+                                  <div class="tickbox">
+                                     <input type="checkbox" name="SubcheckFilter"
+                                            th:id="'exame_' + ${s.id}  "
+                                            th:value="'exame_' + ${s.id}"
+                                            th:checked="${exame == s.id} ? 'checked'"
+                                     <span th:text="${s.name}"> </span>
+                                     <span class="pull-right">1</span>
+                                  </div>
+                               </li>
+                            </tr>
+                        </div>
 
                            <div class="remove_row_exam">
                               <a href="#" data-exam="filosofia"
                                  class="btn_more_exams">show more</a>
                            </div>
 
-
-                        </div>
                         <div class="divider"></div>
                      </ul>
                   </div>
@@ -171,7 +148,6 @@
 
          <!--From DB-->
          <div class="row">
-
 
             <div th:switch="${exams}">
                <h2 th:case="null"><p th:text="#{no-exam}"></p></h2>
@@ -201,5 +177,7 @@
       </div>
    </div>
 </th:block>
+
 </body>
+
 </html>

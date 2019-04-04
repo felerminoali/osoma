@@ -15,16 +15,20 @@ $(document).ready(function () {
                     var values = $(this).val();
                     var item = values.split('_');
 
-                    var param = "&" + item[0] + "=" + item[1];
+                    var param = item[0] + "=" + item[1] + "&";
+
                     params.push(param);
+
                 });
 
-                var url = "/?page=exams";
+                var url = "/?";
 
                 for (i = 0; i < params.length; i++) {
                     url = url + params[i];
                 }
 
+                url = url.substring(0,url.length-1);
+                //alert(document.URL);
                 redirect(url);
             });
         
