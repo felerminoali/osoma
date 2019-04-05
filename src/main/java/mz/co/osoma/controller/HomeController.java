@@ -37,6 +37,7 @@ public class HomeController {
 
 		SetupModelAtributes(exams);
 
+
 		return model;
 	}
 
@@ -120,7 +121,10 @@ public class HomeController {
 		return exams;
 	}
 
-	private void SetupModelAtributes(List<Exam> exams){
+
+	private void SetupModelAtributes(List<Exam> exams
+
+                                    ){
 
 		Integer []years = getNonRepeatedYears(crudService.getAll(Exam.class));
 		Integer []examsCount = countExams(years);
@@ -137,7 +141,20 @@ public class HomeController {
 		model.addObject("examsCount",examsCount);
 		model.addObject("universityExamsCount",universityExamsCount);
 		model.addObject("examsCategoriesCount",examsCategoriesCount);
-        model.addObject("universityExamsCount",universityExamsCount);
+
+	}
+
+
+	void HideFilterTab(Integer ano,Integer universidade, Integer exame){
+
+
+		// retirar os exames deste ano que exista exames e disciplinas
+		if (ano.hashCode() != 0){
+
+			StringBuilder query = new StringBuilder();
+		}
+
+
 
 	}
 
