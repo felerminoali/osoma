@@ -5,177 +5,200 @@
 
 <head>
 </head>
-<body onload = "myfunction();" >
+<body >
 
 
 <!-- Insert content into the layouts/layout.html -->
 <th:block layout:fragment="content">
 
 
-   <div class="container">
+    <div class="container">
 
-      <!--side nav-->
-      <div class="col-lg-3 col-md-3 col-sm-4">
+        <!--side nav-->
+        <div class="col-lg-3 col-md-3 col-sm-4">
 
-         <div class="row">
-            <!--Ano filter-->
-            <div class="col-lg-12 col-md-12 col-sm-12">
-               <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel"
-                    aria-labelledby="headingOne">
-                  <div class="panel-body">
-                     <ul class="nav nav-sidebar">
-                        <p>
-                           <strong>Years</strong>
-                           <strong> <p align="center" th:text="${ano}"></p></strong>
-                        </p>
+            <div class="row">
+                <!--Ano filter-->
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel"
+                         aria-labelledby="headingOne">
+                        <div class="panel-body">
+                            <ul class="nav nav-sidebar">
+                                <p>
+                                    <strong>Years</strong>
 
-                        <div class="load_more_years" id="years_more">
+                                </p>
+
+                                <div class="load_more_years" id="years_more">
 
 
-                            <tr
-                            th:each="year: ${years}"
-                                <li th>
-                                    <div class="tickbox">
-                                        <!--/*@thymesVar id="year" type=""*/-->
-                                        <input type="checkbox" name="YearCheckFilter"
+                                    <tr
+                                            th:each="year: ${examYearList}"
+                                    <li th>
+                                        <div class="tickbox">
+                                            <!--/*@thymesVar id="year" type=""*/-->
+                                            <input type="checkbox" name="YearCheckFilter"
 
-                                               th:id="${year}"
-                                               th:value="'ano_'+${year}"
-                                               th:checked="${ano == year} ? 'checked'"
-                                        />
-                                        <span th:text="${year}">  </span>
-                                        <span class="pull-right">7</span>
+                                                   th:id="${year.year}"
+                                                   th:value="'ano_'+${year.year}"
+                                                   th:checked="${ano == year.year} ? 'checked' "
+                                            />
+                                            <span th:text="${year.year}">  </span>
+                                            <span class="pull-right" th:text="${year.count}">7</span>
+                                        </div>
+                                    </li>
+
+                                    </tr>
+
+
+                                </div>
+
+                                <div class="divider"></div>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!--university filter-->
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div id="collapseTree" class="panel-collapse collapse in" role="tabpanel"
+                         aria-labelledby="headingOne">
+                        <div class="panel-body">
+                            <ul class="nav nav-sidebar">
+                                <p>
+                                    <strong>Universities</strong>
+                                </p>
+                                <div class="load_more_uni" id="uni_more">
+
+                                    <tr th:each="university: ${examUniversityList}">
+                                        <li>
+                                            <div class="tickbox">
+                                                <input type="checkbox" name="UniCheckFilter"
+                                                       th:id="'universidade_' + ${university.id}  "
+                                                       th:value="'universidade_' + ${university.id}"
+                                                       th:checked="${university.id == universidade} ? 'checked'"
+                                                />
+                                                <span th:text="${university.description}">   </span>
+                                                <span class="pull-right" th:text="${university.count}"> </span>
+                                            </div>
+                                        </li>
+                                    </tr>
+
+                                </div>
+                                <div class="divider"></div>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Exames filters-->
+
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel"
+                         aria-labelledby="headingOne">
+                        <div class="panel-body">
+                            <ul class="nav nav-sidebar">
+                                <p>
+                                    <strong>Exams</strong>
+                                </p>
+
+                                <div class="load_more_exam" id="exam_more">
+                                    <tr th:each="category: ${examCategoryList}">
+                                        <li>
+                                            <div class="tickbox">
+                                                <input type="checkbox" name="SubcheckFilter"
+                                                       th:id="'exame_' + ${category.id}  "
+                                                       th:value="'exame_' + ${category.id}"
+                                                       th:checked="${exame == category.id} ? 'checked'"/>
+                                                <span th:text="${category.description}"> </span>
+                                                <span class="pull-right" th:text="${category.count}"> </span>
+                                            </div>
+                                        </li>
+                                    </tr>
+                                </div>
+
+
+                                <div class="divider"></div>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <!--Main content-->
+        <div class="col-md-9">
+
+            <!--From DB-->
+            <div class="row">
+
+                <div th:switch="${exams}">
+                    <h2 th:case="null"><p th:text="#{no-exam}"></p></h2>
+                    <p align="center" th:text="#{found}+${' '+exams.size()+' '}+#{exams}"></p>
+                    </br>
+                    <div th:case="*">
+                        <div th:each="exam: ${exams}">
+                            <div class="col-sm-6 col-md-3">
+                                <a th:href="@{/exam/details/{id}(id = ${exam.examId})}" class="thumb">
+                                    <div class="thumbnail">
+                                        <img th:src="${exam.category.image}" th:alt="${exam.category.name}"
+                                             class="img-rounded responsive">
+                                        <div class="caption">
+                                            <h5><p th:text="${exam.description}"></p></h5>
+                                            <p th:text="${exam.examYear}"></p>
+                                        </div>
                                     </div>
-                                </li>
-
-                            </tr>
-
-                           <div class="remove_row_year">
-                              <a href="#" data-year="2007"
-                                 class="btn_more_years">show more</a>
-                           </div>
-
+                                </a>
+                            </div>
                         </div>
-
-                        <div class="divider"></div>
-
-                     </ul>
-                  </div>
-               </div>
-            </div>
-
-            <!--university filter-->
-            <div class="col-lg-12 col-md-12 col-sm-12">
-               <div id="collapseTree" class="panel-collapse collapse in" role="tabpanel"
-                    aria-labelledby="headingOne">
-                  <div class="panel-body">
-                     <ul class="nav nav-sidebar">
-                        <p>
-                           <strong>Universities</strong>
-                        </p>
-                        <strong> <p align="center" th:text="${universidade}"></p></strong>
-                        <div class="load_more_uni" id="uni_more">
-
-                            <tr th:each="u: ${universities}">
-                               <li>
-                                  <div class="tickbox">
-                                     <input type="checkbox" name="UniCheckFilter"
-                                            th:id="'universidade_' + ${u.id}  "
-                                            th:value="'universidade_' + ${u.id}"
-                                            th:checked="${u.id == universidade} ? 'checked'"
-                                     />
-                                     <span th:text = "${u.shortname}">   </span>
-                                     <span class="pull-right">7 </span>
-                                  </div>
-                               </li>
-                            </tr>
-
-                           <div class="remove_row_uni">
-                              <a href="#" data-uni="UniLúrio"
-                                 class="btn_more_unis">show more</a>
-                           </div>
-                        </div>
-                        <div class="divider"></div>
-                     </ul>
-                  </div>
-               </div>
+                    </div>
+                </div>
 
             </div>
 
-            <!-- Exames filters-->
-
-            <div class="col-lg-12 col-md-12 col-sm-12">
-               <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel"
-                    aria-labelledby="headingOne">
-                  <div class="panel-body">
-                     <ul class="nav nav-sidebar">
-                        <p>
-                           <strong>Exams</strong>
-                        </p>
-
-                         <div class ="load_more_exam" id="exam_more">
-                            <tr th:each="s : ${subjects}">
-                                <li>
-                                  <div class="tickbox">
-                                     <input type="checkbox" name="SubcheckFilter"
-                                            th:id="'exame_' + ${s.id}  "
-                                            th:value="'exame_' + ${s.id}"
-                                            th:checked="${exame == s.id} ? 'checked'"
-                                     <span th:text="${s.name}"> </span>
-                                     <span class="pull-right">1</span>
-                                  </div>
-                               </li>
-                            </tr>
-                        </div>
-
-                           <div class="remove_row_exam">
-                              <a href="#" data-exam="filosofia"
-                                 class="btn_more_exams">show more</a>
-                           </div>
-
-                        <div class="divider"></div>
-                     </ul>
-                  </div>
-               </div>
-
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="pagination-centered">
+                        <ul class="pagination ">
+                            <li>
+                                <a th:if="${back} > 0" href="/" aria-label="First">
+                                    <span>First</span>
+                                </a>
+                                <a th:if="${back} == 0" aria-label="First" style='color: #C6C4C6'>
+                                    First
+                                </a>
+                            </li>
+                            <li>
+                                <a th:if="${back} > 0" th:href="@{/(pg=${back})}" aria-label="Back">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                                <a th:if="${back} == 0" aria-label="Back" style='color: #C6C4C6'>
+                                    <span style='color: #C6C4C6' aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a th:value="'pg_'+${next}" th:if="${next} <= ${nPage}" th:href="@{/(pg=${next})}" aria-label="Next"><span
+                                        aria-hidden="true">&raquo;</span>
+                                </a>
+                                <a th:if="${next} > ${nPage}" aria-label="Next" style='color: #C6C4C6'>
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a th:if="${next} <= ${nPage}" aria-label="Last" th:href="@{/(pg=${nPage})}">Last</a>
+                                <a th:if="${next} > ${nPage}" aria-label="Last" style='color: #C6C4C6'>Last</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-         </div>
-
-      </div>
-
-      <!--Main content-->
-      <div class="col-md-9">
-
-         <!--From DB-->
-         <div class="row">
-
-            <div th:switch="${exams}">
-               <h2 th:case="null"><p th:text="#{no-exam}"></p></h2>
-               <p align="center" th:text="#{found}+#{exams}"></p>
-               </br>
-               <div th:case="*">
-                  <div th:each="exam: ${exams}">
-                     <div class="col-sm-6 col-md-3">
-                        <a th:href="@{/exam/details/{id}(id = ${exam.examId})}" class="thumb">
-                           <div class="thumbnail">
-                              <img th:src="${exam.category.image}" th:alt="${exam.category.name}"
-                                   class="img-rounded responsive">
-                              <div class="caption">
-                                 <h5><p th:text="${exam.description}"></p></h5>
-                                 <p th:text="${exam.examYear}"></p>
-                              </div>
-                           </div>
-                        </a>
-                     </div>
-                  </div>
-               </div>
-            </div>
-
-         </div>
-
-         <div class="row"><div class="col-md-12"><div class="pagination-centered"><ul class="pagination "><li><span style='color: #C6C4C6'>First</span></li><li><span style='color: #C6C4C6' aria-hidden="true">&laquo;</span></li><li><a href="/?page=exams&amp;pg=2" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li><li><a href="/?page=exams&amp;pg=2">Last</a></li></ul></div></div></div>
-      </div>
-   </div>
+        </div>
+    </div>
+    </div>
 </th:block>
 
 </body>

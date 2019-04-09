@@ -4,36 +4,35 @@
 $(document).ready(function () {
 
     initBinds();
-    
+
     function initBinds(){
 
-            // $('input').on('click', function () {
-                $('.tickbox').on('click', function () {
-                var params = [];
-                $('.tickbox input:checked').each(function () {
+        // $('input').on('click', function () {
+        $('.tickbox').on('click', function () {
+            var params = [];
+            $('.tickbox input:checked').each(function () {
 
-                    var values = $(this).val();
-                    var item = values.split('_');
+                var values = $(this).val();
+                var item = values.split('_');
 
-                    var param = item[0] + "=" + item[1] + "&";
+                var param = item[0] + "=" + item[1] + "&";
 
-                    params.push(param);
+                params.push(param);
 
-                });
-
-                var url = "/?";
-
-                for (i = 0; i < params.length; i++) {
-                    url = url + params[i];
-                }
-
-                url = url.substring(0,url.length-1);
-                //alert(document.URL);
-                redirect(url);
             });
-        
-    }
 
+            var url = "/?";
+
+            for (i = 0; i < params.length; i++) {
+                url = url + params[i];
+            }
+
+            url = url.substring(0,url.length-1);
+            //alert(document.URL);
+            redirect(url);
+        });
+
+    }
 
     function redirect(url) {
         window.location = url;
@@ -106,7 +105,7 @@ $(document).ready(function () {
         ($('.btn_more_exams').click(function () {
 
             var last_exam = $(this).data("exam");
-            
+
             $.ajax({
                 url:"/mod/load_more_exams.php",
                 method:"POST",

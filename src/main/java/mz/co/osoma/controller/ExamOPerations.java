@@ -4,6 +4,7 @@ import mz.co.osoma.model.Category;
 import mz.co.osoma.model.Exam;
 import mz.co.osoma.model.University;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ExamOPerations {

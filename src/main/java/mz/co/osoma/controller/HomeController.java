@@ -2,9 +2,9 @@ package mz.co.osoma.controller;
 
 import mz.co.osoma.model.Category;
 import mz.co.osoma.model.Exam;
+import mz.co.osoma.model.ExamGroup;
 import mz.co.osoma.model.University;
 import mz.co.osoma.service.CRUDService;
-import org.omg.CORBA.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -12,273 +12,320 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
-import javax.jws.WebParam;
 import java.util.*;
 
 @Controller
 public class HomeController {
 
-	@Autowired
-	@Qualifier("CRUDServiceImpl")
-	public CRUDService crudService;
-	private HashMap<String, Object> parametros;
+    @Autowired
+    @Qualifier("CRUDServiceImpl")
+    public CRUDService crudService;
+
+    private ModelAndView model;
+    private List<Exam> exams = new ArrayList<Exam>();
+
+
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public ModelAndView index(@RequestParam("ano") Optional<Integer> ano, @RequestParam Optional<Integer> universidade,
+                              @RequestParam("pg") Optional<Integer> pg, Optional<Integer> exame, Optional<String> search) {
+
+
+        model = new ModelAndView("index");
+
+        exams = filterExam(ano, universidade, exame, search);
+
+        SetupModelAttributes(ano, universidade, exame);
+
+        pagination(pg);
+
+        model.addObject("exams", exams);
+        return model;
+    }
+
+    private void SetupModelAttributes(Optional<Integer> ano, Optional<Integer> universidade, Optional<Integer> exame) {
+
+        Integer year = ano.hashCode()!=0 ? ano.get() : null;
+        Integer exam = exame.hashCode()!=0 ? exame.get() : null;
+        Integer university = universidade.hashCode()!=0 ? universidade.get() : null;
+
+        List<ExamGroup> examYearList = getYearsCount(year, exam, university);
+        List<ExamGroup> examCategoryList = getExamsCount(exam, year, university);
+        List<ExamGroup> examUniversityList = getUniversitiesCount(university, year,exam);
+
+        model.addObject("examYearList", examYearList);
+        model.addObject("examCategoryList", examCategoryList);
+        model.addObject("examUniversityList", examUniversityList);
+
+        this.model.addObject("exams", exams);
+    }
+
+    private List<ExamGroup> getYearsCount(Integer ano, Integer exame, Integer university) {
+
+        HashMap<String, Object> parameter = new HashMap<String, Object>(1);
+
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT COUNT(e.examId), e.examYear FROM Exam e");
+
+        if (!isNull(university)) {
+            sql.append(", University u ");
+        }
+        if (!isNull(exame)) {
+            sql.append(", Category c ");
+        }
+        boolean control = false;
+
+        if (!isNull(ano)) {
+            sql.append(" WHERE e.examYear = :ano ");
+            parameter.put("ano", ano);
+            control = true;
+        }
+        if (!isNull(university)) {
+            if (control) {
+                sql.append(" AND ");
+            } else {
+                sql.append(" WHERE ");
+            }
+            sql.append(" e.university = u.id AND u.id = :university ");
+            parameter.put("university", university);
+            control = true;
+        }
+        if (!isNull(exame)) {
+            if (control) {
+                sql.append(" AND ");
+            } else {
+                sql.append(" WHERE ");
+            }
+            sql.append(" e.category = c.id AND c.id = :exam ");
+            parameter.put("exam", exame);
+            control = true;
+        }
+        if (!control) {
+            parameter = null;
+        }
+        sql.append(" GROUP BY e.examYear");
+
+        List listResult = crudService.findByJPQuery(sql.toString(), parameter);
+
+        List<ExamGroup> examGroupList = new ArrayList<ExamGroup>();
+        for (Object object : listResult) {
+            Object[] result = (Object[]) object;
+            examGroupList.add(new ExamGroup(result[0].hashCode(), result[1].hashCode()));
+        }
+        return examGroupList;
+    }
+
+    private List<ExamGroup> getExamsCount(Integer exam, Integer ano, Integer university) {
+
+        HashMap<String, Object> parameter = new HashMap<String, Object>(1);
+        List<ExamGroup> examGroupList = new ArrayList<>();
+        StringBuilder sql = new StringBuilder();
+
+        String query = "SELECT COUNT(e.examId), c.name, c.id FROM Category c, Exam e WHERE e.category = c.id ";
+        if (!isNull(university)) {
+            query = "SELECT COUNT(e.examId), c.name, c.id FROM Category c, University u, Exam e WHERE e.category = c.id ";
+        }
+        sql.append(query);
+
+        if (!isNull(exam)) {
+            sql.append(" AND c.id = :exam ");
+            parameter.put("exam", exam);
+        }
+        if (!isNull(ano)) {
+            sql.append(" AND e.examYear = :ano ");
+            parameter.put("ano", ano);
+        }
+        if (!isNull(university)) {
+            sql.append(" AND u.id = e.university AND u.id = :university ");
+            parameter.put("university", university);
+        }
+
+        sql.append(" GROUP BY c.name, c.id");
+        examGroupList = sqlExamUniversities(sql, parameter);
+
+        return examGroupList;
+
+    }
 
-	ModelAndView model ;
+    private List<ExamGroup> getUniversitiesCount(Integer university, Integer ano, Integer exame) {
+        StringBuilder sql = new StringBuilder();
+        HashMap<String, Object> parameter = new HashMap<String, Object>(1);
+        List<ExamGroup> examGroupList;
+
+        sql.append("SELECT COUNT(e.examId), u.shortname, u.id  FROM Exam e, University u " +
+                "WHERE e.university = u.id ");
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public ModelAndView index(@RequestParam("ano") Optional<Integer> ano, @RequestParam Optional<Integer> universidade,
-							  @RequestParam("pg") Optional<Integer> pg, Optional<Integer> exame, Optional<String> search) {
+        if(!isNull(exame)){
+            sql = new StringBuilder();
+            sql.append("SELECT COUNT(e.examId), u.shortname, u.id  FROM Exam e, University u, Category c " +
+                    "WHERE e.university = u.id ");
+        }
+        if (!isNull(ano)) {
+            sql.append(" AND e.examYear = :ano ");
+            parameter.put("ano", ano);
+        }
+        if(!isNull(university)){
+            sql.append(" AND u.id = :university ");
+            parameter.put("university", university);
+        }
+        if(!isNull(exame)){
+            sql.append(" AND e.category = c.id AND c.id = :exame ");
+            parameter.put("exame", exame);
+        }
+        sql.append(" GROUP BY u.id, u.shortname ");
 
-//		model.clear();
-		model = new ModelAndView("index");
+        examGroupList = sqlExamUniversities(sql, parameter);
 
-		List<Exam> exams = filterExam(ano, universidade, pg, exame, search);
+		return examGroupList;
+    }
 
-		SetupModelAtributes(exams);
+    private List<ExamGroup> sqlExamUniversities(StringBuilder sql, HashMap<String, Object> parameter) {
 
+        List listResult;
+        if (isNull(parameter)) {
+            listResult = crudService.findByJPQuery(sql.toString(), null);
+        } else {
+            listResult = crudService.findByJPQuery(sql.toString(), parameter);
+        }
+
+        List<ExamGroup> examGroupList = new ArrayList<ExamGroup>();
 
-		return model;
-	}
-
-
-	public List<Exam> filterExam(Optional<Integer> ano, Optional<Integer> universidade,
-								 Optional<Integer> pg, Optional<Integer> exame, Optional<String> search) {
-
-		HashMap<String, Object> param = new HashMap<String, Object>(1);
-		HashMap<String, Object> paramAux = new HashMap<String, Object>(1);
-
-		StringBuilder sql = new StringBuilder();
-		StringBuilder query;
-
-		boolean control = false;
-
-		sql.append(sqlQuery("Exam"));
-
-		if (universidade.hashCode() != 0 || ano.hashCode() != 0 || exame.hashCode() != 0
-				|| search.toString() != "Optional.empty") {
-			sql.append("WHERE ");
-
-		}
-
-		if (universidade.hashCode() != 0) {
-
-			query = new StringBuilder();
-			query.append(sqlQuery("University") + " WHERE e.id = :id");
-
-			paramAux.put("id", universidade.hashCode());
-
-			University university = crudService.findEntByJPQuery(query.toString(), paramAux);
-
-			sql.append("e.university = :university");
-			param.put("university", university);
-			model.addObject("universidade",universidade.get());
-			control = true;
-
-		}
-
-		if (ano.hashCode() != 0) {
-
-			if(control){
-				sql.append(" AND ");
-			}
-
-			sql.append("e.examYear = :ano");
-			param.put("ano", ano.hashCode());
-			model.addObject("ano",ano.get());
-			control = true;
-		}
-
-		if (exame.hashCode() != 0) {
-
-			if(control){
-				sql.append(" AND ");
-			}
-
-			query = new StringBuilder();
-			query.append(sqlQuery("Category") + " WHERE e.id = :id");
-
-			paramAux.put("id", exame.hashCode());
-			Category category = crudService.findEntByJPQuery(query.toString(), paramAux);
-
-			sql.append("e.category = :category");
-			param.put("category", category);
-
-			model.addObject("exame",exame.get());
-			control = true;
-
-		}
-		if (search.toString() != "Optional.empty") {
-
-			if(control){
-				sql.append(" AND ");
-			}
-			sql.append("e.description like :search");
-			param.put("search", "%" + search.get() + "%");
-		}
-
-		List<Exam> exams = crudService.findByJPQuery(sql.toString(), param);
-		return exams;
-	}
-
-
-	private void SetupModelAtributes(List<Exam> exams
-
-                                    ){
-
-		Integer []years = getNonRepeatedYears(crudService.getAll(Exam.class));
-		Integer []examsCount = countExams(years);
-		Integer []universityExamsCount = getUniversityExamsCount();
-		Integer []examsCategoriesCount = getExamCategoriesCount();
-
-		List <University> u = crudService.getAll(University.class) ;
-		List<Category> c = crudService.getAll(Category.class);
-
-		model.addObject("exams", exams);
-		model.addObject("subjects",c);
-		model.addObject("universities",u);
-		model.addObject("years",years);
-		model.addObject("examsCount",examsCount);
-		model.addObject("universityExamsCount",universityExamsCount);
-		model.addObject("examsCategoriesCount",examsCategoriesCount);
-
-	}
-
-
-	void HideFilterTab(Integer ano,Integer universidade, Integer exame){
-
-
-		// retirar os exames deste ano que exista exames e disciplinas
-		if (ano.hashCode() != 0){
-
-			StringBuilder query = new StringBuilder();
-		}
-
-
-
-	}
-
-	private String sqlQuery(String table) {
-		return "SELECT e FROM " + table + " e ";
-	}
-
-	Integer []countExams(Integer []years){
-
-		List<Exam> exams = crudService.getAll(Exam.class);
-
-		Integer []examsCount = new Integer[years.length];
-
-		for (int i = 0; i < years.length  ;i++){
-
-			int counter = 0;
-
-			for (int j = 0 ; j < exams.size() ;j++){
-
-				if ( exams.get(j).getExamYear() == years[i]){
-					counter++;
-				}
-
-			}
-
-			examsCount[i] = counter + years[i];
-		}
-
-		return examsCount;
-	}
-
-
-	Integer [] getNonRepeatedYears(List<Exam> exams){
-
-		Integer []years = new Integer[exams.size()];
-
-		years[0] = exams.get(0).getExamYear();
-
-		int j = 0;
-
-		for (int i = 0 ; i < exams.size() ;i++){
-			boolean t = false;
-
-			for (int k = 0; k <= j ; k++ ){
-
-				if (exams.get(i).getExamYear() == years[k]) {
-					t = true;
-					break;
-				}
-
-			}
-
-			if (!t){
-				j++;
-				years[j] = exams.get(i).getExamYear();
-			}
-
-		}
-
-		Integer []a = new Integer[j+1];
-
-		for (int i = 0 ; i <= j;i++)
-			a[i] = years[i];
-
-		return a;
-	}
-
-	Integer []getUniversityExamsCount(){
-
-		List<University> u =  crudService.getAll(University.class);
-
-		Integer[] universityIDs;
-		Integer[] universitiesExamsCount;
-
-		List <Exam> exams = crudService.getAll(Exam.class);
-
-
-		universityIDs = u.stream().map(University::getId).toArray(Integer[]::new);
-		universitiesExamsCount = new Integer[universityIDs.length];
-
-
-		for ( int i = 0 ; i < universityIDs.length ;i++){
-
-			int counter = 0;
-
-			for (int j = 0 ; j < exams.size() ;j++){
-
-				if (exams.get(j).getUniversity().getId() == universityIDs[i]){
-					counter++;
-				}
-			}
-			universitiesExamsCount[i] = counter;
-		}
-
-		return universitiesExamsCount;
-
-	}
-
-	Integer []getExamCategoriesCount(){
-
-		List<Category> c = crudService.getAll(Category.class);
-
-		List<Exam> exams = crudService.getAll(Exam.class);
-
-		Integer[] examsCategoriesCount = new Integer[c.size()];
-
-		for (int i = 0 ; i < c.size() ;i++){
-
-			Integer counter = 0;
-
-			for (int j = 0 ; j < exams.size() ;j++){
-
-				if (c.get(i).getId() == exams.get(j).getCategory().getId()){
-					counter++;
-				}
-
-			}
-			examsCategoriesCount[i] = counter;
-
-		}
-
-		return examsCategoriesCount;
-
-	}
-
+        for (Object object : listResult) {
+            Object[] result = (Object[]) object;
+            examGroupList.add(new ExamGroup(result[0].hashCode(), result[1].toString(), result[2].hashCode()));
+        }
+
+        return examGroupList;
+    }
+
+    private List<Exam> filterExam(Optional<Integer> ano, Optional<Integer> universidade, Optional<Integer> exame, Optional<String> search) {
+
+        HashMap<String, Object> param = new HashMap<String, Object>(1);
+        HashMap<String, Object> paramAux = new HashMap<String, Object>(1);
+
+        StringBuilder sql = new StringBuilder();
+        StringBuilder query;
+
+        boolean control = false;
+
+        sql.append(sqlQuery("Exam"));
+
+        if (universidade.hashCode() != 0 || ano.hashCode() != 0 || exame.hashCode() != 0
+                || search.toString() != "Optional.empty") {
+            sql.append("WHERE ");
+        }
+
+        if (universidade.hashCode() != 0) {
+
+            query = new StringBuilder();
+            query.append(sqlQuery("University") + " WHERE e.id = :id");
+
+            paramAux.put("id", universidade.hashCode());
+
+            University university = crudService.findEntByJPQuery(query.toString(), paramAux);
+
+            sql.append("e.university = :university");
+            param.put("university", university);
+            model.addObject("universidade", universidade.get());
+            control = true;
+
+        }
+
+        if (ano.hashCode() != 0) {
+
+            if (control) {
+                sql.append(" AND ");
+            }
+
+            sql.append("e.examYear = :ano");
+            param.put("ano", ano.hashCode());
+            model.addObject("ano", ano.get());
+            control = true;
+        }
+
+        if (exame.hashCode() != 0) {
+
+            if (control) {
+                sql.append(" AND ");
+            }
+
+            query = new StringBuilder();
+            query.append(sqlQuery("Category") + " WHERE e.id = :id");
+
+            paramAux.put("id", exame.hashCode());
+            Category category = crudService.findEntByJPQuery(query.toString(), paramAux);
+
+            sql.append("e.category = :category");
+            param.put("category", category);
+
+            model.addObject("exame", exame.get());
+            control = true;
+
+        }
+        if (search.toString() != "Optional.empty") {
+
+            if (control) {
+                sql.append(" AND ");
+            }
+            sql.append(" e.description like :search ");
+            param.put("search", "%" + search.get() + "%");
+        }
+
+        List<Exam> exams = crudService.findByJPQuery(sql.toString(), param);
+        return exams;
+    }
+
+    private String sqlQuery(String table) {
+        return "SELECT e FROM " + table + " e ";
+    }
+
+    private void pagination(Optional<Integer> pg) {
+
+        int length = 8;
+        int min = 0;
+        int max = length;
+        if (pg.hashCode() > 1 && isValidPage(pg.get(), length)) {
+            min = max * (pg.hashCode() - 1);
+            max = min + length;
+
+            if (exams.size() < min) {
+                min = exams.size();
+            }
+            if (exams.size() < max) {
+                max = exams.size();
+            }
+        }
+
+        model.addObject("nPage", quantityPage(exams.size(), length));
+        if ( (pg.hashCode() > 1) && isValidPage(pg.get(), length) ) {
+            model.addObject("back", pg.hashCode() - 1);
+        } else {
+            model.addObject("back", 0);
+        }
+
+        if (pg.hashCode() <= quantityPage(exams.size(), length)) {
+            int next = pg.hashCode() == 0 ? 2 : 1;
+            model.addObject("next", pg.hashCode() + next);
+        }else{
+            model.addObject("next", 0);
+        }
+
+        if (exams.size() < max) {
+            max = exams.size();
+        }
+        exams = exams.subList(min, max);
+
+    }
+
+    private int quantityPage(int examsSize, int nPage) {
+        return examsSize % nPage != 0 ? ((examsSize / nPage) + 1) : (examsSize / nPage);
+    }
+
+    private boolean isValidPage(Integer page, int length){
+        return page.hashCode() <= quantityPage(exams.size(), length);
+    }
+
+    private boolean isNull(Object object) {
+        return object == null;
+    }
 
 }
