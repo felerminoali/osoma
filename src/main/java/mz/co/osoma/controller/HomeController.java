@@ -21,7 +21,7 @@ public class HomeController {
     @Qualifier("CRUDServiceImpl")
     public CRUDService crudService;
 
-    private ModelAndView model;
+    public ModelAndView model;
     private List<Exam> exams = new ArrayList<Exam>();
 
 
@@ -39,6 +39,7 @@ public class HomeController {
         pagination(pg);
 
         model.addObject("exams", exams);
+        model.addObject("email", null);
         return model;
     }
 
