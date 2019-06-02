@@ -3,6 +3,16 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout}">
 <head>
+    <style>
+        .descricao-img {
+            margin: 0 auto;
+            width: 53.3%;
+            background: #FFFFFF;
+            box-shadow: 0px 0px 1px black;
+            padding: 10px;
+
+        }
+    </style>
 </head>
 <body>
 
@@ -10,9 +20,134 @@
 <!-- Insert content into the layouts/layout.html -->
 <th:block layout:fragment="content">
 
-    <div class="container">
-        <p>Ola galera</p>
+    <div th:if="${exame!=null}" class=" descricao-img" style="background-color: white; border: 1px solid #c2cbd4; margin: 0 auto;">
+
+        <!--Exames Details-->
+        <div class="row">
+
+
+            <div class="col-sm-12 col-md-12">
+
+
+                <div class="page-header">
+
+                    <fieldset>
+
+                        <legend>
+                            <h1 th:text="${exame.description}">
+
+                            </h1>
+                            <span align="center" th:text="${university.shortname}"></span>
+
+                            ( <span align="center" th:text="${exame.examYear}"></span>)
+
+                        </legend>
+
+
+                        <div>
+                            <img th:src="${category}" th:alt="${exame.category.name}" class="img-rounded responsive">
+
+                        </div>
+
+
+                        <div>
+
+                            <h4>
+                                <p>
+                                    <span class="glyphicon glyphicon-question-sign" th:text="${exame.noquestion}"> </span>
+                                    Questions   &nbsp;&nbsp;
+                                    <span class="glyphicon glyphicon-time" th:text="${exame.duration}"> </span>
+                                    Minutes
+                                </p>
+                            </h4>
+                        </div>
+
+
+                    </fieldset>
+                </div>
+
+                <div style="margin-left: 2%;">
+
+
+                    <div class="details">
+                        <legend>
+                            <h3>Diagnosis</h3>
+                        </legend>
+
+                        <p style="font-size: 14px;">
+                            Test your knowledge, simulate exams from major universities of Mozambique. Click the button
+                            below to start the diagnosis ... <br> <br>
+                        </p>
+
+                        <div class="text-center">
+
+                            <div class="panel panel-default">
+
+                                <div class="container-share">
+                                    <p class="p-share">
+                                        This link is blocked. To unlock it, you must share it on Facebook, use the share
+                                        button below </p>
+                                    <p class="p-unlocked">Obrigado por partilhar, Clique no botão abaixo para
+                                        iniciar o diagnóstico...</p>
+                                    <p class="p-locked">Para ter acesso ao diagnóstico, deve partilhar-lho no
+                                        Facebook</p>
+
+
+                                    <a href="#" class="btn btn-info" role="button" id="facebook-share">
+                                        <i class="fa fa-facebook-official fa-lg"></i>
+                                        Share </a>
+
+
+                                    <a href="/?page=online-test&amp;exam=112" class="btn btn-success btn-dl"
+                                       role="button" id="start-simulation">
+                                        Start diagnosis </a>
+                                </div>
+                            </div>
+
+
+                            <div>
+                                <p>
+                                    <strong>- Or login into the system to unblock the link. -</strong>
+                                </p>
+                                <a href="#" class="btn btn-success">Login into your account</a>
+                            </div>
+
+
+                        </div>
+
+
+                        <div id="fb-root"></div>
+
+
+                    </div>
+
+
+                    <div class="details">
+                        <legend>
+                            <h3>Download(s)</h3>
+                        </legend>
+
+                        <p>
+                            Click the button below to access the electronic file in PDF format. </p>
+
+
+                        <a href="#" class="btn btn-success"
+                           role="button">
+                            Download <i class="fa fa-cloud-download fa-lg"></i>
+                        </a>
+                        <br>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
     </div>
+    <div th:if="${exame==null}" class="descricao-img">Exame Nao encontrado!!</div>
 </th:block>
 </body>
 </html>

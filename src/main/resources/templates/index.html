@@ -143,7 +143,7 @@
                     <div th:case="*">
                         <div th:each="exam: ${exams}">
                             <div class="col-sm-6 col-md-3">
-                                <a th:href="@{/exam/details/{id}(id = ${exam.examId})}" class="thumb">
+                                <a th:href="@{/exam-details/{id}(id = ${exam.examId})}" class="thumb">
                                     <div class="thumbnail">
                                         <img th:src="${exam.category.image}" th:alt="${exam.category.name}"
                                              class="img-rounded responsive">

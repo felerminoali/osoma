@@ -317,8 +317,8 @@ public class HomeController {
 
     }
 
-    private int quantityPage(int examsSize, int nPage) {
-        return examsSize % nPage != 0 ? ((examsSize / nPage) + 1) : (examsSize / nPage);
+    private int quantityPage(int examsSize, int nExams) {
+        return examsSize % nExams != 0 ? ((examsSize / nExams) + 1) : (examsSize / nExams);
     }
 
     private boolean isValidPage(Integer page, int length){

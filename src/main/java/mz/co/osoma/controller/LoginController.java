@@ -2,6 +2,7 @@ package mz.co.osoma.controller;
 
 import mz.co.osoma.model.User;
 import mz.co.osoma.service.CRUDService;
+import mz.co.osoma.service.CRUDServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
