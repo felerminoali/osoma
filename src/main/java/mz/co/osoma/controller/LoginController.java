@@ -30,8 +30,14 @@ public class LoginController {
     private List<User> users = new ArrayList<>();
 
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public ModelAndView index() {
+        ModelAndView model = new ModelAndView("login");
+        model.addObject("error", 0);
+        return model;
+    }
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public ModelAndView login() {
         ModelAndView model = new ModelAndView("login");
         model.addObject("error", 0);
         return model;

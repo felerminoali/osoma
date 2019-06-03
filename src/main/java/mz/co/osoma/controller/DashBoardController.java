@@ -1,4 +1,4 @@
-package mz.co.osoma.controller;
+/*package mz.co.osoma.controller;
 
 import mz.co.osoma.model.Exam;
 import mz.co.osoma.model.User;
@@ -150,3 +150,4 @@ public class DashBoardController {
         return false;
     }
 }
+*/
