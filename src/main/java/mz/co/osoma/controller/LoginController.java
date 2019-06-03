@@ -1,5 +1,6 @@
 package mz.co.osoma.controller;
 
+import mz.co.osoma.model.Exam;
 import mz.co.osoma.model.User;
 import mz.co.osoma.service.CRUDService;
 import mz.co.osoma.service.CRUDServiceImpl;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.constraints.Null;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -23,6 +26,9 @@ public class LoginController {
     @Qualifier("CRUDServiceImpl")
     public CRUDService crudService;
     public User user;
+    private List<Exam> exams = new ArrayList<Exam>();
+    private List<User> users = new ArrayList<>();
+
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView index() {
@@ -31,16 +37,32 @@ public class LoginController {
         return model;
     }
 
-    @RequestMapping(value = "/login_", method = RequestMethod.POST)
-    public ModelAndView index(@RequestParam("email")Optional<String> email, @RequestParam("password")Optional<String> password) {
+    @RequestMapping(value = "/admin", method = RequestMethod.POST)
+    public ModelAndView index(@RequestParam("email")Optional<String> email,
+                              @RequestParam("password")Optional<String> password,
+                              @RequestParam("pg") Optional<Integer> pg,@RequestParam("t2pg") Optional<Integer> t2pg) {
 
 
         boolean login = validLogin(email.get(), password.get());
 
         if(login){
-            ModelAndView model = new ModelAndView("admin");
+            ModelAndView model = new ModelAndView("adminDashboard");
             model.addObject("email", email.get());
-            return model;
+            exams = crudService.getAll(Exam.class);
+            users = crudService.getAll(User.class);
+
+            HomeController homeController = new HomeController();
+
+            homeController.setModel(model);
+            homeController.setExams(exams);
+            homeController.setUsers(users);
+            homeController.pagination(pg);
+            homeController.paginationUsers(t2pg);
+
+            homeController.getModel().addObject("users", homeController.getUsers());
+            homeController.getModel().addObject("exams", homeController.getExams());
+            return homeController.getModel();
+
         }else{
             ModelAndView model = new ModelAndView("login");
 

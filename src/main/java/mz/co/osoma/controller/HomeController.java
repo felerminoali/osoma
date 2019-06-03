@@ -1,18 +1,22 @@
 package mz.co.osoma.controller;
 
-import mz.co.osoma.model.Category;
-import mz.co.osoma.model.Exam;
-import mz.co.osoma.model.ExamGroup;
-import mz.co.osoma.model.University;
+import mz.co.osoma.model.*;
 import mz.co.osoma.service.CRUDService;
+//import mz.co.osoma.service.ExamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 @Controller
 public class HomeController {
@@ -21,9 +25,46 @@ public class HomeController {
     @Qualifier("CRUDServiceImpl")
     public CRUDService crudService;
 
-    public ModelAndView model;
+    private ModelAndView model;
     private List<Exam> exams = new ArrayList<Exam>();
+    private List<User> users = new ArrayList<>();
 
+    public ModelAndView getModel() {
+        return model;
+    }
+
+    public void setModel(ModelAndView model) {
+        this.model = model;
+    }
+
+    public List<Exam> getExams() {
+        return exams;
+    }
+
+    public void setExams(List<Exam> exams) {
+        this.exams = exams;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
+
+/*@RequestMapping(value = "/admin", method = RequestMethod.GET)
+    public ModelAndView adminDashBoard(@RequestParam("page") Optional<Integer> page,
+                                       @RequestParam("size") Optional<Integer> size){
+
+        model = new ModelAndView("adminDashboard");
+
+        exams=crudService.getAll(Exam.class);
+        users=crudService.getAll(User.class);
+        model.addObject("users", users);
+        model.addObject("exams", exams);
+        return  model;
+    }*/
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView index(@RequestParam("ano") Optional<Integer> ano, @RequestParam Optional<Integer> universidade,
@@ -39,7 +80,6 @@ public class HomeController {
         pagination(pg);
 
         model.addObject("exams", exams);
-        model.addObject("email", null);
         return model;
     }
 
@@ -279,7 +319,7 @@ public class HomeController {
         return "SELECT e FROM " + table + " e ";
     }
 
-    private void pagination(Optional<Integer> pg) {
+    public void pagination(Optional<Integer> pg) {
 
         int length = 8;
         int min = 0;
@@ -316,9 +356,47 @@ public class HomeController {
         exams = exams.subList(min, max);
 
     }
+    public void paginationUsers(Optional<Integer> pg) {
 
-    private int quantityPage(int examsSize, int nExams) {
-        return examsSize % nExams != 0 ? ((examsSize / nExams) + 1) : (examsSize / nExams);
+        int length = 2;
+        int min = 0;
+        int max = length;
+        if (pg.hashCode() > 1 && isValidPage(pg.get(), length)) {
+            min = max * (pg.hashCode() - 1);
+            max = min + length;
+
+            if (users.size() < min) {
+                min = users.size();
+            }
+            if (users.size() < max) {
+                max = users.size();
+            }
+        }
+
+        model.addObject("t2nPage", quantityPage(users.size(), length));
+        if ( (pg.hashCode() > 1) && isValidPage(pg.get(), length) ) {
+            model.addObject("t2back", pg.hashCode() - 1);
+        } else {
+            model.addObject("t2back", 0);
+        }
+
+        if (pg.hashCode() <= quantityPage(users.size(), length)) {
+            int next = pg.hashCode() == 0 ? 2 : 1;
+            model.addObject("t2next", pg.hashCode() + next);
+        }else{
+            model.addObject("t2next", 0);
+        }
+
+        if (users.size() < max) {
+            max = users.size();
+        }
+        users = users.subList(min, max);
+
+    }
+
+
+    private int quantityPage(int examsSize, int nPage) {
+         return examsSize % nPage != 0 ? ((examsSize / nPage) + 1) : (examsSize / nPage);
     }
 
     private boolean isValidPage(Integer page, int length){
@@ -328,5 +406,4 @@ public class HomeController {
     private boolean isNull(Object object) {
         return object == null;
     }
-
 }
