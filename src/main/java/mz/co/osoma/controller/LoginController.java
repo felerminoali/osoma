@@ -43,7 +43,7 @@ public class LoginController {
         return model;
     }
 
-    @RequestMapping(value = "/admin", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin_", method = RequestMethod.POST)
     public ModelAndView index(@RequestParam("email")Optional<String> email,
                               @RequestParam("password")Optional<String> password,
                               @RequestParam("pg") Optional<Integer> pg,@RequestParam("t2pg") Optional<Integer> t2pg) {
