@@ -2,21 +2,14 @@ package mz.co.osoma.controller;
 
 import mz.co.osoma.model.*;
 import mz.co.osoma.service.CRUDService;
-//import mz.co.osoma.service.ExamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 
 @Controller
 public class HomeController {
@@ -25,7 +18,7 @@ public class HomeController {
     @Qualifier("CRUDServiceImpl")
     public CRUDService crudService;
 
-    private ModelAndView model;
+    public ModelAndView model;
     private List<Exam> exams = new ArrayList<Exam>();
     private List<User> users = new ArrayList<>();
 
@@ -53,19 +46,6 @@ public class HomeController {
         this.users = users;
     }
 
-/*@RequestMapping(value = "/admin", method = RequestMethod.GET)
-    public ModelAndView adminDashBoard(@RequestParam("page") Optional<Integer> page,
-                                       @RequestParam("size") Optional<Integer> size){
-
-        model = new ModelAndView("adminDashboard");
-
-        exams=crudService.getAll(Exam.class);
-        users=crudService.getAll(User.class);
-        model.addObject("users", users);
-        model.addObject("exams", exams);
-        return  model;
-    }*/
-
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView index(@RequestParam("ano") Optional<Integer> ano, @RequestParam Optional<Integer> universidade,
                               @RequestParam("pg") Optional<Integer> pg, Optional<Integer> exame, Optional<String> search) {
@@ -80,6 +60,7 @@ public class HomeController {
         pagination(pg);
 
         model.addObject("exams", exams);
+        model.addObject("email", null);
         return model;
     }
 
@@ -395,8 +376,8 @@ public class HomeController {
     }
 
 
-    private int quantityPage(int examsSize, int nPage) {
-         return examsSize % nPage != 0 ? ((examsSize / nPage) + 1) : (examsSize / nPage);
+    private int quantityPage(int examsSize, int nExams) {
+        return examsSize % nExams != 0 ? ((examsSize / nExams) + 1) : (examsSize / nExams);
     }
 
     private boolean isValidPage(Integer page, int length){
@@ -406,4 +387,5 @@ public class HomeController {
     private boolean isNull(Object object) {
         return object == null;
     }
+
 }

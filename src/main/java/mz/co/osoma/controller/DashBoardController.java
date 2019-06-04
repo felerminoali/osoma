@@ -40,6 +40,7 @@ public class DashBoardController {
         homeController.setExams(exams);
         homeController.setUsers(users);
         homeController.pagination(pg);
+
         homeController.paginationUsers(t2pg);
 
         homeController.getModel().addObject("users", homeController.getUsers());
