@@ -1,6 +1,7 @@
 package mz.co.osoma.demo.controllerTest;
 
 import mz.co.osoma.controller.ExamDetails;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -13,6 +14,13 @@ public class ExamDetailsTest {
         this.examDetails = new ExamDetails();
 
     }
+
+    @Test
+
+    public  void teste(){
+        Assert.assertEquals(1,2);
+    }
+
     @Test
     public void notFoundExame(){
         assert(true);
