@@ -46,7 +46,8 @@ public class LoginController {
     }
 
     @RequestMapping(value = "/login_", method = RequestMethod.POST)
-    public ModelAndView index(@RequestParam("email")Optional<String> email, @RequestParam("password")Optional<String> password) {
+    public ModelAndView index(@RequestParam("login_email")Optional<String> email,
+                              @RequestParam("login_password")Optional<String> password) {
 
 
         boolean login = validLogin(email.get(), password.get());

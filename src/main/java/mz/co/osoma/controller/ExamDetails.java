@@ -28,21 +28,22 @@ public class ExamDetails {
     @RequestMapping(value = "/exam-details/{id}", method = RequestMethod.GET)
     public ModelAndView index(Optional<Integer> exameid, @PathVariable("id") int identificador) {
 
-        ModelAndView modelo = new ModelAndView("exam-details");
+        ModelAndView model= new ModelAndView("exam-details");
 
-        Exam exame = crudService.findEntByJPQueryT("SELECT e FROM Exam e where e.examId = " + identificador, null);
-        if(exame != null) {
-            University universidade = crudService.findEntByJPQueryT("SELECT u FROM University u where u.id = " + exame.getUniversity().getId(), null);
-            Category category = crudService.findEntByJPQueryT("SELECT c FROM Category c where c.id = " + exame.getCategory().getId(), null);
-            modelo.addObject("university", universidade);
-            modelo.addObject("category", "../" + category.getCover());
-            modelo.addObject("exame", exame);
+        Exam exam = crudService.findEntByJPQueryT("SELECT e FROM Exam e where e.examId = " + identificador, null);
+        if(exam != null) {
+            University university = crudService.findEntByJPQueryT("SELECT u FROM University u where u.id = " + exam.getUniversity().getId(), null);
+            Category category = crudService.findEntByJPQueryT("SELECT c FROM Category c where c.id = " + exam.getCategory().getId(), null);
+            model.addObject("university", university);
+            model.addObject("category", "../" + category.getCover());
+            model.addObject("exame", exam);
+
         }else {
 
-            modelo.addObject("exame", null);
+            model.addObject("exame", null);
         }
 
-        return modelo;
+        return model;
     }
 
     @RequestMapping(value = "/exam-details", method = RequestMethod.GET)

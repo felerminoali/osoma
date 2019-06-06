@@ -130,9 +130,12 @@
                             Click the button below to access the electronic file in PDF format. </p>
 
 
-                        <a href="#" class="btn btn-success"
-                           role="button">
+                        <a th:if="${exame.pdfresource}!=null" th:href="${exame.pdfresource}" class="btn btn-success"
+                           role="button" target="_blank">
                             Download <i class="fa fa-cloud-download fa-lg"></i>
+                        </a>
+                        <a th:if="${exame.pdfresource} ==null" aria-label="Back" style='color: #C6C4C6'>
+                            <span style='color: red' aria-hidden="true">exam not available for download</span>
                         </a>
                         <br>
                     </div>

@@ -8,7 +8,8 @@
 
     <div class="row">
         <div class="col-md-2">
-            <strong>
+            <
+      xmlns:layout="http://www.ultraq.net.nz/thymelstrong>
                 <a href="javascript:history.go(-1)" class="btn btn-success"><i class="fa fa-angle-double-left"
                                                                                aria-hidden="true"></i> Go back</a>
             </strong>
