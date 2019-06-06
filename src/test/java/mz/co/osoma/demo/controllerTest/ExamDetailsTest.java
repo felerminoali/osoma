@@ -15,11 +15,6 @@ public class ExamDetailsTest {
 
     }
 
-    @Test
-
-    public  void teste(){
-        Assert.assertEquals(1,2);
-    }
 
     @Test
     public void notFoundExame(){

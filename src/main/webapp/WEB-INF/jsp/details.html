@@ -1,4 +1,12 @@
-<jsp:include page="templates/_header-no-search.jsp"/>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layoutLogin}">
+<head>
+
+</head>
+
+<th:block layout:fragment="contentLogin">
 
 <div class="container">
 
@@ -8,10 +16,9 @@
 
     <div class="row">
         <div class="col-md-2">
-            <
-      xmlns:layout="http://www.ultraq.net.nz/thymelstrong>
-                <a href="javascript:history.go(-1)" class="btn btn-success"><i class="fa fa-angle-double-left"
-                                                                               aria-hidden="true"></i> Go back</a>
+
+                <a href="/"><i class="fa fa-angle-double-left"
+                               aria-hidden="true"></i> Go back</a>
             </strong>
         </div>
 
@@ -30,8 +37,8 @@
                         <fieldset>
 
                             <legend>
-                                <h1>Exame de Portugues
-                                    <small>-
+                                <h1 th:text="${exame.description}">
+                                    <small th:text="${university.shortname}">-
                                         UEM (2005)
                                     </small>
                                 </h1>
@@ -41,7 +48,7 @@
 
                             <div
                             >
-                                <img src="images/cover/portugues.png" alt="português"
+                                <img th:src="${category}" th:alt="${exame.category.name}"
                                      class="img-responsive">
 
                             </div>
@@ -51,10 +58,11 @@
 
                                 <h4>
                                     <p>
-                                        <span class="glyphicon glyphicon-question-sign"></span>
-                                        3 Questions &nbsp;&nbsp;
-                                        <span class="glyphicon glyphicon-time"></span>
-                                        10 Minutes </p>
+                                        <span class="glyphicon glyphicon-question-sign " th:text="${exame.noquestion}"></span>
+                                        Questions &nbsp;
+                                        <span class="glyphicon glyphicon-time" th:text="${exame.duration}"></span>
+                                        Minutes
+                                    </p>
                                 </h4>
                             </div>
 
@@ -111,7 +119,7 @@
                                     <p>
                                         <strong>- Or login into the system to unblock the link. -</strong>
                                     </p>
-                                    <a href="/?page=login" class="btn btn-success">Login into your account</a>
+                                    <a href="/login" class="btn btn-success">Login into your account</a>
                                 </div>
 
 
@@ -133,11 +141,14 @@
                                 Click the button below to access the electronic file in PDF format. </p>
 
 
-                            <a href="https://drive.google.com/open?id=0B-dOo9jrft_6SklCWXdZQkFNQWc"
-                               class="btn btn-success" role="button">
+                            <a th:if="${exame.pdfresource}!=null" th:href="${exame.pdfresource}" class="btn btn-success"
+                               role="button" target="_blank">
                                 Download <i class="fa fa-cloud-download fa-lg"></i>
                             </a>
-                            <br/>
+                            <a th:if="${exame.pdfresource}==null" aria-label="Back" style='color: #C6C4C6'>
+                                <span style='color: red' aria-hidden="true">exam not available for download</span>
+                            </a>
+                            <br>
                         </div>
 
 
@@ -164,11 +175,7 @@
                             <div>
                                 <div class="table-responsive">
 
-                                    <!--<div class="pull-right">-->
-                                    <!--<p>-->
-                                    <!--<h2><span class="glyphicon glyphicon-calendar"></span> Proximas Turmas</h2>-->
-                                    <!--</p>-->
-                                    <!--</div>-->
+
 
 
                                     <table class="table table-bordered">
@@ -257,5 +264,4 @@
 </div>
 
 <br/>
-
-<jsp:include page="templates/_footer.jsp"/>
+</th:block>
