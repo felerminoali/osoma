@@ -8,3 +8,13 @@ addons:
       - oracle-java8-installer
 before_install:
   - chmod +x mvnw
+
+notifications:
+  email:
+    recipients:
+      - rvalentim@unilurio.ac.mz
+      - guerzeneldo@gmail.com
+      - cchereria@unilurio.ac.mz
+      - eltonug@gmail.com
+    on_success: always # default: change
+    on_failure: always # default: always
