@@ -6,7 +6,6 @@
 
 </head>
 
-<body>
 <th:block layout:fragment="contentLogin">
 
     <div class="container">
@@ -19,11 +18,9 @@
             <div class="col-md-2">
 
                 <a href="/" class="btn btn-success"><i class="fa fa-angle-double-left"
-                               aria-hidden="true"></i> Go back</a>
+                                                       aria-hidden="true"></i> Go back</a>
                 </strong>
             </div>
-
-
 
             <!--Main content-->
             <div class="col-md-7" style="background-color: white; border: 1px solid #c2cbd4;">
@@ -41,14 +38,15 @@
 
                                 <legend>
                                     <h1 th:text="${exame.description}">  </h1>
-                                        <small th:text="${university.shortname}+' ('+${exame.examYear}+')'">
-                                        </small>
+                                    <small th:text="${university.shortname}+' ('+${exame.examYear}+')'">
+                                    </small>
 
 
                                 </legend>
 
 
-                                <div>
+                                <div
+                                >
                                     <img th:src="${category}" th:alt="${exame.category.name}"
                                          class="img-responsive">
 
@@ -177,6 +175,8 @@
                                     <div class="table-responsive">
 
 
+
+
                                         <table class="table table-bordered">
                                             <!--                                        <table cellpadding="0" cellspacing="0" border="1" class="tbl_repeat">-->
                                             <thead>
@@ -264,5 +264,3 @@
 
     <br/>
 </th:block>
-</body>
-</html>
