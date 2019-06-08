@@ -45,19 +45,18 @@ public class LoginController {
         return model;
     }
 
-    @RequestMapping(value = "/login_", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin_", method = RequestMethod.POST)
     public ModelAndView index(@RequestParam("login_email")Optional<String> email,
                               @RequestParam("login_password")Optional<String> password) {
-
 
         boolean login = validLogin(email.get(), password.get());
 
         if(login){
-            ModelAndView model = new ModelAndView("admin");
+            ModelAndView model = new ModelAndView("dashboard-home");
             model.addObject("email", email.get());
             return model;
         }else{
-            ModelAndView model = new ModelAndView("login");
+            ModelAndView model = new ModelAndView("adminLogin");
 
             model.addObject("error", 1);
             return model;

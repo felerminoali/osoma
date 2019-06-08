@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <title>Osoma</title>
+    <meta name="description" content="osoma"/>
+    <meta name="keywords" content="osoma"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <!-- Custom Theme files -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="/assets/bootstrap/css/bootstrap.min.css" rel='stylesheet' type='text/css'/>
+    <!--    awesome font-->
+    <link rel="stylesheet" href="/assets/bootstrap/css/font-awesome.css">
+    <!-- Custom Theme files -->
+    <!--<link href="css/style.css" rel='stylesheet' type='text/css'/>-->
+    <link rel="stylesheet" href="/assets/bootstrap/css/style.css">
+    <!--    web fonts-->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800,700' rel='stylesheet' type='text/css'>
+    <link rel="shortcut icon" href="/images/fav.png"/>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="/js/jquery.min.js"></script>
+
+    <!--    bootstrap js-->
+    <script type="text/javascript" src="/assets/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/exams-page.js"></script>
+
+    <!--  Login -->
+    <link rel="stylesheet" type="text/css" href="css/util.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+
+    <style>
+        * {box-sizing: border-box}
+
+        /* Style the tab */
+        .tab {
+            float: left;
+          /*  border-right: 1px solid #ccc;*/
+           /* background-color: #f1f1f1; */
+            width: 20%;
+            height: 300px;
+        }
+
+        /* Style the buttons that are used to open the tab content */
+        .tab button {
+            display: block;
+            background-color: inherit;
+            color: black;
+            padding: 22px 16px;
+            width: 100%;
+            border: none;
+            outline: none;
+            text-align: left;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        /* Change background color of buttons on hover */
+        .tab button:hover {
+            background-color: #ddd;
+        }
+
+        /* Create an active/current "tab button" class */
+        .tab button.active {
+            background-color: #ccc;
+        }
+
+        /* Style the tab content */
+
+        .tabcontent {
+            float: left;
+            padding: 0px 12px;
+            border-left: 1px solid #ccc;
+            width: 80%;
+            border-left: none;
+        }
+
+    </style>
+
+</head>
+
+<body>
+<nav class="navbar navbar-fixed-top navbar-custom">
+    <div class="container">
+        <div class="navbar-header">
+
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <div class="logo">
+                <a href="/admin_"><img src="/images/logo2.png" title="logo"/></a>
+            </div>
+        </div>
+
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+
+                <li>
+                    <a href="/login">
+                        <i class="fa fa-user" aria-hidden="true"></i>
+                        Login                        </a>
+
+                </li>
+
+                <li>
+                    <a class="change-lang" href="#" hreflang="pt" rel="en_pt">
+                        <img src="/images/lang/pt.png" alt="PT">
+                    </a>
+                </li>
+                <li>
+                    <a class="change-lang" href="#" hreflang="en" rel="en_pt">
+                        <img src="/images/lang/en.png" alt="EN">
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+
+    </div>
+
+</nav>
+<br>
+<br>
+<br>
+
+<div class="tab">
+    <!--Ano filter-->
+    <span style='color: #C6C4C6' > <h3>Menu Navigation</h3></span>
+    <ul class="nav" >
+        <legend>
+            <h4>
+                Tables</h4>
+        </legend>
+        <li class="nav-item">
+            <a class="nav-link" href="/dash">Exams</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/users-admin">Users</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/explainers-admin">Techers</a>
+        </li>
+    </ul>
+</div>
+<div layout:fragment="contentDash">
+
+    <p>Content goes here...</p>
+</div>
+
+
+
+</body>
+</html>

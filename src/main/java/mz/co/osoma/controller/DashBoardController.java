@@ -1,4 +1,4 @@
-/*package mz.co.osoma.controller;
+package mz.co.osoma.controller;
 
 import mz.co.osoma.model.Exam;
 import mz.co.osoma.model.User;
@@ -25,13 +25,71 @@ public class DashBoardController {
     private ModelAndView model;
     private List<Exam> exams = new ArrayList<Exam>();
     private List<User> users = new ArrayList<>();
-    @RequestMapping(value = "/admin", method = RequestMethod.GET)
-    public ModelAndView adminDashBoard(@RequestParam("pg") Optional<Integer> pg,@RequestParam("t2pg") Optional<Integer> t2pg
+    @RequestMapping(value = "/exams-admin", method = RequestMethod.GET)
+    public ModelAndView adminDashBoard(@RequestParam("pg") Optional<Integer> pg
                                        ) {
 
-        model = new ModelAndView("adminDashboard");
-
+        model = new ModelAndView("exams-admin");
         exams = crudService.getAll(Exam.class);
+
+        users = crudService.getAll(User.class);
+
+        HomeController homeController = new HomeController();
+
+        homeController.setModel(model);
+        homeController.setExams(exams);
+        //homeController.setUsers(users);
+        homeController.pagination(pg);
+
+
+       // homeController.getModel().addObject("users", homeController.getUsers());
+        homeController.getModel().addObject("exams", homeController.getExams());
+     // model.addObject("exams",exams);
+      return homeController.getModel();
+
+
+    }
+    @RequestMapping(value = "/users-admin", method = RequestMethod.GET)
+    public ModelAndView usersAdmin(
+    ) {
+
+        model = new ModelAndView("users-admin");
+        users = crudService.getAll(User.class);
+      /*  exams = crudService.getAll(Exam.class);
+
+
+        HomeController homeController = new HomeController();
+
+        homeController.setModel(model);
+        homeController.setExams(exams);
+        homeController.setUsers(users);
+        homeController.pagination(pg);
+
+        homeController.paginationUsers(t2pg);
+
+        homeController.getModel().addObject("users", homeController.getUsers());
+        homeController.getModel().addObject("exams", homeController.getExams());
+        */
+      model.addObject("users",users);
+      return model;
+    }
+    @RequestMapping(value = "/dash", method = RequestMethod.GET)
+    public ModelAndView dashboardHome(
+    ) {
+
+        model = new ModelAndView("dashboard-home");
+        users = crudService.getAll(User.class);
+
+        return model;
+    }
+
+    @RequestMapping(value = "/explainers-admin", method = RequestMethod.GET)
+    public ModelAndView explainersAdmin(
+    ) {
+
+        model = new ModelAndView("explainers-admin");
+
+      /*  exams = crudService.getAll(Exam.class);
         users = crudService.getAll(User.class);
 
         HomeController homeController = new HomeController();
@@ -45,7 +103,7 @@ public class DashBoardController {
 
         homeController.getModel().addObject("users", homeController.getUsers());
         homeController.getModel().addObject("exams", homeController.getExams());
-        return homeController.getModel();
+        */return model;
 
 
     }
@@ -151,4 +209,3 @@ public class DashBoardController {
         return false;
     }
 }
-*/

@@ -23,5 +23,4 @@ public class ExamController {
     public String index(Map<String, Object> model) {
         return "exam-details";
     }
-
 }

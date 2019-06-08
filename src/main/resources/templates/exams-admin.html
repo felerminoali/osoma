@@ -1,0 +1,118 @@
+
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout-dashboard}">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+
+<body>
+<th:block layout:fragment="contentDash">
+
+
+    <div id="London" class="tabcontent">
+
+        <div class="details">
+            <legend>
+                <h3>
+                    Exams </h3>
+            </legend>
+
+
+            <div>
+                <div class="hidden-xs hidden-sm" style="float:right">
+                    <form class="navbar-form navbar-left" >
+                        <div class="form-group">
+                            <input type="text" name="search" class="form-control"
+                                   placeholder="Search...">
+                            <button type="submit" class="btn btn-default">
+                                Search</button>
+                        </div>
+                    </form>
+                </div>
+                <a href="#" class="nav nav-item" >Adicionar</a>
+                <div class="table-responsive">
+
+
+                    <table class="table table-bordered">
+                        <!--                                        <table cellpadding="0" cellspacing="0" border="1" class="tbl_repeat">-->
+                        <thead>
+                        <tr>
+                            <th>Descrition</th>
+                            <th>Duration</th>
+                            <th>Nr Question</th>
+                            <th>Year</th>
+                            <th>University</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <div th:switch="${exams}">
+                            <h2 th:case="null"><p th:text="#{no-exam}"></p></h2>
+                            <div th:case="*">
+                                <div th:each="exam: ${exams}">
+                                    <tr>
+                                        <td th:text="${exam.description}"></td>
+                                        <td th:text="${exam.noquestion}"></td>
+                                        <td th:text="${exam.duration}"></td>
+                                        <td th:text="${exam.examYear}"></td>
+                                        <td th:text="${exam.university.name}"></td>
+                                        <td><a href="">edit</a></td>
+                                        <td ><a th:href="@{/(examId=${exam.examId})}" >remove</a></td>
+                                    </tr>
+                                </div>
+                            </div>
+                        </div>
+                        </tbody>
+                    </table>
+                    <div class="row" style=" ">
+                        <div class="col-md-12">
+                            <div class="pagination-centered">
+                                <ul class="pagination ">
+                                    <li>
+                                        <a th:if="${back} > 0" href="/admin" aria-label="First">
+                                            <span>First</span>
+                                        </a>
+                                        <a th:if="${back} == 0" aria-label="First" style='color: #C6C4C6'>
+                                            First
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a th:if="${back} > 0" th:href="@{/dash(pg=${back})}" aria-label="Back">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                        <a th:if="${back} == 0" aria-label="Back" style='color: #C6C4C6'>
+                                            <span style='color: #C6C4C6' aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a th:value="'pg_'+${next}" th:if="${next} <= ${nPage}" th:href="@{/admin(pg=${next})}" aria-label="Next"><span
+                                                aria-hidden="true">&raquo;</span>
+                                        </a>
+                                        <a th:if="${next} > ${nPage}" aria-label="Next" style='color: #C6C4C6'>
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a th:if="${next} <= ${nPage}" aria-label="Last" th:href="@{/dash(pg=${nPage})}">Last</a>
+                                        <a th:if="${next} > ${nPage}" aria-label="Last" style='color: #C6C4C6'>Last</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</th:block>
+</body>
+</html>
