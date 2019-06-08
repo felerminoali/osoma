@@ -82,6 +82,15 @@ public class DashBoardController {
 
         return model;
     }
+    @RequestMapping(value = "/exam-add", method = RequestMethod.GET)
+    public ModelAndView examAdd(
+    ) {
+
+        model = new ModelAndView("exam-form");
+      //  users = crudService.getAll(User.class);
+
+        return model;
+    }
 
     @RequestMapping(value = "/explainers-admin", method = RequestMethod.GET)
     public ModelAndView explainersAdmin(

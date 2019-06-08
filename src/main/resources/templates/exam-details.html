@@ -6,6 +6,7 @@
 
 </head>
 
+<body>
 <th:block layout:fragment="contentLogin">
 
     <div class="container">
@@ -21,6 +22,8 @@
                                aria-hidden="true"></i> Go back</a>
                 </strong>
             </div>
+
+
 
             <!--Main content-->
             <div class="col-md-7" style="background-color: white; border: 1px solid #c2cbd4;">
@@ -45,8 +48,7 @@
                                 </legend>
 
 
-                                <div
-                                >
+                                <div>
                                     <img th:src="${category}" th:alt="${exame.category.name}"
                                          class="img-responsive">
 
@@ -175,8 +177,6 @@
                                     <div class="table-responsive">
 
 
-
-
                                         <table class="table table-bordered">
                                             <!--                                        <table cellpadding="0" cellspacing="0" border="1" class="tbl_repeat">-->
                                             <thead>
@@ -264,3 +264,5 @@
 
     <br/>
 </th:block>
+</body>
+</html>
