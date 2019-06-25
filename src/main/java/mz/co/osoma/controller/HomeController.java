@@ -46,6 +46,7 @@ public class HomeController {
         this.users = users;
     }
 
+
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView index(@RequestParam("ano") Optional<Integer> ano, @RequestParam Optional<Integer> universidade,
                               @RequestParam("pg") Optional<Integer> pg, Optional<Integer> exame, Optional<String> search) {
@@ -219,7 +220,7 @@ public class HomeController {
         return examGroupList;
     }
 
-    private List<Exam> filterExam(Optional<Integer> ano, Optional<Integer> universidade, Optional<Integer> exame, Optional<String> search) {
+    public List<Exam> filterExam(Optional<Integer> ano, Optional<Integer> universidade, Optional<Integer> exame, Optional<String> search) {
 
         HashMap<String, Object> param = new HashMap<String, Object>(1);
         HashMap<String, Object> paramAux = new HashMap<String, Object>(1);

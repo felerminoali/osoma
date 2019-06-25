@@ -106,7 +106,7 @@
                                             <!--                                                Iniciar Diagnóstico-->
                                             <!--                                            </a>-->
 
-                                            <a href="/?page=online-test&amp;exam=112" class="btn btn-success btn-dl"
+                                            <a th:href="@{/online-test(id = ${exame.examId})}" class="btn btn-success"
                                                role="button"
                                                id="start-simulation">
                                                 Start diagnosis </a>
