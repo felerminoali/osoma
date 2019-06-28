@@ -18,9 +18,9 @@ public class HomeController {
     @Qualifier("CRUDServiceImpl")
     public CRUDService crudService;
 
-    public ModelAndView model;
-    private List<Exam> exams = new ArrayList<Exam>();
-    private List<User> users = new ArrayList<>();
+    public ModelAndView model = new ModelAndView();
+    public List<Exam> exams = new ArrayList<Exam>();
+    public List<User> users = new ArrayList<>();
 
     public ModelAndView getModel() {
         return model;
@@ -64,7 +64,7 @@ public class HomeController {
         return model;
     }
 
-    private void SetupModelAttributes(Optional<Integer> ano, Optional<Integer> universidade, Optional<Integer> exame) {
+    public void SetupModelAttributes(Optional<Integer> ano, Optional<Integer> universidade, Optional<Integer> exame) {
 
         Integer year = ano.hashCode()!=0 ? ano.get() : null;
         Integer exam = exame.hashCode()!=0 ? exame.get() : null;
@@ -81,7 +81,7 @@ public class HomeController {
         this.model.addObject("exams", exams);
     }
 
-    private List<ExamGroup> getYearsCount(Integer ano, Integer exame, Integer university) {
+    public List<ExamGroup> getYearsCount(Integer ano, Integer exame, Integer university) {
 
         HashMap<String, Object> parameter = new HashMap<String, Object>(1);
 
@@ -91,6 +91,7 @@ public class HomeController {
         if (!isNull(university)) {
             sql.append(", University u ");
         }
+
         if (!isNull(exame)) {
             sql.append(", Category c ");
         }
@@ -136,13 +137,14 @@ public class HomeController {
         return examGroupList;
     }
 
-    private List<ExamGroup> getExamsCount(Integer exam, Integer ano, Integer university) {
+    public List<ExamGroup> getExamsCount(Integer exam, Integer ano, Integer university) {
 
         HashMap<String, Object> parameter = new HashMap<String, Object>(1);
         List<ExamGroup> examGroupList = new ArrayList<>();
         StringBuilder sql = new StringBuilder();
 
         String query = "SELECT COUNT(e.examId), c.name, c.id FROM Category c, Exam e WHERE e.category = c.id ";
+
         if (!isNull(university)) {
             query = "SELECT COUNT(e.examId), c.name, c.id FROM Category c, University u, Exam e WHERE e.category = c.id ";
         }
@@ -168,7 +170,8 @@ public class HomeController {
 
     }
 
-    private List<ExamGroup> getUniversitiesCount(Integer university, Integer ano, Integer exame) {
+    public List<ExamGroup> getUniversitiesCount(Integer university, Integer ano, Integer exame) {
+
         StringBuilder sql = new StringBuilder();
         HashMap<String, Object> parameter = new HashMap<String, Object>(1);
         List<ExamGroup> examGroupList;
@@ -200,9 +203,9 @@ public class HomeController {
 		return examGroupList;
     }
 
-    private List<ExamGroup> sqlExamUniversities(StringBuilder sql, HashMap<String, Object> parameter) {
+    public List<ExamGroup> sqlExamUniversities(StringBuilder sql, HashMap<String, Object> parameter) {
 
-        List listResult;
+        List<ExamGroup> listResult;
         if (isNull(parameter)) {
             listResult = crudService.findByJPQuery(sql.toString(), null);
         } else {
@@ -219,7 +222,7 @@ public class HomeController {
         return examGroupList;
     }
 
-    private List<Exam> filterExam(Optional<Integer> ano, Optional<Integer> universidade, Optional<Integer> exame, Optional<String> search) {
+    public List<Exam> filterExam(Optional<Integer> ano, Optional<Integer> universidade, Optional<Integer> exame, Optional<String> search) {
 
         HashMap<String, Object> param = new HashMap<String, Object>(1);
         HashMap<String, Object> paramAux = new HashMap<String, Object>(1);
@@ -296,7 +299,7 @@ public class HomeController {
         return exams;
     }
 
-    private String sqlQuery(String table) {
+    public String sqlQuery(String table) {
         return "SELECT e FROM " + table + " e ";
     }
 
@@ -337,6 +340,7 @@ public class HomeController {
         exams = exams.subList(min, max);
 
     }
+
     public void paginationUsers(Optional<Integer> pg) {
 
         int length = 2;
@@ -375,16 +379,15 @@ public class HomeController {
 
     }
 
-
-    private int quantityPage(int examsSize, int nExams) {
+    public int quantityPage(int examsSize, int nExams) {
         return examsSize % nExams != 0 ? ((examsSize / nExams) + 1) : (examsSize / nExams);
     }
 
-    private boolean isValidPage(Integer page, int length){
+    public boolean isValidPage(Integer page, int length){
         return page.hashCode() <= quantityPage(exams.size(), length);
     }
 
-    private boolean isNull(Object object) {
+    public boolean isNull(Object object) {
         return object == null;
     }
 
