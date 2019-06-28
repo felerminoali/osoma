@@ -46,6 +46,7 @@ public class CustomUserDetailsService implements UserDetailsService {
             DataAccessException {
 
         User u = crudService.findEntByJPQueryT("SELECT u FROM User u WHERE u.email = '"+email+"'", null);
+
         Optional<User> optionalUsers = Optional.of(u);
         optionalUsers
                 .orElseThrow(() -> new UsernameNotFoundException("Username not found"));

@@ -46,6 +46,7 @@ public class HomeController {
         this.users = users;
     }
 
+
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView index(@RequestParam("ano") Optional<Integer> ano, @RequestParam Optional<Integer> universidade,
                               @RequestParam("pg") Optional<Integer> pg, Optional<Integer> exame, Optional<String> search) {
