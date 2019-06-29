@@ -1,6 +1,7 @@
 import mz.co.osoma.service.CRUDService;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.experimental.theories.suppliers.TestedOn;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -10,8 +11,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-class Teste {
+public class Teste {
 
-
+    @Test
+    public void simpleTest(){
+        Assert.assertEquals(1,1);
+    }
 
 }
