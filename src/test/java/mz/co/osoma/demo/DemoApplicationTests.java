@@ -1,6 +1,8 @@
 package mz.co.osoma.demo;
 
 import mz.co.osoma.config.HibernateConf;
+import mz.co.osoma.config.SecurityConfiguration;
+import mz.co.osoma.config.WebMVCConfig;
 import mz.co.osoma.controller.HomeController;
 import mz.co.osoma.service.CRUDService;
 import org.junit.Assert;
@@ -22,11 +24,10 @@ public class DemoApplicationTests {
     public CRUDService crudService;
 
 
-    @Test
-    public void contextLoads() {
-
-
-    }
+        @Test
+        public void test(){
+           Assert.assertNotNull(crudService);
+        }
 
 }
 

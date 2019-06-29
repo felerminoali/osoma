@@ -23,12 +23,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
-@RunWith(SpringRunner.class)
+
 @SpringBootTest
 @ContextConfiguration (classes = HibernateConf.class)
 public class HomeControllerTest {
 
-
+    /*
     @Autowired
     @Qualifier("CRUDServiceImpl")
     public CRUDService crudService;
@@ -40,6 +40,7 @@ public class HomeControllerTest {
 
     @Test
     public void index() {
+
         Optional<Integer> ano = Optional.of(2005);
         Optional<Integer> universidade = Optional.empty();
         Optional<Integer> pg = Optional.empty();
@@ -272,6 +273,7 @@ public class HomeControllerTest {
     }
     */
 
+    /*
     @Test
     public void filterExam(){
         Optional <Integer> ano = Optional.empty();
@@ -366,5 +368,5 @@ public class HomeControllerTest {
 
     // Teste do metodo Pagination
 
-
+*/
 }

@@ -12,15 +12,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 class Teste {
 
-    @Autowired
-    @Qualifier("CRUDServiceImpl")
-    public CRUDService crudService;
 
-    @Test
-    public void test(){
-
-        Assert.assertEquals(crudService,null);
-
-    }
 
 }
