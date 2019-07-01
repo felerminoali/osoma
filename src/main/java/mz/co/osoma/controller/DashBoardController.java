@@ -114,7 +114,7 @@ public class DashBoardController {
 
 
         exam = crudService.get(Exam.class, examId.hashCode());
-        List<Question> questions = crudService.findByJPQuery("SELECT q FROM Question q where q.examId.examId="+exam.getExamId(),null);//getAll(Question.class);
+        List<Question> questions = crudService.findByJPQuery("SELECT q FROM Question q where q.examId.examId=" + exam.getExamId(), null);//getAll(Question.class);
 
         if (!isNull(questionId)) {
             Question question = crudService.get(Question.class, questionId.hashCode());
@@ -181,11 +181,14 @@ public class DashBoardController {
         Category category = crudService.get(Category.class, categoryId);
         University university = crudService.get(University.class, universityId);
         Exam exam;
-        if (!isNull(examId)) {
+
+        if (examId==null) {
             exam = crudService.get(Exam.class, examId.hashCode());
-        } else {
-            exam = new Exam();
+            System.out.println("======entra=====");
+        }else {
+            exam=new Exam();
         }
+
 
         exam.setCategory(category);
         exam.setUniversity(university);
@@ -195,8 +198,7 @@ public class DashBoardController {
         exam.setNoquestion(noquestion);
         exam.setPdfresource(pdfresource);
 
-
-        if (isNull(examId)) {
+        if (examId==null) {
 
             try {
                 crudService.Save(exam);
@@ -239,16 +241,16 @@ public class DashBoardController {
         Qtype questionType = crudService.get(Qtype.class, qtype);
 
         Question question;
-        QuestionAnswers questionAnswers1=new QuestionAnswers();
-        QuestionAnswers questionAnswers2=new QuestionAnswers();
-        QuestionAnswers questionAnswers3=new QuestionAnswers();
-        QuestionAnswers questionAnswers4=new QuestionAnswers();
-        QuestionAnswers questionAnswers5=new QuestionAnswers();
+        QuestionAnswers questionAnswers1 = new QuestionAnswers();
+        QuestionAnswers questionAnswers2 = new QuestionAnswers();
+        QuestionAnswers questionAnswers3 = new QuestionAnswers();
+        QuestionAnswers questionAnswers4 = new QuestionAnswers();
+        QuestionAnswers questionAnswers5 = new QuestionAnswers();
 
         //if (!isNull(questionId)) {
-         //   question = crudService.get(Question.class, questionId.hashCode());
+        //   question = crudService.get(Question.class, questionId.hashCode());
         //} else {
-            question = new Question();
+        question = new Question();
         //}
 
 
@@ -282,8 +284,8 @@ public class DashBoardController {
             try {
                 crudService.Save(question);
 
-                List<Question> questions=crudService.getAll(Question.class);
-                Question question1=questions.get(questions.size()-1);
+                List<Question> questions = crudService.getAll(Question.class);
+                Question question1 = questions.get(questions.size() - 1);
 
                 questionAnswers1.setQuestion(question1);
                 questionAnswers2.setQuestion(question1);
@@ -298,7 +300,7 @@ public class DashBoardController {
                     crudService.Save(questionAnswers4);
                     crudService.Save(questionAnswers5);
 
-                }catch (Exception e){
+                } catch (Exception e) {
                     System.out.println("error, nao foi possivel salvar uma questao");
                 }
 

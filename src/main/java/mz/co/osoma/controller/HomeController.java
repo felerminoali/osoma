@@ -18,7 +18,7 @@ public class HomeController {
     @Qualifier("CRUDServiceImpl")
     public CRUDService crudService;
 
-    public ModelAndView model = new ModelAndView();
+    public ModelAndView model;
     public List<Exam> exams = new ArrayList<Exam>();
     public List<User> users = new ArrayList<>();
 
@@ -45,7 +45,6 @@ public class HomeController {
     public void setUsers(List<User> users) {
         this.users = users;
     }
-
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView index(@RequestParam("ano") Optional<Integer> ano, @RequestParam Optional<Integer> universidade,
@@ -92,7 +91,6 @@ public class HomeController {
         if (!isNull(university)) {
             sql.append(", University u ");
         }
-
         if (!isNull(exame)) {
             sql.append(", Category c ");
         }
@@ -145,7 +143,6 @@ public class HomeController {
         StringBuilder sql = new StringBuilder();
 
         String query = "SELECT COUNT(e.examId), c.name, c.id FROM Category c, Exam e WHERE e.category = c.id ";
-
         if (!isNull(university)) {
             query = "SELECT COUNT(e.examId), c.name, c.id FROM Category c, University u, Exam e WHERE e.category = c.id ";
         }
@@ -172,7 +169,6 @@ public class HomeController {
     }
 
     public List<ExamGroup> getUniversitiesCount(Integer university, Integer ano, Integer exame) {
-
         StringBuilder sql = new StringBuilder();
         HashMap<String, Object> parameter = new HashMap<String, Object>(1);
         List<ExamGroup> examGroupList;
@@ -223,7 +219,9 @@ public class HomeController {
         return examGroupList;
     }
 
-    public List<Exam> filterExam(Optional<Integer> ano, Optional<Integer> universidade, Optional<Integer> exame, Optional<String> search) {
+    public List<Exam> filterExam(
+            Optional<Integer> ano, Optional<Integer> universidade,
+            Optional<Integer> exame, Optional<String> search) {
 
         HashMap<String, Object> param = new HashMap<String, Object>(1);
         HashMap<String, Object> paramAux = new HashMap<String, Object>(1);
@@ -341,7 +339,6 @@ public class HomeController {
         exams = exams.subList(min, max);
 
     }
-
     public void paginationUsers(Optional<Integer> pg) {
 
         int length = 2;
@@ -379,6 +376,7 @@ public class HomeController {
         users = users.subList(min, max);
 
     }
+
 
     public int quantityPage(int examsSize, int nExams) {
         return examsSize % nExams != 0 ? ((examsSize / nExams) + 1) : (examsSize / nExams);
