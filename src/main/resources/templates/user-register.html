@@ -173,16 +173,21 @@
                                                 <input type="text" class="form-control" name="escola" id="escola" value="">
                                             </div>
                                         </div>
+
                                         <div class="form-group row">
                                             <label for="university"
                                                    class="col-xs-5 col-form-label">Universidade que pretende ingressar: *</label>
                                             <div class="col-xs-7">
-                                                <select name="university" id="university" class="form-control">
-                                                    <option value="2">Universidade Eduardo Mondlane</option>
-                                                    <option value="22">Universidade Zambeze</option>
-                                                    <option value="32">Universidade Pedagogica</option>
-                                                    <option value="12" selected>Universidade Lurio</option>
-                                                </select>
+                                                <div th:switch="${universities}">
+                                                    <select name="university" id="university" class="form-control">
+                                                        <div th:case="*">
+                                                            <div th:each="university: ${universities}">
+                                                                <option th:value="${university.id}"
+                                                                        th:text="${university.name}"></option>
+                                                            </div>
+                                                        </div>
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
 

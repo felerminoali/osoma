@@ -51,18 +51,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .and()
                 .formLogin()
                        .loginPage("/login")
-//                        .successForwardUrl("/")
+                        .successForwardUrl("/")
 //                        .defaultSuccessUrl("/")
                         .failureUrl("/login?error=true")
-//                        .usernameParameter("username")
+                        .usernameParameter("username")
                 .usernameParameter("email")
                         .passwordParameter("password")
                         .permitAll()
                         .and()
                 .logout()
                     .permitAll();
-
-
     }
 
     private PasswordEncoder getPasswordEncoder() {

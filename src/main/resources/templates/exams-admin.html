@@ -6,7 +6,11 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+<style>
+    .fade{
+        display: block;
+    }
+</style>
 
 </head>
 
@@ -15,13 +19,14 @@
 
 
     <div id="London" class="tabcontent">
+                <!-- /.modal-content -->
 
+        <!-- /.modal -->
         <div class="details">
             <legend>
                 <h3>
                     Exams </h3>
             </legend>
-
 
             <div>
                 <div class="hidden-xs hidden-sm" style="float:right">
@@ -34,7 +39,7 @@
                         </div>
                     </form>
                 </div>
-                <a href="/exam-add" class="nav nav-item" >Adicionar</a>
+                <a href="exams-admin/exam-add" class="nav-item nav-link" >Adicionar</a>
                 <div class="table-responsive">
 
 
@@ -56,13 +61,15 @@
                             <div th:case="*">
                                 <div th:each="exam: ${exams}">
                                     <tr>
-                                        <td th:text="${exam.description}"></td>
+                                        <td><a th:href="@{/exams-admin/exam-details-admin/(examId=${exam.examId})}" th:text="${exam.description}" ></a></td>
                                         <td th:text="${exam.noquestion}"></td>
                                         <td th:text="${exam.duration}"></td>
                                         <td th:text="${exam.examYear}"></td>
                                         <td th:text="${exam.university.name}"></td>
-                                        <td><a href="">edit</a></td>
-                                        <td ><a th:href="@{/(examId=${exam.examId})}" >remove</a></td>
+                                        <td ><a th:href="@{/exams-admin/editExam/(examId=${exam.examId})}" >edit</a></td>
+
+                                     <!--   <td><a href="@{/exams-admin(edit=${exam.examId})}" >edit</a></td> -->
+                                        <td ><a th:href="@{/exams-admin(remove=${exam.examId})}" >remove</a></td>
                                     </tr>
                                 </div>
                             </div>
@@ -74,7 +81,7 @@
                             <div class="pagination-centered">
                                 <ul class="pagination ">
                                     <li>
-                                        <a th:if="${back} > 0" href="/admin" aria-label="First">
+                                        <a th:if="${back} > 0" href="/exams-admin" aria-label="First">
                                             <span>First</span>
                                         </a>
                                         <a th:if="${back} == 0" aria-label="First" style='color: #C6C4C6'>
@@ -82,7 +89,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a th:if="${back} > 0" th:href="@{/dash(pg=${back})}" aria-label="Back">
+                                        <a th:if="${back} > 0" th:href="@{/exams-admin(pg=${back})}" aria-label="Back">
                                             <span aria-hidden="true">&laquo;</span>
                                         </a>
                                         <a th:if="${back} == 0" aria-label="Back" style='color: #C6C4C6'>
@@ -90,7 +97,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a th:value="'pg_'+${next}" th:if="${next} <= ${nPage}" th:href="@{/admin(pg=${next})}" aria-label="Next"><span
+                                        <a th:value="'pg_'+${next}" th:if="${next} <= ${nPage}" th:href="@{/exams-admin(pg=${next})}" aria-label="Next"><span
                                                 aria-hidden="true">&raquo;</span>
                                         </a>
                                         <a th:if="${next} > ${nPage}" aria-label="Next" style='color: #C6C4C6'>
@@ -98,7 +105,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a th:if="${next} <= ${nPage}" aria-label="Last" th:href="@{/dash(pg=${nPage})}">Last</a>
+                                        <a th:if="${next} <= ${nPage}" aria-label="Last" th:href="@{/exams-admin(pg=${nPage})}">Last</a>
                                         <a th:if="${next} > ${nPage}" aria-label="Last" style='color: #C6C4C6'>Last</a>
                                     </li>
                                 </ul>

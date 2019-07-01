@@ -184,7 +184,7 @@ public class Exam implements Serializable {
 
     @Override
     public String toString() {
-        return "mz.co.osoma.model.Exam[ examId=" + examId + " ]";
+        return "mz.co.osoma.model.Exam[ examId=" + examId + " Description "+description+" ]";
     }
-    
+
 }

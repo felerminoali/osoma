@@ -39,8 +39,9 @@ public class Question implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Column(name = "exam_id")
-    private Integer examId;
+    @JoinColumn(name = "exam_id", referencedColumnName = "exam_id")
+    @ManyToOne
+    private Exam examId;
     @Column(name = "name")
     private String name;
     @Lob
@@ -80,11 +81,11 @@ public class Question implements Serializable {
         this.id = id;
     }
 
-    public Integer getExamId() {
+    public Exam getExamId() {
         return examId;
     }
 
-    public void setExamId(Integer examId) {
+    public void setExamId(Exam examId) {
         this.examId = examId;
     }
 

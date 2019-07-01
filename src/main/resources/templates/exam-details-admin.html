@@ -1,0 +1,69 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout-dashboard}">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<th:block layout:fragment="contentDash">
+
+
+    <div id="London" class="tabcontent">
+
+        <div class="details">
+            <legend>
+                <h3 th:text="${exam.description}+' ('+${exam.examYear}+')'">
+                </h3>
+
+            </legend>
+
+
+            <div>
+                <div class="hidden-xs hidden-sm" style="float:right">
+                    <form class="navbar-form navbar-left" >
+                        <div class="form-group">
+                            <input type="text" name="search" class="form-control"
+                                   placeholder="Search...">
+                            <button type="submit" class="btn btn-default">
+                                Search</button>
+                        </div>
+                    </form>
+                </div>
+                <a th:href="@{/exams-admin/exam-details-admin/question-add/(examId=${exam.examId})}" class="nav-item nav-link" >Adicionar</a>
+
+
+                    <table class="table table-bordered">
+                        <!--                                        <table cellpadding="0" cellspacing="0" border="1" class="tbl_repeat">-->
+                        <thead>
+                        <tr>
+                            <th>Descrition</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <div th:switch="${questions}">
+                            <h2 th:case="null"><p th:text="#{no-exam}"></p></h2>
+                            <div th:case="*">
+                                <div th:each="question: ${questions}">
+                                    <tr>
+                                        <td th:text="${question.questiontextformat}"></td>
+                                        <td ><a th:href="@{/exams-admin/exam-details-admin/(questionId=${question.id})}" >edit</a></td>
+
+                                        <!--   <td><a href="@{/exams-admin(edit=${exam.examId})}" >edit</a></td> -->
+                                        <td ><a th:href="@{/exams-admin/exam-details-admin(remove=${question.id},examId=${exam.examId})}" >remove</a></td>
+                                    </tr>
+                                </div>
+                            </div>
+                        </div>
+                        </tbody>
+                    </table>
+
+
+                </div>
+        </div>
+    </div>
+
+</th:block>
+</body>
+</html>

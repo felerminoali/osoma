@@ -1,5 +1,6 @@
 package mz.co.osoma.controller;
 
+import mz.co.osoma.model.University;
 import mz.co.osoma.model.User;
 import mz.co.osoma.service.CRUDService;
 import mz.co.osoma.service.CRUDServiceImpl;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.constraints.Null;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -41,7 +43,10 @@ public class LoginController {
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public ModelAndView register() {
         ModelAndView model = new ModelAndView("user-register");
-        //model.addObject("error", 0);
+
+        List<University> universities=crudService.getAll(University.class);
+        model.addObject("universities",universities);
+        model.addObject("error", 0);
         return model;
     }
 
