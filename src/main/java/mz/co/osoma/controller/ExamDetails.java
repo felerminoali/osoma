@@ -1,9 +1,7 @@
 package mz.co.osoma.controller;
 
 
-import mz.co.osoma.model.Category;
-import mz.co.osoma.model.Exam;
-import mz.co.osoma.model.University;
+import mz.co.osoma.model.*;
 import mz.co.osoma.service.CRUDService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -12,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -49,6 +48,42 @@ public class ExamDetails {
     @RequestMapping(value = "/exam-details", method = RequestMethod.GET)
     public ModelAndView index(){
         ModelAndView modelo = new ModelAndView("exam-details");
+        modelo.addObject("exame", null);
+        return modelo;
+    }
+
+    @RequestMapping(value = "/online-test")
+    public ModelAndView index(@RequestParam("id") int id, @RequestParam("question") Optional<Integer> pg){
+        ModelAndView modelo = new ModelAndView("diagnosis");
+
+        List<Question> questions = crudService.findByJPQuery("SELECT e FROM Question e where e.examId = " + id, null);
+        int nrQuestion = 0;
+        if(questions.size()>0){
+            if (pg.isPresent()){
+                nrQuestion = pg.get();
+            }
+        }
+        Question question = questions.get(nrQuestion);
+        List<QuestionAnswers> questionAnswers =
+        crudService.findByJPQuery("SELECT e FROM QuestionAnswers e, Question q where e.question = q.id and  q.id = "+question.getId(), null);
+
+
+        modelo.addObject("questions", question);
+        modelo.addObject("questionAnswers", questionAnswers);
+        modelo.addObject("id", id);
+
+
+        modelo.addObject("quantidadeExames", questions.size());
+        if(questions.size()>nrQuestion){
+            modelo.addObject("next", nrQuestion+1);
+        }else{
+            modelo.addObject("next", -1);
+        }
+        return modelo;
+    }
+    @RequestMapping(value = "/results", method = RequestMethod.POST)
+    public ModelAndView results(){
+        ModelAndView modelo = new ModelAndView("exam-results");
         modelo.addObject("exame", null);
         return modelo;
     }

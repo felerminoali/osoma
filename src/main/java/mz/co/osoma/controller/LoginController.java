@@ -26,7 +26,7 @@ public class LoginController {
     public CRUDService crudService;
     public User user;
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    @RequestMapping(value = "/login")
     public ModelAndView index() {
 
         ModelAndView model = new ModelAndView("login");

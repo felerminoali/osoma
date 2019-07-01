@@ -6,6 +6,8 @@ public class ExamGroup {
     public int id;
     public String description;
 
+    public ExamGroup(){}
+
     public ExamGroup(int count, int year){
         this.count = count;
         this.year = year;
@@ -14,6 +16,7 @@ public class ExamGroup {
         this.count = count;
         this.description = description;
     }
+
     public ExamGroup(int count, String description, int id){
         this.count = count;
         this.description = description;

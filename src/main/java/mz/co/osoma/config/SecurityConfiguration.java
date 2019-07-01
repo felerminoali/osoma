@@ -14,8 +14,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
-@RequestMapping("/")
+@RequestMapping(value = "/")
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @EnableWebSecurity
 @EnableJpaRepositories(basePackageClasses = UsersRepository.class)
@@ -51,16 +52,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .and()
                 .formLogin()
                        .loginPage("/login")
-                        .successForwardUrl("/")
+                       //  .successForwardUrl("/")
 //                        .defaultSuccessUrl("/")
                         .failureUrl("/login?error=true")
-                        .usernameParameter("username")
+//                        .usernameParameter("username")
                 .usernameParameter("email")
                         .passwordParameter("password")
                         .permitAll()
                         .and()
                 .logout()
                     .permitAll();
+
     }
 
     private PasswordEncoder getPasswordEncoder() {
