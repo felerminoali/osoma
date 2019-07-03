@@ -61,14 +61,14 @@ public class ExamDetailsTest {
         assertNotNull(modelAndView.getModel().get("exame"));
     }
 
-    @Test
+/*    @Test
     public void testExamDiagnosis() {
         int id = 2;
         Optional<Integer> numberQuesiton = Optional.of(2);
 
         ModelAndView modelAndView = examDetails.examDiagnosis(id, numberQuesiton);
     }
-
+*/
     @Test
     public void testExamNotHasQuestions() {
         int id = 5000;
