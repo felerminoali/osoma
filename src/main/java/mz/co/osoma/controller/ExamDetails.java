@@ -25,11 +25,11 @@ public class ExamDetails {
     public CRUDService crudService;
 
     @RequestMapping(value = "/exam-details/{id}", method = RequestMethod.GET)
-    public ModelAndView index(Optional<Integer> exameid, @PathVariable("id") int identificador) {
+    public ModelAndView examDetailsShow(@PathVariable("id") int id) {
 
         ModelAndView model= new ModelAndView("exam-details");
 
-        Exam exam = crudService.findEntByJPQueryT("SELECT e FROM Exam e where e.examId = " + identificador, null);
+        Exam exam = crudService.findEntByJPQueryT("SELECT e FROM Exam e where e.examId = " + id, null);
         if(exam != null) {
             University university = crudService.findEntByJPQueryT("SELECT u FROM University u where u.id = " + exam.getUniversity().getId(), null);
             Category category = crudService.findEntByJPQueryT("SELECT c FROM Category c where c.id = " + exam.getCategory().getId(), null);
@@ -53,15 +53,19 @@ public class ExamDetails {
     }
 
     @RequestMapping(value = "/online-test")
-    public ModelAndView index(@RequestParam("id") int id, @RequestParam("question") Optional<Integer> pg){
+    public ModelAndView examDiagnosis(@RequestParam("id") int id, @RequestParam("question") Optional<Integer> pg){
         ModelAndView modelo = new ModelAndView("diagnosis");
 
-        List<Question> questions = crudService.findByJPQuery("SELECT e FROM Question e where e.examId = " + id, null);
+        List<Question> questions = questionsOfExam(id);
+
         int nrQuestion = 0;
         if(questions.size()>0){
             if (pg.isPresent()){
                 nrQuestion = pg.get();
             }
+        }else{
+            modelo.addObject("questions", null);
+            return modelo;
         }
         Question question = questions.get(nrQuestion);
         List<QuestionAnswers> questionAnswers =
@@ -80,6 +84,16 @@ public class ExamDetails {
             modelo.addObject("next", -1);
         }
         return modelo;
+    }
+
+    public List<Question> questionsOfExam(int id){
+        List<Question> questions = crudService.findByJPQuery("SELECT e FROM Question e where e.examId = " + id, null);
+
+        if(questions == null){
+            return null;
+        }else{
+            return questions;
+        }
     }
     @RequestMapping(value = "/results", method = RequestMethod.POST)
     public ModelAndView results(){

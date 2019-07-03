@@ -18,3 +18,7 @@ notifications:
       - eltonug@gmail.com
     on_success: always # default: change
     on_failure: always # default: always
+
+after_success:
+  - mvn clean cobertura:cobertura coveralls:report
+  - mvn clean test saga:coverage coveralls:report
