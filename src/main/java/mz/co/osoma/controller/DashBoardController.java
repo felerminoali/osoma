@@ -37,7 +37,7 @@ public class DashBoardController {
         exams = crudService.getAll(Exam.class);
 
         // Aqui eh onde sao eliminados os exames
-        if (!this.isNull(examId)) {
+        if (examId.hashCode()>0) {
             exam = crudService.get(Exam.class, examId.hashCode());
             try {
                 crudService.delete(exam);
@@ -47,37 +47,18 @@ public class DashBoardController {
             }
         }
 
-        // edicao de exames
-
- /*       if(!this.isNull(examId)){
-            exam = crudService.get(Exam.class, examId.hashCode());
-
-            try {
-                model.addObject(attribute:)
-
-            }catch (Exception exception){
-
-                System.out.println("falha ao editar este exame ");
-
-            }
-
-        }*/
 
 
         HomeController homeController = new HomeController();
 
         homeController.setModel(model);
         homeController.setExams(exams);
-        //homeController.setUsers(users);
         homeController.pagination(pg);
-
 
         // homeController.getModel().addObject("users", homeController.getUsers());
         homeController.getModel().addObject("exams", homeController.getExams());
         // model.addObject("exams",exams);
         return homeController.getModel();
-
-
     }
 
     @RequestMapping(value = "/exams-admin/editExam")
@@ -99,10 +80,6 @@ public class DashBoardController {
         model = new ModelAndView("question-form");
 
         exam = crudService.get(Exam.class, examId);
-        //List<Question> questions=crudService.getAll(Question.class);
-
-
-        //model.addObject("questions",questions);
         model.addObject("exam", exam);
         return model;
     }
@@ -116,7 +93,7 @@ public class DashBoardController {
         exam = crudService.get(Exam.class, examId.hashCode());
         List<Question> questions = crudService.findByJPQuery("SELECT q FROM Question q where q.examId.examId=" + exam.getExamId(), null);//getAll(Question.class);
 
-        if (!isNull(questionId)) {
+        if (questionId.hashCode()>0) {
             Question question = crudService.get(Question.class, questionId.hashCode());
 
             try {
@@ -138,21 +115,6 @@ public class DashBoardController {
 
         model = new ModelAndView("users-admin");
         users = crudService.getAll(User.class);
-      /*  exams = crudService.getAll(Exam.class);
-
-
-        HomeController homeController = new HomeController();
-
-        homeController.setModel(model);
-        homeController.setExams(exams);
-        homeController.setUsers(users);
-        homeController.pagination(pg);
-
-        homeController.paginationUsers(t2pg);
-
-        homeController.getModel().addObject("users", homeController.getUsers());
-        homeController.getModel().addObject("exams", homeController.getExams());
-        */
         model.addObject("users", users);
         return model;
     }
@@ -169,9 +131,7 @@ public class DashBoardController {
 
     @RequestMapping(value = "/exams-admin/exam-add/exam-save", method = RequestMethod.POST)
     public String saveExam(@RequestParam("examId") Optional<Integer> examId,
-                           @RequestParam("examYear") Integer examYear,
-                           @RequestParam("description") String description,
-                           @RequestParam("duration") Integer duration,
+                           @RequestParam("examYear") Integer examYear, @RequestParam("description") String description, @RequestParam("duration") Integer duration,
                            @RequestParam("noquestion") Integer noquestion,
                            @RequestParam("pdfresource") String pdfresource,
                            @RequestParam("category") Integer categoryId,
@@ -181,12 +141,12 @@ public class DashBoardController {
         Category category = crudService.get(Category.class, categoryId);
         University university = crudService.get(University.class, universityId);
         Exam exam;
-
-        if (examId==null) {
+        if (examId.hashCode()>0) {
             exam = crudService.get(Exam.class, examId.hashCode());
             System.out.println("======entra=====");
         }else {
             exam=new Exam();
+            System.out.println("======ererrerererrre=====");
         }
 
 
@@ -197,9 +157,7 @@ public class DashBoardController {
         exam.setDuration(duration);
         exam.setNoquestion(noquestion);
         exam.setPdfresource(pdfresource);
-
-        if (examId==null) {
-
+        if (!(examId.hashCode()>0)) {
             try {
                 crudService.Save(exam);
                 System.out.println("Save Sucessfull");
@@ -207,7 +165,7 @@ public class DashBoardController {
             } catch (Exception e) {
 
                 System.out.println("exam not saved");
-                return "error";
+
             }
         } else {
             try {
@@ -215,18 +173,16 @@ public class DashBoardController {
                 return "success";
             } catch (Exception e) {
                 System.out.println("error, update unsucessfull");
-                return "error";
+
             }
         }
-        //return "";
+        return "error";
     }
-
     @RequestMapping(value = "exams-admin/exam-details-admin/question-add/question-save", method = RequestMethod.POST)
     public String saveQuestion(@RequestParam("examId") Integer examId,
                                @RequestParam("id") Optional<Integer> questionId,
                                @RequestParam("name") String name,
                                @RequestParam("questiontextformat") String questiontextformat,
-                               @RequestParam("image") String image,
                                @RequestParam("feedback") String feedback,
                                @RequestParam("qtype") Integer qtype,
                                @RequestParam("a") String answerA,
@@ -247,17 +203,14 @@ public class DashBoardController {
         QuestionAnswers questionAnswers4 = new QuestionAnswers();
         QuestionAnswers questionAnswers5 = new QuestionAnswers();
 
-        //if (!isNull(questionId)) {
-        //   question = crudService.get(Question.class, questionId.hashCode());
-        //} else {
+        if (questionId.hashCode()>0) {
+           question = crudService.get(Question.class, questionId.hashCode());
+        } else {
         question = new Question();
-        //}
-
-
+        }
         question.setExamId(exam);
         question.setName(name);
         question.setQuestiontextformat(questiontextformat);
-        question.setImage(image);
         question.setFeedback(feedback);
         question.setQtype(questionType);
 
@@ -266,58 +219,48 @@ public class DashBoardController {
         questionAnswers3.setAnswer(answerC);
         questionAnswers4.setAnswer(answerD);
         questionAnswers5.setAnswer(answerE);
-
         questionAnswers1.setFeedback("");
         questionAnswers2.setFeedback("");
         questionAnswers3.setFeedback("");
         questionAnswers4.setFeedback("");
         questionAnswers5.setFeedback("");
-
         questionAnswers1.setCharId("a");
         questionAnswers2.setCharId("b");
         questionAnswers3.setCharId("c");
         questionAnswers4.setCharId("d");
         questionAnswers5.setCharId("e");
-
-
-        if (isNull(questionId)) {
+        if (!(questionId.hashCode()>0)) {
             try {
                 crudService.Save(question);
-
                 List<Question> questions = crudService.getAll(Question.class);
                 Question question1 = questions.get(questions.size() - 1);
-
                 questionAnswers1.setQuestion(question1);
                 questionAnswers2.setQuestion(question1);
                 questionAnswers3.setQuestion(question1);
                 questionAnswers4.setQuestion(question1);
                 questionAnswers5.setQuestion(question1);
-
                 try {
                     crudService.Save(questionAnswers1);
                     crudService.Save(questionAnswers2);
                     crudService.Save(questionAnswers3);
                     crudService.Save(questionAnswers4);
                     crudService.Save(questionAnswers5);
-
+                    return "success";
                 } catch (Exception e) {
                     System.out.println("error, nao foi possivel salvar uma questao");
                 }
-
-                return "success";
             } catch (Exception e) {
                 System.out.println("Error, nao foi possivel adicionar a questao");
             }
         } else {
             try {
                 crudService.update(question);
+                return "success";
             } catch (Exception e) {
                 System.out.println("error, nao foi possivel actualizar a questao");
-                return "error";
             }
         }
-
-        return "success";
+        return "error";
     }
 
 
@@ -330,39 +273,13 @@ public class DashBoardController {
         model.addObject("categories", categories);
         model.addObject("universities", universities);
         model.addObject("exam", null);
-        //  users = crudService.getAll(User.class);
 
         return model;
     }
-
     @RequestMapping(value = "/explainers-admin", method = RequestMethod.GET)
     public ModelAndView explainersAdmin(
     ) {
-
         model = new ModelAndView("explainers-admin");
-
-      /*  exams = crudService.getAll(Exam.class);
-        users = crudService.getAll(User.class);
-
-        HomeController homeController = new HomeController();
-
-        homeController.setModel(model);
-        homeController.setExams(exams);
-        homeController.setUsers(users);
-        homeController.pagination(pg);
-
-        homeController.paginationUsers(t2pg);
-
-        homeController.getModel().addObject("users", homeController.getUsers());
-        homeController.getModel().addObject("exams", homeController.getExams());
-        */
         return model;
-
-
-    }
-
-
-    private boolean isNull(Object object) {
-        return object == null;
     }
 }
