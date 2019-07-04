@@ -104,4 +104,10 @@ public class ExamDetailsTest {
 
         assertNull(modelAndView.getModel().get("exame"));
     }
+    @Test
+    public void resultTest() {
+        ModelAndView modelAndView = examDetails.results();
+
+        assertTrue(true);
+    }
 }

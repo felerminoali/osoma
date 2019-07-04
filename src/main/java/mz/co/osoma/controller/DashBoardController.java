@@ -30,10 +30,6 @@ public class DashBoardController {
     private Exam exam;
     private List<User> users = new ArrayList<>();
 
-    @Before(value = "")
-    public void session(){
-        System.out.println("Neldoo@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-    }
 
     @RequestMapping(value = "/exams-admin", method = RequestMethod.GET)
     public ModelAndView adminDashBoard(@RequestParam("pg") Optional<Integer> pg, @RequestParam("remove") Optional<Integer> examId

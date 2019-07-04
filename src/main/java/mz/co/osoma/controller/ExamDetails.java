@@ -64,8 +64,7 @@ public class ExamDetails {
                 nrQuestion = pg.get();
             }
         }else if(questions == null){
-            modelo.addObject("questions", null);
-            return modelo;
+            return new ModelAndView("exam-noquestion");
         }
 
         if(questions.size()>nrQuestion){
@@ -84,6 +83,7 @@ public class ExamDetails {
             modelo.addObject("next", nrQuestion+1);
         }else{
             modelo.addObject("next", -1);
+            return new ModelAndView("exam-results");
         }
         return modelo;
     }
@@ -98,5 +98,9 @@ public class ExamDetails {
         }
     }
 
-
+    @RequestMapping(value = "/results", method = RequestMethod.POST)
+    public ModelAndView results(){
+        ModelAndView modelo = new ModelAndView("exam-results");
+        return modelo;
+    }
 }

@@ -34,7 +34,7 @@ public class LoginController {
         return model;
     }
 
-    @RequestMapping(value = "/admin_", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin", method = RequestMethod.POST)
     public ModelAndView index(@RequestParam("login_email")String email,
                               @RequestParam("login_password")String password) {
 
@@ -45,9 +45,9 @@ public class LoginController {
             model.addObject("email", email);
             return model;
         }else{
-            ModelAndView model = new ModelAndView("adminLogin");
+            ModelAndView model = new ModelAndView("dashboard-home");
 
-            model.addObject("error", 1);
+            model.addObject("error", 0);
             return model;
         }
 
