@@ -50,7 +50,6 @@
                                         <td th:text="${question.questiontextformat}"></td>
                                         <td ><a th:href="@{/exams-admin/exam-details-admin/(questionId=${question.id})}" >edit</a></td>
 
-                                        <!--   <td><a href="@{/exams-admin(edit=${exam.examId})}" >edit</a></td> -->
                                         <td ><a th:href="@{/exams-admin/exam-details-admin(remove=${question.id},examId=${exam.examId})}" >remove</a></td>
                                     </tr>
                                 </div>

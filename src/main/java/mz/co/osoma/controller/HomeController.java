@@ -339,44 +339,6 @@ public class HomeController {
         exams = exams.subList(min, max);
 
     }
-    public void paginationUsers(Optional<Integer> pg) {
-
-        int length = 2;
-        int min = 0;
-        int max = length;
-        if (pg.hashCode() > 1 && isValidPage(pg.get(), length)) {
-            min = max * (pg.hashCode() - 1);
-            max = min + length;
-
-            if (users.size() < min) {
-                min = users.size();
-            }
-            if (users.size() < max) {
-                max = users.size();
-            }
-        }
-
-        model.addObject("t2nPage", quantityPage(users.size(), length));
-        if ( (pg.hashCode() > 1) && isValidPage(pg.get(), length) ) {
-            model.addObject("t2back", pg.hashCode() - 1);
-        } else {
-            model.addObject("t2back", 0);
-        }
-
-        if (pg.hashCode() <= quantityPage(users.size(), length)) {
-            int next = pg.hashCode() == 0 ? 2 : 1;
-            model.addObject("t2next", pg.hashCode() + next);
-        }else{
-            model.addObject("t2next", 0);
-        }
-
-        if (users.size() < max) {
-            max = users.size();
-        }
-        users = users.subList(min, max);
-
-    }
-
 
     public int quantityPage(int examsSize, int nExams) {
         return examsSize % nExams != 0 ? ((examsSize / nExams) + 1) : (examsSize / nExams);

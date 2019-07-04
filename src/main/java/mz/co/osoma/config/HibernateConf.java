@@ -35,19 +35,17 @@ public class HibernateConf {
     public DriverManagerDataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
 
-        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
+       /* dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
+
 
         dataSource.setUrl("jdbc:mysql://localhost:3306/osoma");
-        dataSource.setUsername("root");
-        dataSource.setPassword("digio+*12");
-
-        /*
-
-
+        dataSource.setUsername("rvalentim");
+        dataSource.setPassword("*chunga89#");
+*/
         dataSource.setUrl("jdbc:mysql://us-cdbr-iron-east-03.cleardb.net:3306/heroku_9a0deeafda252b2");
         dataSource.setUsername("bfaa4dbfc34090");
         dataSource.setPassword("637b79e7");
-*/
+
         return dataSource;
     }
 
