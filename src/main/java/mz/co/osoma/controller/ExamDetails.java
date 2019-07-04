@@ -59,26 +59,28 @@ public class ExamDetails {
         List<Question> questions = questionsOfExam(id);
 
         int nrQuestion = 0;
-        if(questions.size()>0){
+        if(questions!=null && questions.size()>0){
             if (pg.isPresent()){
                 nrQuestion = pg.get();
             }
-        }else{
+        }else if(questions == null){
             modelo.addObject("questions", null);
             return modelo;
         }
-        Question question = questions.get(nrQuestion);
-        List<QuestionAnswers> questionAnswers =
-        crudService.findByJPQuery("SELECT e FROM QuestionAnswers e, Question q where e.question = q.id and  q.id = "+question.getId(), null);
 
-
-        modelo.addObject("questions", question);
-        modelo.addObject("questionAnswers", questionAnswers);
-        modelo.addObject("id", id);
-
-
-        modelo.addObject("quantidadeExames", questions.size());
         if(questions.size()>nrQuestion){
+            Question question = questions.get(nrQuestion);
+            List<QuestionAnswers> questionAnswers =
+                    crudService.findByJPQuery("SELECT e FROM QuestionAnswers e, Question q where e.question = q.id and  q.id = "+question.getId(), null);
+
+
+            modelo.addObject("questions", question);
+            modelo.addObject("questionAnswers", questionAnswers);
+            modelo.addObject("id", id);
+
+
+            modelo.addObject("quantidadeExames", questions.size());
+
             modelo.addObject("next", nrQuestion+1);
         }else{
             modelo.addObject("next", -1);
@@ -89,17 +91,11 @@ public class ExamDetails {
     public List<Question> questionsOfExam(int id){
         List<Question> questions = crudService.findByJPQuery("SELECT e FROM Question e where e.examId = " + id, null);
 
-        if(questions == null){
+        if(questions.size() == 0){
             return null;
         }else{
             return questions;
         }
-    }
-    @RequestMapping(value = "/results", method = RequestMethod.POST)
-    public ModelAndView results(){
-        ModelAndView modelo = new ModelAndView("exam-results");
-        modelo.addObject("exame", null);
-        return modelo;
     }
 
 

@@ -61,20 +61,35 @@ public class ExamDetailsTest {
         assertNotNull(modelAndView.getModel().get("exame"));
     }
 
-/*    @Test
+    @Test
     public void testExamDiagnosis() {
         int id = 2;
         Optional<Integer> numberQuesiton = Optional.of(2);
 
         ModelAndView modelAndView = examDetails.examDiagnosis(id, numberQuesiton);
     }
-*/
+    @Test
+    public void testExamDiagnosisNoQuetions() {
+        int id = 555;
+        Optional<Integer> numberQuesiton = Optional.of(2);
+
+        ModelAndView modelAndView = examDetails.examDiagnosis(id, numberQuesiton);
+    }
+
+    @Test
+    public void testExamDiagnosisNoMoreQuestions() {
+        int id = 2;
+        Optional<Integer> numberQuesiton = Optional.of(55);
+
+        ModelAndView modelAndView = examDetails.examDiagnosis(id, numberQuesiton);
+    }
+
     @Test
     public void testExamNotHasQuestions() {
         int id = 5000;
         List<Question> questionList = examDetails.questionsOfExam(id);
 
-        assertEquals(0, questionList.size());
+        assertNull( questionList);
     }
 
     @Test
@@ -84,6 +99,9 @@ public class ExamDetailsTest {
         assertNotNull(questionList);
     }
     @Test
-    public void results() {
+    public void testIndex() {
+        ModelAndView modelAndView = examDetails.index();
+
+        assertNull(modelAndView.getModel().get("exame"));
     }
 }
