@@ -1,0 +1,1 @@
+[![Coverage Status](https://coveralls.io/repos/github/felerminoali/osoma/badge.svg)](https://coveralls.io/github/felerminoali/osoma)
