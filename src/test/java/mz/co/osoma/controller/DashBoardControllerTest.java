@@ -180,7 +180,7 @@ public class DashBoardControllerTest {
 
         String result = dashBoardController.saveExam(examId, examYear, description, duration, noquestion, pdfresource,
                 categoryId, universityId);
-        Assert.assertEquals("success", result);
+        Assert.assertEquals("success-exam", result);
 
     }
 
@@ -220,7 +220,7 @@ public class DashBoardControllerTest {
 
         String result = dashBoardController.saveExam(examId, examYear, description, duration, noquestion, pdfresource,
                 categoryId, universityId);
-        Assert.assertEquals("success", result);
+        Assert.assertEquals("success-exam", result);
 
     }
 
@@ -265,10 +265,10 @@ public class DashBoardControllerTest {
         DashBoardController dashBoardController = new DashBoardController();
         dashBoardController.crudService = crudService;
 
-        String result = dashBoardController.saveQuestion(examId, questionId, name,
+        ModelAndView model = dashBoardController.saveQuestion(examId, questionId, name,
                 questiontextformat, feedback, qtype, answerA, answerB, answerC, answerD, answerE, correctAnswer, answerFeedback);
 
-        Assert.assertEquals("success", result);
+        Assert.assertNotNull(model);
 
 
     }
@@ -324,10 +324,10 @@ public class DashBoardControllerTest {
         DashBoardController dashBoardController = new DashBoardController();
         dashBoardController.crudService = crudService;
 
-        String result = dashBoardController.saveQuestion(examId, questionId, name,
+        ModelAndView model = dashBoardController.saveQuestion(examId, questionId, name,
                 questiontextformat, feedback, qtype, answerA, answerB, answerC, answerD, answerE, correctAnswer, answerFeedback);
 
-        Assert.assertEquals("success", result);
+        Assert.assertNotNull(model);
 
 
     }
@@ -352,10 +352,10 @@ public class DashBoardControllerTest {
         DashBoardController dashBoardController = new DashBoardController();
         dashBoardController.crudService = crudService;
 
-        String result = dashBoardController.saveQuestion(examId, questionId, name,
+        ModelAndView model = dashBoardController.saveQuestion(examId, questionId, name,
                 questiontextformat, feedback, qtype, answerA, answerB, answerC, answerD, answerE, correctAnswer, answerFeedback);
 
-        Assert.assertEquals("success", result);
+        Assert.assertNotNull(model);
 
 
     }
@@ -380,10 +380,10 @@ public class DashBoardControllerTest {
         DashBoardController dashBoardController = new DashBoardController();
         dashBoardController.crudService = crudService;
 
-        String result = dashBoardController.saveQuestion(examId, questionId, name,
+        ModelAndView model = dashBoardController.saveQuestion(examId, questionId, name,
                 questiontextformat, feedback, qtype, answerA, answerB, answerC, answerD, answerE, correctAnswer, answerFeedback);
 
-        Assert.assertEquals("success", result);
+        Assert.assertNotNull(model);;
 
 
     }
@@ -408,10 +408,10 @@ public class DashBoardControllerTest {
         DashBoardController dashBoardController = new DashBoardController();
         dashBoardController.crudService = crudService;
 
-        String result = dashBoardController.saveQuestion(examId, questionId, name,
+        ModelAndView model = dashBoardController.saveQuestion(examId, questionId, name,
                 questiontextformat, feedback, qtype, answerA, answerB, answerC, answerD, answerE, correctAnswer, answerFeedback);
 
-        Assert.assertEquals("success", result);
+        Assert.assertNotNull(model);
 
 
     }
@@ -436,10 +436,10 @@ public class DashBoardControllerTest {
         DashBoardController dashBoardController = new DashBoardController();
         dashBoardController.crudService = crudService;
 
-        String result = dashBoardController.saveQuestion(examId, questionId, name,
+        ModelAndView model = dashBoardController.saveQuestion(examId, questionId, name,
                 questiontextformat, feedback, qtype, answerA, answerB, answerC, answerD, answerE, correctAnswer, answerFeedback);
 
-        Assert.assertEquals("success", result);
+        Assert.assertNotNull(model);
 
 
     }

@@ -196,7 +196,7 @@ public class DashBoardController {
             try {
                 crudService.Save(exam);
                 System.out.println("Save Sucessfull");
-                return "success";
+                return "success-exam";
             } catch (Exception e) {
 
                 System.out.println("exam not saved");
@@ -205,7 +205,7 @@ public class DashBoardController {
         } else {
             try {
                 crudService.update(exam);
-                return "success";
+                return "success-exam";
             } catch (Exception e) {
                 System.out.println("error, update unsucessfull");
 
@@ -214,7 +214,7 @@ public class DashBoardController {
         return "error";
     }
     @RequestMapping(value = "exams-admin/exam-details-admin/question-add/question-save", method = RequestMethod.POST)
-    public String saveQuestion(@RequestParam("examId") Integer examId,
+    public ModelAndView saveQuestion(@RequestParam("examId") Integer examId,
                                @RequestParam("id") Optional<Integer> questionId,
                                @RequestParam("name") String name,
                                @RequestParam("questiontextformat") String questiontextformat,
@@ -230,6 +230,11 @@ public class DashBoardController {
 
         exam = crudService.get(Exam.class, examId);
         Qtype questionType = crudService.get(Qtype.class, qtype);
+        Optional <Integer> idExam=Optional.of(examId);
+        Optional <Integer> quest=Optional.empty();
+
+//        String target="exams-admin/exam-details-admin/?examId="+examId.hashCode();
+
 
         Question question;
         QuestionAnswers questionAnswers1 = new QuestionAnswers();
@@ -344,7 +349,7 @@ public class DashBoardController {
                     crudService.Save(questionAnswers3);
                     crudService.Save(questionAnswers4);
                     crudService.Save(questionAnswers5);
-                    return "success";
+                   return this.examDetailsAdmin(idExam,quest);
                 } catch (Exception e) {
                     System.out.println("error, nao foi possivel salvar uma questao");
                 }
@@ -354,12 +359,13 @@ public class DashBoardController {
         } else {
             try {
                 crudService.update(question);
-                return "success";
+                return this.examDetailsAdmin(idExam,quest);
             } catch (Exception e) {
                 System.out.println("error, nao foi possivel actualizar a questao");
             }
         }
-        return "error";
+
+        return this.examDetailsAdmin(idExam,quest);
     }
 
 
