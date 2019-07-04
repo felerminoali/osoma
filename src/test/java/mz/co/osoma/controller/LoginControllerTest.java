@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.ui.Model;
 import org.springframework.web.servlet.ModelAndView;
 
 import static org.junit.Assert.*;
@@ -40,17 +41,24 @@ public class LoginControllerTest {
 
     @Test
     public void admin() {
+        ModelAndView modelAndView = loginController.admin();
+
+        assertEquals(modelAndView.getModel().get("error"), 0);
     }
 
-    @Test
-    public void register() {
-    }
 
     @Test
-    public void index1() {
+    public void verifyLoginTest() {
+        String email = "felerminoali@unilurio.ac.mz";
+        String password = "123456";
+        ModelAndView  modelAndView = loginController.index(email, password);
+
+        assertEquals(modelAndView.getModel().get("error"), 1);
     }
 
     @Test
     public void validLogin() {
+        boolean login = loginController.validLogin("felerminoali@gmial.com", "12345");
+        assertTrue(!login);
     }
 }

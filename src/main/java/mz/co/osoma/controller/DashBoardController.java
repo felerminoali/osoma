@@ -2,6 +2,7 @@ package mz.co.osoma.controller;
 
 import mz.co.osoma.model.*;
 import mz.co.osoma.service.CRUDService;
+import org.aspectj.lang.annotation.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.parameters.P;
@@ -28,6 +29,11 @@ public class DashBoardController {
     private List<Exam> exams = new ArrayList<Exam>();
     private Exam exam;
     private List<User> users = new ArrayList<>();
+
+    @Before(value = "")
+    public void session(){
+        System.out.println("Neldoo@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+    }
 
     @RequestMapping(value = "/exams-admin", method = RequestMethod.GET)
     public ModelAndView adminDashBoard(@RequestParam("pg") Optional<Integer> pg, @RequestParam("remove") Optional<Integer> examId
