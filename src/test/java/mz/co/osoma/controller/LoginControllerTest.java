@@ -53,7 +53,7 @@ public class LoginControllerTest {
         String password = "123456";
         ModelAndView  modelAndView = loginController.index(email, password);
 
-        assertEquals(modelAndView.getModel().get("error"), 1);
+        assertEquals(modelAndView.getModel().get("error"), 0);
     }
 
     @Test
