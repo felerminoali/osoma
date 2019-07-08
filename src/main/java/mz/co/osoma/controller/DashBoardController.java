@@ -30,11 +30,16 @@ public class DashBoardController {
 
 
     @RequestMapping(value = "/exams-admin", method = RequestMethod.GET)
-    public ModelAndView adminDashBoard(@RequestParam("pg") Optional<Integer> pg, @RequestParam("remove") Optional<Integer> examId
+    public ModelAndView adminDashBoard(@RequestParam("pg") Optional<Integer> pg,
+                                       @RequestParam("remove") Optional<Integer> examId,
+                                       @RequestParam("statusAdd") Optional<Boolean> statusAdd
     ) {
 
         model = new ModelAndView("exams-admin");
         exams = crudService.getAll(Exam.class);
+
+        List<University> universities=crudService.getAll(University.class);
+        List <Category> categories=crudService.getAll(Category.class);
 
         // Aqui eh onde sao eliminados os exames
         if (examId.hashCode()>0) {
@@ -77,6 +82,9 @@ public class DashBoardController {
         homeController.pagination(pg);
 
         // homeController.getModel().addObject("users", homeController.getUsers());
+        model.addObject("categories", categories);
+        model.addObject("universities", universities);
+        model.addObject("status",statusAdd.isPresent());
         homeController.getModel().addObject("exams", homeController.getExams());
         // model.addObject("exams",exams);
         return homeController.getModel();
@@ -161,7 +169,7 @@ public class DashBoardController {
     }
 
     @RequestMapping(value = "/exams-admin/exam-add/exam-save", method = RequestMethod.POST)
-    public String saveExam(@RequestParam("examId") Optional<Integer> examId,
+    public ModelAndView saveExam(@RequestParam("examId") Optional<Integer> examId,
                            @RequestParam("examYear") Integer examYear, @RequestParam("description") String description, @RequestParam("duration") Integer duration,
                            @RequestParam("noquestion") Integer noquestion,
                            @RequestParam("pdfresource") String pdfresource,
@@ -169,8 +177,15 @@ public class DashBoardController {
                            @RequestParam("university") Integer universityId
     ) {
 
+
         Category category = crudService.get(Category.class, categoryId);
         University university = crudService.get(University.class, universityId);
+        Optional<Boolean> status=Optional.of(false);
+        Optional <Integer> idExam=Optional.empty();
+        Optional <Integer> pg=Optional.empty();
+
+
+
         Exam exam;
         if (examId.hashCode()>0) {
             exam = crudService.get(Exam.class, examId.hashCode());
@@ -192,7 +207,8 @@ public class DashBoardController {
             try {
                 crudService.Save(exam);
                 System.out.println("Save Sucessfull");
-                return "success-exam";
+                status=Optional.of(true);
+                return this.adminDashBoard(idExam,pg,status);
             } catch (Exception e) {
 
                 System.out.println("exam not saved");
@@ -201,13 +217,14 @@ public class DashBoardController {
         } else {
             try {
                 crudService.update(exam);
-                return "success-exam";
+                status=Optional.of(true);
+                return this.adminDashBoard(idExam,pg,status);
             } catch (Exception e) {
                 System.out.println("error, update unsucessfull");
 
             }
         }
-        return "error";
+        return this.adminDashBoard(idExam,pg,status);
     }
     @RequestMapping(value = "exams-admin/exam-details-admin/question-add/question-save", method = RequestMethod.POST)
     public ModelAndView saveQuestion(@RequestParam("examId") Integer examId,
@@ -230,8 +247,6 @@ public class DashBoardController {
         Optional <Integer> quest=Optional.empty();
 
 //        String target="exams-admin/exam-details-admin/?examId="+examId.hashCode();
-
-
         Question question;
         QuestionAnswers questionAnswers1 = new QuestionAnswers();
         QuestionAnswers questionAnswers2 = new QuestionAnswers();

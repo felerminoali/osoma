@@ -1,17 +1,150 @@
-
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout-dashboard}">
+
+
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
+    <link rel="stylesheet" href="../static/css/modal.less">
     <meta charset="UTF-8">
-<style>
-    .fade{
-        display: block;
-    }
-</style>
+    <style>
+        .modal {
+            background: rgba(0, 0, 0, 0.3)
+        }
 
+        .modal-content {
+            border-radius: 0;
+            -webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, 0.125);
+            box-shadow: 0 2px 3px rgba(0, 0, 0, 0.125);
+            border: 0
+        }
+
+        @media (min-width: 768px) {
+            .modal-content {
+                -webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, 0.125);
+                box-shadow: 0 2px 3px rgba(0, 0, 0, 0.125)
+            }
+        }
+
+        .modal-header {
+            border-bottom-color: #f4f4f4
+        }
+
+        .modal-footer {
+            border-top-color: #f4f4f4
+        }
+
+        .modal-primary .modal-header, .modal-primary .modal-footer {
+            border-color: #307095
+        }
+
+        .modal-warning .modal-header, .modal-warning .modal-footer {
+            border-color: #c87f0a;
+            background-color: #db8b0b !important;
+            color:#fff;
+        }
+
+        .modal-warning .modal-body {
+            background-color: #f39c12 !important;
+            color: #fff;
+        }
+
+        .modal-info .modal-header, .modal-info .modal-footer {
+            border-color: #0097bc
+        }
+
+        .modal-success .modal-header, .modal-success .modal-footer {
+            border-color: #00733e;
+        }
+        #modal-success .modal-header, #modal-success .modal-footer {
+            color: #fff;
+        }
+        #modal-success .modal-header, #modal-success .modal-footer{
+            background-color: #008d4c !important;
+        }
+        #modal-success .modal-body {
+            background-color: #00a65a !important;
+            color: #fff;
+        }
+
+        .modal-success .modal-content, .modal-warning .modal-content{
+            border-radius: 5px;
+        }
+
+        .modal-danger .modal-header, .modal-danger .modal-footer {
+            border-color: #c23321;
+
+        }
+
+        .modal-warning .btn-outline ,#modal-success .btn-outline{
+            border: 1px solid #fff;
+            background: transparent;
+            color: #fff;
+        }
+
+
+        /******************************/
+        .example-modal .modal {
+            position: relative;
+            top: auto;
+            bottom: auto;
+            right: auto;
+            left: auto;
+            display: block;
+            z-index: 1;
+        }
+
+        .example-modal .modal {
+            background: transparent !important;
+        }
+
+
+    </style>
+
+    <script>
+        function showDangerMessage() {
+            document.getElementById("modal-warning").style.display = 'block';
+        }
+
+        function showExamForm() {
+            document.getElementById("modal-examForm").style.display = 'block';
+        }
+
+
+        function closeModal() {
+            document.getElementById("modal-warning").style.display = 'none';
+            document.getElementById("modal-examForm").style.display = 'none';
+            document.getElementById("modal-success").style.display = 'none';
+        }
+
+        function removeLine(idLine) {
+            document.getElementById("tableExam").removeChild(document.getElementById(idLine));
+
+        }
+        function remove(examId) {
+            id = examId;
+            document.getElementById("modal-warning").style.display = 'block';
+        }
+
+        function removeP() {
+
+            /*idl = document.getElementById("linha").value;
+             id = document.getElementById("id").value;*/
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    removeLine(id);
+                }
+            };
+            this.closeModal();
+            var url = "exams-admin?remove="+id;
+            xhttp.open("GET", url, true);
+            xhttp.send();
+            //alert("Chegou aqui , id do exame"+id);
+            //mostrar();
+        }
+    </script>
 </head>
 
 <body>
@@ -19,7 +152,7 @@
 
 
     <div id="London" class="tabcontent">
-                <!-- /.modal-content -->
+        <!-- /.modal-content -->
 
         <!-- /.modal -->
         <div class="details">
@@ -30,16 +163,184 @@
 
             <div>
                 <div class="hidden-xs hidden-sm" style="float:right">
-                    <form class="navbar-form navbar-left" >
+                    <form class="navbar-form navbar-left">
                         <div class="form-group">
                             <input type="text" name="search" class="form-control"
                                    placeholder="Search...">
                             <button type="submit" class="btn btn-default">
-                                Search</button>
+                                Search
+                            </button>
                         </div>
                     </form>
                 </div>
-                <a href="exams-admin/exam-add" class="nav-item nav-link" >Adicionar</a>
+
+                <!-- =========================Modal=======================------->
+
+
+                <div class="modal modal-success" id="modal-success">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true" onclick="closeModal()">&times;</span></button>
+                                <h4 class="modal-title">Success Message...</h4>
+                            </div>
+                            <div class="modal-body">
+                                <p>Added Successfully&hellip;</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline" onclick="closeModal()">Ok</button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <a th:if="${status} == true">
+                    <script>
+                        document.getElementById("modal-success").style.display = 'block';
+                    </script>
+                </a>
+
+
+                <div class="modal modal-warning" id="modal-warning">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true" onclick="closeModal()">&times;</span></button>
+                                <h4 class="modal-title">Warning Message...</h4>
+                            </div>
+                            <div class="modal-body">
+                                <p>You Want Delete the Exam?&hellip;</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline pull-left" onclick="closeModal()">Close
+                                </button>
+                                <button type="button" class="btn btn-outline" onclick="removeP()">Remove Exam</button>
+                            </div>
+                        </div>
+                        <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                </div>
+
+
+                <div class="modal modal-success" id="modal-examForm">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true" onclick="closeModal()">&times;</span></button>
+                                <h4 class="modal-title">Exam Form</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form id="examRegister" action="/exams-admin/exam-add/exam-save" method="POST">
+
+                                    <input type="hidden" value="" name="examId">
+                                    <div class="form-group row">
+                                        <label for="category"
+                                               class="col-xs-5 col-form-label">Category: *</label>
+                                        <div class="col-xs-7">
+                                            <div th:switch="${categories}">
+                                                <select name="category" id="category" class="form-control">
+                                                    <div th:case="*">
+                                                        <div th:each="category: ${categories}">
+                                                            <option th:value="${category.id}"
+                                                                    th:text="${category.name}"></option>
+                                                        </div>
+                                                    </div>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="year"
+                                               class="col-xs-5 col-form-label">Exam Year: *</label>
+                                        <div class="col-xs-7">
+                                            <input type="number" class="form-control" name="examYear" id="year"
+                                                   value="" min="">
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group row">
+                                        <label for="description"
+                                               class="col-xs-5 col-form-label">Description: *</label>
+                                        <div class="col-xs-7">
+                                            <input type="text" class="form-control" name="description"
+                                                   id="description"
+                                                   value="">
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group row">
+                                        <label for="duration"
+                                               class="col-xs-5 col-form-label">Duration:</label>
+                                        <div class="col-xs-7">
+                                            <input type="number" class="form-control" name="duration" id="duration"
+                                                   value="" min="0">
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group row">
+                                        <label for="noquestion"
+                                               class="col-xs-5 col-form-label">Number of Questions: *</label>
+                                        <div class="col-xs-7">
+                                            <input type="number" class="form-control" name="noquestion"
+                                                   id="noquestion" value="" min="0">
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group row">
+                                        <label for="pdfsource"
+                                               class="col-xs-5 col-form-label">PDF Source: *</label>
+                                        <div class="col-xs-7">
+                                            <input type="text" class="form-control" name="pdfresource" id="pdfsource"
+                                                   value="">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="university"
+                                               class="col-xs-5 col-form-label">University: *</label>
+                                        <div class="col-xs-7">
+                                            <div th:switch="${universities}">
+                                                <select name="university" id="university" class="form-control">
+                                                    <div th:case="*">
+                                                        <div th:each="university: ${universities}">
+                                                            <option th:value="${university.id}"
+                                                                    th:text="${university.name}"></option>
+                                                        </div>
+                                                    </div>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-outline pull-left" onclick="closeModal()">
+                                            Close
+                                        </button>
+                                        <button type="submit" name="submit" id="submit" class="btn btn-success">Save
+                                            Exam
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!--------========================================================================================= -->
+
+                <a onclick="showExamForm(); return false;" href="" class="nav-item nav-link">Adicionar</a>
                 <div class="table-responsive">
 
 
@@ -52,24 +353,28 @@
                             <th>Nr Question</th>
                             <th>Year</th>
                             <th>University</th>
-
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="tableExam">
                         <div th:switch="${exams}">
                             <h2 th:case="null"><p th:text="#{no-exam}"></p></h2>
                             <div th:case="*">
                                 <div th:each="exam: ${exams}">
-                                    <tr>
-                                        <td><a th:href="@{/exams-admin/exam-details-admin/(examId=${exam.examId})}" th:text="${exam.description}" ></a></td>
+                                    <tr th:id="${exam.examId}">
+                                        <td>
+                                            <a th:href="@{/exams-admin/exam-details-admin/(examId=${exam.examId})}"
+                                               th:text="${exam.description}"></a></td>
                                         <td th:text="${exam.noquestion}"></td>
                                         <td th:text="${exam.duration}"></td>
                                         <td th:text="${exam.examYear}"></td>
                                         <td th:text="${exam.university.name}"></td>
-                                        <td ><a th:href="@{/exams-admin/editExam/(examId=${exam.examId})}" >edit</a></td>
+                                        <td><a th:href="@{/exams-admin/editExam/(examId=${exam.examId})}">edit</a>
+                                        </td>
 
-                                     <!--   <td><a href="@{/exams-admin(edit=${exam.examId})}" >edit</a></td> -->
-                                        <td ><a th:href="@{/exams-admin(remove=${exam.examId})}" >remove</a></td>
+                                        <!--   <td><a href="@{/exams-admin(edit=${exam.examId})}" >edit</a></td> -->
+                                        <td>
+                                            <a th:onclick="'javascript:remove('+${exam.examId}+');return false;'" href="">remove</a>
+                                        </td>
                                     </tr>
                                 </div>
                             </div>
@@ -89,7 +394,8 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a th:if="${back} > 0" th:href="@{/exams-admin(pg=${back})}" aria-label="Back">
+                                        <a th:if="${back} > 0" th:href="@{/exams-admin(pg=${back})}"
+                                           aria-label="Back">
                                             <span aria-hidden="true">&laquo;</span>
                                         </a>
                                         <a th:if="${back} == 0" aria-label="Back" style='color: #C6C4C6'>
@@ -97,16 +403,20 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a th:value="'pg_'+${next}" th:if="${next} <= ${nPage}" th:href="@{/exams-admin(pg=${next})}" aria-label="Next"><span
+                                        <a th:value="'pg_'+${next}" th:if="${next} <= ${nPage}"
+                                           th:href="@{/exams-admin(pg=${next})}" aria-label="Next"><span
                                                 aria-hidden="true">&raquo;</span>
                                         </a>
-                                        <a th:if="${next} > ${nPage}" aria-label="Next" style='color: #C6C4C6'>
+                                        <a th:if="${next} > ${nPage}" aria-label="Next"
+                                           style='color: #C6C4C6'>
                                             <span aria-hidden="true">&raquo;</span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a th:if="${next} <= ${nPage}" aria-label="Last" th:href="@{/exams-admin(pg=${nPage})}">Last</a>
-                                        <a th:if="${next} > ${nPage}" aria-label="Last" style='color: #C6C4C6'>Last</a>
+                                        <a th:if="${next} <= ${nPage}" aria-label="Last"
+                                           th:href="@{/exams-admin(pg=${nPage})}">Last</a>
+                                        <a th:if="${next} > ${nPage}" aria-label="Last"
+                                           style='color: #C6C4C6'>Last</a>
                                     </li>
                                 </ul>
                             </div>
@@ -121,5 +431,15 @@
 
 
 </th:block>
+
+<script>
+    function eliminar(idl, id) {
+        document.getElementById("linha").value = idl;
+        document.getElementById("userName").value = id;
+        document.getElementById("myModal").style.display = 'block';
+    }
+
+</script>
+
 </body>
 </html>

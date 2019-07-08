@@ -165,9 +165,7 @@ public class HomeControllerTest {
         Assert.assertEquals(2, homeController.getUsers().size());
     }
 
-    public List<ExamGroup> getYearsCount(Integer ano, Integer exame, Integer university) {
-        return null;
-    }
+
 
 
     // Ver cobertura de codigo para este teste
@@ -188,10 +186,9 @@ public class HomeControllerTest {
         ExamGroup e = new ExamGroup();
 
         e = eGroup.get(0);
-        Assert.assertEquals(e.count, 7);
+        Assert.assertEquals(7, e.count);
         Assert.assertEquals(e.year, 2005);
     }
-
 
     @Test
     public void getExamsCount() {

@@ -36,13 +36,14 @@ public class DashBoardControllerTest {
 
         Optional<Integer> pg = Optional.of(2);
         Optional<Integer> examId = Optional.empty();
+        Optional <Boolean> status=Optional.of(true);
 
         ModelAndView model = new ModelAndView("exams-admin");
 
         DashBoardController dashBoardController = new DashBoardController();
         dashBoardController.crudService = crudService;
 
-        ModelAndView model1 = dashBoardController.adminDashBoard(pg, examId);
+        ModelAndView model1 = dashBoardController.adminDashBoard(pg, examId,status);
         Assert.assertNotEquals(model, model1);
 
     }
@@ -178,9 +179,9 @@ public class DashBoardControllerTest {
         DashBoardController dashBoardController = new DashBoardController();
         dashBoardController.crudService = crudService;
 
-        String result = dashBoardController.saveExam(examId, examYear, description, duration, noquestion, pdfresource,
+        ModelAndView model = dashBoardController.saveExam(examId, examYear, description, duration, noquestion, pdfresource,
                 categoryId, universityId);
-        Assert.assertEquals("success-exam", result);
+        Assert.assertNotNull(model);
 
     }
 
@@ -198,9 +199,9 @@ public class DashBoardControllerTest {
         DashBoardController dashBoardController = new DashBoardController();
         dashBoardController.crudService = crudService;
 
-        String result = dashBoardController.saveExam(examId, examYear, description, duration, noquestion, pdfresource,
+        ModelAndView model = dashBoardController.saveExam(examId, examYear, description, duration, noquestion, pdfresource,
                 categoryId, universityId);
-        Assert.assertEquals("error", result);
+        Assert.assertNotNull(model);
 
     }
 
@@ -218,9 +219,9 @@ public class DashBoardControllerTest {
         DashBoardController dashBoardController = new DashBoardController();
         dashBoardController.crudService = crudService;
 
-        String result = dashBoardController.saveExam(examId, examYear, description, duration, noquestion, pdfresource,
+        ModelAndView modelAndView = dashBoardController.saveExam(examId, examYear, description, duration, noquestion, pdfresource,
                 categoryId, universityId);
-        Assert.assertEquals("success-exam", result);
+        Assert.assertNotNull(modelAndView);
 
     }
 
@@ -238,9 +239,9 @@ public class DashBoardControllerTest {
         DashBoardController dashBoardController = new DashBoardController();
         dashBoardController.crudService = crudService;
 
-        String result = dashBoardController.saveExam(examId, examYear, description, duration, noquestion, pdfresource,
+        ModelAndView model = dashBoardController.saveExam(examId, examYear, description, duration, noquestion, pdfresource,
                 categoryId, universityId);
-        Assert.assertEquals("error", result);
+        Assert.assertNotNull(model);
 
     }
 
