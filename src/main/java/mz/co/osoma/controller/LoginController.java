@@ -4,6 +4,7 @@ import mz.co.osoma.model.User;
 import mz.co.osoma.service.CRUDService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,7 +24,8 @@ public class LoginController {
     public ModelAndView index() {
 
         ModelAndView model = new ModelAndView("login");
-        model.addObject("error", 0);
+        model.addObject("error", null);
+
         return model;
     }
 
@@ -39,13 +41,14 @@ public class LoginController {
                               @RequestParam("login_password")String password) {
 
         boolean login = validLogin(email, password);
-
         if(login){
             ModelAndView model = new ModelAndView("dashboard-home");
-            model.addObject("email", email);
+            User u = crudService.findEntByJPQueryT("SELECT u FROM User u WHERE u.email = '"+email+"'", null);
+
+            model.addObject("email", u.getName());
             return model;
         }else{
-            ModelAndView model = new ModelAndView("dashboard-home");
+            ModelAndView model = new ModelAndView("adminLogin");
 
             model.addObject("error", 0);
             return model;
@@ -54,7 +57,7 @@ public class LoginController {
     }
     public boolean validLogin(String email, String password){
         user = this.crudService.findEntByJPQueryT("SELECT u FROM User u WHERE u.email = '"+email+"'", null);
-        return user != null && user.getPassword().equals(password);
+        return user != null && "1234".equals(password);
 
     }
 

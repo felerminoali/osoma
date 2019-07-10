@@ -30,7 +30,7 @@
 
                             <script type="text/javascript" src="Osoma_files/online-test.js"></script>
 
-                            <div id="status"><strong>Tempo remanescente: </strong>00:00:03<br>
+                            <div id="status"><strong>Tempo remanescente: </strong>00:00:10<br>
                                 <div class="progress">
                                     <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="70"
                                          aria-valuemin="0" aria-valuemax="100" style="width:70%"></div>
@@ -38,7 +38,7 @@
                             </div>
 
                             <script type="text/javascript">
-                                var maxSec = "10";
+                                var maxSec = "20";
                             </script>
 
                             <script type="text/javascript">
@@ -61,7 +61,7 @@
 
                                 <div class="qbox">
                                     <div class="qboxleft">
-                                        <div id="paging"><h4>Questão <span>1</span> de <span th:text="${quantidadeExames}"></span></h4></div>
+                                        <div id="paging"><h4>Questão <span th:text="${next}">1</span> de <span th:text="${quantidadeExames}"></span></h4></div>
                                     </div>
                                     <div class="clear"></div>
                                 </div>
@@ -83,8 +83,8 @@
 
                                     <div class="answersDiv">
                                         <div th:switch="${questionAnswers}">
-                                            <h2 th:case="null"><p th:text="#{no-exam}"></p></h2>
-                                            <p align="center" th:text="#{found}+${' '+questionAnswers.size()+' '}+#{questions}"></p>
+                                            <h2 th:case="null"><p th:text="#{Nao_Exames}"></p></h2>
+                                            <p align="center" th:text="#{Encontrado}+${' '+questionAnswers.size()+' '}+#{Questoes}"></p>
                                             </br>
                                             <div th:case="*">
                                                 <div th:each="answers: ${questionAnswers}">

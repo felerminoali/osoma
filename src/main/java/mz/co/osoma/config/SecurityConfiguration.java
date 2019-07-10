@@ -25,11 +25,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private CustomUserDetailsService userDetailsService;
+    private CharSequence passDecode = "1234";
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService)
         .passwordEncoder(getPasswordEncoder());
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
     }
 
     @Override
@@ -52,7 +54,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .and()
                 .formLogin()
                        .loginPage("/login")
-                       //  .successForwardUrl("/")
+                         .successForwardUrl("/")
 //                        .defaultSuccessUrl("/")
                         .failureUrl("/login?error=true")
 //                        .usernameParameter("username")
@@ -69,6 +71,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return new PasswordEncoder() {
             @Override
             public String encode(CharSequence charSequence) {
+                System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@!!!!!!");
                 return charSequence.toString();
             }
 

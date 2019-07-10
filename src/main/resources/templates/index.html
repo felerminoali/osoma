@@ -25,7 +25,7 @@
                         <div class="panel-body">
                             <ul class="nav nav-sidebar">
                                 <p>
-                                    <strong>Years</strong>
+                                    <strong>Anos</strong>
 
                                 </p>
 
@@ -67,7 +67,7 @@
                         <div class="panel-body">
                             <ul class="nav nav-sidebar">
                                 <p>
-                                    <strong>Universities</strong>
+                                    <strong>Universidades</strong>
                                 </p>
                                 <div class="load_more_uni" id="uni_more">
 
@@ -101,7 +101,7 @@
                         <div class="panel-body">
                             <ul class="nav nav-sidebar">
                                 <p>
-                                    <strong>Exams</strong>
+                                    <strong>Exames</strong>
                                 </p>
 
                                 <div class="load_more_exam" id="exam_more">
@@ -137,8 +137,8 @@
             <div class="row">
 
                 <div th:switch="${exams}">
-                    <h2 th:case="null"><p th:text="#{no-exam}"></p></h2>
-                    <p align="center" th:text="#{found}+${' '+exams.size()+' '}+#{exams}"></p>
+                    <h2 th:case="null"><p th:text="Nao-Exames"></p></h2>
+                    <p align="center" th:text="${'Encontrado '+exams.size()+' exames'}"></p>
                     </br>
                     <div th:case="*">
                         <div th:each="exam: ${exams}">
@@ -166,10 +166,10 @@
                         <ul class="pagination ">
                             <li>
                                 <a th:if="${back} > 0" href="/" aria-label="First">
-                                    <span>First</span>
+                                    <span>Primeiro</span>
                                 </a>
                                 <a th:if="${back} == 0" aria-label="First" style='color: #C6C4C6'>
-                                    First
+                                    Primeiro
                                 </a>
                             </li>
                             <li>
@@ -189,8 +189,8 @@
                                 </a>
                             </li>
                             <li>
-                                <a th:if="${next} <= ${nPage}" aria-label="Last" th:href="@{/(pg=${nPage})}">Last</a>
-                                <a th:if="${next} > ${nPage}" aria-label="Last" style='color: #C6C4C6'>Last</a>
+                                <a th:if="${next} <= ${nPage}" aria-label="Last" th:href="@{/(pg=${nPage})}">Ultimo</a>
+                                <a th:if="${next} > ${nPage}" aria-label="Last" style='color: #C6C4C6'>Ultimo</a>
                             </li>
                         </ul>
                     </div>

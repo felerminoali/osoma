@@ -39,7 +39,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Autowired
     @Qualifier("CRUDServiceImpl")
-    private CRUDService crudService;
+    public CRUDService crudService;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException,
@@ -47,15 +47,18 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         User u = crudService.findEntByJPQueryT("SELECT u FROM User u WHERE u.email = '"+email+"'", null);
 
-        Optional<User> optionalUsers = Optional.of(u);
-        optionalUsers
-                .orElseThrow(() -> new UsernameNotFoundException("Username not found"));
-        CustomUserDetails customUserDetails = optionalUsers
-                .map(users -> {
-                    return new CustomUserDetails(users);
-                }).get();
-        return customUserDetails;
-
+        if(u == null){
+            return null;
+        }else {
+            Optional<User> optionalUsers = Optional.of(u);
+            optionalUsers
+                    .orElseThrow(() -> new UsernameNotFoundException("Username not found"));
+            CustomUserDetails customUserDetails = optionalUsers
+                    .map(users -> {
+                        return new CustomUserDetails(users);
+                    }).get();
+            return customUserDetails;
+        }
     }
 
 }
