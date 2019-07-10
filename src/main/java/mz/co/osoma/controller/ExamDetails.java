@@ -41,7 +41,6 @@ public class ExamDetails {
 
             model.addObject("exame", null);
         }
-
         return model;
     }
 

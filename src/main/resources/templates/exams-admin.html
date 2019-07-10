@@ -85,18 +85,9 @@
 
 
         /******************************/
-        .example-modal .modal {
-            position: relative;
-            top: auto;
-            bottom: auto;
-            right: auto;
-            left: auto;
-            display: block;
-            z-index: 1;
-        }
 
-        .example-modal .modal {
-            background: transparent !important;
+        .modal {
+            overflow: auto;
         }
 
 
@@ -158,7 +149,7 @@
         <div class="details">
             <legend>
                 <h3>
-                    Exams </h3>
+                    Exames </h3>
             </legend>
 
             <div>
@@ -168,7 +159,7 @@
                             <input type="text" name="search" class="form-control"
                                    placeholder="Search...">
                             <button type="submit" class="btn btn-default">
-                                Search
+                                Procurar
                             </button>
                         </div>
                     </form>
@@ -183,10 +174,10 @@
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true" onclick="closeModal()">&times;</span></button>
-                                <h4 class="modal-title">Success Message...</h4>
+                                <h4 class="modal-title">MENSAGEM DE SUCESSO...</h4>
                             </div>
                             <div class="modal-body">
-                                <p>Added Successfully&hellip;</p>
+                                <p>Exame adicionado com sucesso...&hellip;</p>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-outline" onclick="closeModal()">Ok</button>
@@ -210,15 +201,15 @@
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true" onclick="closeModal()">&times;</span></button>
-                                <h4 class="modal-title">Warning Message...</h4>
+                                <h4 class="modal-title">MENSAGEM DE AVISO...!</h4>
                             </div>
                             <div class="modal-body">
-                                <p>You Want Delete the Exam?&hellip;</p>
+                                <p>Você realmente deseja eliminar o exame?&hellip;</p>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-outline pull-left" onclick="closeModal()">Close
+                                <button type="button" class="btn btn-outline pull-left" onclick="closeModal()">Fechar
                                 </button>
-                                <button type="button" class="btn btn-outline" onclick="removeP()">Remove Exam</button>
+                                <button type="button" class="btn btn-outline" onclick="removeP()">Eliminar</button>
                             </div>
                         </div>
                         <!-- /.modal-content -->
@@ -233,7 +224,7 @@
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true" onclick="closeModal()">&times;</span></button>
-                                <h4 class="modal-title">Exam Form</h4>
+                                <h4 class="modal-title">Formulário de exame</h4>
                             </div>
                             <div class="modal-body">
                                 <form id="examRegister" action="/exams-admin/exam-add/exam-save" method="POST">
@@ -241,7 +232,7 @@
                                     <input type="hidden" value="" name="examId">
                                     <div class="form-group row">
                                         <label for="category"
-                                               class="col-xs-5 col-form-label">Category: *</label>
+                                               class="col-xs-5 col-form-label">Categoria: *</label>
                                         <div class="col-xs-7">
                                             <div th:switch="${categories}">
                                                 <select name="category" id="category" class="form-control">
@@ -258,7 +249,7 @@
 
                                     <div class="form-group row">
                                         <label for="year"
-                                               class="col-xs-5 col-form-label">Exam Year: *</label>
+                                               class="col-xs-5 col-form-label">Ano do exame: *</label>
                                         <div class="col-xs-7">
                                             <input type="number" class="form-control" name="examYear" id="year"
                                                    value="" min="">
@@ -268,7 +259,7 @@
 
                                     <div class="form-group row">
                                         <label for="description"
-                                               class="col-xs-5 col-form-label">Description: *</label>
+                                               class="col-xs-5 col-form-label">Descrição: *</label>
                                         <div class="col-xs-7">
                                             <input type="text" class="form-control" name="description"
                                                    id="description"
@@ -279,7 +270,7 @@
 
                                     <div class="form-group row">
                                         <label for="duration"
-                                               class="col-xs-5 col-form-label">Duration:</label>
+                                               class="col-xs-5 col-form-label">Duração:</label>
                                         <div class="col-xs-7">
                                             <input type="number" class="form-control" name="duration" id="duration"
                                                    value="" min="0">
@@ -289,7 +280,7 @@
 
                                     <div class="form-group row">
                                         <label for="noquestion"
-                                               class="col-xs-5 col-form-label">Number of Questions: *</label>
+                                               class="col-xs-5 col-form-label">Número de questões: *</label>
                                         <div class="col-xs-7">
                                             <input type="number" class="form-control" name="noquestion"
                                                    id="noquestion" value="" min="0">
@@ -299,7 +290,7 @@
 
                                     <div class="form-group row">
                                         <label for="pdfsource"
-                                               class="col-xs-5 col-form-label">PDF Source: *</label>
+                                               class="col-xs-5 col-form-label">Fonte do PDF: *</label>
                                         <div class="col-xs-7">
                                             <input type="text" class="form-control" name="pdfresource" id="pdfsource"
                                                    value="">
@@ -308,7 +299,7 @@
 
                                     <div class="form-group row">
                                         <label for="university"
-                                               class="col-xs-5 col-form-label">University: *</label>
+                                               class="col-xs-5 col-form-label">Universidade: *</label>
                                         <div class="col-xs-7">
                                             <div th:switch="${universities}">
                                                 <select name="university" id="university" class="form-control">
@@ -325,15 +316,13 @@
 
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-outline pull-left" onclick="closeModal()">
-                                            Close
+                                            Fechar
                                         </button>
-                                        <button type="submit" name="submit" id="submit" class="btn btn-success">Save
-                                            Exam
+                                        <button type="submit" name="submit" id="submit" class="btn btn-success">Salvar
                                         </button>
                                     </div>
                                 </form>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -348,11 +337,11 @@
                         <!--                                        <table cellpadding="0" cellspacing="0" border="1" class="tbl_repeat">-->
                         <thead>
                         <tr>
-                            <th>Descrition</th>
-                            <th>Duration</th>
-                            <th>Nr Question</th>
-                            <th>Year</th>
-                            <th>University</th>
+                            <th>Descrição</th>
+                            <th>Duração</th>
+                            <th>Nr Questons</th>
+                            <th>Ano</th>
+                            <th>Universidade</th>
                         </tr>
                         </thead>
                         <tbody id="tableExam">
@@ -368,12 +357,12 @@
                                         <td th:text="${exam.duration}"></td>
                                         <td th:text="${exam.examYear}"></td>
                                         <td th:text="${exam.university.name}"></td>
-                                        <td><a th:href="@{/exams-admin/editExam/(examId=${exam.examId})}">edit</a>
+                                        <td><a th:href="@{/exams-admin/editExam/(examId=${exam.examId})}">Editar</a>
                                         </td>
 
                                         <!--   <td><a href="@{/exams-admin(edit=${exam.examId})}" >edit</a></td> -->
                                         <td>
-                                            <a th:onclick="'javascript:remove('+${exam.examId}+');return false;'" href="">remove</a>
+                                            <a th:onclick="'javascript:remove('+${exam.examId}+');return false;'" href="" style="color: red;">Remover</a>
                                         </td>
                                     </tr>
                                 </div>
@@ -387,10 +376,10 @@
                                 <ul class="pagination ">
                                     <li>
                                         <a th:if="${back} > 0" href="/exams-admin" aria-label="First">
-                                            <span>First</span>
+                                            <span>Primeira</span>
                                         </a>
                                         <a th:if="${back} == 0" aria-label="First" style='color: #C6C4C6'>
-                                            First
+                                            Primeira
                                         </a>
                                     </li>
                                     <li>
@@ -414,9 +403,9 @@
                                     </li>
                                     <li>
                                         <a th:if="${next} <= ${nPage}" aria-label="Last"
-                                           th:href="@{/exams-admin(pg=${nPage})}">Last</a>
+                                           th:href="@{/exams-admin(pg=${nPage})}">Última</a>
                                         <a th:if="${next} > ${nPage}" aria-label="Last"
-                                           style='color: #C6C4C6'>Last</a>
+                                           style='color: #C6C4C6'>Última</a>
                                     </li>
                                 </ul>
                             </div>

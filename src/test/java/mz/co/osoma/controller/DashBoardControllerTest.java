@@ -3,6 +3,7 @@ package mz.co.osoma.controller;
 import mz.co.osoma.config.HibernateConf;
 import mz.co.osoma.controller.DashBoardController;
 import mz.co.osoma.model.Exam;
+import mz.co.osoma.model.ExamAttempts;
 import mz.co.osoma.model.Question;
 import mz.co.osoma.model.QuestionAnswers;
 import mz.co.osoma.service.CRUDService;
@@ -36,34 +37,53 @@ public class DashBoardControllerTest {
 
         Optional<Integer> pg = Optional.of(2);
         Optional<Integer> examId = Optional.empty();
-        Optional <Boolean> status=Optional.of(true);
+        Optional<Boolean> status = Optional.of(true);
 
         ModelAndView model = new ModelAndView("exams-admin");
 
         DashBoardController dashBoardController = new DashBoardController();
         dashBoardController.crudService = crudService;
 
-        ModelAndView model1 = dashBoardController.adminDashBoard(pg, examId,status);
+        ModelAndView model1 = dashBoardController.adminDashBoard(pg, examId, status);
         Assert.assertNotEquals(model, model1);
 
     }
-/*
+
     @Test
-    public void adminDashBoardWithPgNull() {
-
-        Optional<Integer> pg = Optional.empty();
-        Optional<Integer> examId = Optional.of(13);
-
-
-
+    public void questionDetails() {
+        Integer examId = 12;
+        Integer questionId = 42;
         DashBoardController dashBoardController = new DashBoardController();
         dashBoardController.crudService = crudService;
 
-        ModelAndView model = dashBoardController.adminDashBoard(pg, examId);
-        Assert.assertNotNull(model);
+        ModelAndView modelAndView = dashBoardController.questionDetails(questionId, examId);
+        Assert.assertNotNull(modelAndView);
 
     }
-*/
+
+
+        @Test
+        public void adminDashBoardWithPgNull() {
+
+            Optional<Integer> pg = Optional.empty();
+            Optional<Boolean> status=Optional.of(true);
+
+            this.saveExamWithExamIdNull();
+
+            List<Exam> exams=crudService.getAll(Exam.class);
+            Exam exam=exams.get(exams.size()-1);
+            Optional<Integer> examId = Optional.of(exam.getExamId());
+
+
+
+            DashBoardController dashBoardController = new DashBoardController();
+            dashBoardController.crudService = crudService;
+
+            ModelAndView model = dashBoardController.adminDashBoard(pg, examId,status);
+            Assert.assertNotNull(model);
+
+        }
+
     @Test
     public void editExam() {
         Integer examId = 12;
@@ -90,62 +110,42 @@ public class DashBoardControllerTest {
 
     @Test
     public void examDetailsAdminWithQuestionIdNull() {
-        Optional<Integer> examId = Optional.of(12);
+        Integer examId = 12;
         Optional<Integer> questionId = Optional.empty();
-
+        Optional<Boolean> status = Optional.of(true);
 
 
         DashBoardController dashBoardController = new DashBoardController();
         dashBoardController.crudService = crudService;
 
-        ModelAndView model = dashBoardController.examDetailsAdmin(examId, questionId);
+        ModelAndView model = dashBoardController.examDetailsAdmin(examId, questionId, status);
         Assert.assertNotNull(model);
 
 
     }
 
-    /*@Test
+    @Test
     public void examDetailsAdminWithQuestionIdNotNull() {
-        Optional<Integer> examId = Optional.of(12);
-        Optional<Integer> questionId = Optional.of(52);
+        Integer examId =12;
+        Optional<Boolean> status=Optional.of(false);
 
-        List<Question> questions = crudService.findByJPQuery("SELECT q FROM Question q where q.examId.examId=" + examId.hashCode(), null);
-        List<List<QuestionAnswers>> answer = null;
-        for (Question question : questions) {
-            answer.add(crudService.findByJPQuery("SELECT q FROM QuestionAnswers q where q.question.id=" + question.getId(), null));
-        }
 
-        //List<Question> questions = crudService.findByJPQuery("SELECT q FROM Question q where q.examId.examId=" + examId.hashCode(), null);
+        this.saveQuestion();
+
+        List<Question> questions=crudService.getAll(Question.class);
+        Question question=questions.get(questions.size()-1);
+        Optional<Integer> questionId = Optional.of(question.getId());
 
         DashBoardController dashBoardController = new DashBoardController();
         dashBoardController.crudService = crudService;
 
-        ModelAndView model = dashBoardController.examDetailsAdmin(examId, questionId);
+        ModelAndView model = dashBoardController.examDetailsAdmin(examId, questionId,status);
         Assert.assertNotNull(model);
 
 
-        for (Question question :
-                questions) {
-            try {
-                crudService.Save(question);
-            } catch (Exception e) {
 
-            }
-        }
-
-        for (int i = 0; i < answer.size(); i++) {
-            List<QuestionAnswers> questionAnswersList = answer.get(i);
-
-            for (QuestionAnswers questionAnswers : questionAnswersList) {
-                try {
-                    crudService.Save(questionAnswers);
-                } catch (Exception e) {
-
-                }
-            }
-        }
     }
-*/
+
     @Test
     public void usersAdmin() {
 
@@ -246,200 +246,21 @@ public class DashBoardControllerTest {
     }
 
     @Test
-    public void saveQuestionWithQuestionIdNull() {
+    public void saveQuestion() {
 
         Integer examId = 12;
         Optional<Integer> questionId = Optional.empty();
-        String name = "question 0";
-        String questiontextformat = "Je parle portuguee";
+        String questiontextformat = "A questao adicionada pelo teste";
+        String correctAnswer = "opcione correcta";
         String feedback = "salama";
-        Integer qtype = 2;
-        String answerA = "je parle";
-        String answerB = "ele parle";
-        String answerC = "Nos Parlamos";
-        String answerD = "Eles parlam";
-        Optional<String> answerE = Optional.of("Vos Parles");
-        Character correctAnswer = 'a';
+        String answers = "Teste,Teste";
         String answerFeedback = "boa resposta";
 
 
         DashBoardController dashBoardController = new DashBoardController();
         dashBoardController.crudService = crudService;
 
-        ModelAndView model = dashBoardController.saveQuestion(examId, questionId, name,
-                questiontextformat, feedback, qtype, answerA, answerB, answerC, answerD, answerE, correctAnswer, answerFeedback);
-
-        Assert.assertNotNull(model);
-
-
-    }
-
-   /* @Test
-    public void saveQuestionWithQuestionIdNullExamIdNotExist() {
-
-        Integer examId =12;
-        Optional<Integer> questionId = Optional.of(1000);
-        String name = "question 0";
-        String questiontextformat = "Je parle portuguee";
-        String feedback = "salama";
-        Integer qtype = 2;
-        String answerA = "je parle";
-        String answerB = "ele parle";
-        String answerC = "Nos Parlamos";
-        String answerD = "Eles parlam";
-        String answerE = "Vos Parles";
-        Character correctAnswer = 'a';
-        String answerFeedback = "boa resposta";
-
-
-        DashBoardController dashBoardController = new DashBoardController();
-        dashBoardController.crudService = crudService;
-
-        String result = dashBoardController.saveQuestion(examId, questionId, name,
-                questiontextformat, feedback, qtype, answerA, answerB, answerC, answerD, answerE, correctAnswer, answerFeedback);
-
-        Assert.assertEquals("error", result);
-
-
-    }*/
-
-
-    @Test
-    public void saveQuestionWithQuestionIdNotNull() {
-
-        Integer examId = 12;
-        Optional<Integer> questionId = Optional.of(52);
-        String name = "question 0";
-        String questiontextformat = "Je parle portuguee";
-        String feedback = "salama";
-        Integer qtype = 2;
-        String answerA = "je parle";
-        String answerB = "ele parle";
-        String answerC = "Nos Parlamos";
-        String answerD = "Eles parlam";
-        Optional<String> answerE = Optional.of("Vos Parles");
-        Character correctAnswer = 'a';
-        String answerFeedback = "boa resposta";
-
-
-        DashBoardController dashBoardController = new DashBoardController();
-        dashBoardController.crudService = crudService;
-
-        ModelAndView model = dashBoardController.saveQuestion(examId, questionId, name,
-                questiontextformat, feedback, qtype, answerA, answerB, answerC, answerD, answerE, correctAnswer, answerFeedback);
-
-        Assert.assertNotNull(model);
-
-
-    }
-    @Test
-    public void saveQuestionWithQuestionIdNotNullB() {
-
-        Integer examId = 12;
-        Optional<Integer> questionId = Optional.of(52);
-        String name = "question 0";
-        String questiontextformat = "Je parle portuguee";
-        String feedback = "salama";
-        Integer qtype = 2;
-        String answerA = "je parle";
-        String answerB = "ele parle";
-        String answerC = "Nos Parlamos";
-        String answerD = "Eles parlam";
-        Optional<String> answerE = Optional.of("Vos Parles");
-        Character correctAnswer = 'b';
-        String answerFeedback = "boa resposta";
-
-
-        DashBoardController dashBoardController = new DashBoardController();
-        dashBoardController.crudService = crudService;
-
-        ModelAndView model = dashBoardController.saveQuestion(examId, questionId, name,
-                questiontextformat, feedback, qtype, answerA, answerB, answerC, answerD, answerE, correctAnswer, answerFeedback);
-
-        Assert.assertNotNull(model);
-
-
-    }
-    @Test
-    public void saveQuestionWithQuestionIdNotNullC() {
-
-        Integer examId = 12;
-        Optional<Integer> questionId = Optional.of(52);
-        String name = "question 0";
-        String questiontextformat = "Je parle portuguee";
-        String feedback = "salama";
-        Integer qtype = 2;
-        String answerA = "je parle";
-        String answerB = "ele parle";
-        String answerC = "Nos Parlamos";
-        String answerD = "Eles parlam";
-        Optional<String> answerE = Optional.of("Vos Parles");
-        Character correctAnswer = 'c';
-        String answerFeedback = "boa resposta";
-
-
-        DashBoardController dashBoardController = new DashBoardController();
-        dashBoardController.crudService = crudService;
-
-        ModelAndView model = dashBoardController.saveQuestion(examId, questionId, name,
-                questiontextformat, feedback, qtype, answerA, answerB, answerC, answerD, answerE, correctAnswer, answerFeedback);
-
-        Assert.assertNotNull(model);;
-
-
-    }
-    @Test
-    public void saveQuestionWithQuestionIdNotNullD() {
-
-        Integer examId = 12;
-        Optional<Integer> questionId = Optional.of(52);
-        String name = "question 0";
-        String questiontextformat = "Je parle portuguee";
-        String feedback = "salama";
-        Integer qtype = 2;
-        String answerA = "je parle";
-        String answerB = "ele parle";
-        String answerC = "Nos Parlamos";
-        String answerD = "Eles parlam";
-        Optional<String> answerE = Optional.of("Vos Parles");
-        Character correctAnswer = 'd';
-        String answerFeedback = "boa resposta";
-
-
-        DashBoardController dashBoardController = new DashBoardController();
-        dashBoardController.crudService = crudService;
-
-        ModelAndView model = dashBoardController.saveQuestion(examId, questionId, name,
-                questiontextformat, feedback, qtype, answerA, answerB, answerC, answerD, answerE, correctAnswer, answerFeedback);
-
-        Assert.assertNotNull(model);
-
-
-    }
-    @Test
-    public void saveQuestionWithQuestionIdNotNullE() {
-
-        Integer examId = 12;
-        Optional<Integer> questionId = Optional.of(52);
-        String name = "question 0";
-        String questiontextformat = "Je parle portuguee";
-        String feedback = "salama";
-        Integer qtype = 2;
-        String answerA = "je parle";
-        String answerB = "ele parle";
-        String answerC = "Nos Parlamos";
-        String answerD = "Eles parlam";
-        Optional<String> answerE = Optional.of("Vos Parles");
-        Character correctAnswer = 'e';
-        String answerFeedback = "boa resposta";
-
-
-        DashBoardController dashBoardController = new DashBoardController();
-        dashBoardController.crudService = crudService;
-
-        ModelAndView model = dashBoardController.saveQuestion(examId, questionId, name,
-                questiontextformat, feedback, qtype, answerA, answerB, answerC, answerD, answerE, correctAnswer, answerFeedback);
-
+        ModelAndView model = dashBoardController.saveQuestion(examId, correctAnswer, answers, questiontextformat, answerFeedback);
         Assert.assertNotNull(model);
 
 
@@ -447,17 +268,15 @@ public class DashBoardControllerTest {
 
 
 
-
-
-
     @Test
-    public void examAdd() {
+    public void splitAnswers() {
+        String argument = "rofino,chunga";
 
         DashBoardController dashBoardController = new DashBoardController();
-        dashBoardController.crudService = crudService;
 
-        ModelAndView model = dashBoardController.examAdd();
-        Assert.assertNotNull(model);
+        String[] result = dashBoardController.splitAnswers(argument);
+
+        Assert.assertEquals("chunga", result[1]);
     }
 
     @Test

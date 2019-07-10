@@ -24,6 +24,7 @@ public class DashBoardController {
     public CRUDService crudService;
 
     private ModelAndView model;
+    private List<Question> questions=new ArrayList<>();
     private List<Exam> exams = new ArrayList<Exam>();
     private Exam exam;
     private List<User> users = new ArrayList<>();
@@ -113,14 +114,17 @@ public class DashBoardController {
         return model;
     }
 
-    @RequestMapping(value = "/exams-admin/exam-details-admin")
-    public ModelAndView examDetailsAdmin(@RequestParam("examId") Optional<Integer> examId,
-                                         @RequestParam("remove") Optional<Integer> questionId) {
+    @RequestMapping(value = "/exams-admin/exam-details-admin", method = RequestMethod.GET)
+    public ModelAndView examDetailsAdmin(@RequestParam("examId") Integer examId,
+                                         @RequestParam("remove") Optional<Integer> questionId,
+                                         @RequestParam("status") Optional<Boolean> status) {
         model = new ModelAndView("exam-details-admin");
 
 
         exam = crudService.get(Exam.class, examId.hashCode());
-        List<Question> questions = crudService.findByJPQuery("SELECT q FROM Question q where q.examId.examId=" + exam.getExamId(), null);//getAll(Question.class);
+        questions = crudService.findByJPQuery("SELECT q FROM Question q where q.examId.examId=" + examId.hashCode(), null);//getAll(Question.class);
+
+
 
         if (questionId.hashCode()>0) {
             Question question = crudService.get(Question.class, questionId.hashCode());
@@ -141,10 +145,22 @@ public class DashBoardController {
                 System.out.println("Error, nao foi possivel apagar a aquestao");
             }
         }
-
-
+        model.addObject("status",status.isPresent());
         model.addObject("questions", questions);
         model.addObject("exam", exam);
+        return model;
+    }
+
+    @RequestMapping(value = "/exams-admin/exam-details-admin/question-details")
+    public ModelAndView questionDetails(@RequestParam("questionId") Integer questionId,
+                                      @RequestParam("examId") Integer examId){
+
+        model = new ModelAndView("question-details");
+        Question question= crudService.get(Question.class,questionId);
+            List<QuestionAnswers> questionAnswers = crudService.findByJPQuery("SELECT e FROM QuestionAnswers e where e.question.id = "+question.getId(), null);
+            model.addObject("question", question);
+            model.addObject("exam",examId);
+            model.addObject("questionAnswers", questionAnswers);
         return model;
     }
 
@@ -226,172 +242,80 @@ public class DashBoardController {
         }
         return this.adminDashBoard(idExam,pg,status);
     }
-    @RequestMapping(value = "exams-admin/exam-details-admin/question-add/question-save", method = RequestMethod.POST)
+    @RequestMapping(value = "/exams-admin/exam-details-admin/question-add/question-save", method = RequestMethod.POST)
     public ModelAndView saveQuestion(@RequestParam("examId") Integer examId,
-                               @RequestParam("id") Optional<Integer> questionId,
-                               @RequestParam("name") String name,
+                               @RequestParam("correctAnswer") String correctAnswer,
+                               @RequestParam("answer") String answers,
                                @RequestParam("questiontextformat") String questiontextformat,
-                               @RequestParam("feedback") String feedback,
-                               @RequestParam("qtype") Integer qtype,
-                               @RequestParam("a") String answerA,
-                               @RequestParam("b") String answerB,
-                               @RequestParam("c") String answerC,
-                               @RequestParam("d") String answerD,
-                               @RequestParam("e") Optional <String> answerE,
-                               @RequestParam("correctAnswer") Character correctAnswer,
                                @RequestParam("answerFeedback") String answerFeedback) {
 
         exam = crudService.get(Exam.class, examId);
-        Qtype questionType = crudService.get(Qtype.class, qtype);
-        Optional <Integer> idExam=Optional.of(examId);
+        String[] answersS=this.splitAnswers(answers);
+
+
+        Qtype questionType = crudService.get(Qtype.class, 2);
         Optional <Integer> quest=Optional.empty();
+        Optional <Boolean> status=Optional.of(false);
 
-//        String target="exams-admin/exam-details-admin/?examId="+examId.hashCode();
+
+        System.out.println(answers);
         Question question;
-        QuestionAnswers questionAnswers1 = new QuestionAnswers();
-        QuestionAnswers questionAnswers2 = new QuestionAnswers();
-        QuestionAnswers questionAnswers3 = new QuestionAnswers();
-        QuestionAnswers questionAnswers4 = new QuestionAnswers();
-        QuestionAnswers questionAnswers5 = new QuestionAnswers();
 
-        if (questionId.hashCode()>0) {
-           question = crudService.get(Question.class, questionId.hashCode());
-        } else {
         question = new Question();
-        }
         question.setExamId(exam);
-        question.setName(name);
+        System.out.println("============"+exam.getExamId()+"=================");
         question.setQuestiontextformat(questiontextformat);
-        question.setFeedback(feedback);
         question.setQtype(questionType);
-
-        questionAnswers1.setAnswer(answerA);
-        questionAnswers2.setAnswer(answerB);
-        questionAnswers3.setAnswer(answerC);
-        questionAnswers4.setAnswer(answerD);
-        questionAnswers5.setAnswer(answerE.get());
-
-        switch (correctAnswer){
-            case 'a':{
-                questionAnswers1.setFraction((long) 1);
-                questionAnswers2.setFraction((long) 0);
-                questionAnswers3.setFraction((long) 0);
-                questionAnswers4.setFraction((long) 0);
-                questionAnswers5.setFraction((long) 0);
-                questionAnswers1.setFeedback(answerFeedback);
-                questionAnswers2.setFeedback("opcao incorrecta");
-                questionAnswers3.setFeedback("opcao incorrecta");
-                questionAnswers4.setFeedback("opcao incorrecta");
-                questionAnswers5.setFeedback("opcao incorrecta");
-            }break;
-            case 'b':{
-                questionAnswers1.setFraction((long) 0);
-                questionAnswers2.setFraction((long) 1);
-                questionAnswers3.setFraction((long) 0);
-                questionAnswers4.setFraction((long) 0);
-                questionAnswers5.setFraction((long) 0);
-                questionAnswers1.setFeedback("opcao incorrecta");
-                questionAnswers2.setFeedback(answerFeedback);
-                questionAnswers3.setFeedback("opcao incorrecta");
-                questionAnswers4.setFeedback("opcao incorrecta");
-                questionAnswers5.setFeedback("opcao incorrecta");
-            }break;
-
-            case 'c':{
-                questionAnswers1.setFraction((long) 0);
-                questionAnswers2.setFraction((long) 0);
-                questionAnswers3.setFraction((long) 1);
-                questionAnswers4.setFraction((long) 0);
-                questionAnswers5.setFraction((long) 0);
-                questionAnswers1.setFeedback("opcao incorrecta");
-                questionAnswers2.setFeedback("opcao incorrecta");
-                questionAnswers3.setFeedback(answerFeedback);
-                questionAnswers4.setFeedback("opcao incorrecta");
-                questionAnswers5.setFeedback("opcao incorrecta");
-            }break;
-            case 'd':{
-                questionAnswers1.setFraction((long) 0);
-                questionAnswers2.setFraction((long) 0);
-                questionAnswers3.setFraction((long) 0);
-                questionAnswers4.setFraction((long) 1);
-                questionAnswers5.setFraction((long) 0);
-                questionAnswers1.setFeedback("opcao incorrecta");
-                questionAnswers2.setFeedback("opcao incorrecta");
-                questionAnswers3.setFeedback("opcao incorrecta");
-                questionAnswers4.setFeedback(answerFeedback);
-                questionAnswers5.setFeedback("opcao incorrecta");
-            }break;
-            case 'e':{
-                questionAnswers1.setFraction((long) 0);
-                questionAnswers2.setFraction((long) 0);
-                questionAnswers3.setFraction((long) 0);
-                questionAnswers4.setFraction((long) 0);
-                questionAnswers5.setFraction((long) 1);
-                questionAnswers1.setFeedback("opcao incorrecta");
-                questionAnswers2.setFeedback("opcao incorrecta");
-                questionAnswers3.setFeedback("opcao incorrecta");
-                questionAnswers4.setFeedback("opcao incorrecta");
-                questionAnswers5.setFeedback(answerFeedback);
-            }break;
-
-
-        }
-
-
-
-        questionAnswers1.setCharId("a");
-        questionAnswers2.setCharId("b");
-        questionAnswers3.setCharId("c");
-        questionAnswers4.setCharId("d");
-        questionAnswers5.setCharId("e");
-        if (!(questionId.hashCode()>0)) {
             try {
                 crudService.Save(question);
                 List<Question> questions = crudService.getAll(Question.class);
                 Question question1 = questions.get(questions.size() - 1);
-                questionAnswers1.setQuestion(question1);
-                questionAnswers2.setQuestion(question1);
-                questionAnswers3.setQuestion(question1);
-                questionAnswers4.setQuestion(question1);
-                questionAnswers5.setQuestion(question1);
+                QuestionAnswers correct=new QuestionAnswers();
+                correct.setFraction((long) 1);
+                // char character=charId.charAt(0);
+                //correct.setCharId(charId);
+                correct.setFeedback(answerFeedback);
+                correct.setQuestion(question1);
+                correct.setAnswer(correctAnswer);
                 try {
-                    crudService.Save(questionAnswers1);
-                    crudService.Save(questionAnswers2);
-                    crudService.Save(questionAnswers3);
-                    crudService.Save(questionAnswers4);
-                    crudService.Save(questionAnswers5);
-                   return this.examDetailsAdmin(idExam,quest);
-                } catch (Exception e) {
-                    System.out.println("error, nao foi possivel salvar uma questao");
+                    crudService.Save(correct);
+                }catch (Exception e){
+                    System.out.println("Nao foi possivel adicionar a opcao correcta");
+                    return this.examDetailsAdmin(examId,quest,status);
                 }
+                for(int i=0;i<answersS.length; i++) {
+                    if (answersS[i] != null) {
+                        QuestionAnswers questionAnswers = new QuestionAnswers();
+                        questionAnswers.setFraction((long) 0);
+                        //char character=charId.charAt(0);
+                      //  questionAnswers.setCharId(charId);
+                        questionAnswers.setFeedback("Opcao incorrecta");
+                        questionAnswers.setQuestion(question1);
+                        questionAnswers.setAnswer(answersS[i]);
+
+                        try {
+                            crudService.Save(questionAnswers);
+                            System.out.println("==========="+i+"============");
+                        }catch (Exception e){
+                            System.out.println("Error, nao conseguiu inserir uma das questoes");
+                            return this.examDetailsAdmin(examId,quest,status);
+                        }
+                    }
+                }
+                status=Optional.of(true);
+                return examDetailsAdmin(examId,quest,status);
+
             } catch (Exception e) {
                 System.out.println("Error, nao foi possivel adicionar a questao");
+                return this.examDetailsAdmin(examId,quest,status);
             }
-        } else {
-            try {
-                crudService.update(question);
-                return this.examDetailsAdmin(idExam,quest);
-            } catch (Exception e) {
-                System.out.println("error, nao foi possivel actualizar a questao");
-            }
-        }
-
-        return this.examDetailsAdmin(idExam,quest);
     }
 
-
-    @RequestMapping(value = "exams-admin/exam-add", method = RequestMethod.GET)
-    public ModelAndView examAdd() {
-
-        model = new ModelAndView("exam-form");
-        List<Category> categories = crudService.getAll(Category.class);
-        List<University> universities = crudService.getAll(University.class);
-        model.addObject("categories", categories);
-        model.addObject("universities", universities);
-        model.addObject("exam", null);
-
-        return model;
+    public String[] splitAnswers(String answers){
+        String[] result=answers.split(",");
+        return  result;
     }
+
     @RequestMapping(value = "/explainers-admin", method = RequestMethod.GET)
     public ModelAndView explainersAdmin(
     ) {

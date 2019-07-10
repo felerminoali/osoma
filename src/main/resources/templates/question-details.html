@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout-dashboard}">
+
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<th:block layout:fragment="contentDash">
+    <br/>
+    <br/>
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-md-2">
+                <strong>
+                    <a th:href="'/exams-admin/exam-details-admin/?examId='+${exam}" class="btn btn-success"><i class="fa fa-angle-double-left"
+                                                                      aria-hidden="true"></i> Voltar </a>
+                </strong>
+            </div>
+
+            <div class="col-md-8">
+
+                <div id="login-overlay" class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="myModalLabel" th:text="${question.questiontextformat}"></h4>
+                        </div>
+                        <div class="modal-body">
+
+
+                            <div class="row">
+
+                                <div class="col-md-12">
+
+                                    <form id="examRegister" action="/exams-admin/exam-add/exam-save" method="POST">
+
+                                        <div th:switch="${questionAnswers}">
+                                            <h2 th:case="null"><p th:text="#{no-exam}"></p></h2>
+                                            <p align="center" th:text="#{found}+${' '+questionAnswers.size()+' '}+#{questions}"></p>
+                                            </br>
+                                            <div th:case="*">
+                                                <div th:each="answers: ${questionAnswers}">
+                                                    <div class="clear"></div>
+                                                    <div class="ans_select">
+                                                        <input type="radio" th:id="${answers.id}" name="q_choice" value="0">
+                                                    </div>
+                                                    <span th:if="${answers.fraction} == 1">
+                                                        <div class="ans_content editor">
+                                                        <label th:for="${answers.id}">
+                                                            <span style="color: green"  th:text="${answers.answer}">.</span>
+                                                        </label>
+                                                    </div>
+                                                    </span>
+
+                                                    <span th:if="${answers.fraction} == 0">
+                                                        <div class="ans_content editor">
+                                                        <label th:for="${answers.id}">
+                                                            <span th:text="${answers.answer}">.</span>
+                                                        </label>
+                                                    </div>
+                                                    </span>
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+</th:block>
+
+</body>
+</html>

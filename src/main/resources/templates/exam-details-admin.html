@@ -4,6 +4,143 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+
+    <style>
+        .modal {
+            background: rgba(0, 0, 0, 0.3)
+        }
+
+        .modal-content {
+            border-radius: 0;
+            -webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, 0.125);
+            box-shadow: 0 2px 3px rgba(0, 0, 0, 0.125);
+            border: 0
+        }
+
+        @media (min-width: 768px) {
+            .modal-content {
+                -webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, 0.125);
+                box-shadow: 0 2px 3px rgba(0, 0, 0, 0.125)
+            }
+        }
+
+        .modal-header {
+            border-bottom-color: #f4f4f4
+        }
+
+        .modal-footer {
+            border-top-color: #f4f4f4
+        }
+
+        .modal-primary .modal-header, .modal-primary .modal-footer {
+            border-color: #307095
+        }
+
+        .modal-warning .modal-header, .modal-warning .modal-footer {
+            border-color: #c87f0a;
+            background-color: #db8b0b !important;
+            color: #fff;
+        }
+
+        .modal-warning .modal-body {
+            background-color: #f39c12 !important;
+            color: #fff;
+        }
+
+        .modal-info .modal-header, .modal-info .modal-footer {
+            border-color: #0097bc
+        }
+
+        .modal-success .modal-header, .modal-success .modal-footer {
+            border-color: #00733e;
+        }
+
+        #modal-success .modal-header, #modal-success .modal-footer {
+            color: #fff;
+        }
+
+        #modal-success .modal-header, #modal-success .modal-footer {
+            background-color: #008d4c !important;
+        }
+
+        #modal-success .modal-body {
+            background-color: #00a65a !important;
+            color: #fff;
+        }
+
+        .modal-success .modal-content, .modal-warning .modal-content {
+            border-radius: 5px;
+        }
+
+        .modal-danger .modal-header, .modal-danger .modal-footer {
+            border-color: #c23321;
+
+        }
+
+        .modal-warning .btn-outline, #modal-success .btn-outline {
+            border: 1px solid #fff;
+            background: transparent;
+            color: #fff;
+        }
+
+
+        /******************************/
+        .modal {
+            overflow: auto;
+        }
+    </style>
+
+
+
+
+    <script>
+        function showWarningMessage() {
+            document.getElementById("modal-warning").style.display = 'block';
+        }
+        function showSuccessMessage() {
+            document.getElementById("modal-success").style.display = 'block';
+        }
+
+        function showQuestionForm() {
+            document.getElementById("modal-questionForm").style.display = 'block';
+        }
+        function closeModal() {
+            document.getElementById("modal-warning").style.display = 'none';
+            document.getElementById("modal-questionForm").style.display = 'none';
+            document.getElementById("modal-success").style.display = 'none';
+        }
+
+        function removeLine(idLine) {
+            document.getElementById("tableQuestion").removeChild(document.getElementById(idLine));
+        }
+
+        function remove(idE, idQ) {
+            examId = idE;
+            questionId = idQ;
+
+            //  alert("Exam="+examId+"\nquestionId="+questionId);
+            this.showWarningMessage();
+
+            //document.getElementById("modal-warning").style.display = 'block';
+        }
+
+        function removeQuestion() {
+
+            var xhttp = new XMLHttpRequest();
+            removeLine(questionId);
+
+
+            var url = "/exams-admin/exam-details-admin/?examId=" + examId + "&remove=" + questionId;
+            //var url = "exams-admin?remove="+id;
+            xhttp.open("GET", url, true);
+            xhttp.send();
+            this.closeModal();
+
+            //mostrar();
+        }
+
+    </script>
+
 </head>
 <body>
 <th:block layout:fragment="contentDash">
@@ -21,45 +158,222 @@
 
             <div>
                 <div class="hidden-xs hidden-sm" style="float:right">
-                    <form class="navbar-form navbar-left" >
+                    <form class="navbar-form navbar-left">
                         <div class="form-group">
                             <input type="text" name="search" class="form-control"
                                    placeholder="Search...">
                             <button type="submit" class="btn btn-default">
-                                Search</button>
+                                Search
+                            </button>
                         </div>
                     </form>
                 </div>
-                <a th:href="@{/exams-admin/exam-details-admin/question-add/(examId=${exam.examId})}" class="nav-item nav-link" >Adicionar</a>
 
 
-                    <table class="table table-bordered">
-                        <!--                                        <table cellpadding="0" cellspacing="0" border="1" class="tbl_repeat">-->
-                        <thead>
-                        <tr>
-                            <th>Descrition</th>
+                <!--===============================Modals=============================---->
 
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <div th:switch="${questions}">
-                            <h2 th:case="null"><p th:text="#{no-exam}"></p></h2>
-                            <div th:case="*">
-                                <div th:each="question: ${questions}">
-                                    <tr>
-                                        <td th:text="${question.questiontextformat}"></td>
-                                        <td ><a th:href="@{/exams-admin/exam-details-admin/(questionId=${question.id})}" >edit</a></td>
-
-                                        <td ><a th:href="@{/exams-admin/exam-details-admin(remove=${question.id},examId=${exam.examId})}" >remove</a></td>
-                                    </tr>
-                                </div>
+                <div class="modal modal-success" id="modal-success">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true" onclick="closeModal()">&times;</span></button>
+                                <h4 class="modal-title">MENSAGEM DE SUCESSO...</h4>
+                            </div>
+                            <div class="modal-body">
+                                <p>Pergunta adicionada com sucesso...&hellip;</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline" onclick="closeModal()">Ok</button>
                             </div>
                         </div>
-                        </tbody>
-                    </table>
 
+                    </div>
 
                 </div>
+
+                <a th:if="${status} == true">
+                    <script>
+                        this.showSuccessMessage();
+                    </script>
+                </a>
+
+                <div class="modal modal-warning" id="modal-warning">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true" onclick="closeModal()">&times;</span></button>
+                                <h4 class="modal-title">MENSAGEM DE AVISO...!</h4>
+                            </div>
+                            <div class="modal-body">
+                                <p>Você realmente deseja eliminar a pergunta?&hellip;</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline pull-left" onclick="closeModal()">Fechar
+                                </button>
+                                <button type="button" class="btn btn-outline" onclick="removeQuestion()">Eliminar
+                                </button>
+                            </div>
+                        </div>
+                        <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                </div>
+
+
+                <div class="modal modal-info fade" id="modal-info">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title">Detalhes da Questão</h4>
+                            </div>
+                            <div class="modal-body">
+                                <p>One fine body&hellip;</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-outline">Save changes</button>
+                            </div>
+                        </div>
+                        <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                </div>
+
+
+
+
+                <div class="modal modal-success" id="modal-questionForm">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true" onclick="closeModal()">&times;</span></button>
+                                <h4 class="modal-title">Formulário da Questão</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form id="registerQuestion" action="/exams-admin/exam-details-admin/question-add/question-save" method="POST">
+
+                                    <legend><b>Pergunta</b></legend>
+                                    <input type="hidden" th:value="${exam.examId}" name="examId">
+                                    <input type="text" class="form-control" name="questiontextformat"
+                                           id="questiontextformat"
+                                           value="">
+                                    <input type="file" class="file" name="image">
+
+                                    <br>
+                                    <legend><b>Respostas</b></legend>
+
+                                    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.3/jquery.min.js"></script>
+                                    <script type="text/javascript">
+                                        $(function(){
+                                            $('#mais').click(function(){
+                                                var next = $('#lista tbody').children('tr').length + 1;
+                                                $('#lista tbody').append('<tr>' +
+                                                    '<td class="linha-left"><input class="form-control" type="text" name="answer" /></td>' +
+                                                    '<td class="linha-right"><input type="file" name="image"/></td><br>' +
+                                                    '</tr>'+'<br><br>'
+                                                );
+                                                return false;
+                                            });
+                                        });
+                                    </script>
+
+                                    <tr>
+                                        <td>
+                                            <span><b>Opção correcta: *</b></span>
+                                            <input name="correctAnswer" class="form-control">
+                                        </td>
+                                        <td>
+                                            <input  type="file" name="answerImage" />
+                                        </td>
+                                        <td>
+                                        <span><b>Feedback: * </b></span>
+                                                <input type="textarea" class="form-control" name="answerFeedback"
+                                                       id="answerFeedback"
+                                                       value="">
+                                        </td>
+                                    </tr>
+
+                                    <br>
+                                    <br>
+                                    <table id="lista">
+                                        <thead>
+                                        <tr>
+                                            <th>Outras opcões</th>
+                                            <th></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        <tr>
+                                            <td><input class="form-control" type="text" name="answer" /></td>
+                                            <td><input  type="file" name="image" /></td>
+                                        </tr>
+
+                                        </tbody>
+                                    </table>
+
+                                    <a href="#" id="mais"><legend><b style="color: green; float: right; border: none">+Mais</b></legend></a><br>
+
+
+                                    <br>
+                                    <br>
+
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-outline pull-left" onclick="closeModal()">
+                                            Fechar
+                                        </button>
+                                        <button type="submit" name="submit" id="submit" class="btn btn-success">Salvar
+                                        </button>
+                                    </div>
+                                </form>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-----=================================================================================---->
+
+                <a onclick="showQuestionForm(); return false;" href="" class="nav-item nav-link">Adicionar</a>
+
+                <table class="table table-bordered">
+                    <!--                                        <table cellpadding="0" cellspacing="0" border="1" class="tbl_repeat">-->
+                    <thead>
+                    <tr>
+                        <th>Descrição</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tableQuestion">
+                    <div th:switch="${questions}">
+                        <h2 th:case="null"><p th:text="#{no-exam}"></p></h2>
+                        <div th:case="*">
+                            <div th:each="question: ${questions}">
+                                <tr th:id="${question.id}">
+                                    <td th:text="${question.questiontextformat}"></td>
+                                    <td>
+                                        <a href="#">Editar</a>
+                                    </td>
+
+                                    <td><a th:href="@{/exams-admin/exam-details-admin/question-details/(questionId=${question.id},examId=${exam.examId})}"> Detalhes</a></td>
+                                    <td>
+                                        <a th:onclick="'javascript:remove('+${exam.examId}+','+${question.id}+');return false;'"
+                                           href="" style="color: red;">Remover</a></td>
+                                </tr>
+                            </div>
+                        </div>
+                    </div>
+                    </tbody>
+                </table>
+
+
+            </div>
         </div>
     </div>
 
