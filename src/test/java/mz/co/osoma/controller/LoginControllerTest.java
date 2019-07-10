@@ -36,7 +36,7 @@ public class LoginControllerTest {
     public void index() {
         ModelAndView modelAndView = loginController.index();
 
-        assertEquals(modelAndView.getModel().get("error"), 0);
+        assertEquals(modelAndView.getModel().get("error"), null);
     }
 
     @Test
