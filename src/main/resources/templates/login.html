@@ -20,7 +20,7 @@
         <div>
             <strong>
                 <a href="/" class="btn btn-success"><i class="fa fa-angle-double-left"
-                                                                  aria-hidden="true"></i> Cancel            </a>
+                                                                  aria-hidden="true"></i> Cancel </a>
             </strong>
         </div>
 
@@ -33,7 +33,7 @@
                     <div class="row">
                         <div class="col-xs-12 col-md-6">
                             <div class="well">
-                                <form id="loginForm"  >
+                                <form id="loginForm"  action="login" method="post">
                                     <div class="form-group">
                                         <label for="login_email"
                                                class="control-label">Username</label>
@@ -57,7 +57,7 @@
                                             class="btn btn-success btn-block">Login</button>
                                 </form>
                                 <p th:if="${error} !=null" aria-label="Back" style='color: #C6C4C6'>
-                                    <span style='color: red' aria-hidden="true">username or password incorrect</span>
+                                    <span style='color: red' aria-hidden="true">email or password incorrect</span>
                                 </p>
                             </div>
                         </div>
