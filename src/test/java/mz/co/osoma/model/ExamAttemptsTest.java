@@ -12,60 +12,78 @@ import static org.junit.Assert.*;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @ContextConfiguration(classes = HibernateConf.class)
+
+
 public class ExamAttemptsTest {
 
     @Test
     public void getExamAttemptsPK() {
+
         ExamAttempts examAttempts=new ExamAttempts();
-
-        examAttempts.setExamAttemptsPK(new ExamAttemptsPK());
+        ExamAttemptsPK examAttemptsPK =  new ExamAttemptsPK();
+        examAttempts.setExamAttemptsPK( examAttemptsPK);
+        assertEquals(examAttemptsPK,examAttempts.getExamAttemptsPK());
     }
 
-    @Test
-    public void setExamAttemptsPK() {
-    }
 
     @Test
     public void getAttemptDatetime() {
-    }
-
-    @Test
-    public void setAttemptDatetime() {
+        ExamAttempts examAttempts = new ExamAttempts();
+        examAttempts.setAttemptDatetime(null);
+        assertEquals(null,examAttempts.getAttemptDatetime());
     }
 
     @Test
     public void getResult() {
-    }
-
-    @Test
-    public void setResult() {
+        long result = 200;
+        ExamAttempts examAttempts = new ExamAttempts();
+        examAttempts.setResult(result);
+        assertEquals(result,(long)examAttempts.getResult());
     }
 
     @Test
     public void getUser() {
-    }
-
-    @Test
-    public void setUser() {
+        User user = new User();
+        ExamAttempts examAttempts = new ExamAttempts();
+        examAttempts.setUser(user);
+        assertNotNull(examAttempts.getUser());
     }
 
     @Test
     public void getExam() {
-    }
-
-    @Test
-    public void setExam() {
+        Exam exam = new Exam();
+        ExamAttempts examAttempts = new ExamAttempts();
+        examAttempts.setExam(exam);
+        assertNotNull(examAttempts.getExam());
     }
 
     @Test
     public void hashCode1() {
+        ExamAttempts examAttempts = new ExamAttempts();
+        assertEquals(examAttempts.hashCode(),0);
     }
 
     @Test
     public void equals1() {
+        ExamAttemptsPK examAttemptsPK = new ExamAttemptsPK();
+        ExamAttempts examAttempts = new ExamAttempts(examAttemptsPK);
+        assertFalse(examAttempts.equals(new Countries()));
+        assertTrue(examAttempts.equals(new ExamAttempts(examAttemptsPK)));
+        assertFalse(examAttempts.equals(new Countries()));
+        examAttempts.setExamAttemptsPK(null);
+        assertFalse(examAttempts.equals(new ExamAttempts(examAttemptsPK)));
     }
 
     @Test
     public void toString1() {
+        ExamAttempts examAttempts = new ExamAttempts();
+        assertNotNull(examAttempts.toString());
+        assertTrue(examAttempts.toString().length() > 0);
+
+        int examId = 2015 ;
+        int userId = 2;
+        ExamAttempts examAttempts1 = new ExamAttempts(examId,userId);
+        assertTrue(examAttempts1.toString().length() > 0);
+
     }
 }

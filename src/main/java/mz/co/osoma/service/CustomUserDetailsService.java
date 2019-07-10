@@ -39,7 +39,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Autowired
     @Qualifier("CRUDServiceImpl")
-    private CRUDService crudService;
+    CRUDService crudService;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException,

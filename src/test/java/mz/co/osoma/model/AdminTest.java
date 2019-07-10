@@ -12,6 +12,7 @@ import static org.junit.Assert.*;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @ContextConfiguration(classes = HibernateConf.class)
+
 public class AdminTest {
 
     @Test
@@ -20,11 +21,33 @@ public class AdminTest {
 
         admin.setId(1);
 
-        long id = 1;
-        long idd =    admin.getId();
+        Integer id = 1;
+        Integer idd = admin.getId();
 
         assertEquals(id,idd);
     }
+
+    @Test
+    public void admin(){
+        Integer id = 12;
+        Admin admin = new Admin(id);
+        assertFalse(admin.equals(new Admin()));
+    }
+
+    @Test
+    public void admin1(){
+        String firstName = "joao";
+        String lastName = "jose";
+        String email = "jj@gmail.com";
+        String password = "****++++123";
+
+        Integer id = 12;
+
+        Admin admin = new Admin(id,firstName,lastName,email,password);
+
+        assertFalse(admin.equals(new Admin()));
+    }
+
 
     @Test
     public void setId() {
@@ -94,4 +117,32 @@ public class AdminTest {
         assertEquals("eltongimo",admin.getPassword());
     }
 
+    @Test
+    public void equals1() {
+        Integer id = 12;
+        Admin admin = new Admin(id);
+        assertFalse(admin.equals(new Countries()));
+        assertTrue(admin.equals(new Admin(id)));
+        assertFalse(admin.equals(new Countries()));
+        admin.setId(null);
+        assertFalse(admin.equals(new Countries(id)));
+    }
+
+    @Test
+    public void hashCode1() {
+        Integer id = 1;
+        String name = "South Africa";
+        Admin admin = new Admin(id);
+        assertNotEquals(admin.hashCode(),0);
+    }
+
+    @Test
+    public void toString1() {
+        Integer id = 12;
+        Admin admin = new Admin(id);
+        assertNotEquals(admin.toString(),"");
+        assertNotEquals(admin.toString(),null);
+        assertEquals(admin.toString(),"model.Admin[ id=" + admin.getId() + " ]");
+
+    }
 }

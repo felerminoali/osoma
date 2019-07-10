@@ -24,7 +24,7 @@ public class NameFormatter implements Formatter<String> {
         return formatName(input, locale);
     }
 
-    private String formatName(String input, Locale locale) {
+    public String formatName(String input, Locale locale) {
         return StringUtils.replace(input, " ", " ");
     }
 }

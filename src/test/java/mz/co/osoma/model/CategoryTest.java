@@ -12,6 +12,7 @@ import static org.junit.Assert.*;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @ContextConfiguration(classes = HibernateConf.class)
+
 public class CategoryTest {
 
     @Test
@@ -27,6 +28,13 @@ public class CategoryTest {
         Category category = new Category();
 
         //  Assert.assertEquals(category.setId(12);
+    }
+
+    @Test
+    public void Category(){
+        Integer id = 12;
+        Category c = new Category((Integer)id);
+        assertEquals((long)c.getId(),(long)id);
     }
 
     @Test
@@ -49,6 +57,19 @@ public class CategoryTest {
     }
 
     @Test
+    public void category(){
+        Integer id = 12;
+        Category category = new Category(id);
+
+        assertFalse(category.equals(new Category()));
+        assertTrue(category.equals(new Category(id)));
+        assertFalse(category.equals(new Admin()));
+        category.setId(null);
+        assertFalse(category.equals(new Category(id)));
+
+    }
+
+    @Test
     public void setCover() {
     }
 
@@ -63,11 +84,6 @@ public class CategoryTest {
     }
 
     @Test
-    public void setImage() {
-
-    }
-
-    @Test
     public void getExamList() {
         Category category = new Category();
         category.setExamList(null);
@@ -75,6 +91,14 @@ public class CategoryTest {
     }
 
     @Test
-    public void setExamList() {
+    public void toString1(){
+        Category category = new Category();
+        assertTrue(category.toString().length() > 0 );
+    }
+
+    @Test
+    public void hashcode(){
+        Category category = new Category();
+        assertTrue(category.hashCode() == 0);
     }
 }
