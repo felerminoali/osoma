@@ -128,10 +128,7 @@ public class DashBoardControllerTest {
     public void examDetailsAdminWithQuestionIdNotNull() {
         Integer examId =12;
         Optional<Boolean> status=Optional.of(false);
-
-
         this.saveQuestion();
-
         List<Question> questions=crudService.getAll(Question.class);
         Question question=questions.get(questions.size()-1);
         Optional<Integer> questionId = Optional.of(question.getId());
