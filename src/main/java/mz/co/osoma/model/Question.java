@@ -39,9 +39,6 @@ public class Question implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @JoinColumn(name = "exam_id", referencedColumnName = "exam_id")
-    @ManyToOne
-    private Exam examId;
     @Column(name = "name")
     private String name;
     @Lob
@@ -56,13 +53,18 @@ public class Question implements Serializable {
     private BigInteger timecreated;
     @Column(name = "timemodified")
     private BigInteger timemodified;
-    @Column(name = "createdby")
-    private Integer createdby;
-    @Column(name = "modifiedby")
-    private Integer modifiedby;
     @JoinColumn(name = "qtype", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Qtype qtype;
+    @JoinColumn(name = "createdby", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User createdby;
+    @JoinColumn(name = "modifiedby", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User modifiedby;
+    @JoinColumn(name = "exam", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Exam exam;
     @OneToMany(mappedBy = "question", fetch = FetchType.LAZY)
     private List<QuestionAnswers> questionAnswersList;
 
@@ -79,14 +81,6 @@ public class Question implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Exam getExamId() {
-        return examId;
-    }
-
-    public void setExamId(Exam examId) {
-        this.examId = examId;
     }
 
     public String getName() {
@@ -137,28 +131,36 @@ public class Question implements Serializable {
         this.timemodified = timemodified;
     }
 
-    public Integer getCreatedby() {
-        return createdby;
-    }
-
-    public void setCreatedby(Integer createdby) {
-        this.createdby = createdby;
-    }
-
-    public Integer getModifiedby() {
-        return modifiedby;
-    }
-
-    public void setModifiedby(Integer modifiedby) {
-        this.modifiedby = modifiedby;
-    }
-
     public Qtype getQtype() {
         return qtype;
     }
 
     public void setQtype(Qtype qtype) {
         this.qtype = qtype;
+    }
+
+    public User getCreatedby() {
+        return createdby;
+    }
+
+    public void setCreatedby(User createdby) {
+        this.createdby = createdby;
+    }
+
+    public User getModifiedby() {
+        return modifiedby;
+    }
+
+    public void setModifiedby(User modifiedby) {
+        this.modifiedby = modifiedby;
+    }
+
+    public Exam getExam() {
+        return exam;
+    }
+
+    public void setExam(Exam exam) {
+        this.exam = exam;
     }
 
     public List<QuestionAnswers> getQuestionAnswersList() {

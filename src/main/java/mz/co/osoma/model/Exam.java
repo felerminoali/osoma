@@ -36,7 +36,7 @@ public class Exam implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "exam_id")
+    @Column(name = "id")
     private Integer examId;
     @Basic(optional = false)
     @Column(name = "exam_year")
@@ -59,18 +59,20 @@ public class Exam implements Serializable {
     @JoinColumn(name = "university", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private University university;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "exam", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "exam1", fetch = FetchType.LAZY)
     private List<ExamAttempts> examAttemptsList;
+    @OneToMany(mappedBy = "exam", fetch = FetchType.LAZY)
+    private List<Question> questionList;
 
     public Exam() {
     }
 
-    public Exam(Integer examId) {
-        this.examId = examId;
+    public Exam(Integer id) {
+        this.examId = id;
     }
 
-    public Exam(Integer examId, int examYear) {
-        this.examId = examId;
+    public Exam(Integer id, int examYear) {
+        this.examId = id;
         this.examYear = examYear;
     }
 
@@ -78,8 +80,8 @@ public class Exam implements Serializable {
         return examId;
     }
 
-    public void setExamId(Integer examId) {
-        this.examId = examId;
+    public void setExamId(Integer id) {
+        this.examId = id;
     }
 
     public int getExamYear() {
@@ -162,6 +164,14 @@ public class Exam implements Serializable {
         this.examAttemptsList = examAttemptsList;
     }
 
+    public List<Question> getQuestionList() {
+        return questionList;
+    }
+
+    public void setQuestionList(List<Question> questionList) {
+        this.questionList = questionList;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -184,7 +194,7 @@ public class Exam implements Serializable {
 
     @Override
     public String toString() {
-        return "mz.co.osoma.model.Exam[ examId=" + examId + " Description "+description+" ]";
+        return "mz.co.osoma.model.Exam[ examId=" + examId + " ]";
     }
-
+    
 }

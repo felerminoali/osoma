@@ -129,13 +129,15 @@ function saveAnswer() {
 
     var id = q_choice.attr('id');
     var item = id.split('_');
+
+
     
     $.ajax({
         type: 'POST',
-        url: '/mod/save_answer.php',
+        url: '/mod/save_answer',
         data: ({qid: item[1], answerid: item[2]}),
         success: function (data) {
-
+            // alert("test "+data);
         },
         error: function(xhr, textStatus, error){
             // alert('An error has occurred ::from save answer ajax call --> ' + error);

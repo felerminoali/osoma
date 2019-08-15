@@ -5,7 +5,16 @@ $(document).ready(function () {
 
 
     $('#qnext').on('click', function (e) {
+        validateAnswer(e);
+    });
 
+    $('#qfinish').on('click', function (e) {
+        if(validateAnswer(e)){
+            redirect2Results();
+        }
+    });
+
+    function validateAnswer(e) {
         if ($('input[name=q_choice]:checked').val() == null) {
 
             var message = '<div class="alert alert-warning" role="alert">';
@@ -16,9 +25,11 @@ $(document).ready(function () {
             message += '</div>';
 
             $(".failx").html(message);
-           
-            e.preventDefault();
-        }
 
-    });
+            e.preventDefault();
+            return false;
+        }
+        return  true;
+    }
+
 });

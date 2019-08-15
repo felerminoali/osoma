@@ -51,51 +51,53 @@
                             </script>
 
                         </div>
-                        <form action="/results" method="post" autocomplete="off" id="questionform">
+                        <form th:action="/results" method="post" autocomplete="off" id="questionform">
                             <input type="hidden" id="timeoutinput" name="na1" value="na">
                             <input type="hidden" id="finishnowinput" name="na2" value="na">
+                            <input type="hidden" name="idExam" th:value="${id}">
 
 
                             <div id="question_container">
                                 <a id="q123"></a>
 
-                                <div class="qbox">
-                                    <div class="qboxleft">
-                                        <div id="paging"><h4>Questão <span th:text="${next}">1</span> de <span th:text="${quantidadeExames}"></span></h4></div>
+                                <div class="single_question_box">
+                                    <div class="qbox">
+                                        <div class="qboxleft">
+                                            <div id="paging"><h4>Questão <span th:text="${next}">1</span> de <span
+                                                    th:text="${quantidadeExames}"></span></h4></div>
+                                        </div>
+                                        <div class="clear"></div>
                                     </div>
-                                    <div class="clear"></div>
-                                </div>
-                                <div class="col600 qsholder editor">
-                                    <p>
-                                    </p>
-                                    <dl id="question_div">
-                                        <dd class="q_question">
-                                            <div class="span6 pull-left">
-                                                <span style="display: inline;" th:text="${questions.questiontextformat}">:</span>
-                                            </div>
+                                    <div class="col600 qsholder editor">
+                                        <p>
+                                        </p>
+                                        <dl id="question_div">
+                                            <dd class="q_question">
+                                                <div class="span6 pull-left">
+                                                    <span style="display: inline;"
+                                                          th:text="${questions.questiontextformat}">:</span>
+                                                </div>
 
 
-                                        </dd>
-                                    </dl>
-                                    <p></p>
-                                </div>
-                                <div class="dotted"></div>
-
+                                            </dd>
+                                        </dl>
+                                        <p></p>
+                                    </div>
+                                    <div class="dotted"></div>
                                     <div class="answersDiv">
                                         <div th:switch="${questionAnswers}">
                                             <h2 th:case="null"><p th:text="#{Nao_Exames}"></p></h2>
-                                            <p align="center" th:text="#{Encontrado}+${' '+questionAnswers.size()+' '}+#{Questoes}"></p>
                                             </br>
                                             <div th:case="*">
                                                 <div th:each="answers: ${questionAnswers}">
                                                     <div class="clear"></div>
                                                     <div class="ans_select">
-                                                        <input type="radio" th:id="${answers.id}" name="q_choice" value="0">
-
-
+                                                        <input type="radio" th:id="${'q_'+questions.id+'_'+answers.id}"
+                                                               name="q_choice"
+                                                               th:checked="${answers.id == sessionAnswer}">
                                                     </div>
                                                     <div class="ans_content editor">
-                                                        <label th:for="${answers.id}">
+                                                        <label th:for="${'q_'+questions.id+'_'+answers.id}">
                                                             <span th:text="${answers.answer}">.</span>
                                                         </label>
 
@@ -108,23 +110,35 @@
                                             </div>
                                         </div>
 
-                                </div>
-
-                                <div class="nextprev">
-                                    <div class="prevbox">&nbsp;</div>
-                                    <div class="nextbox">
-                                        <a th:if="${next}>=0" th:href="@{/online-test(id = ${id}, question = ${next})}"
-                                            id="qnext" class="btn btn-danger next">Seguinte
-                                            <i class="glyphicon glyphicon-chevron-right"></i>
-                                        </a>
-                                        <a th:if="${next}==-1" id="qnext" class="btn btn-danger next">
-                                            Seguinte
-                                            <i class="glyphicon glyphicon-chevron-right"></i>
-                                        </a>
                                     </div>
                                 </div>
+
+
                             </div>
 
+
+                            <div class="nextprev">
+                                <div class="prevbox">
+                                    <div class="prevbox">
+                                        <a th:if="${next}>1" th:href="@{/online-test(id = ${id}, question = ${next-2})}"
+                                           id="qprev" class="btn btn-danger prev"><i
+                                                class="glyphicon glyphicon-chevron-left"></i> Anterior</a>
+                                    </div>
+                                </div>
+                                <div class="nextbox">
+                                    <a th:if="${next<quantidadeExames}"
+                                       th:href="@{/online-test(id = ${id}, question = ${next})}"
+                                       id="qnext" class="btn btn-danger next">Seguinte
+                                        <i class="glyphicon glyphicon-chevron-right"></i>
+                                    </a>
+                                    <a th:if="${next}>=${quantidadeExames}" id="qfinish"
+                                       class="btn btn-success t_finish">
+                                        Terminar teste
+                                        <i class="glyphicon glyphicon-chevron-right"></i>
+                                    </a>
+                                </div>
+
+                            </div>
                         </form>
 
                         <script type="text/javascript">
@@ -133,7 +147,7 @@
                             if ($('.t_finish').length > 0) {
                                 ($('.t_finish').click(function () {
                                     checkAndSave();
-                                    redirect2Results();
+
                                 }));
                             }
 

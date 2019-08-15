@@ -1607,12 +1607,28 @@ div.classmarker_body_div{
     font-size: 12px;
 }
 
-.qbox{
-    margin: 35px 0 10px 0;
-    padding: 9px 2.8571429% 5px;
-    background: #E5E5E5;
-    border: 1px solid #d0d2d2;
+.single_question_box {
+    border: 1px solid #ddd;
+    border-radius: 3px 3px 3px 3px;
+    margin-bottom: 20px;
 }
+
+
+
+/*.qbox{*/
+    /*margin: 35px 0 10px 0;*/
+    /*padding: 9px 2.8571429% 5px;*/
+    /*background: #E5E5E5;*/
+    /*border: 1px solid #d0d2d2;*/
+/*}*/
+
+.qbox {
+    margin: 0 0 12px;
+    padding: 6px 11px 4px 13px;
+    background-color: #f7f7f7;
+    border-bottom: 1px solid #ddd;
+}
+
 
 .qbox h4 {
     padding: 0;
@@ -1627,6 +1643,10 @@ div.classmarker_body_div{
 .clear{
     clear: both;
 }
+
+.nrg_score_table_left{padding-left:0}
+.nrg_score_table_left{text-align:right;vertical-align:top;padding-left:20px;border-collapse:collapse;white-space:nowrap}
+.nrg_score_table_right{vertical-align:top;padding-left:10px;border-collapse:collapse}
 
 .col600 {
     width: 92.714285714%;

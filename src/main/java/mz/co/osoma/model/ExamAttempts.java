@@ -19,6 +19,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+
 /**
  *
  * @author user
@@ -37,12 +38,12 @@ public class ExamAttempts implements Serializable {
     private Date attemptDatetime;
     @Column(name = "result")
     private Long result;
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id", insertable = false, updatable = false)
+    @JoinColumn(name = "exam", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private User user;
-    @JoinColumn(name = "exam_id", referencedColumnName = "exam_id", insertable = false, updatable = false)
+    private Exam exam1;
+    @JoinColumn(name = "user", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Exam exam;
+    private User user1;
 
     public ExamAttempts() {
     }
@@ -51,8 +52,8 @@ public class ExamAttempts implements Serializable {
         this.examAttemptsPK = examAttemptsPK;
     }
 
-    public ExamAttempts(int examId, int userId) {
-        this.examAttemptsPK = new ExamAttemptsPK(examId, userId);
+    public ExamAttempts(int exam, int user) {
+        this.examAttemptsPK = new ExamAttemptsPK(exam, user);
     }
 
     public ExamAttemptsPK getExamAttemptsPK() {
@@ -79,20 +80,20 @@ public class ExamAttempts implements Serializable {
         this.result = result;
     }
 
-    public User getUser() {
-        return user;
+    public Exam getExam1() {
+        return exam1;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setExam1(Exam exam1) {
+        this.exam1 = exam1;
     }
 
-    public Exam getExam() {
-        return exam;
+    public User getUser1() {
+        return user1;
     }
 
-    public void setExam(Exam exam) {
-        this.exam = exam;
+    public void setUser1(User user1) {
+        this.user1 = user1;
     }
 
     @Override

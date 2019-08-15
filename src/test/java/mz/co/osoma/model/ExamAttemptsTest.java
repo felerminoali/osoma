@@ -45,16 +45,16 @@ public class ExamAttemptsTest {
     public void getUser() {
         User user = new User();
         ExamAttempts examAttempts = new ExamAttempts();
-        examAttempts.setUser(user);
-        assertNotNull(examAttempts.getUser());
+        examAttempts.setUser1(user);
+        assertNotNull(examAttempts.getUser1());
     }
 
     @Test
     public void getExam() {
         Exam exam = new Exam();
         ExamAttempts examAttempts = new ExamAttempts();
-        examAttempts.setExam(exam);
-        assertNotNull(examAttempts.getExam());
+        examAttempts.setExam1(exam);
+        assertNotNull(examAttempts.getExam1());
     }
 
     @Test

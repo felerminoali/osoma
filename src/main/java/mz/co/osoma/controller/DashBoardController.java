@@ -45,7 +45,7 @@ public class DashBoardController {
         // Aqui eh onde sao eliminados os exames
         if (examId.hashCode()>0) {
             exam = crudService.get(Exam.class, examId.hashCode());
-            List<Question> questions = crudService.findByJPQuery("SELECT q FROM Question q where q.examId.examId=" + exam.getExamId(), null);
+            List<Question> questions = crudService.findByJPQuery("SELECT q FROM Question q where q.exam.examId=" + exam.getExamId(), null);
 
             for(Question question: questions){
                 List<QuestionAnswers> questionAnswers = crudService.findByJPQuery("SELECT q FROM QuestionAnswers q where q.question.id=" + question.getId(), null);
@@ -122,7 +122,7 @@ public class DashBoardController {
 
 
         exam = crudService.get(Exam.class, examId.hashCode());
-        questions = crudService.findByJPQuery("SELECT q FROM Question q where q.examId.examId=" + examId.hashCode(), null);//getAll(Question.class);
+        questions = crudService.findByJPQuery("SELECT q FROM Question q where q.exam.examId=" + examId.hashCode(), null);//getAll(Question.class);
 
 
 
@@ -262,7 +262,7 @@ public class DashBoardController {
         Question question;
 
         question = new Question();
-        question.setExamId(exam);
+        question.setExam(exam);
         System.out.println("============"+exam.getExamId()+"=================");
         question.setQuestiontextformat(questiontextformat);
         question.setQtype(questionType);

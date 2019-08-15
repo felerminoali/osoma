@@ -18,9 +18,9 @@ public class ExamAttemptsPKTest {
     @Test
     public void getExamId() {
         ExamAttemptsPK examAttemptsPK = new ExamAttemptsPK();
-        examAttemptsPK.setExamId(1);
+        examAttemptsPK.setExam(1);
         Integer id = 1;
-        Integer idd = examAttemptsPK.getExamId();
+        Integer idd = examAttemptsPK.getExam();
         assertEquals(id, idd);
     }
 
@@ -29,8 +29,8 @@ public class ExamAttemptsPKTest {
     public void getUserId() {
         ExamAttemptsPK examAttemptsPK = new ExamAttemptsPK();
         Integer id = 1;
-        examAttemptsPK.setUserId(id);
-        Integer idd = examAttemptsPK.getUserId();
+        examAttemptsPK.setUser(id);
+        Integer idd = examAttemptsPK.getUser();
         assertEquals(id, idd);
     }
 
@@ -48,11 +48,11 @@ public class ExamAttemptsPKTest {
         Integer userId = 20;
 
         ExamAttemptsPK examAttemptsPK = new ExamAttemptsPK(examId,userId);
-        examAttemptsPK.setExamId(examId);
+        examAttemptsPK.setExam(examId);
         assertFalse(examAttemptsPK.equals(new Exam()));
         assertTrue(examAttemptsPK.equals(new ExamAttemptsPK(examId,userId)));
         assertFalse(examAttemptsPK.equals(new ExamAttemptsPK()));
-        examAttemptsPK.setExamId(examId);
+        examAttemptsPK.setExam(examId);
         assertFalse(examAttemptsPK.equals(new ExamAttemptsPK(examId,2000)));
 
     }

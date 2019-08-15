@@ -7,10 +7,7 @@ import nz.net.ultraq.thymeleaf.decorators.strategies.GroupingStrategy;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Description;
+import org.springframework.context.annotation.*;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.web.servlet.LocaleResolver;
@@ -145,5 +142,8 @@ public class WebMVCConfig implements WebMvcConfigurer , ApplicationContextAware 
         messageSource.setBasename("messages");
         return messageSource;
     }
+
+
+
 
 }

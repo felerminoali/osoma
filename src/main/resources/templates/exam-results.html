@@ -5,151 +5,227 @@
 <head>
     <meta charset="UTF-8">
     <title>Osoma-ExamResults</title>
-    <style>
-        /*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-        /*
-            Created on : Nov 10, 2018, 5:12:33 PM
-            Author     : 1001
-        */
-        .window-modal-style{
-            /*display: none; /* Hidden by default */
-            position: fixed; /* Stay in place */
-            z-index: 1; /* Sit on top */
-            padding-top: 100px; /* Location of the box */
-            left: 0;
-            top: 0;
-            width: 100%; /* Full width */
-            height: 100%; /* Full height */
-            overflow: auto; /* Enable scroll if needed */
-            background-color: rgb(0,0,0); /* Fallback color */
-            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-        }
-
-        .modal-content-style{
-            width: 800px;
-            min-height: 220px;
-            position: relative;
-            margin: 0 auto;
-            padding: 10px;
-            border-radius: 10px;
-
-        }
-        .modal-content-1{
-            width: 500px;
-            min-height: 550px;
-            position: relative;
-            margin: 0 auto;
-            padding: 10px;
-            border-radius: 10px;
-
-        }
-        .modal-delete-style{
-            width: 400px;
-            min-height: 250px;
-            position: relative;
-            margin: 0 auto;
-            padding: 10px;
-            border-radius: 10px;
-            background-color: #ffffff;
-            box-shadow: 1px 1px 2px red;
-
-
-        }
-        .text-inner{
-            text-align: center;
-            font-size: 20px;
-        }
-        .text-inner a{
-            margin-left: 15px;
-        }
-        .delete{
-            background-color: #ffffff;
-            box-shadow: 1px 1px 2px #A2A2A2;
-        }
-        .register{
-            background-color: #ffffff;
-            box-shadow: 1px 1px 2px #0099ff;
-        }
-
-        .close{
-            background-color: #0099ff;
-            height: 30px;
-        }
-        .confirm{
-            background-color: #cc0033;
-            height: 22px;
-            margin-left: 20px;
-        }
-        .add-data{
-            background-color: #0099ff;
-            height: 30px;
-            font-weight: 400;
-            font-size: 18px;
-            color: white;
-        }
-        .close-add{
-            font-weight: 400;
-            font-size: 18px;
-            color: #390000;
-
-            height: 30px;
-            margin-left: 30px;
-        }
-        .close-1{
-            position: absolute;
-            right: 5px;
-            top: 0px;
-            background-color: #CCC;
-            border-radius: 20px;
-            border: 0;
-
-            width: 25px;
-            height: 25px;
-            cursor: pointer;
-
-        }
-
-
-        #modal-head{
-            display: none;
-        }
-
-        .text_p_modal_1{
-            text-align: left;
-            font-weight: bold;
-            font-size: 22px;
-            color: #000000;
-        }
-        .h2_modal{
-            color: #ff0033;
-        }
-
-        .modal-button{
-            border-radius: 8px;
-            border: 0px;
-
-            cursor: pointer;
-        }
-
-
-    </style>
 </head>
 <body>
 <th:block layout:fragment="contentDiag">
-<div id="modal-head-sign" class="window-modal-style">
-    <h1 style="text-align: center">
-        Diagonostico realisado com sucesso!!
-    </h1>
-</div>
-    <script>
-        window.onpopstate = function () {
-            window.location = "/";
-        }; history.pushState({}, "/", "/")
-    </script>
+
+
+    <div class="container" style="padding-top: 10px;">
+
+        <div class="row">
+            <!--Main content-->
+            <div class="col-md-12" style="background-color: white; border: 1px solid #c2cbd4; padding-top: 4%;">
+                <div class="classmarker_body_div">
+
+                    <div id="ajax-container">
+
+                        <h3>Resultados</h3>
+
+                        <div class="clearheight30"></div>
+
+                        <div class="testsummary">
+
+                            <table class="testres">
+                                <tr>
+                                    <td class="nrg_score_table_left"><h5><strong>Title:</strong></h5></td>
+                                    <td class="nrg_score_table_right" id="resultsdiv_quiztitle_tt">Scrum Open</td>
+                                </tr>
+                                <tr>
+                                    <td class="nrg_score_table_left"><h5><strong>Percentage:</strong></h5></td>
+                                    <td class="nrg_score_table_right"><span id="percentagespan">0</span>%</td>
+                                </tr>
+                                <tr>
+                                    <td class="nrg_score_table_left"><h5><strong>Duration:</strong></h5></td>
+                                    <td class="nrg_score_table_right" id="resultsdiv_duration_tt">00:30:09</td>
+                                </tr>
+
+                                <tr>
+                                    <td class="nrg_score_table_left"><h5><strong>Date started:</strong></h5></td>
+                                    <td class="nrg_score_table_right" id="resultsdiv_datestarted_tt">Thu 15th Aug 2019
+                                        5:01am
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="nrg_score_table_left"><h5><strong>Date finished:</strong></h5></td>
+                                    <td class="nrg_score_table_right" id="resultsdiv_datefinished_tt">Thu 15th Aug 2019
+                                        5:31am
+                                    </td>
+                                </tr>
+
+                            </table>
+
+                            <div class="clearheight5"></div>
+
+                            <div class="alert alert-info" role="alert">
+                                <p>
+                                    <strong>Nota: Este teste tem um término automático quando:<br/></strong>
+                                    1. O limite de tempo do teste é atingido. <br/>
+                                    2. Uma tentativa de retomar este teste não foi permitido devido a data ou hora
+                                    limites.
+                                </p>
+                            </div>
+
+                        </div>
+                        <div class="clear"></div>
+                        <div class="noprint">
+                            <a href="#" onclick="window.print(); return false;" class="customcolor">Imprimir esta
+                                página</a>
+                        </div>
+
+                        <h1>Quantidade de exames: <p th:text="${quantidadeExames}"></p></h1>
+
+                        <div class="clear"></div>
+                        <div class="clearheight30"></div>
+                        <div class="qd">
+                            <div class="qbox">
+                                <div class="qboxleft">
+                                    <div id="paging">
+                                        <div id="paging"><h4>Quest&atilde;o <span>1</span> de <span>3</span></h4></div>
+                                    </div>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                            <div class="col600 qsholder editor">
+                                <p>
+                                <dl id="question_div">
+                                    <dd class="q_question">
+                        <span style="display: inline;">
+                            Para Karl Jaspers, filosofar é:                        </span></dd>
+                                </dl>
+                                </p>
+                            </div>
+                            <div class="dotted"></div>
+                            <p class="chosen">
+
+                                Resposta correcta: <strong>
+                                B) </strong>
+                                <br/>
+
+                                Resposta seleccionada:
+                                <strong>Nenhuma</strong></p>
+                            <div class="dotted"></div>
+                            <div class="headlinetop">
+                                <strong>Pontos</strong>
+
+                                <span>
+                            0                        </span> de 1
+                                <br/>
+                            </div>
+                            <div class="clearheight30"></div>
+                            <div class="red headlinetop fb_header">
+                                <h5>Feedback</h5>
+                            </div>
+                            <p>
+                                Filosofia a uma disciplina ... </p>
+                        </div>
+
+
+                        <div class="clear"></div>
+                        <div class="clearheight30"></div>
+                        <div class="qd">
+                            <div class="qbox">
+                                <div class="qboxleft">
+                                    <div id="paging">
+                                        <div id="paging"><h4>Quest&atilde;o <span>2</span> de <span>3</span></h4></div>
+                                    </div>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                            <div class="col600 qsholder editor">
+                                <p>
+                                <dl id="question_div">
+                                    <dd class="q_question">
+                        <span style="display: inline;">
+                            A definição da Filosofia é já um problema filosófico porque:                        </span>
+                                    </dd>
+                                </dl>
+                                </p>
+                            </div>
+                            <div class="dotted"></div>
+                            <p class="chosen">
+
+                                Resposta correcta: <strong>
+                                B) </strong>
+                                <br/>
+
+                                Resposta seleccionada:
+                                <strong>Nenhuma</strong></p>
+                            <div class="dotted"></div>
+                            <div class="headlinetop">
+                                <strong>Pontos</strong>
+
+                                <span>
+                            0                        </span> de 1
+                                <br/>
+                            </div>
+                            <div class="clearheight30"></div>
+                            <div class="red headlinetop fb_header">
+                                <h5>Feedback</h5>
+                            </div>
+                            <p>
+                                Filosofar filosofando </p>
+                        </div>
+
+
+                        <div class="clear"></div>
+                        <div class="clearheight30"></div>
+                        <div class="qd">
+                            <div class="qbox">
+                                <div class="qboxleft">
+                                    <div id="paging">
+                                        <div id="paging"><h4>Quest&atilde;o <span>3</span> de <span>3</span></h4></div>
+                                    </div>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                            <div class="col600 qsholder editor">
+                                <p>
+                                <dl id="question_div">
+                                    <dd class="q_question">
+                        <span style="display: inline;">
+                            A utilidade da Filosofia é:                        </span></dd>
+                                </dl>
+                                </p>
+                            </div>
+                            <div class="dotted"></div>
+                            <p class="chosen">
+
+                                Resposta correcta: <strong>
+                                A) </strong>
+                                <br/>
+
+                                Resposta seleccionada:
+                                <strong>Nenhuma</strong></p>
+                            <div class="dotted"></div>
+                            <div class="headlinetop">
+                                <strong>Pontos</strong>
+
+                                <span>
+                            0                        </span> de 1
+                                <br/>
+                            </div>
+                            <div class="clearheight30"></div>
+                            <div class="red headlinetop fb_header">
+                                <h5>Feedback</h5>
+                            </div>
+                            <p>
+                                Ajuda-mos a perceber ... </p>
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+
+
+
 </th:block>
 </body>
 </html>

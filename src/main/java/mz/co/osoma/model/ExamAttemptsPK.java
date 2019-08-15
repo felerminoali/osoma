@@ -18,41 +18,41 @@ import javax.persistence.Embeddable;
 public class ExamAttemptsPK implements Serializable {
 
     @Basic(optional = false)
-    @Column(name = "exam_id")
-    private int examId;
+    @Column(name = "exam")
+    private int exam;
     @Basic(optional = false)
-    @Column(name = "user_id")
-    private int userId;
+    @Column(name = "user")
+    private int user;
 
     public ExamAttemptsPK() {
     }
 
-    public ExamAttemptsPK(int examId, int userId) {
-        this.examId = examId;
-        this.userId = userId;
+    public ExamAttemptsPK(int exam, int user) {
+        this.exam = exam;
+        this.user = user;
     }
 
-    public int getExamId() {
-        return examId;
+    public int getExam() {
+        return exam;
     }
 
-    public void setExamId(int examId) {
-        this.examId = examId;
+    public void setExam(int exam) {
+        this.exam = exam;
     }
 
-    public int getUserId() {
-        return userId;
+    public int getUser() {
+        return user;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUser(int user) {
+        this.user = user;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (int) examId;
-        hash += (int) userId;
+        hash += (int) exam;
+        hash += (int) user;
         return hash;
     }
 
@@ -63,10 +63,10 @@ public class ExamAttemptsPK implements Serializable {
             return false;
         }
         ExamAttemptsPK other = (ExamAttemptsPK) object;
-        if (this.examId != other.examId) {
+        if (this.exam != other.exam) {
             return false;
         }
-        if (this.userId != other.userId) {
+        if (this.user != other.user) {
             return false;
         }
         return true;
@@ -74,7 +74,7 @@ public class ExamAttemptsPK implements Serializable {
 
     @Override
     public String toString() {
-        return "mz.co.osoma.model.ExamAttemptsPK[ examId=" + examId + ", userId=" + userId + " ]";
+        return "mz.co.osoma.model.ExamAttemptsPK[ exam=" + exam + ", user=" + user + " ]";
     }
     
 }
