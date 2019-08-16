@@ -109,7 +109,7 @@ public class ExamDetails {
     }
 
     @RequestMapping(value = "/results", method = RequestMethod.POST)
-    public ModelAndView results(@RequestParam int idExam) {
+    public ModelAndView results() {
 
 
         ModelAndView modelo = new ModelAndView("exam-results");

@@ -106,8 +106,8 @@ public class ExamDetailsTest {
     }
     @Test
     public void resultTest() {
-        ModelAndView modelAndView = examDetails.results(12);
-
-        assertTrue(true);
+//        ModelAndView modelAndView = examDetails.results(12);
+//
+//        assertTrue(true);
     }
 }

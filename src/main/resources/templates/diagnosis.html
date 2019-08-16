@@ -51,20 +51,19 @@
                             </script>
 
                         </div>
-                        <form th:action="/results" method="post" autocomplete="off" id="questionform">
+                        <form action="/results" method="post" autocomplete="off" id="questionform">
                             <input type="hidden" id="timeoutinput" name="na1" value="na">
                             <input type="hidden" id="finishnowinput" name="na2" value="na">
-                            <input type="hidden" name="idExam" th:value="${id}">
 
 
                             <div id="question_container">
                                 <a id="q123"></a>
 
                                 <div class="single_question_box">
+
                                     <div class="qbox">
                                         <div class="qboxleft">
-                                            <div id="paging"><h4>Questão <span th:text="${next}">1</span> de <span
-                                                    th:text="${quantidadeExames}"></span></h4></div>
+                                            <div id="paging"><h4>Questão <span th:text="${next}">1</span> de <span th:text="${quantidadeExames}"></span></h4></div>
                                         </div>
                                         <div class="clear"></div>
                                     </div>
@@ -74,8 +73,7 @@
                                         <dl id="question_div">
                                             <dd class="q_question">
                                                 <div class="span6 pull-left">
-                                                    <span style="display: inline;"
-                                                          th:text="${questions.questiontextformat}">:</span>
+                                                    <span style="display: inline;" th:text="${questions.questiontextformat}">:</span>
                                                 </div>
 
 
@@ -92,9 +90,7 @@
                                                 <div th:each="answers: ${questionAnswers}">
                                                     <div class="clear"></div>
                                                     <div class="ans_select">
-                                                        <input type="radio" th:id="${'q_'+questions.id+'_'+answers.id}"
-                                                               name="q_choice"
-                                                               th:checked="${answers.id == sessionAnswer}">
+                                                        <input type="radio" th:id="${'q_'+questions.id+'_'+answers.id}" name="q_choice"  th:checked="${answers.id == sessionAnswer}">
                                                     </div>
                                                     <div class="ans_content editor">
                                                         <label th:for="${'q_'+questions.id+'_'+answers.id}">
@@ -111,7 +107,9 @@
                                         </div>
 
                                     </div>
+
                                 </div>
+
 
 
                             </div>
@@ -120,19 +118,15 @@
                             <div class="nextprev">
                                 <div class="prevbox">
                                     <div class="prevbox">
-                                        <a th:if="${next}>1" th:href="@{/online-test(id = ${id}, question = ${next-2})}"
-                                           id="qprev" class="btn btn-danger prev"><i
-                                                class="glyphicon glyphicon-chevron-left"></i> Anterior</a>
+                                        <a th:if="${next}>1" th:href="@{/online-test(id = ${id}, question = ${next-2})}" id="qprev" class="btn btn-danger prev"><i class="glyphicon glyphicon-chevron-left"></i> Anterior</a>
                                     </div>
                                 </div>
                                 <div class="nextbox">
-                                    <a th:if="${next<quantidadeExames}"
-                                       th:href="@{/online-test(id = ${id}, question = ${next})}"
+                                    <a th:if="${next<quantidadeExames}" th:href="@{/online-test(id = ${id}, question = ${next})}"
                                        id="qnext" class="btn btn-danger next">Seguinte
                                         <i class="glyphicon glyphicon-chevron-right"></i>
                                     </a>
-                                    <a th:if="${next}>=${quantidadeExames}" id="qfinish"
-                                       class="btn btn-success t_finish">
+                                    <a th:if="${next}>=${quantidadeExames}" id="qfinish" class="btn btn-success t_finish">
                                         Terminar teste
                                         <i class="glyphicon glyphicon-chevron-right"></i>
                                     </a>

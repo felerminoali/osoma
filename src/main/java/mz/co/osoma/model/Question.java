@@ -39,11 +39,9 @@ public class Question implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Column(name = "name")
-    private String name;
     @Lob
-    @Column(name = "questiontextformat")
-    private String questiontextformat;
+    @Column(name = "question")
+    private String question;
     @Column(name = "image")
     private String image;
     @Lob
@@ -83,20 +81,12 @@ public class Question implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getQuestiontextformat() {
-        return questiontextformat;
+        return question;
     }
 
-    public void setQuestiontextformat(String questiontextformat) {
-        this.questiontextformat = questiontextformat;
+    public void setQuestiontextformat(String question) {
+        this.question = question;
     }
 
     public String getImage() {

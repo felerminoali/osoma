@@ -274,7 +274,7 @@ public class DashBoardController {
                 correct.setFraction((long) 1);
                 // char character=charId.charAt(0);
                 //correct.setCharId(charId);
-                correct.setFeedback(answerFeedback);
+
                 correct.setQuestion(question1);
                 correct.setAnswer(correctAnswer);
                 try {
@@ -289,7 +289,6 @@ public class DashBoardController {
                         questionAnswers.setFraction((long) 0);
                         //char character=charId.charAt(0);
                       //  questionAnswers.setCharId(charId);
-                        questionAnswers.setFeedback("Opcao incorrecta");
                         questionAnswers.setQuestion(question1);
                         questionAnswers.setAnswer(answersS[i]);
 

@@ -36,8 +36,6 @@ public class QuestionAnswers implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Column(name = "char_id")
-    private String charId;
     @Lob
     @Column(name = "answer")
     private String answer;
@@ -45,9 +43,6 @@ public class QuestionAnswers implements Serializable {
     private String image;
     @Column(name = "fraction")
     private Long fraction;
-    @Lob
-    @Column(name = "feedback")
-    private String feedback;
     @JoinColumn(name = "question", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Question question;
@@ -65,14 +60,6 @@ public class QuestionAnswers implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getCharId() {
-        return charId;
-    }
-
-    public void setCharId(String charId) {
-        this.charId = charId;
     }
 
     public String getAnswer() {
@@ -97,14 +84,6 @@ public class QuestionAnswers implements Serializable {
 
     public void setFraction(Long fraction) {
         this.fraction = fraction;
-    }
-
-    public String getFeedback() {
-        return feedback;
-    }
-
-    public void setFeedback(String feedback) {
-        this.feedback = feedback;
     }
 
     public Question getQuestion() {
