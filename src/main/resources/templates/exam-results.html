@@ -28,7 +28,8 @@
                             <table class="testres">
                                 <tr>
                                     <td class="nrg_score_table_left"><h5><strong>Title:</strong></h5></td>
-                                    <td class="nrg_score_table_right" id="resultsdiv_quiztitle_tt">Scrum Open</td>
+                                    <td class="nrg_score_table_right" id="resultsdiv_quiztitle_tt"><span
+                                            th:text="${exam.description}"></span></td>
                                 </tr>
                                 <tr>
                                     <td class="nrg_score_table_left"><h5><strong>Percentage:</strong></h5></td>
@@ -73,145 +74,85 @@
                                 página</a>
                         </div>
 
-                        <!--<h1>Quantidade de exames: <p th:text="${quantidadeExames}"></p></h1>-->
 
-                        <div class="clear"></div>
-                        <div class="clearheight30"></div>
-                        <div class="qd">
-                            <div class="qbox">
-                                <div class="qboxleft">
-                                    <div id="paging">
-                                        <div id="paging"><h4>Quest&atilde;o <span>1</span> de <span>3</span></h4></div>
+                        <div th:switch="${questions}">
+
+                            <h2 th:case="null"><p th:text="Vazio"></p></h2>
+                            </br>
+                            <div th:case="*">
+
+                                <div th:with="count=${0}">
+
+
+                                    <div th:each="question: ${questions}">
+                                        <div class="clear"></div>
+                                        <div class="clearheight30"></div>
+                                        <div class="qd">
+                                            <div class="qbox">
+                                                <div class="qboxleft">
+                                                    <div id="paging">
+                                                        <div th:with="count=${count + 1}">
+                                                            <div id="paging"><h4>Quest&atilde;o <span th:text="${count}"></span> de <span th:text="${qtdquestion}"></span></h4></div>
+                                                            <!--<h1><span th:text="${count}"></span></h1>-->
+                                                        </div>
+                                            </div>
+                                                </div>
+                                                <div class="clear"></div>
+                                            </div>
+                                            <div class="col600 qsholder editor">
+                                                <p>
+                                                <dl id="question_div">
+                                                    <dd class="q_question">
+                                                <span style="display: inline;" th:text="${question.question}"></span>
+                                                    </dd>
+                                                </dl>
+                                                </p>
+                                            </div>
+                                            <div class="dotted"></div>
+                                            <!--<p class="chosen">-->
+                                                <!--Resposta correcta: <strong>B) </strong>-->
+                                                <!--<br/>-->
+                                                <!--Resposta seleccionada:<strong>Nenhuma</strong>-->
+                                            <!--</p>-->
+                                            <table class="">
+                                                <tr th:each=" choice: ${question.questionAnswersList}">
+
+                                                    <td>
+                                                        <div class="ans_select">
+                                                            <input type="radio" th:id="${'q_'+question.id+'_'+choice.id}" name="q_choice">
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="ans_content editor">
+                                                            <label th:for="${'q_'+question.id+'_'+choice.id}">
+                                                                <span th:text="${choice.answer}"></span>
+                                                            </label>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+
+
+                                            </table>
+
+                                            <div class="dotted"></div>
+                                            <div class="headlinetop">
+                                            <strong>Pontos</strong><span>0</span> de 1
+                                            <br/>
+                                            </div>
+                                            <div class="clearheight30"></div>
+                                            <div class="red headlinetop fb_header">
+                                            <h5>Feedback</h5>
+                                            </div>
+                                            <p>
+                                            Filosofia a uma disciplina ... </p>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="clear"></div>
                             </div>
-                            <div class="col600 qsholder editor">
-                                <p>
-                                <dl id="question_div">
-                                    <dd class="q_question">
-                        <span style="display: inline;">
-                            Para Karl Jaspers, filosofar é:                        </span></dd>
-                                </dl>
-                                </p>
-                            </div>
-                            <div class="dotted"></div>
-                            <p class="chosen">
-
-                                Resposta correcta: <strong>
-                                B) </strong>
-                                <br/>
-
-                                Resposta seleccionada:
-                                <strong>Nenhuma</strong></p>
-                            <div class="dotted"></div>
-                            <div class="headlinetop">
-                                <strong>Pontos</strong>
-
-                                <span>
-                            0                        </span> de 1
-                                <br/>
-                            </div>
-                            <div class="clearheight30"></div>
-                            <div class="red headlinetop fb_header">
-                                <h5>Feedback</h5>
-                            </div>
-                            <p>
-                                Filosofia a uma disciplina ... </p>
                         </div>
 
 
-                        <div class="clear"></div>
-                        <div class="clearheight30"></div>
-                        <div class="qd">
-                            <div class="qbox">
-                                <div class="qboxleft">
-                                    <div id="paging">
-                                        <div id="paging"><h4>Quest&atilde;o <span>2</span> de <span>3</span></h4></div>
-                                    </div>
-                                </div>
-                                <div class="clear"></div>
-                            </div>
-                            <div class="col600 qsholder editor">
-                                <p>
-                                <dl id="question_div">
-                                    <dd class="q_question">
-                        <span style="display: inline;">
-                            A definição da Filosofia é já um problema filosófico porque:                        </span>
-                                    </dd>
-                                </dl>
-                                </p>
-                            </div>
-                            <div class="dotted"></div>
-                            <p class="chosen">
 
-                                Resposta correcta: <strong>
-                                B) </strong>
-                                <br/>
-
-                                Resposta seleccionada:
-                                <strong>Nenhuma</strong></p>
-                            <div class="dotted"></div>
-                            <div class="headlinetop">
-                                <strong>Pontos</strong>
-
-                                <span>
-                            0                        </span> de 1
-                                <br/>
-                            </div>
-                            <div class="clearheight30"></div>
-                            <div class="red headlinetop fb_header">
-                                <h5>Feedback</h5>
-                            </div>
-                            <p>
-                                Filosofar filosofando </p>
-                        </div>
-
-
-                        <div class="clear"></div>
-                        <div class="clearheight30"></div>
-                        <div class="qd">
-                            <div class="qbox">
-                                <div class="qboxleft">
-                                    <div id="paging">
-                                        <div id="paging"><h4>Quest&atilde;o <span>3</span> de <span>3</span></h4></div>
-                                    </div>
-                                </div>
-                                <div class="clear"></div>
-                            </div>
-                            <div class="col600 qsholder editor">
-                                <p>
-                                <dl id="question_div">
-                                    <dd class="q_question">
-                        <span style="display: inline;">
-                            A utilidade da Filosofia é:                        </span></dd>
-                                </dl>
-                                </p>
-                            </div>
-                            <div class="dotted"></div>
-                            <p class="chosen">
-
-                                Resposta correcta: <strong>
-                                A) </strong>
-                                <br/>
-
-                                Resposta seleccionada:
-                                <strong>Nenhuma</strong></p>
-                            <div class="dotted"></div>
-                            <div class="headlinetop">
-                                <strong>Pontos</strong>
-
-                                <span>
-                            0                        </span> de 1
-                                <br/>
-                            </div>
-                            <div class="clearheight30"></div>
-                            <div class="red headlinetop fb_header">
-                                <h5>Feedback</h5>
-                            </div>
-                            <p>
-                                Ajuda-mos a perceber ... </p>
-                        </div>
 
                     </div>
 
@@ -223,7 +164,6 @@
 
         </div>
     </div>
-
 
 
 </th:block>

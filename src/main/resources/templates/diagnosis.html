@@ -54,6 +54,7 @@
                         <form action="/results" method="post" autocomplete="off" id="questionform">
                             <input type="hidden" id="timeoutinput" name="na1" value="na">
                             <input type="hidden" id="finishnowinput" name="na2" value="na">
+                            <input type="hidden" id="examid" name="examid" th:value="${id}">
 
 
                             <div id="question_container">
@@ -73,7 +74,7 @@
                                         <dl id="question_div">
                                             <dd class="q_question">
                                                 <div class="span6 pull-left">
-                                                    <span style="display: inline;" th:text="${questions.questiontextformat}">:</span>
+                                                    <span style="display: inline;" th:text="${questions.question}">:</span>
                                                 </div>
 
 
@@ -96,8 +97,6 @@
                                                         <label th:for="${'q_'+questions.id+'_'+answers.id}">
                                                             <span th:text="${answers.answer}">.</span>
                                                         </label>
-
-
                                                     </div>
 
                                                 </div>

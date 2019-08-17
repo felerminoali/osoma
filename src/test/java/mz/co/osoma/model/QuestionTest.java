@@ -62,8 +62,8 @@ public class QuestionTest {
     public void getQuestiontextformat() {
         Question question  = new Question();
         String format = "multichoice";
-        question.setQuestiontextformat(format);
-        assertEquals(format,question.getQuestiontextformat());
+        question.setQuestion(format);
+        assertEquals(format,question.getQuestion());
     }
 
     @Test

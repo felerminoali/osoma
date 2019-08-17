@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.Enumeration;
 import java.util.List;
 import java.util.Optional;
 
@@ -63,6 +63,9 @@ public class ExamDetails {
         List<Question> questions = questionsOfExam(id);
 
         int nrQuestion = 0;
+
+        modelo.addObject("id", id);
+
         if (questions != null && questions.size() > 0) {
             if (pg.isPresent()) {
                 nrQuestion = pg.get();
@@ -78,7 +81,7 @@ public class ExamDetails {
 
             modelo.addObject("questions", question);
             modelo.addObject("questionAnswers", questionAnswers);
-            modelo.addObject("id", id);
+
 
 
             if (session != null) {
@@ -109,19 +112,23 @@ public class ExamDetails {
     }
 
     @RequestMapping(value = "/results", method = RequestMethod.POST)
-    public ModelAndView results() {
+    public ModelAndView results(HttpServletRequest request) {
 
 
         ModelAndView modelo = new ModelAndView("exam-results");
-       /* List<Question> questions=questionsOfExam(idExam);
 
-        List<QuestionAnswers> questionAnswers =
-                crudService.findByJPQuery("SELECT e FROM QuestionAnswers e, Question q where e.question = q.id and  q.id = "  , null);
+
+        int idExam = Integer.parseInt(request.getParameter("examid"));
+
+        Exam exam = crudService.get(Exam.class, idExam);
+
+        List<Question> questions = crudService.findByJPQuery("SELECT e FROM Question e where e.exam = " + idExam, null);
 
         modelo.addObject("questions", questions);
-        modelo.addObject("questionAnswers", questionAnswers);
-        modelo.addObject("id", idExam);
-*/
+        modelo.addObject("exam", exam);
+        modelo.addObject("qtdquestion", questions.size());
+
+//        questions.get(1).getChoices()
         return modelo;
     }
 }

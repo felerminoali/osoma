@@ -81,11 +81,11 @@ public class Question implements Serializable {
         this.id = id;
     }
 
-    public String getQuestiontextformat() {
+    public String getQuestion() {
         return question;
     }
 
-    public void setQuestiontextformat(String question) {
+    public void setQuestion(String question) {
         this.question = question;
     }
 

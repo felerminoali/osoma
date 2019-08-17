@@ -264,7 +264,7 @@ public class DashBoardController {
         question = new Question();
         question.setExam(exam);
         System.out.println("============"+exam.getExamId()+"=================");
-        question.setQuestiontextformat(questiontextformat);
+        question.setQuestion(questiontextformat);
         question.setQtype(questionType);
             try {
                 crudService.Save(question);
