@@ -42,7 +42,7 @@
         .modal-warning .modal-header, .modal-warning .modal-footer {
             border-color: #c87f0a;
             background-color: #db8b0b !important;
-            color:#fff;
+            color: #fff;
         }
 
         .modal-warning .modal-body {
@@ -57,18 +57,21 @@
         .modal-success .modal-header, .modal-success .modal-footer {
             border-color: #00733e;
         }
+
         #modal-success .modal-header, #modal-success .modal-footer {
             color: #fff;
         }
-        #modal-success .modal-header, #modal-success .modal-footer{
+
+        #modal-success .modal-header, #modal-success .modal-footer {
             background-color: #008d4c !important;
         }
+
         #modal-success .modal-body {
             background-color: #00a65a !important;
             color: #fff;
         }
 
-        .modal-success .modal-content, .modal-warning .modal-content{
+        .modal-success .modal-content, .modal-warning .modal-content {
             border-radius: 5px;
         }
 
@@ -77,7 +80,7 @@
 
         }
 
-        .modal-warning .btn-outline ,#modal-success .btn-outline{
+        .modal-warning .btn-outline, #modal-success .btn-outline {
             border: 1px solid #fff;
             background: transparent;
             color: #fff;
@@ -93,7 +96,40 @@
 
     </style>
 
-    <script>
+    <script type="text/javascript">
+
+        function validaForm(frm) {
+            if (frm.examYear.value == "" || frm.examYear.value == null ) {
+                alert("Por favor, Preencha o campo \"Ano\"");
+                frm.examYear.focus();
+                return false;
+            }
+
+            if (frm.examYear.value < 2000) {
+                alert("Por favor, Preencha correctamente o campo Ano.");
+                frm.examYear.focus();
+                return false;
+            }
+            if (frm.description.value == "" || frm.description.value == null) {
+                alert("Por favor, Preencha o campo \"Descricao\"");
+                frm.description.focus();
+                return false;
+            }
+
+            if (frm.duration.value == "" || frm.duration.value == null || durac) {
+                alert("Por favor, Preencha o campo \"Duracao\"");
+                frm.duration.focus();
+                return false;
+            }
+
+            if (frm.noquestion.value == "" || frm.noquestion.value == null) {
+                alert("Por favor, Preencha o campo \"Numero de Questoes\"");
+                frm.noquestion.focus();
+                return false;
+            }
+
+        }
+
         function showDangerMessage() {
             document.getElementById("modal-warning").style.display = 'block';
         }
@@ -113,6 +149,7 @@
             document.getElementById("tableExam").removeChild(document.getElementById(idLine));
 
         }
+
         function remove(examId) {
             id = examId;
             document.getElementById("modal-warning").style.display = 'block';
@@ -129,7 +166,7 @@
                 }
             };
             this.closeModal();
-            var url = "exams-admin?remove="+id;
+            var url = "exams-admin?remove=" + id;
             xhttp.open("GET", url, true);
             xhttp.send();
             //alert("Chegou aqui , id do exame"+id);
@@ -227,7 +264,8 @@
                                 <h4 class="modal-title">Formulário de exame</h4>
                             </div>
                             <div class="modal-body">
-                                <form id="examRegister" action="/exams-admin/exam-add/exam-save" method="POST">
+                                <form id="examRegister" action="/exams-admin/exam-add/exam-save" method="POST"
+                                      onsubmit="return validaForm(this);">
 
                                     <input type="hidden" value="" name="examId">
                                     <div class="form-group row">
@@ -362,7 +400,8 @@
 
                                         <!--   <td><a href="@{/exams-admin(edit=${exam.examId})}" >edit</a></td> -->
                                         <td>
-                                            <a th:onclick="'javascript:remove('+${exam.examId}+');return false;'" href="" style="color: red;">Remover</a>
+                                            <a th:onclick="'javascript:remove('+${exam.examId}+');return false;'"
+                                               href="" style="color: red;">Remover</a>
                                         </td>
                                     </tr>
                                 </div>

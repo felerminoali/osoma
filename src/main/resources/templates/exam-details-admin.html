@@ -2,6 +2,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout-dashboard}">
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
 
@@ -91,12 +92,31 @@
     </style>
 
 
-
-
     <script>
+        function validaForm(frm) {
+
+            if (frm.questiontextformat.value == "" || frm.questiontextformat.value == null) {
+                alert("Campo \"Pergunta\" Obrigatorio");
+                frm.questiontextformat.focus();
+                return false;
+            }
+
+            if(frm.correctAnswer.value=="" || frm.correctAnswer.value==null){
+                alert("Campo \"Resposta Correcta \" Obrigatorio");
+                frm.correctAnswer.focus();
+                return false;
+            }
+            if(frm.answer.value=="" || frm.answer.value==null){
+                alert("Campo Obrigatorio");
+                frm.answer.focus();
+                return false;
+            }
+        }
+
         function showWarningMessage() {
             document.getElementById("modal-warning").style.display = 'block';
         }
+
         function showSuccessMessage() {
             document.getElementById("modal-success").style.display = 'block';
         }
@@ -104,6 +124,7 @@
         function showQuestionForm() {
             document.getElementById("modal-questionForm").style.display = 'block';
         }
+
         function closeModal() {
             document.getElementById("modal-warning").style.display = 'none';
             document.getElementById("modal-questionForm").style.display = 'none';
@@ -234,7 +255,8 @@
                                 <p>One fine body&hellip;</p>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close
+                                </button>
                                 <button type="button" class="btn btn-outline">Save changes</button>
                             </div>
                         </div>
@@ -242,8 +264,6 @@
                     </div>
                     <!-- /.modal-dialog -->
                 </div>
-
-
 
 
                 <div class="modal modal-success" id="modal-questionForm">
@@ -255,7 +275,9 @@
                                 <h4 class="modal-title">Formulário da Questão</h4>
                             </div>
                             <div class="modal-body">
-                                <form id="registerQuestion" action="/exams-admin/exam-details-admin/question-add/question-save" method="POST">
+                                <form id="registerQuestion"
+                                      action="/exams-admin/exam-details-admin/question-add/question-save" method="POST"
+                                      onsubmit="return validaForm(this)">
 
                                     <legend><b>Pergunta</b></legend>
                                     <input type="hidden" th:value="${exam.examId}" name="examId">
@@ -267,15 +289,16 @@
                                     <br>
                                     <legend><b>Respostas</b></legend>
 
-                                    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.3/jquery.min.js"></script>
+                                    <script type="text/javascript"
+                                            src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.3/jquery.min.js"></script>
                                     <script type="text/javascript">
-                                        $(function(){
-                                            $('#mais').click(function(){
+                                        $(function () {
+                                            $('#mais').click(function () {
                                                 var next = $('#lista tbody').children('tr').length + 1;
                                                 $('#lista tbody').append('<tr>' +
                                                     '<td class="linha-left"><input class="form-control" type="text" name="answer" /></td>' +
                                                     '<td class="linha-right"><input type="file" name="image"/></td><br>' +
-                                                    '</tr>'+'<br><br>'
+                                                    '</tr>' + '<br><br>'
                                                 );
                                                 return false;
                                             });
@@ -288,13 +311,13 @@
                                             <input name="correctAnswer" class="form-control">
                                         </td>
                                         <td>
-                                            <input  type="file" name="answerImage" />
+                                            <input type="file" name="answerImage"/>
                                         </td>
                                         <td>
-                                        <span><b>Feedback: * </b></span>
-                                                <input type="textarea" class="form-control" name="answerFeedback"
-                                                       id="answerFeedback"
-                                                       value="">
+                                            <span><b>Feedback: * </b></span>
+                                            <input type="textarea" class="form-control" name="answerFeedback"
+                                                   id="answerFeedback"
+                                                   value="">
                                         </td>
                                     </tr>
 
@@ -310,14 +333,16 @@
                                         <tbody>
 
                                         <tr>
-                                            <td><input class="form-control" type="text" name="answer" /></td>
-                                            <td><input  type="file" name="image" /></td>
+                                            <td><input class="form-control" type="text" name="answer"/></td>
+                                            <td><input type="file" name="image"/></td>
                                         </tr>
 
                                         </tbody>
                                     </table>
 
-                                    <a href="#" id="mais"><legend><b style="color: green; float: right; border: none">+Mais</b></legend></a><br>
+                                    <a href="#" id="mais">
+                                        <legend><b style="color: green; float: right; border: none">+Mais</b></legend>
+                                    </a><br>
 
 
                                     <br>
@@ -351,17 +376,21 @@
                     </tr>
                     </thead>
                     <tbody id="tableQuestion">
-                    <div th:switch="${questions}">
+                    <div th:switch="${exam.questionList}">
                         <h2 th:case="null"><p th:text="#{no-exam}"></p></h2>
                         <div th:case="*">
-                            <div th:each="question: ${questions}">
+                            <div th:each="question: ${exam.questionList}">
                                 <tr th:id="${question.id}">
-                                    <td th:text="${question.questiontextformat}"></td>
+                                    <td th:text="${question.question}"></td>
+
+
                                     <td>
-                                        <a href="#">Editar</a>
+                                        <a th:href="@{/exams-admin/exam-details-admin/question-edit/(questionId=${question.id})}">Editar</a>
                                     </td>
 
-                                    <td><a th:href="@{/exams-admin/exam-details-admin/question-details/(questionId=${question.id},examId=${exam.examId})}"> Detalhes</a></td>
+                                    <td>
+                                        <a th:href="@{/exams-admin/exam-details-admin/question-details/(questionId=${question.id},examId=${exam.examId})}">
+                                            Detalhes</a></td>
                                     <td>
                                         <a th:onclick="'javascript:remove('+${exam.examId}+','+${question.id}+');return false;'"
                                            href="" style="color: red;">Remover</a></td>

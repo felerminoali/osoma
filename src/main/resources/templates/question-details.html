@@ -2,11 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout-dashboard}">
-
-
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
 </head>
 <body>
 <th:block layout:fragment="contentDash">
@@ -18,7 +15,7 @@
 
             <div class="col-md-2">
                 <strong>
-                    <a th:href="'/exams-admin/exam-details-admin/?examId='+${exam}" class="btn btn-success"><i class="fa fa-angle-double-left"
+                    <a th:href="'/exams-admin/exam-details-admin/?examId='+${exam.examId}" class="btn btn-success"><i class="fa fa-angle-double-left"
                                                                       aria-hidden="true"></i> Voltar </a>
                 </strong>
             </div>
@@ -28,7 +25,7 @@
                 <div id="login-overlay" class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title" id="myModalLabel" th:text="${question.questiontextformat}"></h4>
+                            <h4 class="modal-title" id="myModalLabel" th:text="${question.question}"></h4>
                         </div>
                         <div class="modal-body">
 
@@ -39,34 +36,31 @@
 
                                     <form id="examRegister" action="/exams-admin/exam-add/exam-save" method="POST">
 
-                                        <div th:switch="${questionAnswers}">
-                                            <h2 th:case="null"><p th:text="#{no-exam}"></p></h2>
-                                            <p align="center" th:text="#{found}+${' '+questionAnswers.size()+' '}+#{questions}"></p>
+                                        <div th:switch="${question.questionAnswersList}">
+                                            <h2 th:case="null"><p th:text="#{Nao_Exames}"></p></h2>
                                             </br>
                                             <div th:case="*">
-                                                <div th:each="answers: ${questionAnswers}">
+                                                <div th:each="answers: ${question.questionAnswersList}">
                                                     <div class="clear"></div>
                                                     <div class="ans_select">
-                                                        <input type="radio" th:id="${answers.id}" name="q_choice" value="0">
+                                                        <input type="radio" th:id="${'q_'+question.id+'_'+answers.id}" name="q_choice"  th:checked="${answers.id == sessionAnswer}">
                                                     </div>
-                                                    <span th:if="${answers.fraction} == 1">
-                                                        <div class="ans_content editor">
-                                                        <label th:for="${answers.id}">
-                                                            <span style="color: green"  th:text="${answers.answer}">.</span>
-                                                        </label>
-                                                    </div>
-                                                    </span>
-
-                                                    <span th:if="${answers.fraction} == 0">
-                                                        <div class="ans_content editor">
-                                                        <label th:for="${answers.id}">
+                                                    <div class="ans_content editor">
+                                                         <span th:if="${answers.fraction} == 1" style="color: green">
+                                                        <label th:for="${'q_'+question.id+'_'+answers.id}">
                                                             <span th:text="${answers.answer}">.</span>
                                                         </label>
+                                                         </span>
+                                                        <span th:if="${answers.fraction} == 0">
+                                                        <label th:for="${'q_'+question.id+'_'+answers.id}">
+                                                            <span th:text="${answers.answer}">.</span>
+                                                        </label>
+                                                         </span>
                                                     </div>
-                                                    </span>
-
 
                                                 </div>
+
+                                                <div class="clear"></div>
                                             </div>
                                         </div>
 

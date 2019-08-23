@@ -44,11 +44,17 @@
                                             <div class="col-xs-7">
                                                 <div th:switch="${categories}">
                                                     <select name="category" id="category" class="form-control">
-                                                        <option>Select the Category</option>
                                                         <div th:case="*">
                                                             <div th:each="category: ${categories}">
-                                                                <option th:value="${category.id}"
-                                                                        th:text="${category.name}"></option>
+                                                                <span th:if="${exam.category} == ${category}">
+                                                                     <option th:value="${category.id}"
+                                                                             th:text="${category.name}" selected></option>
+                                                                </span>
+                                                                <span th:if="${exam.category.id} != ${category.id}" >
+                                                                       <option th:value="${category.id}"
+                                                                               th:text="${category.name}"></option>
+                                                                </span>
+
                                                             </div>
                                                         </div>
                                                     </select>
@@ -114,11 +120,17 @@
                                             <div class="col-xs-7">
                                                 <div th:switch="${universities}">
                                                     <select name="university" id="university" class="form-control" >
-                                                        <option>Select the University</option>
                                                         <div th:case="*">
                                                             <div th:each="university: ${universities}">
-                                                                <option th:value="${university.id}"
-                                                                        th:text="${university.name}"></option>
+                                                                <span th:if="${exam.university.id} == ${university.id}">
+                                                                     <option th:value="${university.id}"
+                                                                             th:text="${university.name}" selected></option>
+                                                                </span>
+                                                                <span th:if="${exam.university.id} != ${university.id}" >
+                                                                      <option th:value="${university.id}"
+                                                                              th:text="${university.name}" ></option>
+                                                                </span>
+
                                                             </div>
                                                         </div>
                                                     </select>
@@ -137,17 +149,13 @@
                                             </div>
                                         </div>
 
-
                                     </form>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
             </div>
-
-
         </div>
     </div>
 </th:block>
