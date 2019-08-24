@@ -62,27 +62,26 @@ public class DashBoardControllerTest {
     }
 
 
-        @Test
-        public void adminDashBoardWithPgNull() {
+    @Test
+    public void adminDashBoardWithPgNull() {
 
-            Optional<Integer> pg = Optional.empty();
-            Optional<Boolean> status=Optional.of(true);
+        Optional<Integer> pg = Optional.empty();
+        Optional<Boolean> status = Optional.of(true);
 
-            this.saveExamWithExamIdNull();
+        this.saveExamWithExamIdNull();
 
-            List<Exam> exams=crudService.getAll(Exam.class);
-            Exam exam=exams.get(exams.size()-1);
-            Optional<Integer> examId = Optional.of(exam.getExamId());
+        List<Exam> exams = crudService.getAll(Exam.class);
+        Exam exam = exams.get(exams.size() - 1);
+        Optional<Integer> examId = Optional.of(exam.getExamId());
 
 
+        DashBoardController dashBoardController = new DashBoardController();
+        dashBoardController.crudService = crudService;
 
-            DashBoardController dashBoardController = new DashBoardController();
-            dashBoardController.crudService = crudService;
+        ModelAndView model = dashBoardController.adminDashBoard(pg, examId, status);
+        Assert.assertNotNull(model);
 
-            ModelAndView model = dashBoardController.adminDashBoard(pg, examId,status);
-            Assert.assertNotNull(model);
-
-        }
+    }
 
     @Test
     public void editExam() {
@@ -126,19 +125,18 @@ public class DashBoardControllerTest {
 
     @Test
     public void examDetailsAdminWithQuestionIdNotNull() {
-        Integer examId =12;
-        Optional<Boolean> status=Optional.of(false);
+        Integer examId = 12;
+        Optional<Boolean> status = Optional.of(false);
         this.saveQuestion();
-        List<Question> questions=crudService.getAll(Question.class);
-        Question question=questions.get(questions.size()-1);
+        List<Question> questions = crudService.getAll(Question.class);
+        Question question = questions.get(questions.size() - 1);
         Optional<Integer> questionId = Optional.of(question.getId());
 
         DashBoardController dashBoardController = new DashBoardController();
         dashBoardController.crudService = crudService;
 
-        ModelAndView model = dashBoardController.examDetailsAdmin(examId, questionId,status);
+        ModelAndView model = dashBoardController.examDetailsAdmin(examId, questionId, status);
         Assert.assertNotNull(model);
-
 
 
     }
@@ -251,7 +249,7 @@ public class DashBoardControllerTest {
         String correctAnswer = "opcione correcta";
         String feedback = "salama";
         String answers = "Teste,Teste";
-        String answerFeedback = "boa resposta";
+        Optional<String> answerFeedback = Optional.of("boa resposta");
 
 
         DashBoardController dashBoardController = new DashBoardController();
@@ -262,7 +260,6 @@ public class DashBoardControllerTest {
 
 
     }
-
 
 
     @Test

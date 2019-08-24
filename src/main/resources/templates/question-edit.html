@@ -1,9 +1,130 @@
-<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout-dashboard}">
 <html lang="en">
+
 <head>
 
 </head>
-<body>
 
+<body>
+<th:block layout:fragment="contentDash">
+
+
+    <div id="London" class="tabcontent">
+    <div class="row">
+
+        <div class="col-md-12">
+
+
+
+            <div class="modal-body">
+                <form id="registerQuestion"
+                      action="/exams-admin/exam-details-admin/question-add/question-save" method="POST"
+                      onsubmit="return validaForm(this)">
+
+                    <legend><b>Pergunta</b></legend>
+                    <input type="hidden" value="" name="examId">
+                    <input type="text" class="form-control" th:value="${question.question}" name="questiontextformat"
+                           id="questiontextformat"
+                           value="">
+                    <input type="file" class="file" name="image">
+
+                    <br>
+                    <legend><b>Respostas</b></legend>
+
+                    <script type="text/javascript"
+                            src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.3/jquery.min.js"></script>
+                    <script type="text/javascript">
+                        $(function () {
+                            $('#mais').click(function () {
+                                var next = $('#lista tbody').children('tr').length + 1;
+                                $('#lista tbody').append('<tr>' +
+                                    '<td class="linha-left"><input class="form-control" type="text" name="answer" /></td>' +
+                                    '<td class="linha-right"><input type="file" name="image"/></td><br>' +
+                                    '</tr>' + '<br><br>'
+                                );
+                                return false;
+                            });
+                        });
+                    </script>
+
+                    <tr>
+
+                        <td>
+                            <span><b>Opção correcta: *</b></span>
+                            <div th:switch="${question.questionAnswersList}">
+                                <h2 th:case="null"><p th:text="#{Nao_Exames}"></p></h2>
+                                <div th:case="*">
+                                    <div th:each="answers: ${question.questionAnswersList}">
+                                        <div class="ans_content editor">
+                                                <span th:if="${answers.fraction} == 1" >
+                                                    <input type="text" class="form-control" name="correctAnswer" th:value="${answers.answer}">
+                                                    <input type="file"class="" name="image">
+                                                </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <td>
+                            <span><b>Feedback: * </b></span>
+                            <input type="textarea" class="form-control" name="answerFeedback"
+                                   id="answerFeedback"
+                                   value="">
+                        </td>
+                    </tr>
+
+                    <br>
+                    <br>
+
+
+                    <div class="row">
+
+                        <div class="col-md-12">
+
+                            <legend>Outras opcões</legend>
+                                <div th:switch="${question.questionAnswersList}">
+                                    <h2 th:case="null"><p th:text="#{Nao_Exames}"></p></h2>
+                                    <div th:case="*">
+                                        <div th:each="answers: ${question.questionAnswersList}">
+                                            <div class="ans_content editor">
+                                                <span th:if="${answers.fraction} == 0" >
+                                                    <input type="text" class="form-control" name="answer" th:value="${answers.answer}">
+                                                    <input type="file"class="" name="image">
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+
+                    <a href="#" id="mais">
+                        <legend><b style="color: green; float: right; border: none">+Mais</b></legend>
+                    </a><br>
+
+
+                    <br>
+                    <br>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline pull-left" onclick="closeModal()">
+                            Fechar
+                        </button>
+                        <button type="submit" name="submit" id="submit" class="btn btn-success">Salvar
+                        </button>
+                    </div>
+
+
+
+            </div>
+
+
+            </form>
+
+        </div>
+    </div>
+    </div>
+</th:block>
 </body>
 </html>

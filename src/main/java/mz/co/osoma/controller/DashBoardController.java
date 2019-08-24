@@ -25,7 +25,7 @@ public class DashBoardController {
 
     private ModelAndView model;
     private List<Question> questions=new ArrayList<>();
-    private List<Exam> exams = new ArrayList<Exam>();
+    private List<Exam> exams = new ArrayList<>();
     private Exam exam;
     private List<User> users = new ArrayList<>();
 
@@ -57,15 +57,12 @@ public class DashBoardController {
                         System.out.println("Nao Foi Possivel Apagar uma das Alternativas, ao apagar o exame");
                     }
                 }
-
                 try {
                     crudService.delete(question);
                 }catch (Exception e){
                     System.out.println("Nao foi possivel apagar uma das perguntas do exame");
                 }
-
             }
-
             try {
                 crudService.delete(exam);
                 model.addObject("removed", true);
@@ -73,8 +70,6 @@ public class DashBoardController {
                 System.out.println("Nao Conseguiu Deletar o exame");
             }
         }
-
-
 
         HomeController homeController = new HomeController();
 
@@ -120,13 +115,10 @@ public class DashBoardController {
                                          @RequestParam("status") Optional<Boolean> status) {
         model = new ModelAndView("exam-details-admin");
 
-
         exam = crudService.get(Exam.class, examId.hashCode());
-        questions = crudService.findByJPQuery("SELECT q FROM Question q where q.exam.examId=" + examId.hashCode(), null);//getAll(Question.class);
+       // questions = crudService.findByJPQuery("SELECT q FROM Question q where q.exam.examId=" + examId.hashCode(), null);//getAll(Question.class);
 
-
-
-        if (questionId.hashCode()>0) {
+       if (questionId.hashCode()>0) {
             Question question = crudService.get(Question.class, questionId.hashCode());
 
             List<QuestionAnswers> questionAnswers = crudService.findByJPQuery("SELECT q FROM QuestionAnswers q where q.question.id=" + question.getId(), null);
@@ -146,7 +138,7 @@ public class DashBoardController {
             }
         }
         model.addObject("status",status.isPresent());
-        model.addObject("questions", questions);
+        //model.addObject("questions", questions);
         model.addObject("exam", exam);
         return model;
     }
@@ -157,13 +149,29 @@ public class DashBoardController {
 
         model = new ModelAndView("question-details");
         Question question= crudService.get(Question.class,questionId);
+        Exam exam=crudService.get(Exam.class,examId);
             List<QuestionAnswers> questionAnswers = crudService.findByJPQuery("SELECT e FROM QuestionAnswers e where e.question.id = "+question.getId(), null);
             model.addObject("question", question);
-            model.addObject("exam",examId);
-            model.addObject("questionAnswers", questionAnswers);
+            //model.addObject("exam",examId);
+            model.addObject("exam",exam);
+            //model.addObject("questionAnswers", questionAnswers);
         return model;
     }
 
+    @RequestMapping(value = "/exams-admin/exam-details-admin/question-edit")
+    public ModelAndView questionEdit(@RequestParam("questionId") Integer questionId
+                                     ){
+
+        model = new ModelAndView("question-edit");
+        Question question= crudService.get(Question.class,questionId);
+       // Exam exam=crudService.get(Exam.class,examId);
+        //List<QuestionAnswers> questionAnswers = crudService.findByJPQuery("SELECT e FROM QuestionAnswers e where e.question.id = "+question.getId(), null);
+        model.addObject("question", question);
+        //model.addObject("exam",examId);
+       // model.addObject("exam",exam);
+        //model.addObject("questionAnswers", questionAnswers);
+        return model;
+    }
     @RequestMapping(value = "/users-admin", method = RequestMethod.GET)
     public ModelAndView usersAdmin(
     ) {
@@ -247,10 +255,10 @@ public class DashBoardController {
                                @RequestParam("correctAnswer") String correctAnswer,
                                @RequestParam("answer") String answers,
                                @RequestParam("questiontextformat") String questiontextformat,
-                               @RequestParam("answerFeedback") String answerFeedback) {
+                               @RequestParam("answerFeedback") Optional <String> answerFeedback) {
 
         exam = crudService.get(Exam.class, examId);
-        String[] answersS=this.splitAnswers(answers);
+        String[] answersS=this.splitAnswers(answers.toString());
 
 
         Qtype questionType = crudService.get(Qtype.class, 2);
@@ -266,6 +274,7 @@ public class DashBoardController {
         System.out.println("============"+exam.getExamId()+"=================");
         question.setQuestion(questiontextformat);
         question.setQtype(questionType);
+        question.setFeedback(answerFeedback.toString());
             try {
                 crudService.Save(question);
                 List<Question> questions = crudService.getAll(Question.class);
@@ -277,6 +286,7 @@ public class DashBoardController {
 
                 correct.setQuestion(question1);
                 correct.setAnswer(correctAnswer);
+
                 try {
                     crudService.Save(correct);
                 }catch (Exception e){
@@ -284,7 +294,7 @@ public class DashBoardController {
                     return this.examDetailsAdmin(examId,quest,status);
                 }
                 for(int i=0;i<answersS.length; i++) {
-                    if (answersS[i] != null) {
+                    if (!answersS[i].equals("null")) {
                         QuestionAnswers questionAnswers = new QuestionAnswers();
                         questionAnswers.setFraction((long) 0);
                         //char character=charId.charAt(0);

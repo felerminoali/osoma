@@ -92,10 +92,12 @@
                                                 <div class="qboxleft">
                                                     <div id="paging">
                                                         <div th:with="count=${count + 1}">
-                                                            <div id="paging"><h4>Quest&atilde;o <span th:text="${count}"></span> de <span th:text="${qtdquestion}"></span></h4></div>
+                                                            <div id="paging"><h4>Quest&atilde;o <span
+                                                                    th:text="${count}"></span> de <span
+                                                                    th:text="${qtdquestion}"></span></h4></div>
                                                             <!--<h1><span th:text="${count}"></span></h1>-->
                                                         </div>
-                                            </div>
+                                                    </div>
                                                 </div>
                                                 <div class="clear"></div>
                                             </div>
@@ -103,16 +105,17 @@
                                                 <p>
                                                 <dl id="question_div">
                                                     <dd class="q_question">
-                                                <span style="display: inline;" th:text="${question.question}"></span>
+                                                        <span style="display: inline;"
+                                                              th:text="${question.question}"></span>
                                                     </dd>
                                                 </dl>
                                                 </p>
                                             </div>
                                             <div class="dotted"></div>
                                             <!--<p class="chosen">-->
-                                                <!--Resposta correcta: <strong>B) </strong>-->
-                                                <!--<br/>-->
-                                                <!--Resposta seleccionada:<strong>Nenhuma</strong>-->
+                                            <!--Resposta correcta: <strong>B) </strong>-->
+                                            <!--<br/>-->
+                                            <!--Resposta seleccionada:<strong>Nenhuma</strong>-->
                                             <!--</p>-->
 
                                             <table>
@@ -121,7 +124,9 @@
 
                                                     <td>
                                                         <div class="ans_select">
-                                                            <input type="radio" th:id="${'q_'+question.id+'_'+choice.id}" name="q_choice">
+                                                            <input type="radio"
+                                                                   th:id="${'q_'+question.id+'_'+choice.id}"
+                                                                   name="q_choice">
                                                         </div>
                                                     </td>
                                                     <td>
@@ -137,22 +142,20 @@
 
                                             <div class="dotted"></div>
                                             <div class="headlinetop">
-                                            <strong>Pontos</strong><span>0</span> de 1
-                                            <br/>
+                                                <strong>Pontos</strong><span>0</span> de 1
+                                                <br/>
                                             </div>
                                             <div class="clearheight30"></div>
                                             <div class="red headlinetop fb_header">
-                                            <h5>Feedback</h5>
+                                                <h5>Feedback</h5>
                                             </div>
                                             <p>
-                                            Filosofia a uma disciplina ... </p>
+                                                Filosofia a uma disciplina ... </p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-
 
 
                     </div>
