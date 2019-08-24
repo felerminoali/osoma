@@ -114,9 +114,10 @@
                                                 <!--<br/>-->
                                                 <!--Resposta seleccionada:<strong>Nenhuma</strong>-->
                                             <!--</p>-->
-                                            <div >
+
                                             <table>
-                                                <tr style="background-color: #5cb85c" th:each=" choice: ${question.questionAnswersList}">
+
+                                                <tr th:each=" choice: ${question.questionAnswersList}" style="width: 200px; background-color: #5bc0de">
 
                                                     <td>
                                                         <div class="ans_select">
@@ -132,7 +133,7 @@
                                                     </td>
                                                 </tr>
                                             </table>
-                                            </div>
+
 
                                             <div class="dotted"></div>
                                             <div class="headlinetop">
