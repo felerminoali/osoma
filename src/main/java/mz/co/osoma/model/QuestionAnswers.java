@@ -19,6 +19,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -26,8 +27,13 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "question_answers")
+@XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "QuestionAnswers.findAll", query = "SELECT q FROM QuestionAnswers q")})
+    @NamedQuery(name = "QuestionAnswers.findAll", query = "SELECT q FROM QuestionAnswers q")
+    , @NamedQuery(name = "QuestionAnswers.findById", query = "SELECT q FROM QuestionAnswers q WHERE q.id = :id")
+    , @NamedQuery(name = "QuestionAnswers.findByImage", query = "SELECT q FROM QuestionAnswers q WHERE q.image = :image")
+    , @NamedQuery(name = "QuestionAnswers.findByFraction", query = "SELECT q FROM QuestionAnswers q WHERE q.fraction = :fraction")
+    , @NamedQuery(name = "QuestionAnswers.findByRightchoice", query = "SELECT q FROM QuestionAnswers q WHERE q.rightchoice = :rightchoice")})
 public class QuestionAnswers implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -43,6 +49,8 @@ public class QuestionAnswers implements Serializable {
     private String image;
     @Column(name = "fraction")
     private Long fraction;
+    @Column(name = "rightchoice")
+    private Short rightchoice;
     @JoinColumn(name = "question", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Question question;
@@ -84,6 +92,14 @@ public class QuestionAnswers implements Serializable {
 
     public void setFraction(Long fraction) {
         this.fraction = fraction;
+    }
+
+    public Short getRightchoice() {
+        return rightchoice;
+    }
+
+    public void setRightchoice(Short rightchoice) {
+        this.rightchoice = rightchoice;
     }
 
     public Question getQuestion() {

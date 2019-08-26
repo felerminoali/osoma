@@ -22,6 +22,9 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+import mz.co.osoma.model.User;
 
 /**
  *
@@ -29,8 +32,13 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "question")
+@XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Question.findAll", query = "SELECT q FROM Question q")})
+    @NamedQuery(name = "Question.findAll", query = "SELECT q FROM Question q")
+    , @NamedQuery(name = "Question.findById", query = "SELECT q FROM Question q WHERE q.id = :id")
+    , @NamedQuery(name = "Question.findByImage", query = "SELECT q FROM Question q WHERE q.image = :image")
+    , @NamedQuery(name = "Question.findByTimecreated", query = "SELECT q FROM Question q WHERE q.timecreated = :timecreated")
+    , @NamedQuery(name = "Question.findByTimemodified", query = "SELECT q FROM Question q WHERE q.timemodified = :timemodified")})
 public class Question implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -51,6 +59,9 @@ public class Question implements Serializable {
     private BigInteger timecreated;
     @Column(name = "timemodified")
     private BigInteger timemodified;
+    @Lob
+    @Column(name = "extratext")
+    private String extratext;
     @JoinColumn(name = "qtype", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Qtype qtype;
@@ -121,6 +132,14 @@ public class Question implements Serializable {
         this.timemodified = timemodified;
     }
 
+    public String getExtratext() {
+        return extratext;
+    }
+
+    public void setExtratext(String extratext) {
+        this.extratext = extratext;
+    }
+
     public Qtype getQtype() {
         return qtype;
     }
@@ -153,6 +172,7 @@ public class Question implements Serializable {
         this.exam = exam;
     }
 
+    @XmlTransient
     public List<QuestionAnswers> getQuestionAnswersList() {
         return questionAnswersList;
     }

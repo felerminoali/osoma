@@ -33,7 +33,7 @@
                                 </tr>
                                 <tr>
                                     <td class="nrg_score_table_left"><h5><strong>Percentage:</strong></h5></td>
-                                    <td class="nrg_score_table_right"><span id="percentagespan">0</span>%</td>
+                                    <td class="nrg_score_table_right"><span id="percentagespan" th:text="${percentage}"></span>%</td>
                                 </tr>
                                 <tr>
                                     <td class="nrg_score_table_left"><h5><strong>Duration:</strong></h5></td>
@@ -120,7 +120,7 @@
 
                                             <table>
 
-                                                <tr th:each=" choice: ${question.questionAnswersList}" style="width: 200px; background-color: #5bc0de">
+                                                <tr th:each=" choice: ${question.questionAnswersList}">
 
                                                     <td>
                                                         <div class="ans_select">
@@ -132,7 +132,11 @@
                                                     <td>
                                                         <div class="ans_content editor">
                                                             <label th:for="${'q_'+question.id+'_'+choice.id}">
-                                                                <span th:text="${choice.answer}"></span>
+                                                                <!--<span th:text="${choice.answer}" th:style="${#session.getAttribute(question.id+'')==choice.id+''} ? 'color:green; font-weight: bold;' : 'color:red'" style=""></span>-->
+                                                                <!--<span th:text="${choice.answer}" th:style="${choice.rightchoice==1} ? 'color:green; font-weight: bold;' : ''"></span>-->
+                                                                <span th:if="${choice.rightchoice==1}" th:text="${choice.answer}" style="color:green; font-weight: bold;"></span>
+                                                                <span th:if="${choice.rightchoice==0 && #session.getAttribute(question.id+'')==choice.id+''}" th:text="${choice.answer}" style="color:red; font-weight: bold;"></span>
+                                                                <span th:if="${choice.rightchoice==0 && #session.getAttribute(question.id+'')!=choice.id+''}" th:text="${choice.answer}"></span>
                                                             </label>
                                                         </div>
                                                     </td>
@@ -142,7 +146,8 @@
 
                                             <div class="dotted"></div>
                                             <div class="headlinetop">
-                                                <strong>Pontos</strong><span>0</span> de 1
+                                                <strong>Pontos</strong>
+                                                <span>0 </span> de 1
                                                 <br/>
                                             </div>
                                             <div class="clearheight30"></div>

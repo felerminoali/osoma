@@ -14,7 +14,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -127,6 +129,21 @@ public class ExamDetails {
         modelo.addObject("questions", questions);
         modelo.addObject("exam", exam);
         modelo.addObject("qtdquestion", questions.size());
+
+        int correct = 0;
+
+//        for (Question q:questions) {
+//
+//            Map<String, Object> par = new HashMap<String, Object>();
+//            par.put("q", q.getId());
+//            par.put("r", 1);
+//            QuestionAnswers answers = crudService.findEntByJPQuery("FROM QuestionAnswers p WHERE p.question = :q AND p.rightchoice = :r", par);
+//
+//            if(session.getAttribute(q.getId().toString()).equals(answers.getId().toString())){
+//                correct++;
+//            }
+//        }
+        modelo.addObject("percentage", (correct/questions.size()));
 
 //        questions.get(1).getChoices()
         return modelo;

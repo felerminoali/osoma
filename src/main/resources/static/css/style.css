@@ -1582,6 +1582,13 @@ a.list-group-item {
     height: 4px;
 }
 
+.correct{
+    color: green;
+}
+
+.incorrect{
+    color: red;
+}
 .clearheight5{
     clear: both;
     height: 5px;
