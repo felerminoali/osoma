@@ -27,26 +27,29 @@
 
                             <table class="testres">
                                 <tr>
-                                    <td class="nrg_score_table_left"><h5><strong>Title:</strong></h5></td>
+                                    <td class="nrg_score_table_left"><h5><strong>Título:</strong></h5></td>
                                     <td class="nrg_score_table_right" id="resultsdiv_quiztitle_tt"><span
                                             th:text="${exam.description}"></span></td>
                                 </tr>
                                 <tr>
-                                    <td class="nrg_score_table_left"><h5><strong>Percentage:</strong></h5></td>
-                                    <td class="nrg_score_table_right"><span id="percentagespan" th:text="${percentage}"></span>%</td>
+                                    <td class="nrg_score_table_left"><h5><strong>Percentagem:</strong></h5></td>
+                                    <td class="nrg_score_table_right">
+                                        <span th:if="${percentage>79}" id="percentagespan" th:text="${percentage}+' %'" style="color: green; font-weight: bold;"></span>
+                                        <span th:if="${percentage<80}" id="percentagespan" th:text="${percentage}+' %'" style="color: red; font-weight: bold;"></span>
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td class="nrg_score_table_left"><h5><strong>Duration:</strong></h5></td>
-                                    <td class="nrg_score_table_right" id="resultsdiv_duration_tt" th:text="${exam.duration}"></td>
+                                    <td class="nrg_score_table_left"><h5><strong>Duração:</strong></h5></td>
+                                    <td class="nrg_score_table_right" id="resultsdiv_duration_tt" th:text="${exam.duration}+' minutos'"></td>
                                 </tr>
 
                                 <tr>
-                                    <td class="nrg_score_table_left"><h5><strong>Date started:</strong></h5></td>
+                                    <td class="nrg_score_table_left"><h5><strong>Inicio:</strong></h5></td>
                                     <td class="nrg_score_table_right" id="resultsdiv_datestarted_tt" th:text="${start}"></td>
                                 </tr>
 
                                 <tr>
-                                    <td class="nrg_score_table_left"><h5><strong>Date finished:</strong></h5></td>
+                                    <td class="nrg_score_table_left"><h5><strong>Fim:</strong></h5></td>
                                     <td class="nrg_score_table_right" id="resultsdiv_datefinished_tt" th:text="${finish}"></td>
                                 </tr>
 
