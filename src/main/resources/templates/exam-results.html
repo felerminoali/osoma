@@ -37,21 +37,17 @@
                                 </tr>
                                 <tr>
                                     <td class="nrg_score_table_left"><h5><strong>Duration:</strong></h5></td>
-                                    <td class="nrg_score_table_right" id="resultsdiv_duration_tt">00:30:09</td>
+                                    <td class="nrg_score_table_right" id="resultsdiv_duration_tt" th:text="${exam.duration}"></td>
                                 </tr>
 
                                 <tr>
                                     <td class="nrg_score_table_left"><h5><strong>Date started:</strong></h5></td>
-                                    <td class="nrg_score_table_right" id="resultsdiv_datestarted_tt">Thu 15th Aug 2019
-                                        5:01am
-                                    </td>
+                                    <td class="nrg_score_table_right" id="resultsdiv_datestarted_tt" th:text="${start}"></td>
                                 </tr>
 
                                 <tr>
                                     <td class="nrg_score_table_left"><h5><strong>Date finished:</strong></h5></td>
-                                    <td class="nrg_score_table_right" id="resultsdiv_datefinished_tt">Thu 15th Aug 2019
-                                        5:31am
-                                    </td>
+                                    <td class="nrg_score_table_right" id="resultsdiv_datefinished_tt" th:text="${finish}"></td>
                                 </tr>
 
                             </table>

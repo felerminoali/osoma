@@ -3,6 +3,7 @@ package mz.co.osoma.controller;
 
 import mz.co.osoma.model.*;
 import mz.co.osoma.service.CRUDService;
+import org.omg.DynamicAny.DynArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -14,10 +15,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Controller
 
@@ -95,6 +95,12 @@ public class ExamDetails {
 
             modelo.addObject("quantidadeExames", questions.size());
             modelo.addObject("next", nrQuestion + 1);
+
+
+
+
+
+            modelo.addObject("starttimestamp", Calendar.getInstance().getTime().toString());
         } else {
             modelo.addObject("next", -1);
             modelo.addObject("quantidadeExames", questions.size());
@@ -114,13 +120,13 @@ public class ExamDetails {
     }
 
     @RequestMapping(value = "/results", method = RequestMethod.POST)
-    public ModelAndView results(HttpServletRequest request) {
-
+    public ModelAndView results(HttpServletRequest request, HttpSession session) {
 
         ModelAndView modelo = new ModelAndView("exam-results");
 
-
         int idExam = Integer.parseInt(request.getParameter("examid"));
+
+        String start = request.getParameter("starttimestamp");
 
         Exam exam = crudService.get(Exam.class, idExam);
 
@@ -129,23 +135,22 @@ public class ExamDetails {
         modelo.addObject("questions", questions);
         modelo.addObject("exam", exam);
         modelo.addObject("qtdquestion", questions.size());
+        modelo.addObject("start", start);
+        modelo.addObject("finish", Calendar.getInstance().getTime());
 
         int correct = 0;
 
-//        for (Question q:questions) {
-//
-//            Map<String, Object> par = new HashMap<String, Object>();
-//            par.put("q", q.getId());
-//            par.put("r", 1);
-//            QuestionAnswers answers = crudService.findEntByJPQuery("FROM QuestionAnswers p WHERE p.question = :q AND p.rightchoice = :r", par);
-//
-//            if(session.getAttribute(q.getId().toString()).equals(answers.getId().toString())){
-//                correct++;
-//            }
-//        }
-        modelo.addObject("percentage", (correct/questions.size()));
+        for (Question q:questions) {
+            Map<String, Object> par = new HashMap<String, Object>();
+            par.put("q", q.getId());
+            par.put("r", Short.parseShort("1"));
+            QuestionAnswers answers = crudService.findEntByJPQuery("FROM QuestionAnswers p WHERE p.question.id = :q AND p.rightchoice = :r", par);
 
-//        questions.get(1).getChoices()
+            if(session.getAttribute(q.getId()+"").equals(answers.getId()+"")){
+                correct++;
+            }
+        }
+        modelo.addObject("percentage", ( (float) correct/questions.size())*100.00f);
         return modelo;
     }
 }
