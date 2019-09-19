@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -64,6 +65,8 @@ public class ExamDetails {
 
         List<Question> questions = questionsOfExam(id);
 
+//        Collections.shuffle(questions);
+
         int nrQuestion = 0;
 
         modelo.addObject("id", id);
@@ -81,6 +84,8 @@ public class ExamDetails {
             List<QuestionAnswers> questionAnswers =
                     crudService.findByJPQuery("SELECT e FROM QuestionAnswers e, Question q where e.question = q.id and  q.id = " + question.getId(), null);
 
+            Collections.shuffle(questionAnswers);
+
             modelo.addObject("questions", question);
             modelo.addObject("questionAnswers", questionAnswers);
 
@@ -95,12 +100,10 @@ public class ExamDetails {
 
             modelo.addObject("quantidadeExames", questions.size());
             modelo.addObject("next", nrQuestion + 1);
-
-
-
-
-
-            modelo.addObject("starttimestamp", Calendar.getInstance().getTime().toString());
+            Locale l = new Locale("pt","BR");
+            Calendar c = Calendar.getInstance(l);
+            SimpleDateFormat df = new SimpleDateFormat("dd MMM yyyy, HH:mm:ss",l);
+            modelo.addObject("starttimestamp", df.format(c.getTime()));
         } else {
             modelo.addObject("next", -1);
             modelo.addObject("quantidadeExames", questions.size());
@@ -136,7 +139,10 @@ public class ExamDetails {
         modelo.addObject("exam", exam);
         modelo.addObject("qtdquestion", questions.size());
         modelo.addObject("start", start);
-        modelo.addObject("finish", Calendar.getInstance().getTime());
+        Locale l = new Locale("pt","BR");
+        Calendar c = Calendar.getInstance(l);
+        SimpleDateFormat df = new SimpleDateFormat("dd MMM yyyy, HH:mm:ss",l);
+        modelo.addObject("finish", df.format(c.getTime()));
 
         int correct = 0;
 
@@ -146,7 +152,7 @@ public class ExamDetails {
             par.put("r", Short.parseShort("1"));
             QuestionAnswers answers = crudService.findEntByJPQuery("FROM QuestionAnswers p WHERE p.question.id = :q AND p.rightchoice = :r", par);
 
-            if(session.getAttribute(q.getId()+"").equals(answers.getId()+"")){
+            if(session.getAttribute(q.getId()+"")!= null && session.getAttribute(q.getId()+"").equals(answers.getId()+"")){
                 correct++;
             }
         }

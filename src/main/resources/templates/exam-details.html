@@ -10,11 +10,12 @@
 
     <div class="container">
 
-        <br/>
-        <br/>
-        <br/>
-
         <div class="row">
+
+            <br/>
+            <br/>
+            <br/>
+
             <div class="col-md-2">
 
                 <a href="/" class="btn btn-success"><i class="fa fa-angle-double-left"
@@ -27,6 +28,8 @@
 
                 <!--Exames Details-->
                 <div class="row">
+
+
 
 
                     <div class="col-sm-12 col-md-12">
@@ -57,10 +60,12 @@
 
                                     <h4>
                                         <p>
-                                            <span class="glyphicon glyphicon-question-sign " th:text="${exame.noquestion}"></span>
-                                            Questions &nbsp;
-                                            <span class="glyphicon glyphicon-time" th:text="${exame.duration}"></span>
-                                            Minutes
+                                            <span class="glyphicon glyphicon-question-sign"></span>
+                                            <span th:text="${exame.noquestion}"></span>
+                                            &nbsp;
+                                            <span class="glyphicon glyphicon-time"></span>
+                                            <span th:text="${exame.duration}"></span>
+                                            Minutos
                                         </p>
                                     </h4>
                                 </div>
@@ -74,12 +79,14 @@
 
                             <div class="details">
                                 <legend>
-                                    <h3>Diagnosis</h3>
+                                    <h3>Teste Diagnóstico</h3>
                                 </legend>
 
                                 <p style="font-size: 14px;">
-                                    Test your knowledge, simulate exams from major universities of Mozambique. Click the
-                                    button below to start the diagnosis ... <br/> <br/>
+                                    Teste o seu domínio na resolução dos problemas colocados nos exames de admissão. Clique
+                                    o butão abaixo para iniciar o teste diagnóstico.<br/> <br/>
+                                    <!--Test your knowledge, simulate exams from major universities of Mozambique. Click the-->
+                                    <!--button below to start the diagnosis ... <br/> <br/>-->
                                 </p>
 
                                 <div class="text-center">
@@ -88,28 +95,19 @@
 
                                         <div class="container-share">
                                             <p class="p-share">
-                                                This link is blocked. To unlock it, you must share it on Facebook, use the
-                                                share button below </p>
-                                            <p class="p-unlocked">Obrigado por partilhar, Clique no botão abaixo para
-                                                iniciar o diagnóstico...</p>
-                                            <p class="p-locked">Para ter acesso ao diagnóstico, deve partilhar-lho no
-                                                Facebook</p>
+                                                <!--This link is blocked. To unlock it, you must share it on Facebook, use the-->
+                                                <!--share button below </p>-->
+                                            <!--<p class="p-unlocked">Obrigado por partilhar, Clique no botão abaixo para-->
+                                                <!--iniciar o diagnóstico...</p>-->
+                                            <!--<p class="p-locked">Para ter acesso ao diagnóstico, deve partilhar-lho no-->
+                                                <!--Facebook</p>-->
 
 
-                                            <a href="#" class="btn btn-info" role="button" id="facebook-share">
-                                                <i class="fa fa-facebook-official fa-lg"></i>
-                                                Share </a>
+                                            <!--<a href="#" class="btn btn-info" role="button" id="facebook-share">-->
+                                                <!--<i class="fa fa-facebook-official fa-lg"></i>-->
+                                                <!--Share </a>-->
 
-                                            <!--                                            <a href="/?page=online-test&amp;exam=32" class="btn btn-success btn-dl"-->
-                                            <!--                                               role="button"-->
-                                            <!--                                               id="start-simulation">-->
-                                            <!--                                                Iniciar Diagnóstico-->
-                                            <!--                                            </a>-->
-
-                                            <a th:href="@{/online-test(id = ${exame.examId})}" class="btn btn-success"
-                                               role="button"
-                                               id="start-simulation">
-                                                Iniciar Diagonostico </a>
+                                            <a th:if="${exame.hassimulation}" th:href="@{/online-test(id = ${exame.examId})}" class="btn btn-success" role="button" id="start-simulation">Iniciar Diagonostico </a>
                                         </div>
                                     </div>
 
@@ -133,11 +131,10 @@
 
                             <div class="details">
                                 <legend>
-                                    <h3>Download(s)</h3>
+                                    <h3>Faça o Download(</h3>
                                 </legend>
 
-                                <p>
-                                    Click the button below to access the electronic file in PDF format. </p>
+                                <p>Clique no botão abaixo para ter acesso no ficheiro do exame no formato PDF</p>
 
 
                                 <a th:if="${exame.pdfresource}!=null" th:href="${exame.pdfresource}" class="btn btn-success"
@@ -145,96 +142,96 @@
                                     Download <i class="fa fa-cloud-download fa-lg"></i>
                                 </a>
                                 <a th:if="${exame.pdfresource}==null" aria-label="Back" style='color: #C6C4C6'>
-                                    <span style='color: red' aria-hidden="true">exam not available for download</span>
+                                    <span style='color: red' aria-hidden="true">O exame não está disponível</span>
                                 </a>
                                 <br>
                             </div>
 
 
-                            <div class="details">
-                                <legend>
-                                    <h3>Online tutoring</h3>
-                                </legend>
+                            <!--<div class="details">-->
+                                <!--<legend>-->
+                                    <!--<h3>Online tutoring</h3>-->
+                                <!--</legend>-->
 
-                                <p>
-                                    Register now for FREE </p>
-                                <a href="#" class="btn  btn-default">
-                                    More information </a>
+                                <!--<p>-->
+                                    <!--Register now for FREE </p>-->
+                                <!--<a href="#" class="btn  btn-default">-->
+                                    <!--More information </a>-->
 
-                            </div>
-
-
-                            <div class="details">
-                                <legend>
-                                    <h3>
-                                        Schedule </h3>
-                                </legend>
+                            <!--</div>-->
 
 
-                                <div>
-                                    <div class="table-responsive">
+                            <!--<div class="details">-->
+                                <!--<legend>-->
+                                    <!--<h3>-->
+                                        <!--Schedule </h3>-->
+                                <!--</legend>-->
+
+
+                                <!--<div>-->
+                                    <!--<div class="table-responsive">-->
 
 
 
 
-                                        <table class="table table-bordered">
-                                            <!--                                        <table cellpadding="0" cellspacing="0" border="1" class="tbl_repeat">-->
-                                            <thead>
-                                            <tr>
-                                                <th>
-                                                    Date
-                                                </th>
-                                                <th>
-                                                    day
-                                                </th>
-                                                <th>
-                                                    city
-                                                </th>
-                                                <th>
-                                                    contact
-                                                </th>
-                                                <th>
-                                                    email
-                                                </th>
-                                                <th>
-                                                    comment
-                                                </th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr>
-                                                <td>07/03/2016</td>
-                                                <td>Monday</td>
-                                                <td>Nampula</td>
-                                                <td>john@example.com</td>
-                                                <td>825407883</td>
-                                                <td><span style="color: red;"> Subscribe now</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td>08/03/2016</td>
-                                                <td>Friday</td>
-                                                <td>Pemba</td>
-                                                <td>john@example.com</td>
-                                                <td>825407883</td>
-                                                <td><span style="color: red;"> Subscribe now</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td>07/03/2016</td>
-                                                <td>Thursday</td>
-                                                <td>Maputo</td>
-                                                <td>john@example.com</td>
-                                                <td>825407883</td>
-                                                <td><span style="color: red;"> Subscribe now</span></td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
+                                        <!--<table class="table table-bordered">-->
+                                            <!--&lt;!&ndash;                                        <table cellpadding="0" cellspacing="0" border="1" class="tbl_repeat">&ndash;&gt;-->
+                                            <!--<thead>-->
+                                            <!--<tr>-->
+                                                <!--<th>-->
+                                                    <!--Date-->
+                                                <!--</th>-->
+                                                <!--<th>-->
+                                                    <!--day-->
+                                                <!--</th>-->
+                                                <!--<th>-->
+                                                    <!--city-->
+                                                <!--</th>-->
+                                                <!--<th>-->
+                                                    <!--contact-->
+                                                <!--</th>-->
+                                                <!--<th>-->
+                                                    <!--email-->
+                                                <!--</th>-->
+                                                <!--<th>-->
+                                                    <!--comment-->
+                                                <!--</th>-->
+                                            <!--</tr>-->
+                                            <!--</thead>-->
+                                            <!--<tbody>-->
+                                            <!--<tr>-->
+                                                <!--<td>07/03/2016</td>-->
+                                                <!--<td>Monday</td>-->
+                                                <!--<td>Nampula</td>-->
+                                                <!--<td>john@example.com</td>-->
+                                                <!--<td>825407883</td>-->
+                                                <!--<td><span style="color: red;"> Subscribe now</span></td>-->
+                                            <!--</tr>-->
+                                            <!--<tr>-->
+                                                <!--<td>08/03/2016</td>-->
+                                                <!--<td>Friday</td>-->
+                                                <!--<td>Pemba</td>-->
+                                                <!--<td>john@example.com</td>-->
+                                                <!--<td>825407883</td>-->
+                                                <!--<td><span style="color: red;"> Subscribe now</span></td>-->
+                                            <!--</tr>-->
+                                            <!--<tr>-->
+                                                <!--<td>07/03/2016</td>-->
+                                                <!--<td>Thursday</td>-->
+                                                <!--<td>Maputo</td>-->
+                                                <!--<td>john@example.com</td>-->
+                                                <!--<td>825407883</td>-->
+                                                <!--<td><span style="color: red;"> Subscribe now</span></td>-->
+                                            <!--</tr>-->
+                                            <!--</tbody>-->
+                                        <!--</table>-->
 
-                                    </div>
+                                    <!--</div>-->
 
-                                    <br/>
-                                    <br/>
-                                </div>
-                            </div>
+                                    <!--<br/>-->
+                                    <!--<br/>-->
+                                <!--</div>-->
+                            <!--</div>-->
 
                         </div>
 
@@ -243,8 +240,11 @@
 
                 </div>
 
+                <br/>
+                <br/>
 
             </div>
+
 
             <!--side nav-->
             <div class="col-lg-3 col-md-3 col-sm-4">

@@ -77,6 +77,9 @@ public class Question implements Serializable {
     @OneToMany(mappedBy = "question", fetch = FetchType.LAZY)
     private List<QuestionAnswers> questionAnswersList;
 
+    @Column(name = "youtubeurl")
+    private String youtubeurl;
+
     public Question() {
     }
 
@@ -179,6 +182,14 @@ public class Question implements Serializable {
 
     public void setQuestionAnswersList(List<QuestionAnswers> questionAnswersList) {
         this.questionAnswersList = questionAnswersList;
+    }
+
+    public String getYoutubeurl() {
+        return youtubeurl;
+    }
+
+    public void setYoutubeurl(String youtubeurl) {
+        this.youtubeurl = youtubeurl;
     }
 
     @Override

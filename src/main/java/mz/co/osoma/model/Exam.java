@@ -53,6 +53,9 @@ public class Exam implements Serializable {
     private String pdfresource;
     @Column(name = "elearning")
     private String elearning;
+    @Column(name = "hassimulation")
+    private boolean hassimulation;
+
     @JoinColumn(name = "category", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Category category;
@@ -63,6 +66,7 @@ public class Exam implements Serializable {
     private List<ExamAttempts> examAttemptsList;
     @OneToMany(mappedBy = "exam", fetch = FetchType.LAZY)
     private List<Question> questionList;
+
 
     public Exam() {
     }
@@ -134,6 +138,15 @@ public class Exam implements Serializable {
 
     public String getElearning() {
         return elearning;
+    }
+
+
+    public boolean isHassimulation() {
+        return hassimulation;
+    }
+
+    public void setHassimulation(boolean hassimulation) {
+        this.hassimulation = hassimulation;
     }
 
     public void setElearning(String elearning) {

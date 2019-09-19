@@ -10,11 +10,11 @@
 <th:block layout:fragment="contentDiag">
 
 
-    <div class="container" style="padding-top: 10px;">
+    <div class="container" style="">
 
         <div class="row">
             <!--Main content-->
-            <div class="col-md-12" style="background-color: white; border: 1px solid #c2cbd4; padding-top: 4%;">
+            <div class="col-md-12" style="background-color: white; border: 1px solid #c2cbd4;">
                 <div class="classmarker_body_div">
 
                     <div id="ajax-container">
@@ -33,24 +33,36 @@
                                 </tr>
                                 <tr>
                                     <td class="nrg_score_table_left"><h5><strong>Percentagem:</strong></h5></td>
-                                    <td class="nrg_score_table_right">
-                                        <span th:if="${percentage>79}" id="percentagespan" th:text="${percentage}+' %'" style="color: green; font-weight: bold;"></span>
-                                        <span th:if="${percentage<80}" id="percentagespan" th:text="${percentage}+' %'" style="color: red; font-weight: bold;"></span>
+                                    <td>
+                                        <div class="progress" style="height: 20px;">
+                                            <div th:if="${percentage>79}" th:style="'width:'+${percentage}+'%'"
+                                                 class="progress-bar progress-bar-success" role="progressbar"
+                                                 aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"
+                                                 th:text="${percentage+'%'}"></div>
+                                            <div th:if="${percentage<80}" th:style="'width:'+${percentage}+'%'"
+                                                 class="progress-bar progress-bar-danger" role="progressbar"
+                                                 aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"
+                                                 th:text="${percentage+'%'}"></div>
+                                        </div>
                                     </td>
                                 </tr>
+
                                 <tr>
                                     <td class="nrg_score_table_left"><h5><strong>Duração:</strong></h5></td>
-                                    <td class="nrg_score_table_right" id="resultsdiv_duration_tt" th:text="${exam.duration}+' minutos'"></td>
+                                    <td class="nrg_score_table_right" id="resultsdiv_duration_tt"
+                                        th:text="${exam.duration}+' minutos'"></td>
                                 </tr>
 
                                 <tr>
                                     <td class="nrg_score_table_left"><h5><strong>Inicio:</strong></h5></td>
-                                    <td class="nrg_score_table_right" id="resultsdiv_datestarted_tt" th:text="${start}"></td>
+                                    <td class="nrg_score_table_right" id="resultsdiv_datestarted_tt"
+                                        th:text="${start}"></td>
                                 </tr>
 
                                 <tr>
                                     <td class="nrg_score_table_left"><h5><strong>Fim:</strong></h5></td>
-                                    <td class="nrg_score_table_right" id="resultsdiv_datefinished_tt" th:text="${finish}"></td>
+                                    <td class="nrg_score_table_right" id="resultsdiv_datefinished_tt"
+                                        th:text="${finish}"></td>
                                 </tr>
 
                             </table>
@@ -80,84 +92,73 @@
                             </br>
                             <div th:case="*">
 
-                                <div th:with="count=${0}">
+
+                                <div th:each="question, inter: ${questions}">
 
 
-                                    <div th:each="question: ${questions}">
-                                        <div class="clear"></div>
-                                        <div class="clearheight30"></div>
-                                        <div class="qd">
-                                            <div class="qbox">
-                                                <div class="qboxleft">
-                                                    <div id="paging">
-                                                        <div th:with="count=${count + 1}">
-                                                            <div id="paging"><h4>Quest&atilde;o <span
-                                                                    th:text="${count}"></span> de <span
-                                                                    th:text="${qtdquestion}"></span></h4></div>
-                                                            <!--<h1><span th:text="${count}"></span></h1>-->
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="clear"></div>
+                                    <div class="clear"></div>
+                                    <div class="clearheight30"></div>
+                                    <div class="qd">
+                                        <div class="qbox">
+                                            <div class="qboxleft">
+                                                <div><h4>Quest&atilde;o <span
+                                                        th:text="${inter.index+1}"></span> de <span
+                                                        th:text="${qtdquestion}"></span></h4></div>
                                             </div>
-                                            <div class="col600 qsholder editor">
-                                                <p>
-                                                <dl id="question_div">
-                                                    <dd class="q_question">
+                                            <div class="clear"></div>
+                                        </div>
+                                        <div class="col600 qsholder editor">
+                                            <p>
+                                            <dl id="question_div">
+                                                <dd class="q_question">
                                                         <span style="display: inline;"
                                                               th:text="${question.question}"></span>
-                                                    </dd>
-                                                </dl>
-                                                </p>
-                                            </div>
-                                            <div class="dotted"></div>
-                                            <!--<p class="chosen">-->
-                                            <!--Resposta correcta: <strong>B) </strong>-->
-                                            <!--<br/>-->
-                                            <!--Resposta seleccionada:<strong>Nenhuma</strong>-->
-                                            <!--</p>-->
+                                                </dd>
+                                            </dl>
+                                            </p>
+                                        </div>
+                                        <div class="dotted"></div>
+                                        <table width="100%">
+                                            <tr th:each=" choice: ${question.questionAnswersList}">
+                                                <td th:style="${choice.rightchoice==1 ? 'background-color: #B0EEAF;':{choice.rightchoice==0 && #session.getAttribute(question.id+'')==choice.id+''} ? 'background-color: #FFE4E9;':''}"
+                                                    width="10px">
+                                                    <div class="ans_select">
+                                                        <input type="radio"
+                                                               th:id="${'q_'+question.id+'_'+choice.id}"
+                                                               name="q_choice">
+                                                    </div>
+                                                </td>
+                                                <td th:style="${choice.rightchoice==1 ? 'background-color: #B0EEAF;':{choice.rightchoice==0 && #session.getAttribute(question.id+'')==choice.id+''} ? 'background-color: #FFE4E9;':''}">
+                                                    <div class="ans_content editor">
+                                                        <label th:for="${'q_'+question.id+'_'+choice.id}">
+                                                                <span th:if="${choice.rightchoice==1}"
+                                                                      th:text="${choice.answer}"
+                                                                      style="font-weight: bold;"></span>
+                                                            <span th:if="${choice.rightchoice==0 && #session.getAttribute(question.id+'')==choice.id+''}"
+                                                                  th:text="${choice.answer}"
+                                                                  style="color:red; font-weight: bold;"></span>
+                                                            <span th:if="${choice.rightchoice==0 && #session.getAttribute(question.id+'')!=choice.id+''}"
+                                                                  th:text="${choice.answer}"></span>
+                                                        </label>
 
-                                            <table>
-
-                                                <tr th:each=" choice: ${question.questionAnswersList}">
-
-                                                    <td>
-                                                        <div class="ans_select">
-                                                            <input type="radio"
-                                                                   th:id="${'q_'+question.id+'_'+choice.id}"
-                                                                   name="q_choice">
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="ans_content editor">
-                                                            <label th:for="${'q_'+question.id+'_'+choice.id}">
-                                                                <!--<span th:text="${choice.answer}" th:style="${#session.getAttribute(question.id+'')==choice.id+''} ? 'color:green; font-weight: bold;' : 'color:red'" style=""></span>-->
-                                                                <!--<span th:text="${choice.answer}" th:style="${choice.rightchoice==1} ? 'color:green; font-weight: bold;' : ''"></span>-->
-                                                                <span th:if="${choice.rightchoice==1}" th:text="${choice.answer}" style="color:green; font-weight: bold;"></span>
-                                                                <span th:if="${choice.rightchoice==0 && #session.getAttribute(question.id+'')==choice.id+''}" th:text="${choice.answer}" style="color:red; font-weight: bold;"></span>
-                                                                <span th:if="${choice.rightchoice==0 && #session.getAttribute(question.id+'')!=choice.id+''}" th:text="${choice.answer}"></span>
-                                                            </label>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </table>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </table>
 
 
-                                            <div class="dotted"></div>
-                                            <div class="headlinetop">
-                                                <strong>Pontos</strong>
-                                                <span>0 </span> de 1
-                                                <br/>
-                                            </div>
-                                            <div class="clearheight30"></div>
-                                            <div class="red headlinetop fb_header">
-                                                <h5>Feedback</h5>
-                                            </div>
-                                            <p>
-                                                Filosofia a uma disciplina ... </p>
+                                        <div class="dotted"></div>
+                                        <div class="clearheight30"></div>
+                                        <!--<div class="red headlinetop fb_header">-->
+                                            <!--<h5>Feedback</h5>-->
+                                        <!--</div>-->
+                                        <p th:text="${question.feedback}"></p>
+                                        <div th:if="${question.youtubeurl != null}">
+                                            <iframe width="360" height="215" src="https://www.youtube.com/embed/" th:src="${'https://www.youtube.com/embed/'+question.youtubeurl}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
 

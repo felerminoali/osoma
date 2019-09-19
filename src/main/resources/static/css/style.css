@@ -1651,9 +1651,15 @@ div.classmarker_body_div{
     clear: both;
 }
 
-.nrg_score_table_left{padding-left:0}
-.nrg_score_table_left{text-align:right;vertical-align:top;padding-left:20px;border-collapse:collapse;white-space:nowrap}
-.nrg_score_table_right{vertical-align:top;padding-left:10px;border-collapse:collapse; margin-left: 10px}
+
+.error-template {padding: 40px 15px;text-align: center;}
+.error-actions {margin-top:15px;margin-bottom:15px;}
+.error-actions .btn { margin-right:10px; }
+
+
+.nrg_score_table_left{padding-left:0px}
+.nrg_score_table_left{text-align:right;vertical-align:top;padding-left:20px;border-collapse:collapse;white-space:nowrap;}
+.nrg_score_table_right{vertical-align:top;padding-left:10px;border-collapse:collapse; margin-left: 10px;}
 
 .col600 {
     width: 92.714285714%;
