@@ -5,6 +5,7 @@ $(document).ready(function () {
 
     initBinds();
 
+
     function initBinds(){
 
         // $('input').on('click', function () {
@@ -14,15 +15,12 @@ $(document).ready(function () {
 
                 var values = $(this).val();
                 var item = values.split('_');
-
                 var param = item[0] + "=" + item[1] + "&";
 
                 params.push(param);
-
             });
 
             var url = "/?";
-
             for (i = 0; i < params.length; i++) {
                 url = url + params[i];
             }
@@ -146,6 +144,43 @@ $(document).ready(function () {
             return false;
 
         }));
+    }
+
+
+
+    if($('.province-selected').length>0){
+
+        selectDistrict();
+
+        $('.province-selected').bind('change', function(e) {
+           selectDistrict();
+        });
+    }
+
+    function selectDistrict() {
+
+        var id = $('.province-selected').val();
+        var url ="/districts/"+id;
+
+        $('#distrito').innerHTML = "<option value=''>"+'-- Select --'+"</option>";
+
+        $.ajax({
+            url:url,
+            method:"GET",
+            data:{id:id},
+            dataType:"json",
+            success:function(data)
+            {
+                $.each(data, function (index, value) {
+                    // APPEND OR INSERT DATA TO SELECT ELEMENT.
+                    $('#distrito').append('<option value="' + value.id + '">' + value.district + '</option>');
+                });
+
+            },
+            error: function () {
+                alert('An error has occurred');
+            }
+        });
     }
 
 });
