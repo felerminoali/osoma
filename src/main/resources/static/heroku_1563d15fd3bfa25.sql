@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50550
 File Encoding         : 65001
 
-Date: 2019-09-19 22:55:05
+Date: 2019-10-02 23:05:21
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -319,6 +319,164 @@ INSERT INTO `countries` VALUES ('242', 'Zambia', 'ZM');
 INSERT INTO `countries` VALUES ('243', 'Zimbabwe', 'ZW');
 
 -- ----------------------------
+-- Table structure for `district`
+-- ----------------------------
+DROP TABLE IF EXISTS `district`;
+CREATE TABLE `district` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `province` int(11) DEFAULT NULL,
+  `district` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `province` (`province`),
+  CONSTRAINT `district_ibfk_1` FOREIGN KEY (`province`) REFERENCES `province` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=142 DEFAULT CHARSET=latin1;
+
+-- ----------------------------
+-- Records of district
+-- ----------------------------
+INSERT INTO `district` VALUES ('1', '1', 'Ancuabe');
+INSERT INTO `district` VALUES ('2', '1', 'Balama');
+INSERT INTO `district` VALUES ('3', '1', 'Chiúre');
+INSERT INTO `district` VALUES ('4', '1', 'Ibo');
+INSERT INTO `district` VALUES ('5', '1', 'Macomia');
+INSERT INTO `district` VALUES ('6', '1', 'Macomia');
+INSERT INTO `district` VALUES ('7', '1', 'Meluco');
+INSERT INTO `district` VALUES ('8', '1', 'Metuge');
+INSERT INTO `district` VALUES ('9', '1', 'Mocímboa da Praia');
+INSERT INTO `district` VALUES ('10', '1', 'Montepuez');
+INSERT INTO `district` VALUES ('11', '1', 'Mueda');
+INSERT INTO `district` VALUES ('12', '1', 'Muidumbe');
+INSERT INTO `district` VALUES ('13', '1', 'Namuno');
+INSERT INTO `district` VALUES ('14', '1', 'Nangade');
+INSERT INTO `district` VALUES ('15', '1', 'Palma');
+INSERT INTO `district` VALUES ('16', '1', 'Pemba');
+INSERT INTO `district` VALUES ('17', '1', 'Quissanga');
+INSERT INTO `district` VALUES ('18', '9', 'Bilene');
+INSERT INTO `district` VALUES ('19', '9', 'Chibuto');
+INSERT INTO `district` VALUES ('20', '9', 'Chicualacuala');
+INSERT INTO `district` VALUES ('21', '9', 'Chigubo');
+INSERT INTO `district` VALUES ('22', '9', 'Chókwè');
+INSERT INTO `district` VALUES ('23', '9', 'Chongoene');
+INSERT INTO `district` VALUES ('24', '9', 'Guijá');
+INSERT INTO `district` VALUES ('25', '9', 'Limpopo');
+INSERT INTO `district` VALUES ('26', '9', 'Mabalane');
+INSERT INTO `district` VALUES ('27', '9', 'Manjacaze');
+INSERT INTO `district` VALUES ('28', '9', 'Mapai');
+INSERT INTO `district` VALUES ('29', '9', 'Massangena');
+INSERT INTO `district` VALUES ('30', '9', 'Massingir');
+INSERT INTO `district` VALUES ('31', '9', 'Xai-Xai');
+INSERT INTO `district` VALUES ('32', '8', 'Funhalouro');
+INSERT INTO `district` VALUES ('33', '8', 'Govuro');
+INSERT INTO `district` VALUES ('34', '8', 'Homoíne');
+INSERT INTO `district` VALUES ('35', '8', 'Inhambane');
+INSERT INTO `district` VALUES ('36', '8', 'Inharrime');
+INSERT INTO `district` VALUES ('37', '8', 'Inhassoro');
+INSERT INTO `district` VALUES ('38', '8', 'Jangamo');
+INSERT INTO `district` VALUES ('39', '8', 'Mabote');
+INSERT INTO `district` VALUES ('40', '8', 'Massinga');
+INSERT INTO `district` VALUES ('41', '8', 'Maxixe');
+INSERT INTO `district` VALUES ('42', '8', 'Morrumbene');
+INSERT INTO `district` VALUES ('43', '8', 'Panda');
+INSERT INTO `district` VALUES ('44', '8', 'Vilanculos');
+INSERT INTO `district` VALUES ('45', '8', 'Zavala');
+INSERT INTO `district` VALUES ('46', '9', 'Bárue');
+INSERT INTO `district` VALUES ('47', '9', 'Chimoio');
+INSERT INTO `district` VALUES ('48', '9', 'Gondola');
+INSERT INTO `district` VALUES ('49', '9', 'Guro');
+INSERT INTO `district` VALUES ('50', '9', 'Macate');
+INSERT INTO `district` VALUES ('51', '9', 'Machaze');
+INSERT INTO `district` VALUES ('52', '9', 'Macossa');
+INSERT INTO `district` VALUES ('53', '9', 'Manica');
+INSERT INTO `district` VALUES ('54', '9', 'Mossurize');
+INSERT INTO `district` VALUES ('55', '9', 'Sussundenga');
+INSERT INTO `district` VALUES ('56', '9', 'Tambara');
+INSERT INTO `district` VALUES ('57', '9', 'Vanduzi');
+INSERT INTO `district` VALUES ('58', '10', 'Boane');
+INSERT INTO `district` VALUES ('59', '10', 'Magude');
+INSERT INTO `district` VALUES ('60', '10', 'Manhiça');
+INSERT INTO `district` VALUES ('61', '10', 'Marracuene');
+INSERT INTO `district` VALUES ('62', '10', 'Matola');
+INSERT INTO `district` VALUES ('63', '10', 'Matutuíne');
+INSERT INTO `district` VALUES ('64', '10', 'Moamba');
+INSERT INTO `district` VALUES ('65', '10', 'Namaacha');
+INSERT INTO `district` VALUES ('66', '3', 'Angoche');
+INSERT INTO `district` VALUES ('67', '3', 'Eráti');
+INSERT INTO `district` VALUES ('68', '3', 'Ilha de Moçambique');
+INSERT INTO `district` VALUES ('69', '3', 'Lalaua');
+INSERT INTO `district` VALUES ('70', '3', 'Larde');
+INSERT INTO `district` VALUES ('71', '3', 'Liúpo');
+INSERT INTO `district` VALUES ('72', '3', 'Malema');
+INSERT INTO `district` VALUES ('73', '3', 'Meconta');
+INSERT INTO `district` VALUES ('74', '3', 'Mecubúri');
+INSERT INTO `district` VALUES ('75', '3', 'Memba');
+INSERT INTO `district` VALUES ('76', '3', 'Mogincual');
+INSERT INTO `district` VALUES ('77', '3', 'Mogovolas');
+INSERT INTO `district` VALUES ('78', '3', 'Moma');
+INSERT INTO `district` VALUES ('79', '3', 'Moma');
+INSERT INTO `district` VALUES ('80', '3', 'Mossuril');
+INSERT INTO `district` VALUES ('81', '3', 'Muecate');
+INSERT INTO `district` VALUES ('82', '3', 'Murrupula');
+INSERT INTO `district` VALUES ('83', '3', 'Nacala-a-Velha');
+INSERT INTO `district` VALUES ('84', '3', 'Nacala Porto');
+INSERT INTO `district` VALUES ('85', '3', 'Nacarôa');
+INSERT INTO `district` VALUES ('86', '3', 'Nampula');
+INSERT INTO `district` VALUES ('87', '3', 'Rapale');
+INSERT INTO `district` VALUES ('88', '3', 'Ribaué');
+INSERT INTO `district` VALUES ('89', '2', 'Chimbonila');
+INSERT INTO `district` VALUES ('90', '2', 'Cuamba');
+INSERT INTO `district` VALUES ('91', '2', 'Lago');
+INSERT INTO `district` VALUES ('92', '2', 'Lichinga');
+INSERT INTO `district` VALUES ('93', '2', 'Majune');
+INSERT INTO `district` VALUES ('94', '2', 'Mandimba');
+INSERT INTO `district` VALUES ('95', '2', 'Marrupa');
+INSERT INTO `district` VALUES ('96', '2', 'Maúa');
+INSERT INTO `district` VALUES ('97', '2', 'Mavago');
+INSERT INTO `district` VALUES ('98', '2', 'Mecanhelas');
+INSERT INTO `district` VALUES ('99', '2', 'Mecula');
+INSERT INTO `district` VALUES ('100', '2', 'Metarica');
+INSERT INTO `district` VALUES ('101', '2', 'Muembe');
+INSERT INTO `district` VALUES ('102', '2', 'N\'gauma');
+INSERT INTO `district` VALUES ('103', '2', 'Nipepe');
+INSERT INTO `district` VALUES ('104', '2', 'Sanga');
+INSERT INTO `district` VALUES ('105', '5', 'Angónia');
+INSERT INTO `district` VALUES ('106', '5', 'Cahora-Bassa');
+INSERT INTO `district` VALUES ('107', '5', 'Changara');
+INSERT INTO `district` VALUES ('108', '5', 'Chifunde');
+INSERT INTO `district` VALUES ('109', '5', 'Chiuta');
+INSERT INTO `district` VALUES ('110', '5', 'Dôa');
+INSERT INTO `district` VALUES ('111', '5', 'Macanga');
+INSERT INTO `district` VALUES ('112', '5', 'Magoé');
+INSERT INTO `district` VALUES ('113', '5', 'Marara');
+INSERT INTO `district` VALUES ('114', '5', 'Marávia');
+INSERT INTO `district` VALUES ('115', '5', 'Moatize');
+INSERT INTO `district` VALUES ('116', '5', 'Mutarara');
+INSERT INTO `district` VALUES ('117', '5', 'Tete');
+INSERT INTO `district` VALUES ('118', '5', 'Tsangano');
+INSERT INTO `district` VALUES ('119', '5', 'Zumbo');
+INSERT INTO `district` VALUES ('120', '4', 'Alto Molócue');
+INSERT INTO `district` VALUES ('121', '4', 'Chinde');
+INSERT INTO `district` VALUES ('122', '4', 'Derre');
+INSERT INTO `district` VALUES ('123', '4', 'Gilé');
+INSERT INTO `district` VALUES ('124', '4', 'Gurué');
+INSERT INTO `district` VALUES ('125', '4', 'Ile');
+INSERT INTO `district` VALUES ('126', '4', 'Inhassunge');
+INSERT INTO `district` VALUES ('127', '4', 'Luabo');
+INSERT INTO `district` VALUES ('128', '4', 'Lugela');
+INSERT INTO `district` VALUES ('129', '4', 'Maganja da Costa');
+INSERT INTO `district` VALUES ('130', '4', 'Milange');
+INSERT INTO `district` VALUES ('131', '4', 'Mocuba');
+INSERT INTO `district` VALUES ('132', '4', 'Mocubela');
+INSERT INTO `district` VALUES ('133', '4', 'Molumbo');
+INSERT INTO `district` VALUES ('134', '4', 'Mopeia');
+INSERT INTO `district` VALUES ('135', '4', 'Morrumbala');
+INSERT INTO `district` VALUES ('136', '4', 'Mulevala');
+INSERT INTO `district` VALUES ('137', '4', 'Namacurra');
+INSERT INTO `district` VALUES ('138', '4', 'Namarroi');
+INSERT INTO `district` VALUES ('139', '4', 'Nicoadala');
+INSERT INTO `district` VALUES ('140', '4', 'Pebane');
+INSERT INTO `district` VALUES ('141', '4', 'Quelimane');
+
+-- ----------------------------
 -- Table structure for `exam`
 -- ----------------------------
 DROP TABLE IF EXISTS `exam`;
@@ -372,6 +530,31 @@ CREATE TABLE `exam_attempts` (
 -- ----------------------------
 -- Records of exam_attempts
 -- ----------------------------
+
+-- ----------------------------
+-- Table structure for `province`
+-- ----------------------------
+DROP TABLE IF EXISTS `province`;
+CREATE TABLE `province` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `province` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+
+-- ----------------------------
+-- Records of province
+-- ----------------------------
+INSERT INTO `province` VALUES ('1', 'Cabo Delgado');
+INSERT INTO `province` VALUES ('2', 'Niassa');
+INSERT INTO `province` VALUES ('3', 'Nampula');
+INSERT INTO `province` VALUES ('4', 'Zambézia');
+INSERT INTO `province` VALUES ('5', 'Tete');
+INSERT INTO `province` VALUES ('6', 'Manica');
+INSERT INTO `province` VALUES ('7', 'Sofala');
+INSERT INTO `province` VALUES ('8', 'Inhambane');
+INSERT INTO `province` VALUES ('9', 'Gaza');
+INSERT INTO `province` VALUES ('10', 'Maputo');
+INSERT INTO `province` VALUES ('11', 'Maputo Cidade');
 
 -- ----------------------------
 -- Table structure for `qtype`

@@ -5,7 +5,7 @@
 
 <head>
 </head>
-<body >
+<body>
 
 
 <!-- Insert content into the layouts/layout.html -->
@@ -32,23 +32,22 @@
                                 <div class="load_more_years" id="years_more">
 
 
-                                    <tr
-                                            th:each="year: ${examYearList}"
-                                    <li th>
-                                        <div class="tickbox">
-                                            <!--/*@thymesVar id="year" type=""*/-->
-                                            <input type="checkbox" name="YearCheckFilter"
+                                    <ul th:each="year: ${examYearList}" class="nobull">
+                                        <li>
+                                            <div class="tickbox">
+                                                <!--/*@thymesVar id="year" type=""*/-->
+                                                <input type="checkbox" name="YearCheckFilter"
 
-                                                   th:id="${year.year}"
-                                                   th:value="'ano_'+${year.year}"
-                                                   th:checked="${ano == year.year} ? 'checked' "
-                                            />
-                                            <span th:text="${year.year}">  </span>
-                                            <span class="pull-right" th:text="${year.count}">7</span>
-                                        </div>
-                                    </li>
+                                                       th:id="${year.year}"
+                                                       th:value="'ano_'+${year.year}"
+                                                       th:checked="${ano == year.year} ? 'checked' "
+                                                />
+                                                <span th:text="${year.year}">  </span>
+                                                <span class="pull-right" th:text="${year.count}">7</span>
+                                            </div>
+                                        </li>
 
-                                    </tr>
+                                    </ul>
 
 
                                 </div>
@@ -71,7 +70,7 @@
                                 </p>
                                 <div class="load_more_uni" id="uni_more">
 
-                                    <tr th:each="university: ${examUniversityList}">
+                                    <ul th:each="university: ${examUniversityList}" class="nobull">
                                         <li>
                                             <div class="tickbox">
                                                 <input type="checkbox" name="UniCheckFilter"
@@ -83,7 +82,7 @@
                                                 <span class="pull-right" th:text="${university.count}"> </span>
                                             </div>
                                         </li>
-                                    </tr>
+                                    </ul>
 
                                 </div>
                                 <div class="divider"></div>
@@ -105,7 +104,7 @@
                                 </p>
 
                                 <div class="load_more_exam" id="exam_more">
-                                    <tr th:each="category: ${examCategoryList}">
+                                    <ul th:each="category: ${examCategoryList}" class="nobull">
                                         <li>
                                             <div class="tickbox">
                                                 <input type="checkbox" name="SubcheckFilter"
@@ -116,7 +115,7 @@
                                                 <span class="pull-right" th:text="${category.count}"> </span>
                                             </div>
                                         </li>
-                                    </tr>
+                                    </ul>
                                 </div>
 
 
@@ -139,7 +138,7 @@
                 <div th:switch="${exams}">
                     <h2 th:case="null"><p th:text="Nao-Exames"></p></h2>
                     <p align="center" th:text="${'Encontrado '+exams.size()+' exames'}"></p>
-                    </br>
+                    <br/>
                     <div th:case="*">
                         <div th:each="exam: ${exams}">
                             <div class="col-sm-6 col-md-3">
@@ -181,7 +180,8 @@
                                 </a>
                             </li>
                             <li>
-                                <a th:value="'pg_'+${next}" th:if="${next} <= ${nPage}" th:href="@{/(pg=${next})}" aria-label="Next"><span
+                                <a th:value="'pg_'+${next}" th:if="${next} <= ${nPage}" th:href="@{/(pg=${next})}"
+                                   aria-label="Next"><span
                                         aria-hidden="true">&raquo;</span>
                                 </a>
                                 <a th:if="${next} > ${nPage}" aria-label="Next" style='color: #C6C4C6'>
@@ -198,7 +198,7 @@
             </div>
         </div>
     </div>
-    </div>
+
 </th:block>
 
 </body>

@@ -6,7 +6,7 @@ $(document).ready(function () {
     initBinds();
 
 
-    function initBinds(){
+    function initBinds() {
 
         // $('input').on('click', function () {
         $('.tickbox').on('click', function () {
@@ -25,7 +25,7 @@ $(document).ready(function () {
                 url = url + params[i];
             }
 
-            url = url.substring(0,url.length-1);
+            url = url.substring(0, url.length - 1);
             //alert(document.URL);
             redirect(url);
         });
@@ -42,21 +42,18 @@ $(document).ready(function () {
             var last_year = $(this).data("year");
 
             $.ajax({
-                url:"/mod/load_more_years.php",
-                method:"POST",
-                data:{last_year:last_year},
-                dataType:"html",
-                success:function(data)
-                {
-                    if(data != '')
-                    {
+                url: "/mod/load_more_years.php",
+                method: "POST",
+                data: {last_year: last_year},
+                dataType: "html",
+                success: function (data) {
+                    if (data != '') {
                         $('.remove_row_year').remove();
                         var content = document.getElementById("years_more").innerHTML;
-                        $('.load_more_years').html(content+data);
+                        $('.load_more_years').html(content + data);
                         initBinds();
                     }
-                    else
-                    {
+                    else {
                         $('.btn_more_years').html("No Data");
                     }
                 },
@@ -74,21 +71,18 @@ $(document).ready(function () {
             var last_uni = $(this).data("uni");
 
             $.ajax({
-                url:"/mod/load_more_uni.php",
-                method:"POST",
-                data:{last_uni:last_uni},
-                dataType:"html",
-                success:function(data)
-                {
-                    if(data != '')
-                    {
+                url: "/mod/load_more_uni.php",
+                method: "POST",
+                data: {last_uni: last_uni},
+                dataType: "html",
+                success: function (data) {
+                    if (data != '') {
                         $('.remove_row_uni').remove();
                         var content = document.getElementById("uni_more").innerHTML;
-                        $('.load_more_uni').html(content+data);
+                        $('.load_more_uni').html(content + data);
                         initBinds();
                     }
-                    else
-                    {
+                    else {
                         $('.btn_more_unis').html("No Data");
                     }
                 },
@@ -105,21 +99,18 @@ $(document).ready(function () {
             var last_exam = $(this).data("exam");
 
             $.ajax({
-                url:"/mod/load_more_exams.php",
-                method:"POST",
-                data:{last_exam:last_exam},
-                dataType:"html",
-                success:function(data)
-                {
-                    if(data != '')
-                    {
+                url: "/mod/load_more_exams.php",
+                method: "POST",
+                data: {last_exam: last_exam},
+                dataType: "html",
+                success: function (data) {
+                    if (data != '') {
                         $('.remove_row_exam').remove();
                         var content = document.getElementById("exam_more").innerHTML;
-                        $('.load_more_exam').html(content+data);
+                        $('.load_more_exam').html(content + data);
                         initBinds();
                     }
-                    else
-                    {
+                    else {
                         $('.btn_more_exams').html("No Data");
                     }
                 },
@@ -138,7 +129,7 @@ $(document).ready(function () {
             var trigger = $(this);
 
             var selectedOption = trigger.attr("hreflang");
-            if (selectedOption != ''){
+            if (selectedOption != '') {
                 window.location.replace('?lang=' + selectedOption);
             }
             return false;
@@ -147,35 +138,31 @@ $(document).ready(function () {
     }
 
 
-
-    if($('.province-selected').length>0){
+    if ($('.province-selected').length > 0) {
 
         selectDistrict();
 
-        $('.province-selected').bind('change', function(e) {
-           selectDistrict();
+        $('.province-selected').bind('change', function (e) {
+            selectDistrict();
         });
     }
 
     function selectDistrict() {
 
         var id = $('.province-selected').val();
-        var url ="/districts/"+id;
-
-        $('#distrito').innerHTML = "<option value=''>"+'-- Select --'+"</option>";
+        var url = "/districts/" + id;
 
         $.ajax({
-            url:url,
-            method:"GET",
-            data:{id:id},
-            dataType:"json",
-            success:function(data)
-            {
+            url: url,
+            method: "GET",
+            data: {id: id},
+            dataType: "json",
+            success: function (data) {
+                $('#distrito').empty();
                 $.each(data, function (index, value) {
                     // APPEND OR INSERT DATA TO SELECT ELEMENT.
                     $('#distrito').append('<option value="' + value.id + '">' + value.district + '</option>');
                 });
-
             },
             error: function () {
                 alert('An error has occurred');
