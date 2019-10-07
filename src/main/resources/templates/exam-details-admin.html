@@ -101,12 +101,12 @@
                 return false;
             }
 
-            if(frm.correctAnswer.value=="" || frm.correctAnswer.value==null){
+            if (frm.correctAnswer.value == "" || frm.correctAnswer.value == null) {
                 alert("Campo \"Resposta Correcta \" Obrigatorio");
                 frm.correctAnswer.focus();
                 return false;
             }
-            if(frm.answer.value=="" || frm.answer.value==null){
+            if (frm.answer.value == "" || frm.answer.value == null) {
                 alert("Campo Obrigatorio");
                 frm.answer.focus();
                 return false;
@@ -279,15 +279,22 @@
                                       action="/exams-admin/exam-details-admin/question-add/question-save" method="POST"
                                       onsubmit="return validaForm(this)">
 
-                                    <legend><b>Pergunta</b></legend>
                                     <input type="hidden" th:value="${exam.examId}" name="examId">
+                                    <legend><b>Texto: *</b></legend>
+                                    <textarea name="text" class="form-control" rows="5">   </textarea>
+                                    <legend><b>Pergunta: *</b></legend>
                                     <input type="text" class="form-control" name="questiontextformat"
                                            id="questiontextformat"
                                            value="">
                                     <input type="file" class="file" name="image">
+                                    <span><b>Video: * </b></span>
+                                    <input type="text" class="form-control" name="video">
+                                    <span><b>Feedback: * </b></span>
+                                    <textarea class="form-control" name="answerFeedback"
+                                           id="answerFeedback"
+                                              value="" rows="3"> </textarea>
 
                                     <br>
-                                    <legend><b>Respostas</b></legend>
 
                                     <script type="text/javascript"
                                             src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.3/jquery.min.js"></script>
@@ -296,52 +303,44 @@
                                             $('#mais').click(function () {
                                                 var next = $('#lista tbody').children('tr').length + 1;
                                                 $('#lista tbody').append('<tr>' +
-                                                    '<td class="linha-left"><input class="form-control" type="text" name="answer" /></td>' +
-                                                    '<td class="linha-right"><input type="file" name="image"/></td><br>' +
-                                                    '</tr>' + '<br><br>'
-                                                );
+                                                    '<td class="linha-left"><input type="text" class="form-control" name="question' + next + '" /></td>' +
+                                                    '<td class="linha-right"><input type="file" name="image' + next + '"/></td>' +
+                                                    '</tr>');
+                                                $('#qtd').val(next);
                                                 return false;
                                             });
                                         });
                                     </script>
 
+
                                     <tr>
                                         <td>
-                                            <span><b>Opção correcta: *</b></span>
+                                            <legend><b>Opção correcta: *</b></legend>
+
                                             <input name="correctAnswer" class="form-control">
                                         </td>
                                         <td>
                                             <input type="file" name="answerImage"/>
                                         </td>
-                                        <td>
-                                            <span><b>Feedback: * </b></span>
-                                            <input type="textarea" class="form-control" name="answerFeedback"
-                                                   id="answerFeedback"
-                                                   value="">
-                                        </td>
                                     </tr>
 
                                     <br>
                                     <br>
+                                        <legend><b>Outras opcões</b></legend>
+
                                     <table id="lista">
-                                        <thead>
-                                        <tr>
-                                            <th>Outras opcões</th>
-                                            <th></th>
-                                        </tr>
-                                        </thead>
                                         <tbody>
 
                                         <tr>
-                                            <td><input class="form-control" type="text" name="answer"/></td>
+                                            <td><input class="form-control" type="text" name="question1"/></td>
                                             <td><input type="file" name="image"/></td>
                                         </tr>
 
                                         </tbody>
                                     </table>
-
+                                    <input type="hidden" id="qtd" value="1" name="qtdQuestion"/>
                                     <a href="#" id="mais">
-                                        <legend><b style="color: green; float: right; border: none">+Mais</b></legend>
+                                        <legend><b style="color: green; float: right; border: none">+1</b></legend>
                                     </a><br>
 
 

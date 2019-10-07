@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -24,7 +25,7 @@ public class DashBoardController {
     public CRUDService crudService;
 
     private ModelAndView model;
-    private List<Question> questions=new ArrayList<>();
+    private List<Question> questions = new ArrayList<>();
     private List<Exam> exams = new ArrayList<>();
     private Exam exam;
     private List<User> users = new ArrayList<>();
@@ -39,27 +40,27 @@ public class DashBoardController {
         model = new ModelAndView("exams-admin");
         exams = crudService.getAll(Exam.class);
 
-        List<University> universities=crudService.getAll(University.class);
-        List <Category> categories=crudService.getAll(Category.class);
+        List<University> universities = crudService.getAll(University.class);
+        List<Category> categories = crudService.getAll(Category.class);
 
         // Aqui eh onde sao eliminados os exames
-        if (examId.hashCode()>0) {
+        if (examId.hashCode() > 0) {
             exam = crudService.get(Exam.class, examId.hashCode());
             List<Question> questions = crudService.findByJPQuery("SELECT q FROM Question q where q.exam.examId=" + exam.getExamId(), null);
 
-            for(Question question: questions){
+            for (Question question : questions) {
                 List<QuestionAnswers> questionAnswers = crudService.findByJPQuery("SELECT q FROM QuestionAnswers q where q.question.id=" + question.getId(), null);
 
-                for(QuestionAnswers questionAnswer: questionAnswers){
+                for (QuestionAnswers questionAnswer : questionAnswers) {
                     try {
                         crudService.delete(questionAnswer);
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         System.out.println("Nao Foi Possivel Apagar uma das Alternativas, ao apagar o exame");
                     }
                 }
                 try {
                     crudService.delete(question);
-                }catch (Exception e){
+                } catch (Exception e) {
                     System.out.println("Nao foi possivel apagar uma das perguntas do exame");
                 }
             }
@@ -80,7 +81,7 @@ public class DashBoardController {
         // homeController.getModel().addObject("users", homeController.getUsers());
         model.addObject("categories", categories);
         model.addObject("universities", universities);
-        model.addObject("status",statusAdd.isPresent());
+        model.addObject("status", statusAdd.isPresent());
         homeController.getModel().addObject("exams", homeController.getExams());
         // model.addObject("exams",exams);
         return homeController.getModel();
@@ -116,17 +117,17 @@ public class DashBoardController {
         model = new ModelAndView("exam-details-admin");
 
         exam = crudService.get(Exam.class, examId.hashCode());
-       // questions = crudService.findByJPQuery("SELECT q FROM Question q where q.exam.examId=" + examId.hashCode(), null);//getAll(Question.class);
+        // questions = crudService.findByJPQuery("SELECT q FROM Question q where q.exam.examId=" + examId.hashCode(), null);//getAll(Question.class);
 
-       if (questionId.hashCode()>0) {
+        if (questionId.hashCode() > 0) {
             Question question = crudService.get(Question.class, questionId.hashCode());
 
             List<QuestionAnswers> questionAnswers = crudService.findByJPQuery("SELECT q FROM QuestionAnswers q where q.question.id=" + question.getId(), null);
 
-            for (QuestionAnswers questionAnswer: questionAnswers) {
-                try{
+            for (QuestionAnswers questionAnswer : questionAnswers) {
+                try {
                     crudService.delete(questionAnswer);
-                }catch (Exception e){
+                } catch (Exception e) {
                     System.out.println("Nao foi possivel apagar uma das opcoes da questao ");
                 }
             }
@@ -137,7 +138,7 @@ public class DashBoardController {
                 System.out.println("Error, nao foi possivel apagar a aquestao");
             }
         }
-        model.addObject("status",status.isPresent());
+        model.addObject("status", status.isPresent());
         //model.addObject("questions", questions);
         model.addObject("exam", exam);
         return model;
@@ -145,33 +146,34 @@ public class DashBoardController {
 
     @RequestMapping(value = "/exams-admin/exam-details-admin/question-details")
     public ModelAndView questionDetails(@RequestParam("questionId") Integer questionId,
-                                      @RequestParam("examId") Integer examId){
+                                        @RequestParam("examId") Integer examId) {
 
         model = new ModelAndView("question-details");
-        Question question= crudService.get(Question.class,questionId);
-        Exam exam=crudService.get(Exam.class,examId);
-            List<QuestionAnswers> questionAnswers = crudService.findByJPQuery("SELECT e FROM QuestionAnswers e where e.question.id = "+question.getId(), null);
-            model.addObject("question", question);
-            //model.addObject("exam",examId);
-            model.addObject("exam",exam);
-            //model.addObject("questionAnswers", questionAnswers);
+        Question question = crudService.get(Question.class, questionId);
+        Exam exam = crudService.get(Exam.class, examId);
+        List<QuestionAnswers> questionAnswers = crudService.findByJPQuery("SELECT e FROM QuestionAnswers e where e.question.id = " + question.getId(), null);
+        model.addObject("question", question);
+        //model.addObject("exam",examId);
+        model.addObject("exam", exam);
+        //model.addObject("questionAnswers", questionAnswers);
         return model;
     }
 
     @RequestMapping(value = "/exams-admin/exam-details-admin/question-edit")
     public ModelAndView questionEdit(@RequestParam("questionId") Integer questionId
-                                     ){
+    ) {
 
         model = new ModelAndView("question-edit");
-        Question question= crudService.get(Question.class,questionId);
-       // Exam exam=crudService.get(Exam.class,examId);
+        Question question = crudService.get(Question.class, questionId);
+        // Exam exam=crudService.get(Exam.class,examId);
         //List<QuestionAnswers> questionAnswers = crudService.findByJPQuery("SELECT e FROM QuestionAnswers e where e.question.id = "+question.getId(), null);
         model.addObject("question", question);
         //model.addObject("exam",examId);
-       // model.addObject("exam",exam);
+        // model.addObject("exam",exam);
         //model.addObject("questionAnswers", questionAnswers);
         return model;
     }
+
     @RequestMapping(value = "/users-admin", method = RequestMethod.GET)
     public ModelAndView usersAdmin(
     ) {
@@ -194,28 +196,27 @@ public class DashBoardController {
 
     @RequestMapping(value = "/exams-admin/exam-add/exam-save", method = RequestMethod.POST)
     public ModelAndView saveExam(@RequestParam("examId") Optional<Integer> examId,
-                           @RequestParam("examYear") Integer examYear, @RequestParam("description") String description, @RequestParam("duration") Integer duration,
-                           @RequestParam("noquestion") Integer noquestion,
-                           @RequestParam("pdfresource") String pdfresource,
-                           @RequestParam("category") Integer categoryId,
-                           @RequestParam("university") Integer universityId
+                                 @RequestParam("examYear") Integer examYear, @RequestParam("description") String description, @RequestParam("duration") Integer duration,
+                                 @RequestParam("noquestion") Integer noquestion,
+                                 @RequestParam("pdfresource") String pdfresource,
+                                 @RequestParam("category") Integer categoryId,
+                                 @RequestParam("university") Integer universityId
     ) {
 
 
         Category category = crudService.get(Category.class, categoryId);
         University university = crudService.get(University.class, universityId);
-        Optional<Boolean> status=Optional.of(false);
-        Optional <Integer> idExam=Optional.empty();
-        Optional <Integer> pg=Optional.empty();
-
+        Optional<Boolean> status = Optional.of(false);
+        Optional<Integer> idExam = Optional.empty();
+        Optional<Integer> pg = Optional.empty();
 
 
         Exam exam;
-        if (examId.hashCode()>0) {
+        if (examId.hashCode() > 0) {
             exam = crudService.get(Exam.class, examId.hashCode());
             System.out.println("======entra=====");
-        }else {
-            exam=new Exam();
+        } else {
+            exam = new Exam();
             System.out.println("======ererrerererrre=====");
         }
 
@@ -227,12 +228,12 @@ public class DashBoardController {
         exam.setDuration(duration);
         exam.setNoquestion(noquestion);
         exam.setPdfresource(pdfresource);
-        if (!(examId.hashCode()>0)) {
+        if (!(examId.hashCode() > 0)) {
             try {
                 crudService.Save(exam);
                 System.out.println("Save Sucessfull");
-                status=Optional.of(true);
-                return this.adminDashBoard(idExam,pg,status);
+                status = Optional.of(true);
+                return this.adminDashBoard(idExam, pg, status);
             } catch (Exception e) {
 
                 System.out.println("exam not saved");
@@ -241,88 +242,107 @@ public class DashBoardController {
         } else {
             try {
                 crudService.update(exam);
-                status=Optional.of(true);
-                return this.adminDashBoard(idExam,pg,status);
+                status = Optional.of(true);
+                return this.adminDashBoard(idExam, pg, status);
             } catch (Exception e) {
                 System.out.println("error, update unsucessfull");
 
             }
         }
-        return this.adminDashBoard(idExam,pg,status);
+        return this.adminDashBoard(idExam, pg, status);
     }
+
     @RequestMapping(value = "/exams-admin/exam-details-admin/question-add/question-save", method = RequestMethod.POST)
-    public ModelAndView saveQuestion(@RequestParam("examId") Integer examId,
-                               @RequestParam("correctAnswer") String correctAnswer,
-                               @RequestParam("answer") String answers,
-                               @RequestParam("questiontextformat") String questiontextformat,
-                               @RequestParam("answerFeedback") Optional <String> answerFeedback) {
+    public ModelAndView saveQuestion(HttpServletRequest request) {
+
+        Integer examId = Integer.parseInt(request.getParameter("examId"));
+        String correctAnswer = request.getParameter("correctAnswer");
+        String questiontextformat = request.getParameter("questiontextformat");
+        String answerFeedback = request.getParameter("answerFeedback");
+        String video = request.getParameter("video");
+        String text = request.getParameter("text");
+        Integer qtdQuestion=Integer.parseInt(request.getParameter("qtdQuestion"));
+
+
+        System.out.println("============= Quantidade de questoes "+qtdQuestion+"=======================");
 
         exam = crudService.get(Exam.class, examId);
-        String[] answersS=this.splitAnswers(answers.toString());
-
 
         Qtype questionType = crudService.get(Qtype.class, 2);
-        Optional <Integer> quest=Optional.empty();
-        Optional <Boolean> status=Optional.of(false);
+        Optional<Integer> quest = Optional.empty();
+        Optional<Boolean> status = Optional.of(false);
 
 
-        System.out.println(answers);
+
         Question question;
 
         question = new Question();
         question.setExam(exam);
-        System.out.println("============"+exam.getExamId()+"=================");
+       // System.out.println("============" + exam.getExamId() + "=================");
         question.setQuestion(questiontextformat);
+        question.setYoutubeurl(video);
+        question.setExtratext(text);
         question.setQtype(questionType);
         question.setFeedback(answerFeedback.toString());
+
+
+        try {
+            crudService.Save(question);
+            List<Question> questions = crudService.getAll(Question.class);
+            Question question1 = questions.get(questions.size() - 1);
+            QuestionAnswers correct = new QuestionAnswers();
+            correct.setFraction((long) 1);
+            correct.setRightchoice((short)1);
+            // char character=charId.charAt(0);
+            //correct.setCharId(charId);
+
+            correct.setQuestion(question1);
+            correct.setAnswer(correctAnswer);
+
             try {
-                crudService.Save(question);
-                List<Question> questions = crudService.getAll(Question.class);
-                Question question1 = questions.get(questions.size() - 1);
-                QuestionAnswers correct=new QuestionAnswers();
-                correct.setFraction((long) 1);
-                // char character=charId.charAt(0);
-                //correct.setCharId(charId);
+                crudService.Save(correct);
+            } catch (Exception e) {
+                System.out.println("Nao foi possivel adicionar a opcao correcta");
+                return this.examDetailsAdmin(examId, quest, status);
+            }
+            for (int i = 1; i <= qtdQuestion; i++) {
 
-                correct.setQuestion(question1);
-                correct.setAnswer(correctAnswer);
+                String questionOption;
 
-                try {
-                    crudService.Save(correct);
-                }catch (Exception e){
-                    System.out.println("Nao foi possivel adicionar a opcao correcta");
-                    return this.examDetailsAdmin(examId,quest,status);
-                }
-                for(int i=0;i<answersS.length; i++) {
-                    if (!answersS[i].equals("null")) {
-                        QuestionAnswers questionAnswers = new QuestionAnswers();
-                        questionAnswers.setFraction((long) 0);
-                        //char character=charId.charAt(0);
-                      //  questionAnswers.setCharId(charId);
-                        questionAnswers.setQuestion(question1);
-                        questionAnswers.setAnswer(answersS[i]);
 
-                        try {
-                            crudService.Save(questionAnswers);
-                            System.out.println("==========="+i+"============");
-                        }catch (Exception e){
-                            System.out.println("Error, nao conseguiu inserir uma das questoes");
-                            return this.examDetailsAdmin(examId,quest,status);
-                        }
+                    questionOption=request.getParameter("question"+i);
+
+
+                System.out.println(questionOption);
+                if (!questionOption.equals(null)) {
+                    QuestionAnswers questionAnswers = new QuestionAnswers();
+                    questionAnswers.setFraction((long) 0);
+                    questionAnswers.setRightchoice((short)0);
+
+                    questionAnswers.setQuestion(question1);
+                    questionAnswers.setAnswer(questionOption);
+
+                    try {
+                        crudService.Save(questionAnswers);
+                        System.out.println("===========" + i + "============");
+                    } catch (Exception e) {
+                        System.out.println("Error, nao conseguiu inserir uma das questoes");
+                        return this.examDetailsAdmin(examId, quest, status);
                     }
                 }
-                status=Optional.of(true);
-                return examDetailsAdmin(examId,quest,status);
-
-            } catch (Exception e) {
-                System.out.println("Error, nao foi possivel adicionar a questao");
-                return this.examDetailsAdmin(examId,quest,status);
             }
+            status = Optional.of(true);
+            return examDetailsAdmin(examId, quest, status);
+
+        } catch (Exception e) {
+            System.out.println("Error, nao foi possivel adicionar a questao");
+            return this.examDetailsAdmin(examId, quest, status);
+        }
     }
 
-    public String[] splitAnswers(String answers){
-        String[] result=answers.split(",");
-        return  result;
+    public String[] splitAnswers(String answers) {
+        String[] result = answers.split(",");
+        return result;
     }
 
     @RequestMapping(value = "/explainers-admin", method = RequestMethod.GET)
