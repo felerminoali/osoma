@@ -67,6 +67,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     private PasswordEncoder getPasswordEncoder() {
+
+
+
         return new PasswordEncoder() {
             @Override
             public String encode(CharSequence charSequence) {

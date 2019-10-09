@@ -20,14 +20,14 @@
         <div>
             <strong>
                 <a href="/" class="btn btn-success"><i class="fa fa-angle-double-left"
-                                                                  aria-hidden="true"></i> Cancel </a>
+                                                                  aria-hidden="true"></i> Cancelar </a>
             </strong>
         </div>
 
         <div id="login-overlay" class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="myModalLabel">Login</h4>
+                    <h4 class="modal-title" id="myModalLabel">Auntenticação</h4>
                 </div>
                 <div class="modal-body">
                     <div class="row">
@@ -36,25 +36,28 @@
                                 <form id="loginForm"  action="login" method="post">
                                     <div class="form-group">
                                         <label for="login_email"
-                                               class="control-label">Username</label>
+                                               class="control-label">Email ou Contacto</label>
                                         <div>
                                             <input type="text" class="form-control" id="login_email" name="email"
                                                    value=""
                                                    required="" title="Please enter you username"
-                                                   placeholder="example@gmail.com">
+                                                   placeholder="email@mail.com">
                                             <span class="help-block"></span>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="login_password"
-                                               class="control-label">Password</label>
+                                               class="control-label">Palavra-passe</label>
                                         <input type="password" class="form-control" id="login_password"
                                                name="password" value=""
                                                required="" title="Please enter your password">
                                         <span class="help-block"></span>
                                     </div>
+                                    <div class="form-group">
+                                        <a href="#">Esqueceu password</a>
+                                    </div>
                                     <button type="submit"
-                                            class="btn btn-success btn-block">Login</button>
+                                            class="btn btn-success btn-block">Entrar</button>
                                 </form>
                                 <p th:if="${error} !=null" aria-label="Back" style='color: #C6C4C6'>
                                     <span style='color: red' aria-hidden="true">email or password incorrect</span>
@@ -64,14 +67,14 @@
 
                         <div class="hidden-xs hidden-sm">
                             <div class="col-md-6">
-                                <p class="lead">Register now for FREE</p>
+                                <p class="lead">Cadastro gratís</p>
                                 <ul class="list-unstyled" style="line-height: 2">
-                                    <li><span class="fa fa-check text-success"></span> It is easy</li>
-                                    <li><span class="fa fa-check text-success"></span> Fast</li>
-                                    <li><span class="fa fa-check text-success"></span>  and Free</li>
+                                    <li><span class="fa fa-check text-success"></span> Fácil</li>
+                                    <li><span class="fa fa-check text-success"></span> Rápido</li>
+                                    <li><span class="fa fa-check text-success"></span> E gratuito</li>
                                 </ul>
                                 <p><a href="register"
-                                      class="btn btn-info btn-block">Register now</a></p>
+                                      class="btn btn-info btn-block">Cadastre-se já</a></p>
                             </div>
                         </div>
 

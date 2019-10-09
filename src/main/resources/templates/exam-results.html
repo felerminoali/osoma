@@ -89,7 +89,7 @@
                         <div th:switch="${questions}">
 
                             <h2 th:case="null"><p th:text="Vazio"></p></h2>
-                            </br>
+                            <br/>
                             <div th:case="*">
 
 
@@ -108,14 +108,14 @@
                                             <div class="clear"></div>
                                         </div>
                                         <div class="col600 qsholder editor">
-                                            <p>
+                                            <!--<p>-->
                                             <dl id="question_div">
                                                 <dd class="q_question">
                                                         <span style="display: inline;"
                                                               th:text="${question.question}"></span>
                                                 </dd>
                                             </dl>
-                                            </p>
+                                            <!--</p>-->
                                         </div>
                                         <div class="dotted"></div>
                                         <table width="100%">

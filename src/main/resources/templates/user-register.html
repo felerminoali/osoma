@@ -16,7 +16,8 @@
 
             <div class="col-md-2">
                 <strong>
-                    <a href="/" class="btn btn-success"><i class="fa fa-angle-double-left" aria-hidden="true"></i> Cancelar </a>
+                    <a href="/" class="btn btn-success"><i class="fa fa-angle-double-left" aria-hidden="true"></i>
+                        Cancelar </a>
                 </strong>
             </div>
 
@@ -34,7 +35,7 @@
 
                                 <div class="col-md-12">
 
-                                    <form id="registerForm" method="POST" class="registerForm">
+                                    <form id="registerForm" method="POST" class="registerForm" action="/register">
 
                                         <div class="form-group row">
                                             <label for="first_name"
@@ -76,21 +77,13 @@
                                         </div>
 
                                         <div class="form-group row">
-                                            <label for="email" class="col-xs-5 col-form-label">Email: </label>
+                                            <label for="contact" class="col-xs-5 col-form-label">Contacto/WhatsApp:
+                                                *</label>
                                             <div class="col-xs-7">
-                                                <input type="email" class="form-control" name="email" id="email" value=""/>
+                                                <input type="text" class="form-control" name="contact" id="contact"
+                                                       value=""/>
                                             </div>
                                         </div>
-
-                                        <div class="form-group row">
-                                            <label for="contact" class="col-xs-5 col-form-label">Contacto/WhatsApp: *</label>
-                                            <div class="col-xs-7">
-                                                <input type="text" class="form-control" name="contact" id="contact" value=""/>
-                                            </div>
-                                        </div>
-
-
-
 
                                         <div class="form-group row">
                                             <label for="escola"
@@ -111,6 +104,14 @@
                                                             th:value="${university.id}"
                                                             th:text="${university.name}"></option>
                                                 </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label for="email" class="col-xs-5 col-form-label">Email: </label>
+                                            <div class="col-xs-7">
+                                                <input type="email" class="form-control" name="email" id="email"
+                                                       value=""/>
                                             </div>
                                         </div>
 
@@ -135,11 +136,23 @@
                                             </div>
                                         </div>
 
+
                                         <div class="form-group row">
-                                            <label for="submit" class="col-xs-5 col-form-label"></label>
+                                            <label class="col-xs-5 col-form-label"></label>
                                             <div class="col-xs-7">
-                                                <button type="submit" name="submit" id="submit"
-                                                        class="btn btn-success btn-block">Registrar
+                                                <div class="d-inline">
+                                                    <input type="checkbox" name="agree" id="agree">
+                                                    <label for="agree" class="custom-control-label">Eu concordo com <a href="#">Os Termos e Condições</a></label>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-xs-5 col-form-label"></label>
+                                            <div class="col-xs-7">
+                                                <button type="submit" class="btn btn-success" name="register"
+                                                        value="register">Registrar
                                                 </button>
                                             </div>
                                         </div>
@@ -160,7 +173,64 @@
 
     <script type="text/javascript">
 
-        $(document).ready(function() {
+
+        if ($('.province-selected').length > 0) {
+
+            selectDistrict();
+
+            $('.province-selected').bind('change', function (e) {
+                selectDistrict();
+            });
+        }
+
+        function selectDistrict() {
+
+            var id = $('.province-selected').val();
+            var url = "/districts/" + id;
+
+            $.ajax({
+                url: url,
+                method: "GET",
+                data: {id: id},
+                dataType: "json",
+                success: function (data) {
+                    $('#distrito').empty();
+                    $.each(data, function (index, value) {
+                        // APPEND OR INSERT DATA TO SELECT ELEMENT.
+                        $('#distrito').append('<option value="' + value.id + '">' + value.district + '</option>');
+                    });
+                },
+                error: function () {
+                    alert('An error has occurred');
+                }
+            });
+        }
+
+        function find(type, value) {
+
+            var url = '/users/' + type + "/" + value;
+            var result = false;
+
+            $.ajax({
+                url: url,
+                method: "GET",
+                data: ({type: type, value: value}),
+                async: false,
+                dataType: "json",
+                success: function (data) {
+                    result = true;
+                    if (Object.keys(data).length != 0) {
+                        result = false;
+                    }
+                },
+                error: function () {
+                    alert('An error has occurred');
+                }
+            });
+            return result;
+        }
+
+        $(document).ready(function () {
             $('.registerForm').bootstrapValidator({
                 message: 'This value is not valid',
                 feedbackIcons: {
@@ -169,50 +239,57 @@
                     validating: 'glyphicon glyphicon-refresh'
                 },
                 fields: {
-                    first_name:{
-                        validators:{
+                    first_name: {
+                        validators: {
                             notEmpty: {
                                 message: 'Este campo não deve estar vazio'
                             },
                         }
                     },
-                    last_name:{
-                        validators:{
+                    last_name: {
+                        validators: {
                             notEmpty: {
                                 message: 'Este campo não deve estar vazio'
                             },
                         }
                     },
-                    province:{
-                        validators:{
+                    province: {
+                        validators: {
                             notEmpty: {
                                 message: 'Este campo não deve estar vazio'
                             },
                         }
                     },
-                    distrito:{
-                        validators:{
+                    distrito: {
+                        validators: {
                             notEmpty: {
                                 message: 'Este campo não deve estar vazio'
                             },
                         }
                     },
-                    contact:{
-                        validators:{
+                    contact: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Este campo não deve estar vazio'
+                            },
+                            callback: {
+                                message: 'Este contacto já está registado no sistema',
+                                callback: function (value, validator) {
+                                    // var items = $('#captchaOperation').html().split(' '), sum = parseInt(items[0]) + parseInt(items[2]);
+                                    return find('contact',value);
+                                }
+                            }
+                        }
+                    },
+                    escola: {
+                        validators: {
                             notEmpty: {
                                 message: 'Este campo não deve estar vazio'
                             },
                         }
                     },
-                    escola:{
-                        validators:{
-                            notEmpty: {
-                                message: 'Este campo não deve estar vazio'
-                            },
-                        }
-                    },
-                    university:{
-                        validators:{
+                    university: {
+                        validators: {
                             notEmpty: {
                                 message: 'Este campo não deve estar vazio'
                             },
@@ -221,38 +298,54 @@
                     email: {
                         validators: {
                             emailAddress: {
-                                message: 'The input is not a valid email address'
+                                message: 'Fornceu um email inválido'
+                            },
+
+                            callback: {
+                                message: 'Este contacto já está registado no sistema',
+                                callback: function (value, validator) {
+                                    // var items = $('#captchaOperation').html().split(' '), sum = parseInt(items[0]) + parseInt(items[2]);
+                                    return find('email',value);
+                                }
                             }
+
                         }
                     },
                     password: {
                         validators: {
                             notEmpty: {
-                                message: 'The password is required and cannot be empty'
+                                message: 'Este campo não deve estar vazio'
                             },
                             identical: {
                                 field: 'confirm_password',
-                                message: 'A palavra-passe e a sua confirmação não são semelhantes'
+                                message: 'A palavra-passe e a sua confirmação não devem ser semelhantes'
                             },
                             different: {
                                 field: 'username',
-                                message: 'The password cannot be the same as username'
+                                message: 'A palavra-passe não deve ser similar ou usuário'
                             }
                         }
                     },
                     confirm_password: {
                         validators: {
                             notEmpty: {
-                                message: 'The confirm password is required and cannot be empty'
+                                message: 'Este campo não deve estar vazio'
                             },
                             identical: {
                                 field: 'password',
-                                message: 'The password and its confirm are not the same'
+                                message: 'A palavra-passe e a sua confirmação não devem ser semelhantes'
                             },
                             different: {
                                 field: 'username',
-                                message: 'The password cannot be the same as username'
+                                message: 'A palavra-passe não deve ser similar ou usuário'
                             }
+                        }
+                    },
+                    agree: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Deve aceitar os Termos e Condições'
+                            },
                         }
                     },
                 }

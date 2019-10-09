@@ -36,7 +36,7 @@ public class ExamDetails {
 
         session.invalidate();
 
-        Exam exam = crudService.findEntByJPQueryT("SELECT e FROM Exam e where e.examId = " + id, null);
+        Exam exam = crudService.findEntByJPQueryT("SELECT e FROM Exam e where e.id = " + id, null);
         if (exam != null) {
             University university = crudService.findEntByJPQueryT("SELECT u FROM University u where u.id = " + exam.getUniversity().getId(), null);
             Category category = crudService.findEntByJPQueryT("SELECT c FROM Category c where c.id = " + exam.getCategory().getId(), null);

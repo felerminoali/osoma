@@ -389,18 +389,18 @@
                                 <div th:each="exam: ${exams}">
                                     <tr th:id="${exam.examId}">
                                         <td>
-                                            <a th:href="@{/exams-admin/exam-details-admin/(examId=${exam.examId})}"
+                                            <a th:href="@{/exams-admin/exam-details-admin/(examId=${exam.id})}"
                                                th:text="${exam.description}"></a></td>
                                         <td th:text="${exam.noquestion}"></td>
                                         <td th:text="${exam.duration}"></td>
                                         <td th:text="${exam.examYear}"></td>
                                         <td th:text="${exam.university.name}"></td>
-                                        <td><a th:href="@{/exams-admin/editExam/(examId=${exam.examId})}">Editar</a>
+                                        <td><a th:href="@{/exams-admin/editExam/(examId=${exam.id})}">Editar</a>
                                         </td>
 
                                         <!--   <td><a href="@{/exams-admin(edit=${exam.examId})}" >edit</a></td> -->
                                         <td>
-                                            <a th:onclick="'javascript:remove('+${exam.examId}+');return false;'"
+                                            <a th:onclick="'javascript:remove('+${exam.id}+');return false;'"
                                                href="" style="color: red;">Remover</a>
                                         </td>
                                     </tr>

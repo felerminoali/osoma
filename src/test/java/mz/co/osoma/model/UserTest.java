@@ -48,7 +48,7 @@ public class UserTest {
     @Test
     public void getActive() {
         User user  = new User();
-        user.setActive(1);
+        user.setActive(true);
         assertEquals(1,user.getActive());
     }
 
@@ -73,40 +73,6 @@ public class UserTest {
         assertEquals("langa",user.getLastName());
     }
 
-    @Test
-    public void getAddress1() {
-        User user = new User();
-        user.setAddress1("rua paiva da silva");
-        assertEquals("rua paiva da silva",user.getAddress1());
-    }
-
-    @Test
-    public void setAddress1() {
-        User user = new User();
-        user.setAddress2("rua paiva da silva");
-        assertEquals("rua paiva da silva",user.getAddress2());
-    }
-
-    @Test
-    public void getAddress2() {
-        User user = new User();
-        user.setAddress2("calmeira da silva");
-        assertEquals("calmeira da silva",user.getAddress2());
-    }
-
-    @Test
-    public void getCity() {
-        User user = new User();
-        user.setCity("beira");
-        assertEquals("beira",user.getCity());
-    }
-
-    @Test
-    public void getDate() {
-        User user = new User();
-        user.setDate(null);
-        assertNull(user.getDate());
-    }
 
     @Test
     public void getHash() {

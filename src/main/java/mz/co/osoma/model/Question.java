@@ -22,9 +22,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-import mz.co.osoma.model.User;
 
 /**
  *
@@ -32,13 +29,8 @@ import mz.co.osoma.model.User;
  */
 @Entity
 @Table(name = "question")
-@XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Question.findAll", query = "SELECT q FROM Question q")
-    , @NamedQuery(name = "Question.findById", query = "SELECT q FROM Question q WHERE q.id = :id")
-    , @NamedQuery(name = "Question.findByImage", query = "SELECT q FROM Question q WHERE q.image = :image")
-    , @NamedQuery(name = "Question.findByTimecreated", query = "SELECT q FROM Question q WHERE q.timecreated = :timecreated")
-    , @NamedQuery(name = "Question.findByTimemodified", query = "SELECT q FROM Question q WHERE q.timemodified = :timemodified")})
+    @NamedQuery(name = "Question.findAll", query = "SELECT q FROM Question q")})
 public class Question implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -62,6 +54,8 @@ public class Question implements Serializable {
     @Lob
     @Column(name = "extratext")
     private String extratext;
+    @Column(name = "youtubeurl")
+    private String youtubeurl;
     @JoinColumn(name = "qtype", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Qtype qtype;
@@ -76,9 +70,6 @@ public class Question implements Serializable {
     private Exam exam;
     @OneToMany(mappedBy = "question", fetch = FetchType.LAZY)
     private List<QuestionAnswers> questionAnswersList;
-
-    @Column(name = "youtubeurl")
-    private String youtubeurl;
 
     public Question() {
     }
@@ -143,6 +134,14 @@ public class Question implements Serializable {
         this.extratext = extratext;
     }
 
+    public String getYoutubeurl() {
+        return youtubeurl;
+    }
+
+    public void setYoutubeurl(String youtubeurl) {
+        this.youtubeurl = youtubeurl;
+    }
+
     public Qtype getQtype() {
         return qtype;
     }
@@ -175,21 +174,12 @@ public class Question implements Serializable {
         this.exam = exam;
     }
 
-    @XmlTransient
     public List<QuestionAnswers> getQuestionAnswersList() {
         return questionAnswersList;
     }
 
     public void setQuestionAnswersList(List<QuestionAnswers> questionAnswersList) {
         this.questionAnswersList = questionAnswersList;
-    }
-
-    public String getYoutubeurl() {
-        return youtubeurl;
-    }
-
-    public void setYoutubeurl(String youtubeurl) {
-        this.youtubeurl = youtubeurl;
     }
 
     @Override

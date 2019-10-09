@@ -17,9 +17,9 @@
             <br/>
 
             <div class="col-md-2">
-
+            <strong>
                 <a href="/" class="btn btn-success"><i class="fa fa-angle-double-left"
-                                                       aria-hidden="true"></i> Go back</a>
+                                                       aria-hidden="true"></i> Voltar</a>
                 </strong>
             </div>
 
@@ -107,7 +107,7 @@
                                                 <!--<i class="fa fa-facebook-official fa-lg"></i>-->
                                                 <!--Share </a>-->
 
-                                            <a th:if="${exame.hassimulation}" th:href="@{/online-test(id = ${exame.examId})}" class="btn btn-success" role="button" id="start-simulation">Iniciar Diagonostico </a>
+                                            <a th:if="${exame.hassimulation}" th:href="@{/online-test(id = ${exame.id})}" class="btn btn-success" role="button" id="start-simulation">Iniciar Diagonostico </a>
                                         </div>
                                     </div>
 

@@ -39,8 +39,8 @@ public class Province implements Serializable {
     private Integer id;
     @Column(name = "province")
     private String province;
-    @OneToMany(mappedBy = "province", fetch = FetchType.LAZY)
     @JsonIgnore
+    @OneToMany(mappedBy = "province", fetch = FetchType.LAZY)
     private List<District> districtList;
 
     public Province() {
@@ -66,12 +66,10 @@ public class Province implements Serializable {
         this.province = province;
     }
 
-    @JsonIgnore
     public List<District> getDistrictList() {
         return districtList;
     }
 
-    @JsonIgnore
     public void setDistrictList(List<District> districtList) {
         this.districtList = districtList;
     }

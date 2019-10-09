@@ -15,7 +15,7 @@
 
             <div class="col-md-2">
                 <strong>
-                    <a th:href="'/exams-admin/exam-details-admin/?examId='+${exam.examId}" class="btn btn-success"><i class="fa fa-angle-double-left"
+                    <a th:href="'/exams-admin/exam-details-admin/?examId='+${exam.id}" class="btn btn-success"><i class="fa fa-angle-double-left"
                                                                       aria-hidden="true"></i> Voltar </a>
                 </strong>
             </div>
@@ -38,7 +38,7 @@
 
                                         <div th:switch="${question.questionAnswersList}">
                                             <h2 th:case="null"><p th:text="#{Nao_Exames}"></p></h2>
-                                            </br>
+                                            <br/>
                                             <div th:case="*">
                                                 <div th:each="answers: ${question.questionAnswersList}">
                                                     <div class="clear"></div>

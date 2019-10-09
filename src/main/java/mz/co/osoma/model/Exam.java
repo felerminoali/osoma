@@ -37,7 +37,7 @@ public class Exam implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
-    private Integer examId;
+    private Integer id;
     @Basic(optional = false)
     @Column(name = "exam_year")
     private int examYear;
@@ -48,44 +48,42 @@ public class Exam implements Serializable {
     @Column(name = "noquestion")
     private Integer noquestion;
     @Column(name = "assessment")
-    private Short assessment;
+    private Boolean assessment;
     @Column(name = "pdfresource")
     private String pdfresource;
     @Column(name = "elearning")
     private String elearning;
     @Column(name = "hassimulation")
-    private boolean hassimulation;
-
+    private Boolean hassimulation;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "exam1", fetch = FetchType.LAZY)
+    private List<ExamAttempts> examAttemptsList;
+    @OneToMany(mappedBy = "exam", fetch = FetchType.LAZY)
+    private List<Question> questionList;
     @JoinColumn(name = "category", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Category category;
     @JoinColumn(name = "university", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private University university;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "exam1", fetch = FetchType.LAZY)
-    private List<ExamAttempts> examAttemptsList;
-    @OneToMany(mappedBy = "exam", fetch = FetchType.LAZY)
-    private List<Question> questionList;
-
 
     public Exam() {
     }
 
     public Exam(Integer id) {
-        this.examId = id;
+        this.id = id;
     }
 
     public Exam(Integer id, int examYear) {
-        this.examId = id;
+        this.id = id;
         this.examYear = examYear;
     }
 
-    public Integer getExamId() {
-        return examId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setExamId(Integer id) {
-        this.examId = id;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public int getExamYear() {
@@ -120,11 +118,11 @@ public class Exam implements Serializable {
         this.noquestion = noquestion;
     }
 
-    public Short getAssessment() {
+    public Boolean getAssessment() {
         return assessment;
     }
 
-    public void setAssessment(Short assessment) {
+    public void setAssessment(Boolean assessment) {
         this.assessment = assessment;
     }
 
@@ -140,33 +138,16 @@ public class Exam implements Serializable {
         return elearning;
     }
 
-
-    public boolean isHassimulation() {
-        return hassimulation;
-    }
-
-    public void setHassimulation(boolean hassimulation) {
-        this.hassimulation = hassimulation;
-    }
-
     public void setElearning(String elearning) {
         this.elearning = elearning;
     }
 
-    public Category getCategory() {
-        return category;
+    public Boolean getHassimulation() {
+        return hassimulation;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    public University getUniversity() {
-        return university;
-    }
-
-    public void setUniversity(University university) {
-        this.university = university;
+    public void setHassimulation(Boolean hassimulation) {
+        this.hassimulation = hassimulation;
     }
 
     public List<ExamAttempts> getExamAttemptsList() {
@@ -185,10 +166,26 @@ public class Exam implements Serializable {
         this.questionList = questionList;
     }
 
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public University getUniversity() {
+        return university;
+    }
+
+    public void setUniversity(University university) {
+        this.university = university;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (examId != null ? examId.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -199,7 +196,7 @@ public class Exam implements Serializable {
             return false;
         }
         Exam other = (Exam) object;
-        if ((this.examId == null && other.examId != null) || (this.examId != null && !this.examId.equals(other.examId))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -207,7 +204,7 @@ public class Exam implements Serializable {
 
     @Override
     public String toString() {
-        return "mz.co.osoma.model.Exam[ examId=" + examId + " ]";
+        return "mz.co.osoma.model.Exam[ id=" + id + " ]";
     }
     
 }

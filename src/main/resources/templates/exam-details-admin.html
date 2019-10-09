@@ -280,7 +280,7 @@
                                       onsubmit="return validaForm(this)">
 
                                     <legend><b>Pergunta</b></legend>
-                                    <input type="hidden" th:value="${exam.examId}" name="examId">
+                                    <input type="hidden" th:value="${exam.id}" name="id">
                                     <input type="text" class="form-control" name="questiontextformat"
                                            id="questiontextformat"
                                            value="">
@@ -376,10 +376,10 @@
                     </tr>
                     </thead>
                     <tbody id="tableQuestion">
-                    <div th:switch="${exam.questionList}">
+                    <div th:switch="${exam.questionCreated}">
                         <h2 th:case="null"><p th:text="#{no-exam}"></p></h2>
                         <div th:case="*">
-                            <div th:each="question: ${exam.questionList}">
+                            <div th:each="question: ${exam.questionCreated}">
                                 <tr th:id="${question.id}">
                                     <td th:text="${question.question}"></td>
 
@@ -389,7 +389,7 @@
                                     </td>
 
                                     <td>
-                                        <a th:href="@{/exams-admin/exam-details-admin/question-details/(questionId=${question.id},examId=${exam.examId})}">
+                                        <a th:href="@{/exams-admin/exam-details-admin/question-details/(questionId=${question.id},examId=${exam.id})}">
                                             Detalhes</a></td>
                                     <td>
                                         <a th:onclick="'javascript:remove('+${exam.examId}+','+${question.id}+');return false;'"

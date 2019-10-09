@@ -48,7 +48,7 @@
 
                     <div class="hidden-xs hidden-sm">
                         <div class="col-md-6">
-                            <p class="lead">Register now for FREE</p>
+                            <p class="lead">Register now for FREE </p>
                             <ul class="list-unstyled" style="line-height: 2">
                                 <li><span class="fa fa-check text-success"></span> It is easy</li>
                                 <li><span class="fa fa-check text-success"></span> Fast</li>

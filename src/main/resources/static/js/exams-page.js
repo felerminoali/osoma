@@ -138,36 +138,5 @@ $(document).ready(function () {
     }
 
 
-    if ($('.province-selected').length > 0) {
-
-        selectDistrict();
-
-        $('.province-selected').bind('change', function (e) {
-            selectDistrict();
-        });
-    }
-
-    function selectDistrict() {
-
-        var id = $('.province-selected').val();
-        var url = "/districts/" + id;
-
-        $.ajax({
-            url: url,
-            method: "GET",
-            data: {id: id},
-            dataType: "json",
-            success: function (data) {
-                $('#distrito').empty();
-                $.each(data, function (index, value) {
-                    // APPEND OR INSERT DATA TO SELECT ELEMENT.
-                    $('#distrito').append('<option value="' + value.id + '">' + value.district + '</option>');
-                });
-            },
-            error: function () {
-                alert('An error has occurred');
-            }
-        });
-    }
 
 });

@@ -86,7 +86,7 @@ public class HomeController {
         HashMap<String, Object> parameter = new HashMap<String, Object>(1);
 
         StringBuilder sql = new StringBuilder();
-        sql.append("SELECT COUNT(e.examId), e.examYear FROM Exam e");
+        sql.append("SELECT COUNT(e.id), e.examYear FROM Exam e");
 
         if (!isNull(university)) {
             sql.append(", University u ");
@@ -142,9 +142,9 @@ public class HomeController {
         List<ExamGroup> examGroupList = new ArrayList<>();
         StringBuilder sql = new StringBuilder();
 
-        String query = "SELECT COUNT(e.examId), c.name, c.id FROM Category c, Exam e WHERE e.category = c.id ";
+        String query = "SELECT COUNT(e.id), c.name, c.id FROM Category c, Exam e WHERE e.category = c.id ";
         if (!isNull(university)) {
-            query = "SELECT COUNT(e.examId), c.name, c.id FROM Category c, University u, Exam e WHERE e.category = c.id ";
+            query = "SELECT COUNT(e.id), c.name, c.id FROM Category c, University u, Exam e WHERE e.category = c.id ";
         }
         sql.append(query);
 
@@ -173,12 +173,12 @@ public class HomeController {
         HashMap<String, Object> parameter = new HashMap<String, Object>(1);
         List<ExamGroup> examGroupList;
 
-        sql.append("SELECT COUNT(e.examId), u.shortname, u.id  FROM Exam e, University u " +
+        sql.append("SELECT COUNT(e.id), u.shortname, u.id  FROM Exam e, University u " +
                 "WHERE e.university = u.id ");
 
         if(!isNull(exame)){
             sql = new StringBuilder();
-            sql.append("SELECT COUNT(e.examId), u.shortname, u.id  FROM Exam e, University u, Category c " +
+            sql.append("SELECT COUNT(e.id), u.shortname, u.id  FROM Exam e, University u, Category c " +
                     "WHERE e.university = u.id ");
         }
         if (!isNull(ano)) {

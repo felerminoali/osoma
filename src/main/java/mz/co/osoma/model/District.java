@@ -5,7 +5,10 @@
  */
 package mz.co.osoma.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,6 +20,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -39,8 +43,10 @@ public class District implements Serializable {
     private String district;
     @JoinColumn(name = "province", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
-
     private Province province;
+    @JsonIgnore
+    @OneToMany(mappedBy = "district", fetch = FetchType.LAZY)
+    private List<User> userList;
 
     public District() {
     }
@@ -71,6 +77,14 @@ public class District implements Serializable {
 
     public void setProvince(Province province) {
         this.province = province;
+    }
+
+    public List<User> getUserList() {
+        return userList;
+    }
+
+    public void setUserList(List<User> userList) {
+        this.userList = userList;
     }
 
     @Override

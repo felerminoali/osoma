@@ -45,7 +45,7 @@ public class LoginController {
             ModelAndView model = new ModelAndView("dashboard-home");
             User u = crudService.findEntByJPQueryT("SELECT u FROM User u WHERE u.email = '"+email+"'", null);
 
-            model.addObject("email", u.getName());
+            model.addObject("email", u.getEmail());
             return model;
         }else{
             ModelAndView model = new ModelAndView("adminLogin");

@@ -5,6 +5,8 @@
  */
 package mz.co.osoma.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -42,6 +44,9 @@ public class University implements Serializable {
     private String shortname;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "university", fetch = FetchType.LAZY)
     private List<Exam> examList;
+    @JsonIgnore
+    @OneToMany(mappedBy = "university", fetch = FetchType.LAZY)
+    private List<User> userList;
 
     public University() {
     }
@@ -80,6 +85,14 @@ public class University implements Serializable {
 
     public void setExamList(List<Exam> examList) {
         this.examList = examList;
+    }
+
+    public List<User> getUserList() {
+        return userList;
+    }
+
+    public void setUserList(List<User> userList) {
+        this.userList = userList;
     }
 
     @Override

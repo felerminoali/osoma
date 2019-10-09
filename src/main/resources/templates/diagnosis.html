@@ -28,7 +28,7 @@
 
                         <div class="quiz_timer_container">
 
-                            <script type="text/javascript" src="Osoma_files/online-test.js"></script>
+                            <script type="text/javascript" src="/js/online-test.js"></script>
 
                             <div id="status"><strong>Tempo remanescente: </strong>00:00:10<br>
                                 <div class="progress">
@@ -87,7 +87,7 @@
                                     <div class="answersDiv">
                                         <div th:switch="${questionAnswers}">
                                             <h2 th:case="null"><p th:text="#{Nao_Exames}"></p></h2>
-                                            </br>
+                                            <br/>
                                             <div th:case="*">
                                                 <div th:each="answers: ${questionAnswers}">
                                                     <div class="clear"></div>

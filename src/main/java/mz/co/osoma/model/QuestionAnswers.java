@@ -19,7 +19,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -27,13 +26,8 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "question_answers")
-@XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "QuestionAnswers.findAll", query = "SELECT q FROM QuestionAnswers q")
-    , @NamedQuery(name = "QuestionAnswers.findById", query = "SELECT q FROM QuestionAnswers q WHERE q.id = :id")
-    , @NamedQuery(name = "QuestionAnswers.findByImage", query = "SELECT q FROM QuestionAnswers q WHERE q.image = :image")
-    , @NamedQuery(name = "QuestionAnswers.findByFraction", query = "SELECT q FROM QuestionAnswers q WHERE q.fraction = :fraction")
-    , @NamedQuery(name = "QuestionAnswers.findByRightchoice", query = "SELECT q FROM QuestionAnswers q WHERE q.rightchoice = :rightchoice")})
+    @NamedQuery(name = "QuestionAnswers.findAll", query = "SELECT q FROM QuestionAnswers q")})
 public class QuestionAnswers implements Serializable {
 
     private static final long serialVersionUID = 1L;

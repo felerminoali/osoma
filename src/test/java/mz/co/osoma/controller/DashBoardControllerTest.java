@@ -72,7 +72,7 @@ public class DashBoardControllerTest {
 
         List<Exam> exams = crudService.getAll(Exam.class);
         Exam exam = exams.get(exams.size() - 1);
-        Optional<Integer> examId = Optional.of(exam.getExamId());
+        Optional<Integer> examId = Optional.of(exam.getId());
 
 
         DashBoardController dashBoardController = new DashBoardController();
