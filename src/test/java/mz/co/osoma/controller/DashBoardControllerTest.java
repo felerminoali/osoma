@@ -123,7 +123,7 @@ public class DashBoardControllerTest {
 
     }
 
-    @Test
+   /* @Test
     public void examDetailsAdminWithQuestionIdNotNull() {
         Integer examId = 12;
         Optional<Boolean> status = Optional.of(false);
@@ -140,7 +140,7 @@ public class DashBoardControllerTest {
 
 
     }
-
+*/
     @Test
     public void usersAdmin() {
 
@@ -239,7 +239,7 @@ public class DashBoardControllerTest {
         Assert.assertNotNull(model);
 
     }
-
+/*
     @Test
     public void saveQuestion() {
 
@@ -260,7 +260,7 @@ public class DashBoardControllerTest {
 
 
     }
-
+*/
 
     @Test
     public void splitAnswers() {
