@@ -11,28 +11,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
-//@Service
-//public class CustomUserDetailsService implements UserDetailsService {
-//
-//    @Autowired
-//    private UsersRepository usersRepository;
-//
-//    @Override
-//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//
-//        Optional<User> optionalUsers = usersRepository.findByName(username);
-//
-//        optionalUsers
-//                .orElseThrow(() -> new UsernameNotFoundException("Username not found"));
-//        CustomUserDetails customUserDetails = optionalUsers
-//                .map(users -> {
-//                    return new CustomUserDetails(users);
-//                }).get();
-//        return customUserDetails;
-//    }
-//}
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
@@ -42,10 +24,12 @@ public class CustomUserDetailsService implements UserDetailsService {
     CRUDService crudService;
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException,
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException,
             DataAccessException {
 
-        User u = crudService.findEntByJPQueryT("SELECT u FROM User u WHERE u.email = '"+email+"'", null);
+        Map<String, Object> par = new HashMap<String, Object>();
+        par.put("username", username);
+        User u = crudService.findEntByJPQueryT("SELECT u FROM User u WHERE u.email = :username OR u.contact = :username ", par);
 
         Optional<User> optionalUsers = Optional.of(u);
         optionalUsers

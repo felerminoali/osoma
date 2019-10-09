@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50550
 File Encoding         : 65001
 
-Date: 2019-10-02 23:05:21
+Date: 2019-10-09 20:16:48
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -771,11 +771,13 @@ CREATE TABLE `role` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `role` varchar(250) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of role
 -- ----------------------------
+INSERT INTO `role` VALUES ('1', 'ADMIN');
+INSERT INTO `role` VALUES ('2', 'USER');
 
 -- ----------------------------
 -- Table structure for `university`
@@ -804,31 +806,27 @@ CREATE TABLE `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `first_name` varchar(150) NOT NULL,
   `last_name` varchar(150) NOT NULL,
-  `address_1` varchar(255) NOT NULL,
-  `address_2` varchar(255) NOT NULL,
-  `town` varchar(255) NOT NULL,
-  `county` varchar(255) NOT NULL,
-  `post_code` varchar(10) NOT NULL,
-  `country` int(11) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `date` datetime NOT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT '0',
+  `datecreated` datetime DEFAULT NULL,
+  `active` tinyint(1) DEFAULT '0',
   `hash` varchar(255) DEFAULT NULL,
-  `city` varchar(255) DEFAULT NULL,
+  `district` int(11) DEFAULT NULL,
+  `university` int(11) DEFAULT NULL,
+  `contact` varchar(255) DEFAULT NULL,
+  `pin` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `country` (`country`)
-) ENGINE=InnoDB AUTO_INCREMENT=223 DEFAULT CHARSET=utf8;
+  KEY `district` (`district`),
+  KEY `university` (`university`),
+  CONSTRAINT `user_ibfk_1` FOREIGN KEY (`district`) REFERENCES `district` (`id`),
+  CONSTRAINT `user_ibfk_2` FOREIGN KEY (`university`) REFERENCES `university` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=237 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('172', 'felermino', 'ali', 'Casa Residenza, B1-09-05, Jalan Teknologi 2/1D', 'Casa Residenza, B1-09-05, Jalan Teknologi 2/1D', 'Petaling jaya', 'Kota Damansara', '', '133', 'felerminoali@gmail.com', 'd404559f602eab6fd602ac7680dacbfaadd13630335e951f097af3900e9de176b6db28512f2e000b9d04fba5133e8b1c6e8df59db3a8ab9d60be4b97cc9e81db', '2016-11-23 10:37:51', '1', '20161123103751', null);
-INSERT INTO `user` VALUES ('182', 'felermino', 'ali', 'Casa Residenza, B1-09-05, Jalan Teknologi 2/1D', 'Casa Residenza, B1-09-05, Jalan Teknologi 2/1D', 'Petaling jaya', 'Kota Damansara', '', '133', 'felermino.ali@unilurio.ac.mz', 'd404559f602eab6fd602ac7680dacbfaadd13630335e951f097af3900e9de176b6db28512f2e000b9d04fba5133e8b1c6e8df59db3a8ab9d60be4b97cc9e81db', '2016-11-24 07:45:24', '1', '20161124074524', null);
-INSERT INTO `user` VALUES ('192', 'felermino', 'ali', 'Casa Residenza, B1-09-05, Jalan Teknologi 2/1D', 'Casa Residenza, B1-09-05, Jalan Teknologi 2/1D', 'Petaling jaya', 'Kota Damansara', '', '133', 'felasbe@hotmail.com', 'b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86', '2017-01-01 20:00:12', '1', '20170101200012', null);
-INSERT INTO `user` VALUES ('202', 'Serafino', 'Mucova', 'Expamsao', '', 'Pemba', 'Pemba', '', '149', 'smucova@gmail.com', 'fa585d89c851dd338a70dcf535aa2a92fee7836dd6aff1226583e88e0996293f16bc009c652826e0fc5c706695a03cddce372f139eff4d13959da6f1f5d3eabe', '2017-02-21 14:34:49', '1', '20170221143449', null);
-INSERT INTO `user` VALUES ('212', 'Bero ', 'Muimela', 'Ff', '', 'Pemba', 'Juddj', '', '149', 'beromuimela@gmail.com', 'fa585d89c851dd338a70dcf535aa2a92fee7836dd6aff1226583e88e0996293f16bc009c652826e0fc5c706695a03cddce372f139eff4d13959da6f1f5d3eabe', '2017-04-15 15:13:16', '1', '20170415151316', null);
-INSERT INTO `user` VALUES ('222', 'sunil', 'comando', 'Expamsao', '', 'Pemba', 'Pemba', '', '149', 'scomando@unilurio.ac.mz', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '2017-07-27 09:46:49', '1', '20170727094649', null);
+INSERT INTO `user` VALUES ('235', 'Bania', 'Fonseca', 'bfonseca@unilurio.ac.mzo', '$2a$10$h68zxfuxp/6iF38/Euefpe0MTyuML72dh233PhF.bullttXxiIaFu', '2019-10-07 20:24:22', '1', null, '1', '2', 'ghugyu', '0648');
+INSERT INTO `user` VALUES ('236', 'Dario', 'Mario', 'felasbe@hotmail.com', '$2a$10$1DI/wpMmgCi/TPC0BoNL9O9Y9u.rLixWPNbn/bH7V7JbdKSAQoPyy', '2019-10-09 19:37:52', '1', null, '1', '2', '825407883', '1576');
 
 -- ----------------------------
 -- Table structure for `user_role`
@@ -846,3 +844,4 @@ CREATE TABLE `user_role` (
 -- ----------------------------
 -- Records of user_role
 -- ----------------------------
+INSERT INTO `user_role` VALUES ('235', '2');

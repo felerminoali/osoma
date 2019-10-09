@@ -4,6 +4,7 @@ package mz.co.osoma.config;
 import mz.co.osoma.repository.UsersRepository;
 import mz.co.osoma.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -12,6 +13,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,12 +27,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private CustomUserDetailsService userDetailsService;
-    private CharSequence passDecode = "1234";
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService)
         .passwordEncoder(getPasswordEncoder());
+    }
+
+
+    @Bean
+    public PasswordEncoder getPasswordEncoder(){
+        PasswordEncoder encoder = new BCryptPasswordEncoder();
+        return encoder;
     }
 
     @Override
@@ -66,20 +74,5 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     }
 
-    private PasswordEncoder getPasswordEncoder() {
 
-
-
-        return new PasswordEncoder() {
-            @Override
-            public String encode(CharSequence charSequence) {
-                return charSequence.toString();
-            }
-
-            @Override
-            public boolean matches(CharSequence charSequence, String s) {
-                return true;
-            }
-        };
-    }
 }
