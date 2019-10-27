@@ -61,7 +61,7 @@ public class User implements Serializable {
 
 
     @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user1", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
     private List<ExamAttempts> examAttemptsList;
 
     @JsonIgnore

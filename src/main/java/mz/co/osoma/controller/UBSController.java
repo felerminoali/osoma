@@ -1,36 +1,53 @@
 package mz.co.osoma.controller;
 
-
 import mz.co.osoma.model.*;
 import mz.co.osoma.service.CRUDService;
-import org.omg.DynamicAny.DynArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Controller
-
-public class ExamDetails {
+@RequestMapping("ubs")
+public class UBSController {
 
     @Autowired
     @Qualifier("CRUDServiceImpl")
     public CRUDService crudService;
 
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public ModelAndView index(){
+
+        Map<String, Object> par = new HashMap<String, Object>();
+        par.put("uni", 33);
+        par.put("year", 2019);
+
+        String hqlQuery = "SELECT e FROM Exam e WHERE e.university.id = :uni and  e.examYear = :year";
+        List<Exam> exams = crudService.findByJPQuery(hqlQuery, par);
+
+        ModelAndView model = new ModelAndView("exam-ubs");
+        model.addObject("exams", exams);
+
+        return model;
+
+    }
+
 
     @RequestMapping(value = "/exam-details/{id}", method = RequestMethod.GET)
     public ModelAndView examDetailsShow(@PathVariable("id") int id, HttpSession session) {
 
-        ModelAndView model = new ModelAndView("exam-details");
+        ModelAndView model = new ModelAndView("exam-ubs-details");
 
         session.invalidate();
 
@@ -48,15 +65,6 @@ public class ExamDetails {
         }
         return model;
     }
-
-    @RequestMapping(value = "/exam-details", method = RequestMethod.GET)
-    public ModelAndView index() {
-        ModelAndView modelo = new ModelAndView("exam-details");
-        modelo.addObject("exame", null);
-        return modelo;
-    }
-
-
 
     @RequestMapping(value = "/online-test", method = RequestMethod.GET)
     public ModelAndView examDiagnosis(@RequestParam("id") int id, @RequestParam("question") Optional<Integer> pg, HttpSession session) {
@@ -141,8 +149,10 @@ public class ExamDetails {
 
         int correct = 0;
 
+        Map<String, Object> par = new HashMap<String, Object>();
+
         for (Question q:questions) {
-            Map<String, Object> par = new HashMap<String, Object>();
+
             par.put("q", q.getId());
             par.put("r", Short.parseShort("1"));
             QuestionAnswers answers = crudService.findEntByJPQuery("FROM QuestionAnswers p WHERE p.question.id = :q AND p.rightchoice = :r", par);
@@ -151,7 +161,32 @@ public class ExamDetails {
                 correct++;
             }
         }
-        modelo.addObject("percentage", ( (float) correct/questions.size())*100.00f);
+
+        double result = ((double) correct/questions.size())*100.00f;
+        modelo.addObject("percentage", result);
+
+        ExamAttempts attempts = new ExamAttempts();
+
+        attempts.setExam(exam);
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        String username = authentication.getName();
+
+        par.clear();
+        par.put("name", username);
+
+        User user = crudService.findEntByJPQuery("FROM User u WHERE u.name = :name", par);
+        attempts.setUser(user);
+        attempts.setResult(result);
+
+        System.out.println("usuarioa"+user);
+
+//        crudService.Save(attempts);
+
+
         return modelo;
     }
+
+
 }

@@ -97,11 +97,12 @@ nav li {
 }
 
 nav a {
-    color: #fff;
+    color: #000;
     display: inline-block;
     text-align: center;
     text-decoration: none;
     line-height: 40px;
+    margin-top: 7px;
 }
 
 nav a:hover {
@@ -109,9 +110,9 @@ nav a:hover {
     color: #00A2C1;
 }
 
-nav a#pull {
-    display: none;
-}
+/*nav a#pull {*/
+    /*display: none;*/
+/*}*/
 
 /*Styles for screen 600px and lower*/
 @media screen and (max-width: 768px) {
@@ -1609,7 +1610,7 @@ div.classmarker_body_div{
 
 .qbox{
     margin: 35px 0 10px 0;
-    padding: 9px 2.8571429% 5px;
+    padding: 5px 2.8571429% 5px;
     background: #E5E5E5;
     border: 1px solid #d0d2d2;
 }
@@ -1677,8 +1678,8 @@ div.classmarker_body_div{
 .ans_content {
     margin-left: 35px;
     width: 86.268656716%;
-    padding-top: 2px;
-    padding-bottom: 7px;
+    /*padding-top: 2px;*/
+    /*padding-bottom: 7px;*/
     font-size: 1.125em;
 }
 
@@ -1689,7 +1690,7 @@ div.classmarker_body_div{
     line-height: 1.7;
     width: 100%;
     border-bottom: 1px dotted #d2d2d2;
-    padding-bottom: 20px;
+    padding-bottom: 5px;
 }
 
 .prevbox {

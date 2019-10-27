@@ -107,12 +107,12 @@ public class ExamTest {
         assertEquals(university, exam.getUniversity());
     }
 
-    @Test
-    public void getExamAttemptsList() {
-        Exam exam = new Exam();
-        exam.setExamAttemptsList(null);
-        assertEquals(null, exam.getExamAttemptsList());
-    }
+//    @Test
+//    public void getExamAttemptsList() {
+//        Exam exam = new Exam();
+//        exam.setExamAttemptsList(null);
+//        assertEquals(null, exam.getExamAttemptsList());
+//    }
 
 
     @Test

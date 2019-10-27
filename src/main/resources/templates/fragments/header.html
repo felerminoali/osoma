@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org-extras-spring5security">
 
 <head>
 </head>
@@ -22,37 +23,53 @@
 
         </div>
         <!--/.nav-collapse -->
-        <div class="hidden-xs hidden-sm">
-            <form class="navbar-form navbar-left" >
-                <div class="form-group">
-                    <input type="text" name="search" class="form-control"
-                           placeholder="Procurar...">
-                    <button type="submit" class="btn btn-default">
-                        Procurar</button>
-                </div>
-            </form>
-        </div>
+        <!--<div class="hidden-xs hidden-sm">-->
+        <!--<form class="navbar-form navbar-left" >-->
+        <!--<div class="form-group">-->
+        <!--<input type="text" name="search" class="form-control"-->
+        <!--placeholder="Procurar...">-->
+        <!--<button type="submit" class="btn btn-default">-->
+        <!--Procurar</button>-->
+        <!--</div>-->
+        <!--</form>-->
+        <!--</div>-->
 
 
         <div id="navbar" class="navbar-collapse collapse">
             <!--                    temporary-->
-            <img src="/images/giphy.gif" title="under construction" height="32" style="margin-left: 50px;"/>
+            <!--<img src="/images/giphy.gif" title="under construction" height="32" style="margin-left: 50px;"/>-->
 
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a th:if="${email}!=null" href="#" class="fa fa-user">Log out</a>
-                    <a th:if="${email}==null" href="/login"><i class="fa fa-user" aria-hidden="true"></i>Login</a>
+
+                    <div sec:authorize="isAnonymous()">
+                        <a href="/login"><i class="fa fa-user"></i>Entrar</a>
+                    </div>
+
+                    <div sec:authorize="isAuthenticated()">
+                        <span class="navbar-text text-success"> <i class="fa fa-user fa-lg"></i>
+                    <span sec:authentication="name"></span> </span>
+
+                        Roles: <span sec:authentication="principal.authorities"></span>
+
+                        <a th:href="@{/logout}">
+                            <i class="fa fa-sign-out fa-lg"></i> Sair
+                        </a>
+                    </div>
+
+
                 </li>
-                <li>
-                    <a class="change-lang" href="#" hreflang="pt" rel="en_pt">
-                        <img src="/images/lang/pt.png" alt="PT">
-                    </a>
-                </li>
-                <li>
-                    <a class="change-lang" href="#" hreflang="en" rel="en_pt">
-                        <img src="/images/lang/en.png" alt="EN">
-                    </a>
-                </li>
+
+                <!--<li>-->
+                <!--<a class="change-lang" href="#" hreflang="pt" rel="en_pt">-->
+                <!--<img src="/images/lang/pt.png" alt="PT">-->
+                <!--</a>-->
+                <!--</li>-->
+                <!--<li>-->
+                <!--<a class="change-lang" href="#" hreflang="en" rel="en_pt">-->
+                <!--<img src="/images/lang/en.png" alt="EN">-->
+                <!--</a>-->
+                <!--</li>-->
             </ul>
         </div>
     </div>

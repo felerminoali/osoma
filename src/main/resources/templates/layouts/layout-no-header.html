@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <title>Osoma</title>
+    <meta name="description" content="osoma"/>
+    <meta name="keywords" content="osoma"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <!-- Custom Theme files -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="/assets/bootstrap/css/bootstrap.min.css" rel='stylesheet' type='text/css'/>
+    <!--    awesome font-->
+    <link rel="stylesheet" href="/assets/bootstrap/css/font-awesome.css">
+    <!-- Custom Theme files -->
+    <!--<link href="css/style.css" rel='stylesheet' type='text/css'/>-->
+    <link rel="stylesheet" href="/assets/bootstrap/css/style.css">
+
+
+    <!--    web fonts-->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800,700' rel='stylesheet' type='text/css'>
+    <link rel="shortcut icon" href="/images/fav.png"/>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="/js/jquery.min.js"></script>
+
+
+    <!--    bootstrap js-->
+    <script type="text/javascript" src="/assets/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/exams-page.js"></script>
+
+    <!--MathJax-->
+    <script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+
+
+    <!--  Login -->
+    <!--<link rel="stylesheet" type="text/css" href="/css/util.css">-->
+    <!--<link rel="stylesheet" type="text/css" href="/css/main.css">-->
+
+</head>
+
+<body>
+<!-- Header -->
+<div th:replace="fragments/header :: header">
+    <!-- ============================================================================ -->
+    <!-- This content is only used for static prototyping purposes (natural templates)-->
+    <!-- and is therefore entirely optional, as this markup fragment will be included -->
+    <!-- from "fragments/header.html" at runtime.                                     -->
+    <!-- ============================================================================ -->
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Static header</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Home</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br/>
+<br/>
+<br/>
+
+
+<div layout:fragment="content">
+    <p>Content goes here...</p>
+</div>
+
+</body>
+</html>

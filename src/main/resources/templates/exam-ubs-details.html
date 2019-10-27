@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout-no-header}">
+<head>
+
+</head>
+
+<th:block layout:fragment="content">
+
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-md-2">
+            <strong>
+                <a href="javascript:history.go(-1)" class="btn btn-success"><i class="fa fa-angle-double-left" aria-hidden="true"></i> Voltar</a></strong>
+            </div>
+
+            <!--Main content-->
+            <div class="col-md-7" style="background-color: white; border: 1px solid #c2cbd4;">
+
+                <!--Exames Details-->
+                <div class="row">
+
+
+                    <div class="col-sm-12 col-md-12">
+
+
+                        <div class="page-header">
+
+                            <fieldset>
+
+                                <legend>
+                                    <h1 th:text="${exame.description}">  </h1>
+                                    <small th:text="${university.shortname}+' ('+${exame.examYear}+')'">
+                                    </small>
+                                </legend>
+
+                                <div>
+                                    <img th:src="${'/'+category}" th:alt="${exame.category.name}" class="img-responsive">
+                                </div>
+
+
+                                <div>
+
+                                    <h4>
+                                        <p>
+                                            <span class="glyphicon glyphicon-question-sign"></span>
+                                            <span th:text="${exame.noquestion}"></span>
+                                            &nbsp;
+                                            <span class="glyphicon glyphicon-time"></span>
+                                            <span th:text="${exame.duration}"></span>
+                                            Minutos
+                                        </p>
+                                    </h4>
+                                </div>
+
+
+                            </fieldset>
+                        </div>
+
+                        <div style="margin-left: 2%;">
+
+
+                            <div class="details">
+                                <legend>
+                                    <h3>Teste Diagnóstico</h3>
+                                </legend>
+
+                                <p style="font-size: 14px;">
+                                    Teste o seu domínio na resolução dos problemas colocados nos exames de admissão. Clique
+                                    o butão abaixo para iniciar o teste diagnóstico.
+                                </p>
+                                <br/> <br/>
+
+                                <div class="text-center">
+
+                                    <div class="panel panel-default">
+
+                                        <div class="container-share">
+                                            <p class="p-share">
+
+                                            <a th:if="${exame.hassimulation}" th:href="@{/ubs/online-test(id = ${exame.id})}" class="btn btn-success" role="button" id="start-simulation">Iniciar Diagonostico </a>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                                <div id="fb-root"></div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <br/>
+                <br/>
+
+            </div>
+        </div>
+    </div>
+
+    <br/>
+</th:block>

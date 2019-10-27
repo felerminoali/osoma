@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpSession;
 import java.util.*;
 
 @Controller
@@ -46,23 +48,26 @@ public class HomeController {
         this.users = users;
     }
 
-    @RequestMapping(value = "/", method = {RequestMethod.GET, RequestMethod.POST})
-    public ModelAndView index(@RequestParam("ano") Optional<Integer> ano, @RequestParam Optional<Integer> universidade,
-                              @RequestParam("pg") Optional<Integer> pg, Optional<Integer> exame, Optional<String> search) {
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String index(){
+        return "redirect:/ubs/";
 
-
-        model = new ModelAndView("index");
-
-        exams = filterExam(ano, universidade, exame, search);
-
-        SetupModelAttributes(ano, universidade, exame);
-
-        pagination(pg);
-
-        model.addObject("exams", exams);
-        model.addObject("email", null);
-        return model;
     }
+
+
+//    @RequestMapping(value = "/", method = {RequestMethod.GET, RequestMethod.POST})
+//    public ModelAndView index(@RequestParam("ano") Optional<Integer> ano, @RequestParam Optional<Integer> universidade,
+//                              @RequestParam("pg") Optional<Integer> pg, Optional<Integer> exame, Optional<String> search) {
+//
+//        model = new ModelAndView("index");
+//        exams = filterExam(ano, universidade, exame, search);
+//
+//        SetupModelAttributes(ano, universidade, exame);
+//        pagination(pg);
+//
+//        model.addObject("exams", exams);
+//        return model;
+//    }
 
     public void SetupModelAttributes(Optional<Integer> ano, Optional<Integer> universidade, Optional<Integer> exame) {
 

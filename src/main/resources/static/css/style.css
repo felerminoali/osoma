@@ -97,17 +97,17 @@ nav li {
 }
 
 nav a {
-    color: #fff;
+    /*color: #fff;*/
     display: inline-block;
     text-align: center;
     text-decoration: none;
     line-height: 40px;
 }
 
-nav a:hover {
-    text-decoration: none;
-    color: #00A2C1;
-}
+/*nav a:hover {*/
+    /*text-decoration: none;*/
+    /*color: #00A2C1;*/
+/*}*/
 
 nav a#pull {
     display: none;

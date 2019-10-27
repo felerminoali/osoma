@@ -1,7 +1,7 @@
 
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/layoutLogin}">
+      layout:decorate="~{layouts/layout-no-header}">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <!-- Custom Theme files -->
@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<th:block layout:fragment="contentLogin">
+<th:block layout:fragment="content">
 
 
     <br/>
@@ -29,8 +29,7 @@
                     </div>
                     <br/>
                     <div class="error-actions">
-                        <a href="/" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-home"></span>
-                            Volte a Página Principal </a><a href="/">
+                        <a href="/" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-home"></span> Volte a Página Principal</a>
                     </div>
                 </div>
             </div>

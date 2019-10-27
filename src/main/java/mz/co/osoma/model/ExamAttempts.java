@@ -7,6 +7,7 @@ package mz.co.osoma.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.concurrent.atomic.DoubleAccumulator;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -32,17 +33,23 @@ public class ExamAttempts implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected ExamAttemptsPK examAttemptsPK;
-    @Column(name = "attempt_datetime")
+    @Column(name = "start")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date attemptDatetime;
+    private Date start;
+
+    @Column(name = "end")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date end;
+
+
     @Column(name = "result")
-    private Long result;
+    private double result;
     @JoinColumn(name = "exam", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Exam exam1;
+    private Exam exam;
     @JoinColumn(name = "user", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private User user1;
+    private User user;
 
     public ExamAttempts() {
     }
@@ -63,36 +70,44 @@ public class ExamAttempts implements Serializable {
         this.examAttemptsPK = examAttemptsPK;
     }
 
-    public Date getAttemptDatetime() {
-        return attemptDatetime;
+    public Date getStart() {
+        return start;
     }
 
-    public void setAttemptDatetime(Date attemptDatetime) {
-        this.attemptDatetime = attemptDatetime;
+    public void setStart(Date start) {
+        this.start = start;
     }
 
-    public Long getResult() {
+    public Date getEnd() {
+        return end;
+    }
+
+    public void setEnd(Date end) {
+        this.end = end;
+    }
+
+    public double getResult() {
         return result;
     }
 
-    public void setResult(Long result) {
+    public void setResult(double result) {
         this.result = result;
     }
 
-    public Exam getExam1() {
-        return exam1;
+    public Exam getExam() {
+        return exam;
     }
 
-    public void setExam1(Exam exam1) {
-        this.exam1 = exam1;
+    public void setExam(Exam exam) {
+        this.exam = exam;
     }
 
-    public User getUser1() {
-        return user1;
+    public User getUser() {
+        return user;
     }
 
-    public void setUser1(User user1) {
-        this.user1 = user1;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override

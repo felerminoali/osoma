@@ -8,8 +8,10 @@
 <body>
 
 <th:block layout:fragment="contentLogin">
+
     <br/>
     <br/>
+
     <div class="container">
 
         <div class="row">
@@ -187,6 +189,8 @@
 
             var id = $('.province-selected').val();
             var url = "/districts/" + id;
+
+
 
             $.ajax({
                 url: url,

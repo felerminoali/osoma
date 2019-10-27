@@ -30,6 +30,7 @@ public class RestModules {
     @RequestMapping(value = "/mod/save_answer", method = RequestMethod.POST)
     public @ResponseBody String add(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception {
 
+
         String qid = request.getParameter("qid");
         String answerid = request.getParameter("answerid");
 
@@ -76,10 +77,7 @@ public class RestModules {
                 user = crudService.findEntByJPQuery("FROM User u WHERE u.contact = :contact", par);
             }
 
-            if(user == null){
-                return new ResponseEntity(new EmptyJsonResponse(), HttpStatus.OK);
 
-            }
             return new  ResponseEntity<Object>(user, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

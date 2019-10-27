@@ -31,6 +31,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         par.put("username", username);
         User u = crudService.findEntByJPQueryT("SELECT u FROM User u WHERE u.email = :username OR u.contact = :username ", par);
 
+
         Optional<User> optionalUsers = Optional.of(u);
         optionalUsers
                 .orElseThrow(() -> new UsernameNotFoundException("Username not found"));
@@ -38,6 +39,7 @@ public class CustomUserDetailsService implements UserDetailsService {
                 .map(users -> {
                     return new CustomUserDetails(users);
                 }).get();
+
         return customUserDetails;
 
     }

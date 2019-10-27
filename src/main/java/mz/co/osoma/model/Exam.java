@@ -55,7 +55,7 @@ public class Exam implements Serializable {
     private String elearning;
     @Column(name = "hassimulation")
     private Boolean hassimulation;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "exam1", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "exam", fetch = FetchType.LAZY)
     private List<ExamAttempts> examAttemptsList;
     @OneToMany(mappedBy = "exam", fetch = FetchType.LAZY)
     private List<Question> questionList;

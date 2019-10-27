@@ -1,0 +1,40 @@
+
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layouts/layout-no-header}">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<!-- Custom Theme files -->
+
+</head>
+<body>
+
+<th:block layout:fragment="content">
+
+
+	<br/>
+	<br/>
+	<br/>
+
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="error-template">
+					<h1>
+						Oops!</h1>
+					<h2>403 Access Denied! - Não Autorizado</h2>
+					<div class="error-details">
+						Infelizmente aconteceu um erro, a página requisitada não foi encontrada!
+					</div>
+					<br/>
+					<div class="error-actions">
+						<a href="/" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-home"></span> Volte a Página Principal</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</th:block>
+</body>
+</html>

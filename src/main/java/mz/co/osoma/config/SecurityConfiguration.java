@@ -7,16 +7,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.session.HttpSessionEventPublisher;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect;
 
 @RequestMapping(value = "/")
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -28,15 +33,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private CustomUserDetailsService userDetailsService;
 
+    @Autowired
+    private AccessDeniedHandler accessDeniedHandler;
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService)
-        .passwordEncoder(getPasswordEncoder());
+                .passwordEncoder(getPasswordEncoder());
     }
 
 
     @Bean
-    public PasswordEncoder getPasswordEncoder(){
+    public PasswordEncoder getPasswordEncoder() {
         PasswordEncoder encoder = new BCryptPasswordEncoder();
         return encoder;
     }
@@ -45,34 +53,56 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/resources/**");
     }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-
-        http.csrf().disable().authorizeRequests()
-                    .antMatchers("**/emprestar/**").authenticated()
+        http
+        .csrf().disable()
+                .authorizeRequests()
+                .antMatchers( "/mod/save_answer", "/districts/*", "/users/**", "/", "/register/**", "/ubs/*").permitAll()
                 .antMatchers("/js/**").permitAll() // permit JS resources
                 .antMatchers("/fonts/**").permitAll() // permit fonts resources
                 .antMatchers("/images/**").permitAll() // permit images resources
                 .antMatchers("/vendor/**").permitAll() // permit JS resources
                 .antMatchers("/css/**").permitAll() // permit CSS resources
                 .antMatchers("/assets/**").permitAll() // permit Assets resources
-                    .anyRequest().permitAll()
-                    .and()
+                .anyRequest().authenticated()
+                .and()
                 .formLogin()
-                       .loginPage("/login")
-                         .successForwardUrl("/")
-//                        .defaultSuccessUrl("/")
-                        .failureUrl("/login?error=true")
-//                        .usernameParameter("username")
-                .usernameParameter("email")
-                        .passwordParameter("password")
-                        .permitAll()
-                        .and()
-                .logout()
-                    .permitAll();
+                    .successHandler(new MySimpleUrlAuthenticationSuccessHandler())
+                    .loginPage("/login")
+//                         .successForwardUrl("/")
+                        .defaultSuccessUrl("/ubs/")
+                    .failureUrl("/login?error=true")
+                        .usernameParameter("username")
+                    .passwordParameter("password")
+                .permitAll()
+//                .and()
+//                    .rememberMe().rememberMeParameter("remember-me")
+                .and()
+                    .logout().permitAll()
+                    .and()
 
+                .exceptionHandling().accessDeniedHandler(accessDeniedHandler);
     }
 
+
+    @Bean
+    public AuthenticationSuccessHandler myAuthenticationSuccessHandler(){
+        return new MySimpleUrlAuthenticationSuccessHandler();
+    }
+
+    @Bean("authenticationManager")
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
+
+
+    @Bean
+    public HttpSessionEventPublisher httpSessionEventPublisher(){
+        return new HttpSessionEventPublisher();
+    }
 
 }

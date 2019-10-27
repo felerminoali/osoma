@@ -26,12 +26,12 @@ public class ExamAttemptsTest {
     }
 
 
-    @Test
-    public void getAttemptDatetime() {
-        ExamAttempts examAttempts = new ExamAttempts();
-        examAttempts.setAttemptDatetime(null);
-        assertEquals(null,examAttempts.getAttemptDatetime());
-    }
+//    @Test
+//    public void getAttemptDatetime() {
+//        ExamAttempts examAttempts = new ExamAttempts();
+//        examAttempts.setAttemptDatetime(null);
+//        assertEquals(null,examAttempts.getAttemptDatetime());
+//    }
 
     @Test
     public void getResult() {
@@ -45,16 +45,16 @@ public class ExamAttemptsTest {
     public void getUser() {
         User user = new User();
         ExamAttempts examAttempts = new ExamAttempts();
-        examAttempts.setUser1(user);
-        assertNotNull(examAttempts.getUser1());
+        examAttempts.setUser(user);
+        assertNotNull(examAttempts.getUser());
     }
 
     @Test
     public void getExam() {
         Exam exam = new Exam();
         ExamAttempts examAttempts = new ExamAttempts();
-        examAttempts.setExam1(exam);
-        assertNotNull(examAttempts.getExam1());
+        examAttempts.setExam(exam);
+        assertNotNull(examAttempts.getExam());
     }
 
     @Test

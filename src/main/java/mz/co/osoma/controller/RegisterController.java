@@ -1,9 +1,6 @@
 package mz.co.osoma.controller;
 
-import mz.co.osoma.model.District;
-import mz.co.osoma.model.Province;
-import mz.co.osoma.model.University;
-import mz.co.osoma.model.User;
+import mz.co.osoma.model.*;
 import mz.co.osoma.service.CRUDService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -73,7 +70,15 @@ public class RegisterController {
         String pin = generatePIN();
         user.setPin(pin);
 
+        Role role_user = crudService.get(Role.class, 2);
+        Set<Role> roles = new  HashSet<Role>();
+        roles.add(role_user);
+
+        user.setRoles(roles);
+
         crudService.Save(user);
+
+
 
         model.addObject("user",user);
         return model;
