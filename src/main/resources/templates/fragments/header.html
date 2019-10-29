@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org-extras-spring5security">
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head>
 </head>
@@ -20,56 +20,27 @@
             <div class="logo">
                 <a href="/"><img src="/images/logo2.png" title="logo"/></a>
             </div>
-
         </div>
-        <!--/.nav-collapse -->
-        <!--<div class="hidden-xs hidden-sm">-->
-        <!--<form class="navbar-form navbar-left" >-->
-        <!--<div class="form-group">-->
-        <!--<input type="text" name="search" class="form-control"-->
-        <!--placeholder="Procurar...">-->
-        <!--<button type="submit" class="btn btn-default">-->
-        <!--Procurar</button>-->
-        <!--</div>-->
-        <!--</form>-->
-        <!--</div>-->
-
 
         <div id="navbar" class="navbar-collapse collapse">
-            <!--                    temporary-->
-            <!--<img src="/images/giphy.gif" title="under construction" height="32" style="margin-left: 50px;"/>-->
 
             <ul class="nav navbar-nav navbar-right">
-                <li>
-
-                    <div sec:authorize="isAnonymous()">
+                <div sec:authorize="isAnonymous()">
+                    <li >
                         <a href="/login"><i class="fa fa-user"></i>Entrar</a>
-                    </div>
+                    </li>
+                </div>
 
-                    <div sec:authorize="isAuthenticated()">
-                        <span class="navbar-text text-success"> <i class="fa fa-user fa-lg"></i>
-                    <span sec:authentication="name"></span> </span>
-
-                        Roles: <span sec:authentication="principal.authorities"></span>
-
-                        <a th:href="@{/logout}">
-                            <i class="fa fa-sign-out fa-lg"></i> Sair
-                        </a>
-                    </div>
-
-
-                </li>
-
-                <!--<li>-->
-                <!--<a class="change-lang" href="#" hreflang="pt" rel="en_pt">-->
-                <!--<img src="/images/lang/pt.png" alt="PT">-->
-                <!--</a>-->
-                <!--</li>-->
-                <!--<li>-->
-                <!--<a class="change-lang" href="#" hreflang="en" rel="en_pt">-->
-                <!--<img src="/images/lang/en.png" alt="EN">-->
-                <!--</a>-->
-                <!--</li>-->
+                <div sec:authorize="isAuthenticated()">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false"><span sec:authentication="name"></span> <i class="fa fa-user fa-lg"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a th:href="@{/logout}">Sair</a></li>
+                            <li><a th:href="@{/ubs/history}">Histório</a></li>
+                        </ul>
+                    </li>
+                </div>
             </ul>
         </div>
     </div>

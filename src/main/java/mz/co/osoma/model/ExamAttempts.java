@@ -7,7 +7,6 @@ package mz.co.osoma.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.concurrent.atomic.DoubleAccumulator;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -36,14 +35,9 @@ public class ExamAttempts implements Serializable {
     @Column(name = "start")
     @Temporal(TemporalType.TIMESTAMP)
     private Date start;
-
-    @Column(name = "end")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date end;
-
-
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "result")
-    private double result;
+    private Double result;
     @JoinColumn(name = "exam", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Exam exam;
@@ -58,8 +52,8 @@ public class ExamAttempts implements Serializable {
         this.examAttemptsPK = examAttemptsPK;
     }
 
-    public ExamAttempts(int exam, int user) {
-        this.examAttemptsPK = new ExamAttemptsPK(exam, user);
+    public ExamAttempts(int exam, int user, Date end) {
+        this.examAttemptsPK = new ExamAttemptsPK(exam, user, end);
     }
 
     public ExamAttemptsPK getExamAttemptsPK() {
@@ -78,19 +72,11 @@ public class ExamAttempts implements Serializable {
         this.start = start;
     }
 
-    public Date getEnd() {
-        return end;
-    }
-
-    public void setEnd(Date end) {
-        this.end = end;
-    }
-
-    public double getResult() {
+    public Double getResult() {
         return result;
     }
 
-    public void setResult(double result) {
+    public void setResult(Double result) {
         this.result = result;
     }
 

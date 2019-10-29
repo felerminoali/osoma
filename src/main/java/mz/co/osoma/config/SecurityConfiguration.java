@@ -23,7 +23,7 @@ import org.springframework.security.web.session.HttpSessionEventPublisher;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect;
 
-@RequestMapping(value = "/")
+
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @EnableWebSecurity
 @EnableJpaRepositories(basePackageClasses = UsersRepository.class)
@@ -49,10 +49,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return encoder;
     }
 
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/resources/**");
-    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -60,26 +56,26 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
         .csrf().disable()
                 .authorizeRequests()
-                .antMatchers( "/mod/save_answer", "/districts/*", "/users/**", "/", "/register/**", "/ubs/*").permitAll()
+                .antMatchers( "/admin","/", "/mod/save_answer", "/districts/*", "/users/**", "/", "/register/**", "/ubs/*").permitAll()
                 .antMatchers("/js/**").permitAll() // permit JS resources
                 .antMatchers("/fonts/**").permitAll() // permit fonts resources
                 .antMatchers("/images/**").permitAll() // permit images resources
                 .antMatchers("/vendor/**").permitAll() // permit JS resources
                 .antMatchers("/css/**").permitAll() // permit CSS resources
                 .antMatchers("/assets/**").permitAll() // permit Assets resources
-                .anyRequest().authenticated()
+                .antMatchers("/resources/**").permitAll() // permit Assets resources
+                .anyRequest().fullyAuthenticated()
+                .and()
+                .httpBasic()
                 .and()
                 .formLogin()
                     .successHandler(new MySimpleUrlAuthenticationSuccessHandler())
                     .loginPage("/login")
-//                         .successForwardUrl("/")
                         .defaultSuccessUrl("/ubs/")
                     .failureUrl("/login?error=true")
                         .usernameParameter("username")
                     .passwordParameter("password")
                 .permitAll()
-//                .and()
-//                    .rememberMe().rememberMeParameter("remember-me")
                 .and()
                     .logout().permitAll()
                     .and()

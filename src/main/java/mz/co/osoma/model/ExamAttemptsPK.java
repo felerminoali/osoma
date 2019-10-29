@@ -6,9 +6,12 @@
 package mz.co.osoma.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -23,13 +26,18 @@ public class ExamAttemptsPK implements Serializable {
     @Basic(optional = false)
     @Column(name = "user")
     private int user;
+    @Basic(optional = false)
+    @Column(name = "end")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date end;
 
     public ExamAttemptsPK() {
     }
 
-    public ExamAttemptsPK(int exam, int user) {
+    public ExamAttemptsPK(int exam, int user, Date end) {
         this.exam = exam;
         this.user = user;
+        this.end = end;
     }
 
     public int getExam() {
@@ -48,11 +56,20 @@ public class ExamAttemptsPK implements Serializable {
         this.user = user;
     }
 
+    public Date getEnd() {
+        return end;
+    }
+
+    public void setEnd(Date end) {
+        this.end = end;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
         hash += (int) exam;
         hash += (int) user;
+        hash += (end != null ? end.hashCode() : 0);
         return hash;
     }
 
@@ -69,12 +86,15 @@ public class ExamAttemptsPK implements Serializable {
         if (this.user != other.user) {
             return false;
         }
+        if ((this.end == null && other.end != null) || (this.end != null && !this.end.equals(other.end))) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "mz.co.osoma.model.ExamAttemptsPK[ exam=" + exam + ", user=" + user + " ]";
+        return "mz.co.osoma.model.ExamAttemptsPK[ exam=" + exam + ", user=" + user + ", end=" + end + " ]";
     }
     
 }

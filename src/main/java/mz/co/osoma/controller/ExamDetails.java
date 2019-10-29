@@ -32,7 +32,7 @@ public class ExamDetails {
 
         ModelAndView model = new ModelAndView("exam-details");
 
-        session.invalidate();
+        //session.invalidate();
 
         Exam exam = crudService.findEntByJPQueryT("SELECT e FROM Exam e where e.id = " + id, null);
         if (exam != null) {

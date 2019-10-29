@@ -47,18 +47,18 @@ public class LoginControllerTest {
     }
 
 
-    @Test
-    public void verifyLoginTest() {
-        String email = "felerminoali@unilurio.ac.mz";
-        String password = "123456";
-        ModelAndView  modelAndView = loginController.index(email, password);
-
-        assertEquals(modelAndView.getModel().get("error"), 0);
-    }
-
-    @Test
-    public void validLogin() {
-        boolean login = loginController.validLogin("felerminoali@gmial.com", "12345");
-        assertTrue(!login);
-    }
+//    @Test
+//    public void verifyLoginTest() {
+//        String email = "felerminoali@unilurio.ac.mz";
+//        String password = "123456";
+//        ModelAndView  modelAndView = loginController.index(email, password);
+//
+//        assertEquals(modelAndView.getModel().get("error"), 0);
+//    }
+//
+//    @Test
+//    public void validLogin() {
+//        boolean login = loginController.validLogin("felerminoali@gmial.com", "12345");
+//        assertTrue(!login);
+//    }
 }

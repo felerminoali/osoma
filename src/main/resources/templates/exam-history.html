@@ -1,0 +1,73 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout-no-header}">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+
+
+<body>
+<th:block layout:fragment="content">
+
+    <div class="container">
+
+        <div class="row">
+
+            <strong>
+                <a href="/" class="btn btn-success"><i class="fa fa-angle-double-left" aria-hidden="true"></i> Voltar</a>
+            </strong>
+
+            <div class="details">
+                <legend>
+                    <h3>Histório</h3>
+                </legend>
+                <div>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-info">
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Last Name</th>
+                                <th>Adress1</th>
+                                <th>City</th>
+                                <th>Email</th>
+                                <th>Date</th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            <tr>
+                                <td>Feler</td>
+                                <td>Ali</td>
+                                <td>fdfdfd</td>
+                                <td>fdfdf</td>
+                                <td>dsdsds</td>
+                                <td>sasasa</td>
+                            </tr>
+                            <tr>
+                                <td>Feler</td>
+                                <td>Ali</td>
+                                <td>fdfdfd</td>
+                                <td>fdfdf</td>
+                                <td>dsdsds</td>
+                                <td>sasasa</td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+</th:block>
+
+</body>
+</html>

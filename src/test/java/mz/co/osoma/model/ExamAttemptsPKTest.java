@@ -42,24 +42,24 @@ public class ExamAttemptsPKTest {
         assertEquals(examAttemptsPK.hashCode(),0);
     }
 
-    @Test
-    public void equals() {
-        Integer examId = 12;
-        Integer userId = 20;
-
-        ExamAttemptsPK examAttemptsPK = new ExamAttemptsPK(examId,userId);
-        examAttemptsPK.setExam(examId);
-        assertFalse(examAttemptsPK.equals(new Exam()));
-        assertTrue(examAttemptsPK.equals(new ExamAttemptsPK(examId,userId)));
-        assertFalse(examAttemptsPK.equals(new ExamAttemptsPK()));
-        examAttemptsPK.setExam(examId);
-        assertFalse(examAttemptsPK.equals(new ExamAttemptsPK(examId,2000)));
-
-    }
-
-    @Test
-    public void toString1() {
-        ExamAttemptsPK examAttemptsPK = new ExamAttemptsPK(200,22);
-        assertTrue(examAttemptsPK.toString().length() > 1);
-    }
+//    @Test
+//    public void equals() {
+//        Integer examId = 12;
+//        Integer userId = 20;
+//
+//        ExamAttemptsPK examAttemptsPK = new ExamAttemptsPK(examId,userId);
+//        examAttemptsPK.setExam(examId);
+//        assertFalse(examAttemptsPK.equals(new Exam()));
+//        assertTrue(examAttemptsPK.equals(new ExamAttemptsPK(examId,userId)));
+//        assertFalse(examAttemptsPK.equals(new ExamAttemptsPK()));
+//        examAttemptsPK.setExam(examId);
+//        assertFalse(examAttemptsPK.equals(new ExamAttemptsPK(examId,2000)));
+//
+//    }
+//
+//    @Test
+//    public void toString1() {
+//        ExamAttemptsPK examAttemptsPK = new ExamAttemptsPK(200,22);
+//        assertTrue(examAttemptsPK.toString().length() > 1);
+//    }
 }

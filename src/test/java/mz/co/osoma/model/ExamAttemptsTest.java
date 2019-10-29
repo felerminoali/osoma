@@ -32,14 +32,14 @@ public class ExamAttemptsTest {
 //        examAttempts.setAttemptDatetime(null);
 //        assertEquals(null,examAttempts.getAttemptDatetime());
 //    }
-
-    @Test
-    public void getResult() {
-        long result = 200;
-        ExamAttempts examAttempts = new ExamAttempts();
-        examAttempts.setResult(result);
-        assertEquals(result,(long)examAttempts.getResult());
-    }
+//
+//    @Test
+//    public void getResult() {
+//        long result = 200;
+//        ExamAttempts examAttempts = new ExamAttempts();
+//        examAttempts.setResult(result);
+//        assertEquals(result,(long)examAttempts.getResult());
+//    }
 
     @Test
     public void getUser() {
@@ -74,16 +74,16 @@ public class ExamAttemptsTest {
         assertFalse(examAttempts.equals(new ExamAttempts(examAttemptsPK)));
     }
 
-    @Test
-    public void toString1() {
-        ExamAttempts examAttempts = new ExamAttempts();
-        assertNotNull(examAttempts.toString());
-        assertTrue(examAttempts.toString().length() > 0);
-
-        int examId = 2015 ;
-        int userId = 2;
-        ExamAttempts examAttempts1 = new ExamAttempts(examId,userId);
-        assertTrue(examAttempts1.toString().length() > 0);
-
-    }
+//    @Test
+//    public void toString1() {
+//        ExamAttempts examAttempts = new ExamAttempts();
+//        assertNotNull(examAttempts.toString());
+//        assertTrue(examAttempts.toString().length() > 0);
+//
+//        int examId = 2015 ;
+//        int userId = 2;
+//        ExamAttempts examAttempts1 = new ExamAttempts(examId,userId);
+//        assertTrue(examAttempts1.toString().length() > 0);
+//
+//    }
 }

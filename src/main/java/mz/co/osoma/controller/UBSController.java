@@ -5,7 +5,9 @@ import mz.co.osoma.service.CRUDService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +17,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.security.Principal;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -27,7 +31,7 @@ public class UBSController {
     public CRUDService crudService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public ModelAndView index(){
+    public ModelAndView index() {
 
         Map<String, Object> par = new HashMap<String, Object>();
         par.put("uni", 33);
@@ -45,11 +49,11 @@ public class UBSController {
 
 
     @RequestMapping(value = "/exam-details/{id}", method = RequestMethod.GET)
-    public ModelAndView examDetailsShow(@PathVariable("id") int id, HttpSession session) {
+    public ModelAndView examDetailsShow(@AuthenticationPrincipal final UserDetails userDetails, @PathVariable("id") int id, HttpSession session) {
 
         ModelAndView model = new ModelAndView("exam-ubs-details");
 
-        session.invalidate();
+//        session.invalidate();
 
         Exam exam = crudService.findEntByJPQueryT("SELECT e FROM Exam e where e.id = " + id, null);
         if (exam != null) {
@@ -63,6 +67,7 @@ public class UBSController {
 
             model.addObject("exame", null);
         }
+
         return model;
     }
 
@@ -93,25 +98,25 @@ public class UBSController {
             modelo.addObject("questionAnswers", questionAnswers);
 
 
-
             if (session != null) {
-                if( session.getAttribute(question.getId().toString()) !=null){
-                    int answerId = Integer.parseInt((String)session.getAttribute(question.getId().toString()));
+                if (session.getAttribute(question.getId().toString()) != null) {
+                    int answerId = Integer.parseInt((String) session.getAttribute(question.getId().toString()));
                     modelo.addObject("sessionAnswer", answerId);
                 }
             }
 
             modelo.addObject("quantidadeExames", questions.size());
             modelo.addObject("next", nrQuestion + 1);
-            Locale l = new Locale("pt","BR");
+            Locale l = new Locale("pt", "BR");
             Calendar c = Calendar.getInstance(l);
-            SimpleDateFormat df = new SimpleDateFormat("dd MMM yyyy, HH:mm:ss",l);
+            SimpleDateFormat df = new SimpleDateFormat("dd MMM yyyy, HH:mm:ss", l);
             modelo.addObject("starttimestamp", df.format(c.getTime()));
         } else {
             modelo.addObject("next", -1);
             modelo.addObject("quantidadeExames", questions.size());
             return new ModelAndView("exam-results");
         }
+
         return modelo;
     }
 
@@ -126,7 +131,7 @@ public class UBSController {
     }
 
     @RequestMapping(value = "/results", method = RequestMethod.POST)
-    public ModelAndView results(HttpServletRequest request, HttpSession session) {
+    public ModelAndView results(@AuthenticationPrincipal final UserDetails userDetails, HttpServletRequest request, HttpSession session) {
 
         ModelAndView modelo = new ModelAndView("exam-results");
 
@@ -142,51 +147,63 @@ public class UBSController {
         modelo.addObject("exam", exam);
         modelo.addObject("qtdquestion", questions.size());
         modelo.addObject("start", start);
-        Locale l = new Locale("pt","BR");
-        Calendar c = Calendar.getInstance(l);
-        SimpleDateFormat df = new SimpleDateFormat("dd MMM yyyy, HH:mm:ss",l);
+        Locale locale = new Locale("pt", "BR");
+        Calendar c = Calendar.getInstance(locale);
+        SimpleDateFormat df = new SimpleDateFormat("dd MMM yyyy, HH:mm:ss", locale);
         modelo.addObject("finish", df.format(c.getTime()));
 
         int correct = 0;
 
-        Map<String, Object> par = new HashMap<String, Object>();
 
-        for (Question q:questions) {
-
+        for (Question q : questions) {
+            Map<String, Object> par = new HashMap<String, Object>();
             par.put("q", q.getId());
             par.put("r", Short.parseShort("1"));
             QuestionAnswers answers = crudService.findEntByJPQuery("FROM QuestionAnswers p WHERE p.question.id = :q AND p.rightchoice = :r", par);
 
-            if(session.getAttribute(q.getId()+"")!= null && session.getAttribute(q.getId()+"").equals(answers.getId()+"")){
+            if (session.getAttribute(q.getId() + "") != null && session.getAttribute(q.getId() + "").equals(answers.getId() + "")) {
                 correct++;
             }
         }
 
-        double result = ((double) correct/questions.size())*100.00f;
+        double result = ((double) correct / questions.size()) * 100.00f;
         modelo.addObject("percentage", result);
 
         ExamAttempts attempts = new ExamAttempts();
+        ExamAttemptsPK examAttemptsPK = new ExamAttemptsPK();
+        examAttemptsPK.setExam(exam.getId());
 
-        attempts.setExam(exam);
+        User user = crudService.findEntByJPQuery("FROM User u WHERE u.email = '" + ((CustomUserDetails) userDetails).getEmail() + "'", null);
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        examAttemptsPK.setExam(exam.getId());
+        examAttemptsPK.setUser(user.getId());
+        examAttemptsPK.setEnd(c.getTime());
 
-        String username = authentication.getName();
+        try {
+            Date startDate = stringToDate(start, locale);
+            attempts.setStart(startDate);
+        }catch(ParseException e){
+            e.printStackTrace();
+        }
 
-        par.clear();
-        par.put("name", username);
-
-        User user = crudService.findEntByJPQuery("FROM User u WHERE u.name = :name", par);
-        attempts.setUser(user);
+        attempts.setExamAttemptsPK(examAttemptsPK);
         attempts.setResult(result);
 
-        System.out.println("usuarioa"+user);
-
-//        crudService.Save(attempts);
-
+        crudService.Save(attempts);
 
         return modelo;
     }
 
+    @RequestMapping(value = "/history", method = RequestMethod.GET)
+    public ModelAndView history(@AuthenticationPrincipal final UserDetails userDetails, HttpServletRequest request, HttpSession session) {
 
+        ModelAndView modelo = new ModelAndView("exam-history");
+        return modelo;
+
+    }
+
+
+        private Date stringToDate(String strDate, Locale locale) throws ParseException {
+        return new SimpleDateFormat("dd MMM yyyy, HH:mm:ss", locale).parse(strDate);
+    }
 }

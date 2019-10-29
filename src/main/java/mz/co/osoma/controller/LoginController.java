@@ -53,34 +53,10 @@ public class LoginController {
 
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public ModelAndView admin() {
-        ModelAndView model = new ModelAndView("adminLogin");
-        model.addObject("error", 0);
+        ModelAndView model = new ModelAndView("dashboard-home");
         return model;
     }
 
-    @RequestMapping(value = "/admin", method = RequestMethod.POST)
-    public ModelAndView index(@RequestParam("login_email")String email,
-                              @RequestParam("login_password")String password) {
 
-        boolean login = validLogin(email, password);
-        if(login){
-            ModelAndView model = new ModelAndView("dashboard-home");
-            User u = crudService.findEntByJPQueryT("SELECT u FROM User u WHERE u.email = '"+email+"'", null);
-
-            model.addObject("email", u.getEmail());
-            return model;
-        }else{
-            ModelAndView model = new ModelAndView("adminLogin");
-
-            model.addObject("error", 0);
-            return model;
-        }
-
-    }
-    public boolean validLogin(String email, String password){
-        user = this.crudService.findEntByJPQueryT("SELECT u FROM User u WHERE u.email = '"+email+"'", null);
-        return user != null && "1234".equals(password);
-
-    }
 
 }
