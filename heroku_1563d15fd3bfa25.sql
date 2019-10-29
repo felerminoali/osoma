@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : osoma
-Source Server Version : 50556
-Source Host           : us-cdbr-iron-east-04.cleardb.net:3306
-Source Database       : heroku_1563d15fd3bfa25
+Source Server         : localMysql
+Source Server Version : 50550
+Source Host           : localhost:3306
+Source Database       : osoma
 
 Target Server Type    : MYSQL
-Target Server Version : 50556
+Target Server Version : 50550
 File Encoding         : 65001
 
-Date: 2019-02-28 16:39:53
+Date: 2019-10-29 23:08:57
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -48,17 +48,17 @@ CREATE TABLE `category` (
 -- ----------------------------
 -- Records of category
 -- ----------------------------
-INSERT INTO `category` VALUES ('2', 'matématica', 'images/cover/matematica.png', 'images/disciplinas/matematica.png');
-INSERT INTO `category` VALUES ('12', 'física', 'images/cover/fisica.png', 'images/disciplinas/fisica.png');
-INSERT INTO `category` VALUES ('22', 'química', 'images/cover/quimica.png', 'images/disciplinas/quimica.png');
+INSERT INTO `category` VALUES ('2', 'matÃ©matica', 'images/cover/matematica.png', 'images/disciplinas/matematica.png');
+INSERT INTO `category` VALUES ('12', 'fÃ­sica', 'images/cover/fisica.png', 'images/disciplinas/fisica.png');
+INSERT INTO `category` VALUES ('22', 'quÃ­mica', 'images/cover/quimica.png', 'images/disciplinas/quimica.png');
 INSERT INTO `category` VALUES ('32', 'geografia', 'images/cover/geografia.png', 'images/disciplinas/geografia.png');
-INSERT INTO `category` VALUES ('42', 'história', 'images/cover/historia.png', 'images/disciplinas/historia.png');
-INSERT INTO `category` VALUES ('52', 'francês', 'images/cover/frances.png', 'images/disciplinas/frances.png');
-INSERT INTO `category` VALUES ('62', 'inglês', 'images/cover/ingles.png', 'images/disciplinas/ingles.png');
+INSERT INTO `category` VALUES ('42', 'histÃ³ria', 'images/cover/historia.png', 'images/disciplinas/historia.png');
+INSERT INTO `category` VALUES ('52', 'francÃªs', 'images/cover/frances.png', 'images/disciplinas/frances.png');
+INSERT INTO `category` VALUES ('62', 'inglÃªs', 'images/cover/ingles.png', 'images/disciplinas/ingles.png');
 INSERT INTO `category` VALUES ('72', 'desenho', 'images/cover/desenho.png', 'images/disciplinas/desenho.png');
 INSERT INTO `category` VALUES ('82', 'filosofia', 'images/cover/filosofia.png', 'images/disciplinas/filosofia.png');
 INSERT INTO `category` VALUES ('92', 'biologia', 'images/cover/biologia.png', 'images/disciplinas/biologia.png');
-INSERT INTO `category` VALUES ('102', 'português', 'images/cover/portugues.png', 'images/disciplinas/portugues.png');
+INSERT INTO `category` VALUES ('102', 'portuguÃªs', 'images/cover/portugues.png', 'images/disciplinas/portugues.png');
 
 -- ----------------------------
 -- Table structure for `countries`
@@ -75,7 +75,7 @@ CREATE TABLE `countries` (
 -- Records of countries
 -- ----------------------------
 INSERT INTO `countries` VALUES ('1', 'Afghanistan', 'AF');
-INSERT INTO `countries` VALUES ('2', 'ÃƒÆ’land Islands', 'AX');
+INSERT INTO `countries` VALUES ('2', 'ÃƒÆ’Ã†â€™land Islands', 'AX');
 INSERT INTO `countries` VALUES ('3', 'Albania', 'AL');
 INSERT INTO `countries` VALUES ('4', 'Algeria', 'DZ');
 INSERT INTO `countries` VALUES ('5', 'American Samoa', 'AS');
@@ -319,6 +319,164 @@ INSERT INTO `countries` VALUES ('242', 'Zambia', 'ZM');
 INSERT INTO `countries` VALUES ('243', 'Zimbabwe', 'ZW');
 
 -- ----------------------------
+-- Table structure for `district`
+-- ----------------------------
+DROP TABLE IF EXISTS `district`;
+CREATE TABLE `district` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `province` int(11) DEFAULT NULL,
+  `district` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `province` (`province`),
+  CONSTRAINT `district_ibfk_1` FOREIGN KEY (`province`) REFERENCES `province` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=142 DEFAULT CHARSET=latin1;
+
+-- ----------------------------
+-- Records of district
+-- ----------------------------
+INSERT INTO `district` VALUES ('1', '1', 'Ancuabe');
+INSERT INTO `district` VALUES ('2', '1', 'Balama');
+INSERT INTO `district` VALUES ('3', '1', 'Chiúre');
+INSERT INTO `district` VALUES ('4', '1', 'Ibo');
+INSERT INTO `district` VALUES ('5', '1', 'Macomia');
+INSERT INTO `district` VALUES ('6', '1', 'Macomia');
+INSERT INTO `district` VALUES ('7', '1', 'Meluco');
+INSERT INTO `district` VALUES ('8', '1', 'Metuge');
+INSERT INTO `district` VALUES ('9', '1', 'Mocímboa da Praia');
+INSERT INTO `district` VALUES ('10', '1', 'Montepuez');
+INSERT INTO `district` VALUES ('11', '1', 'Mueda');
+INSERT INTO `district` VALUES ('12', '1', 'Muidumbe');
+INSERT INTO `district` VALUES ('13', '1', 'Namuno');
+INSERT INTO `district` VALUES ('14', '1', 'Nangade');
+INSERT INTO `district` VALUES ('15', '1', 'Palma');
+INSERT INTO `district` VALUES ('16', '1', 'Pemba');
+INSERT INTO `district` VALUES ('17', '1', 'Quissanga');
+INSERT INTO `district` VALUES ('18', '9', 'Bilene');
+INSERT INTO `district` VALUES ('19', '9', 'Chibuto');
+INSERT INTO `district` VALUES ('20', '9', 'Chicualacuala');
+INSERT INTO `district` VALUES ('21', '9', 'Chigubo');
+INSERT INTO `district` VALUES ('22', '9', 'Chókwè');
+INSERT INTO `district` VALUES ('23', '9', 'Chongoene');
+INSERT INTO `district` VALUES ('24', '9', 'Guijá');
+INSERT INTO `district` VALUES ('25', '9', 'Limpopo');
+INSERT INTO `district` VALUES ('26', '9', 'Mabalane');
+INSERT INTO `district` VALUES ('27', '9', 'Manjacaze');
+INSERT INTO `district` VALUES ('28', '9', 'Mapai');
+INSERT INTO `district` VALUES ('29', '9', 'Massangena');
+INSERT INTO `district` VALUES ('30', '9', 'Massingir');
+INSERT INTO `district` VALUES ('31', '9', 'Xai-Xai');
+INSERT INTO `district` VALUES ('32', '8', 'Funhalouro');
+INSERT INTO `district` VALUES ('33', '8', 'Govuro');
+INSERT INTO `district` VALUES ('34', '8', 'Homoíne');
+INSERT INTO `district` VALUES ('35', '8', 'Inhambane');
+INSERT INTO `district` VALUES ('36', '8', 'Inharrime');
+INSERT INTO `district` VALUES ('37', '8', 'Inhassoro');
+INSERT INTO `district` VALUES ('38', '8', 'Jangamo');
+INSERT INTO `district` VALUES ('39', '8', 'Mabote');
+INSERT INTO `district` VALUES ('40', '8', 'Massinga');
+INSERT INTO `district` VALUES ('41', '8', 'Maxixe');
+INSERT INTO `district` VALUES ('42', '8', 'Morrumbene');
+INSERT INTO `district` VALUES ('43', '8', 'Panda');
+INSERT INTO `district` VALUES ('44', '8', 'Vilanculos');
+INSERT INTO `district` VALUES ('45', '8', 'Zavala');
+INSERT INTO `district` VALUES ('46', '9', 'Bárue');
+INSERT INTO `district` VALUES ('47', '9', 'Chimoio');
+INSERT INTO `district` VALUES ('48', '9', 'Gondola');
+INSERT INTO `district` VALUES ('49', '9', 'Guro');
+INSERT INTO `district` VALUES ('50', '9', 'Macate');
+INSERT INTO `district` VALUES ('51', '9', 'Machaze');
+INSERT INTO `district` VALUES ('52', '9', 'Macossa');
+INSERT INTO `district` VALUES ('53', '9', 'Manica');
+INSERT INTO `district` VALUES ('54', '9', 'Mossurize');
+INSERT INTO `district` VALUES ('55', '9', 'Sussundenga');
+INSERT INTO `district` VALUES ('56', '9', 'Tambara');
+INSERT INTO `district` VALUES ('57', '9', 'Vanduzi');
+INSERT INTO `district` VALUES ('58', '10', 'Boane');
+INSERT INTO `district` VALUES ('59', '10', 'Magude');
+INSERT INTO `district` VALUES ('60', '10', 'Manhiça');
+INSERT INTO `district` VALUES ('61', '10', 'Marracuene');
+INSERT INTO `district` VALUES ('62', '10', 'Matola');
+INSERT INTO `district` VALUES ('63', '10', 'Matutuíne');
+INSERT INTO `district` VALUES ('64', '10', 'Moamba');
+INSERT INTO `district` VALUES ('65', '10', 'Namaacha');
+INSERT INTO `district` VALUES ('66', '3', 'Angoche');
+INSERT INTO `district` VALUES ('67', '3', 'Eráti');
+INSERT INTO `district` VALUES ('68', '3', 'Ilha de Moçambique');
+INSERT INTO `district` VALUES ('69', '3', 'Lalaua');
+INSERT INTO `district` VALUES ('70', '3', 'Larde');
+INSERT INTO `district` VALUES ('71', '3', 'Liúpo');
+INSERT INTO `district` VALUES ('72', '3', 'Malema');
+INSERT INTO `district` VALUES ('73', '3', 'Meconta');
+INSERT INTO `district` VALUES ('74', '3', 'Mecubúri');
+INSERT INTO `district` VALUES ('75', '3', 'Memba');
+INSERT INTO `district` VALUES ('76', '3', 'Mogincual');
+INSERT INTO `district` VALUES ('77', '3', 'Mogovolas');
+INSERT INTO `district` VALUES ('78', '3', 'Moma');
+INSERT INTO `district` VALUES ('79', '3', 'Moma');
+INSERT INTO `district` VALUES ('80', '3', 'Mossuril');
+INSERT INTO `district` VALUES ('81', '3', 'Muecate');
+INSERT INTO `district` VALUES ('82', '3', 'Murrupula');
+INSERT INTO `district` VALUES ('83', '3', 'Nacala-a-Velha');
+INSERT INTO `district` VALUES ('84', '3', 'Nacala Porto');
+INSERT INTO `district` VALUES ('85', '3', 'Nacarôa');
+INSERT INTO `district` VALUES ('86', '3', 'Nampula');
+INSERT INTO `district` VALUES ('87', '3', 'Rapale');
+INSERT INTO `district` VALUES ('88', '3', 'Ribaué');
+INSERT INTO `district` VALUES ('89', '2', 'Chimbonila');
+INSERT INTO `district` VALUES ('90', '2', 'Cuamba');
+INSERT INTO `district` VALUES ('91', '2', 'Lago');
+INSERT INTO `district` VALUES ('92', '2', 'Lichinga');
+INSERT INTO `district` VALUES ('93', '2', 'Majune');
+INSERT INTO `district` VALUES ('94', '2', 'Mandimba');
+INSERT INTO `district` VALUES ('95', '2', 'Marrupa');
+INSERT INTO `district` VALUES ('96', '2', 'Maúa');
+INSERT INTO `district` VALUES ('97', '2', 'Mavago');
+INSERT INTO `district` VALUES ('98', '2', 'Mecanhelas');
+INSERT INTO `district` VALUES ('99', '2', 'Mecula');
+INSERT INTO `district` VALUES ('100', '2', 'Metarica');
+INSERT INTO `district` VALUES ('101', '2', 'Muembe');
+INSERT INTO `district` VALUES ('102', '2', 'N\'gauma');
+INSERT INTO `district` VALUES ('103', '2', 'Nipepe');
+INSERT INTO `district` VALUES ('104', '2', 'Sanga');
+INSERT INTO `district` VALUES ('105', '5', 'Angónia');
+INSERT INTO `district` VALUES ('106', '5', 'Cahora-Bassa');
+INSERT INTO `district` VALUES ('107', '5', 'Changara');
+INSERT INTO `district` VALUES ('108', '5', 'Chifunde');
+INSERT INTO `district` VALUES ('109', '5', 'Chiuta');
+INSERT INTO `district` VALUES ('110', '5', 'Dôa');
+INSERT INTO `district` VALUES ('111', '5', 'Macanga');
+INSERT INTO `district` VALUES ('112', '5', 'Magoé');
+INSERT INTO `district` VALUES ('113', '5', 'Marara');
+INSERT INTO `district` VALUES ('114', '5', 'Marávia');
+INSERT INTO `district` VALUES ('115', '5', 'Moatize');
+INSERT INTO `district` VALUES ('116', '5', 'Mutarara');
+INSERT INTO `district` VALUES ('117', '5', 'Tete');
+INSERT INTO `district` VALUES ('118', '5', 'Tsangano');
+INSERT INTO `district` VALUES ('119', '5', 'Zumbo');
+INSERT INTO `district` VALUES ('120', '4', 'Alto Molócue');
+INSERT INTO `district` VALUES ('121', '4', 'Chinde');
+INSERT INTO `district` VALUES ('122', '4', 'Derre');
+INSERT INTO `district` VALUES ('123', '4', 'Gilé');
+INSERT INTO `district` VALUES ('124', '4', 'Gurué');
+INSERT INTO `district` VALUES ('125', '4', 'Ile');
+INSERT INTO `district` VALUES ('126', '4', 'Inhassunge');
+INSERT INTO `district` VALUES ('127', '4', 'Luabo');
+INSERT INTO `district` VALUES ('128', '4', 'Lugela');
+INSERT INTO `district` VALUES ('129', '4', 'Maganja da Costa');
+INSERT INTO `district` VALUES ('130', '4', 'Milange');
+INSERT INTO `district` VALUES ('131', '4', 'Mocuba');
+INSERT INTO `district` VALUES ('132', '4', 'Mocubela');
+INSERT INTO `district` VALUES ('133', '4', 'Molumbo');
+INSERT INTO `district` VALUES ('134', '4', 'Mopeia');
+INSERT INTO `district` VALUES ('135', '4', 'Morrumbala');
+INSERT INTO `district` VALUES ('136', '4', 'Mulevala');
+INSERT INTO `district` VALUES ('137', '4', 'Namacurra');
+INSERT INTO `district` VALUES ('138', '4', 'Namarroi');
+INSERT INTO `district` VALUES ('139', '4', 'Nicoadala');
+INSERT INTO `district` VALUES ('140', '4', 'Pebane');
+INSERT INTO `district` VALUES ('141', '4', 'Quelimane');
+
+-- ----------------------------
 -- Table structure for `exam`
 -- ----------------------------
 DROP TABLE IF EXISTS `exam`;
@@ -329,29 +487,32 @@ CREATE TABLE `exam` (
   `description` varchar(250) DEFAULT NULL,
   `duration` int(11) DEFAULT NULL,
   `noquestion` int(11) DEFAULT NULL,
-  `assessment` tinyint(4) DEFAULT NULL,
+  `assessment` tinyint(1) DEFAULT NULL,
   `pdfresource` varchar(250) DEFAULT NULL,
   `elearning` varchar(250) DEFAULT NULL,
   `university` int(11) NOT NULL,
+  `hassimulation` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `category` (`category`),
   KEY `exam_ibfk_2` (`university`),
   CONSTRAINT `exam_ibfk_1` FOREIGN KEY (`category`) REFERENCES `category` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `exam_ibfk_2` FOREIGN KEY (`university`) REFERENCES `university` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=113 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=115 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of exam
 -- ----------------------------
-INSERT INTO `exam` VALUES ('2', '2', '2005', 'Exame de Matématica', '10', '3', null, 'https://drive.google.com/open?id=0B-dOo9jrft_6ZHcwZXNGa0xxblk', null, '2');
-INSERT INTO `exam` VALUES ('12', '52', '2007', 'Exame de Frances', '30', '3', null, null, null, '12');
-INSERT INTO `exam` VALUES ('22', '32', '2005', 'Exame de Geografia', '10', '3', null, 'https://drive.google.com/open?id=0B-dOo9jrft_6Z0Jmd3JlU3FCT3M', null, '22');
-INSERT INTO `exam` VALUES ('32', '82', '2013', 'Exame de Filosofia', '10', '3', null, null, null, '2');
-INSERT INTO `exam` VALUES ('52', '92', '2005', 'Exame de Biologia', '10', '3', null, 'https://drive.google.com/open?id=0B-dOo9jrft_6cTVNMHNESGNUMEk', null, '2');
-INSERT INTO `exam` VALUES ('62', '12', '2005', 'Exame de Fisica', '10', '3', null, 'https://drive.google.com/open?id=0B-dOo9jrft_6eDVLRkRrcUFwLVE', null, '2');
-INSERT INTO `exam` VALUES ('72', '22', '2005', 'Exame de Química', '10', '3', null, 'https://drive.google.com/open?id=0B-dOo9jrft_6OGVvdFhYZ0hvcUE', null, '2');
-INSERT INTO `exam` VALUES ('92', '62', '2005', 'Exame de Ingles', '10', '3', null, 'https://drive.google.com/open?id=0B-dOo9jrft_6UmloVHozRWFodHM', null, '2');
-INSERT INTO `exam` VALUES ('112', '102', '2005', 'Exame de Portugues', '10', '3', null, 'https://drive.google.com/open?id=0B-dOo9jrft_6SklCWXdZQkFNQWc', null, '2');
+INSERT INTO `exam` VALUES ('2', '2', '2005', 'Exame de Matemática', '10', '3', null, 'https://drive.google.com/open?id=0B-dOo9jrft_6ZHcwZXNGa0xxblk', null, '2', '1');
+INSERT INTO `exam` VALUES ('12', '52', '2007', 'Exame de Frances', '30', '3', null, null, null, '12', '0');
+INSERT INTO `exam` VALUES ('22', '32', '2005', 'Exame de Geografia', '10', '3', null, 'https://drive.google.com/open?id=0B-dOo9jrft_6Z0Jmd3JlU3FCT3M', null, '22', '0');
+INSERT INTO `exam` VALUES ('32', '82', '2013', 'Exame de Filosofia', '10', '3', null, null, null, '2', '0');
+INSERT INTO `exam` VALUES ('52', '92', '2005', 'Exame de Biologia', '10', '3', null, 'https://drive.google.com/open?id=0B-dOo9jrft_6cTVNMHNESGNUMEk', null, '2', '0');
+INSERT INTO `exam` VALUES ('62', '12', '2005', 'Exame de Fisica', '10', '3', null, 'https://drive.google.com/open?id=0B-dOo9jrft_6eDVLRkRrcUFwLVE', null, '2', '0');
+INSERT INTO `exam` VALUES ('72', '22', '2005', 'Exame de Química', '10', '3', null, 'https://drive.google.com/open?id=0B-dOo9jrft_6OGVvdFhYZ0hvcUE', null, '2', '0');
+INSERT INTO `exam` VALUES ('92', '62', '2005', 'Exame de Ingles', '10', '3', null, 'https://drive.google.com/open?id=0B-dOo9jrft_6UmloVHozRWFodHM', null, '2', '0');
+INSERT INTO `exam` VALUES ('112', '102', '2005', 'Exame de Portugues', '10', '3', null, 'https://drive.google.com/open?id=0B-dOo9jrft_6SklCWXdZQkFNQWc', null, '2', '0');
+INSERT INTO `exam` VALUES ('113', '102', '2019', 'Exame de Português', '10', '4', null, null, null, '33', '1');
+INSERT INTO `exam` VALUES ('114', '2', '2019', 'Exame de Matemática', '10', '1', null, null, null, '33', '1');
 
 -- ----------------------------
 -- Table structure for `exam_attempts`
@@ -360,9 +521,10 @@ DROP TABLE IF EXISTS `exam_attempts`;
 CREATE TABLE `exam_attempts` (
   `exam` int(11) NOT NULL,
   `user` int(11) NOT NULL,
-  `attempt_datetime` datetime DEFAULT NULL,
-  `result` decimal(10,0) DEFAULT NULL,
-  PRIMARY KEY (`exam`,`user`),
+  `end` datetime NOT NULL,
+  `start` datetime DEFAULT NULL,
+  `result` double(10,0) DEFAULT NULL,
+  PRIMARY KEY (`exam`,`user`,`end`),
   KEY `user` (`user`),
   CONSTRAINT `exam_attempts_ibfk_1` FOREIGN KEY (`exam`) REFERENCES `exam` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `exam_attempts_ibfk_2` FOREIGN KEY (`user`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -371,6 +533,33 @@ CREATE TABLE `exam_attempts` (
 -- ----------------------------
 -- Records of exam_attempts
 -- ----------------------------
+INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-10-29 22:16:53', '2019-10-29 22:16:48', '100');
+INSERT INTO `exam_attempts` VALUES ('114', '236', '2019-10-29 22:28:43', '2019-10-29 22:28:23', '0');
+
+-- ----------------------------
+-- Table structure for `province`
+-- ----------------------------
+DROP TABLE IF EXISTS `province`;
+CREATE TABLE `province` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `province` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+
+-- ----------------------------
+-- Records of province
+-- ----------------------------
+INSERT INTO `province` VALUES ('1', 'Cabo Delgado');
+INSERT INTO `province` VALUES ('2', 'Niassa');
+INSERT INTO `province` VALUES ('3', 'Nampula');
+INSERT INTO `province` VALUES ('4', 'Zambézia');
+INSERT INTO `province` VALUES ('5', 'Tete');
+INSERT INTO `province` VALUES ('6', 'Manica');
+INSERT INTO `province` VALUES ('7', 'Sofala');
+INSERT INTO `province` VALUES ('8', 'Inhambane');
+INSERT INTO `province` VALUES ('9', 'Gaza');
+INSERT INTO `province` VALUES ('10', 'Maputo');
+INSERT INTO `province` VALUES ('11', 'Maputo Cidade');
 
 -- ----------------------------
 -- Table structure for `qtype`
@@ -396,8 +585,7 @@ DROP TABLE IF EXISTS `question`;
 CREATE TABLE `question` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `exam` int(11) DEFAULT NULL,
-  `name` varchar(250) DEFAULT NULL,
-  `questiontextformat` longtext,
+  `question` longtext,
   `image` varchar(100) DEFAULT NULL,
   `feedback` longtext,
   `qtype` int(11) DEFAULT NULL,
@@ -405,6 +593,8 @@ CREATE TABLE `question` (
   `timemodified` bigint(10) DEFAULT NULL,
   `createdby` int(11) DEFAULT NULL,
   `modifiedby` int(11) DEFAULT NULL,
+  `extratext` longtext,
+  `youtubeurl` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `qtype` (`qtype`),
   KEY `createdby` (`createdby`),
@@ -414,38 +604,40 @@ CREATE TABLE `question` (
   CONSTRAINT `question_ibfk_2` FOREIGN KEY (`createdby`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `question_ibfk_3` FOREIGN KEY (`modifiedby`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `question_ibfk_4` FOREIGN KEY (`exam`) REFERENCES `exam` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=313 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=315 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of question
 -- ----------------------------
-INSERT INTO `question` VALUES ('2', '2', 'question 1', 'Escreva sob forma de percentagem a razão: $${7 \\over {15}}$$', null, null, '2', null, null, null, null);
-INSERT INTO `question` VALUES ('12', '2', 'question 2', 'Qual è o valor de $${(16)^{ - 1.75}}$$', null, null, '2', null, null, null, null);
-INSERT INTO `question` VALUES ('22', '2', 'question 3', '$$\\sqrt {{{(2 - \\sqrt 5 )}^2}} $$ é igual a:', null, null, '2', null, null, null, null);
-INSERT INTO `question` VALUES ('32', '12', 'question 1', 'Choisissez la phrase qui résume le mieux le contenu du texte', null, null, '2', null, null, null, null);
-INSERT INTO `question` VALUES ('42', '12', 'question 2', 'Le problème de la place de la femme dans la société existe depuis', null, null, '2', null, null, null, null);
-INSERT INTO `question` VALUES ('52', '12', 'question 3', 'La complémentarité homme femme fait la force ', null, null, '2', null, null, null, null);
-INSERT INTO `question` VALUES ('62', '22', 'question 1', 'A primeira viagem à volta do mundo foi feita por:', null, null, '2', null, null, null, null);
-INSERT INTO `question` VALUES ('72', '22', 'question 2', 'Quem afirmou que “O homem é um ser activo na natureza, sendo capaz de\r\nadaptá-la às suas necessidades. O homem modifica o meio” foi:', null, null, '2', null, null, null, null);
-INSERT INTO `question` VALUES ('82', '22', 'question 3', 'Quanto a sua localização cósmica Moçambique situa-se', null, null, '2', null, null, null, null);
-INSERT INTO `question` VALUES ('92', '32', 'question 1', 'Para Karl Jaspers, filosofar é:', null, null, '2', null, null, null, null);
-INSERT INTO `question` VALUES ('102', '32', 'question 2', 'A definição da Filosofia é já um problema filosófico porque:', null, null, '2', null, null, null, null);
-INSERT INTO `question` VALUES ('112', '32', 'question 3', 'A utilidade da Filosofia é:', null, null, '2', null, null, null, null);
-INSERT INTO `question` VALUES ('152', '52', 'question 1', 'Uma das propriedades da membrana plasmática é o controle de entrada e saída de substâncias na célula.Sobre os mecanismos desse transporte é correcto afirmar:', null, null, '2', null, null, null, null);
-INSERT INTO `question` VALUES ('162', '52', 'question 2', 'Quando se usa o microscópio, é importante saber quanto o instrumento amplia a imagem observada. Se, por exemplo se observar uma célula com uma ocular de10 e uma objectiva de 40, a ampliação da imagem obtida será de :', null, null, '2', null, null, null, null);
-INSERT INTO `question` VALUES ('172', '52', 'question 3', 'Se submetermos uma molécula de proteina a hidrólise o produto obtido será:', null, null, '2', null, null, null, null);
-INSERT INTO `question` VALUES ('182', '62', 'question 1', 'A relação entre os vectores (v) e aceleração (a) de um movimento circular uniforme é graficamente representado por:', null, null, '2', null, null, null, null);
-INSERT INTO `question` VALUES ('192', '62', 'question 2', 'Um corpo parte do repouso e percorre em queda livre 10m no último segundo. Desprezando a restencia do ar, a altura a que se encontra o corpo é igual a:', null, null, '2', null, null, null, null);
-INSERT INTO `question` VALUES ('202', '62', 'question 2', 'Um automóvel fez um percurso rectilíneo com velocidade escalar média negativa. Podemos afirmar que:', null, null, '2', null, null, null, null);
-INSERT INTO `question` VALUES ('212', '72', 'question 1', 'A associação correcta modelo/cientista é:', null, null, '2', null, null, null, null);
-INSERT INTO `question` VALUES ('222', '72', 'question 2', 'Entre as alternativas abaixo, a correcta é:', null, null, '2', null, null, null, null);
-INSERT INTO `question` VALUES ('232', '72', 'question 3', 'O isótopo de 40K 19 transforma-se no isótopo de 40Ca 20. Qual é tipo de desintegração radioactiva que se dá:', null, null, '2', null, null, null, null);
-INSERT INTO `question` VALUES ('252', '92', 'question 1', ' Which biblical principle is the writer referring to in the first paragraph:', null, null, '2', null, null, null, null);
-INSERT INTO `question` VALUES ('262', '92', 'question 2', 'According to the writer, victims of AIDS can be found', null, null, '2', null, null, null, null);
-INSERT INTO `question` VALUES ('272', '92', 'question 3', 'In the notorious and infamous area of Jozi', null, null, '2', null, null, null, null);
-INSERT INTO `question` VALUES ('292', '112', 'question 1', 'Segundo o texto, a Ilha de Moçambique é importante porque:', null, null, '2', null, null, null, null);
-INSERT INTO `question` VALUES ('302', '112', 'question 2', 'De acordo com o texto, a Ilha de Moçambique foi visitada por:', null, null, '2', null, null, null, null);
-INSERT INTO `question` VALUES ('312', '112', 'question 3', 'A visita de alguns escritores à Ilha deve-se:', null, null, '2', null, null, null, null);
+INSERT INTO `question` VALUES ('2', '2', 'Escreva sob forma de percentagem a razÃ£o: $${7 \\over {15}}$$', null, null, '2', null, null, null, null, null, null);
+INSERT INTO `question` VALUES ('12', '2', 'Qual Ã¨ o valor de $${(16)^{ - 1.75}}$$', null, null, '2', null, null, null, null, null, null);
+INSERT INTO `question` VALUES ('22', '2', '$$\\sqrt {{{(2 - \\sqrt 5 )}^2}} $$ Ã© igual a:', null, null, '2', null, null, null, null, null, null);
+INSERT INTO `question` VALUES ('32', '12', 'Choisissez la phrase qui rÃ©sume le mieux le contenu du texte', null, null, '2', null, null, null, null, null, null);
+INSERT INTO `question` VALUES ('42', '12', 'Le problÃ¨me de la place de la femme dans la sociÃ©tÃ© existe depuis', null, null, '2', null, null, null, null, null, null);
+INSERT INTO `question` VALUES ('52', '12', 'La complÃ©mentaritÃ© homme femme fait la force ', null, null, '2', null, null, null, null, null, null);
+INSERT INTO `question` VALUES ('62', '22', 'A primeira viagem Ã  volta do mundo foi feita por:', null, null, '2', null, null, null, null, null, null);
+INSERT INTO `question` VALUES ('72', '22', 'Quem afirmou que â€œO homem Ã© um ser activo na natureza, sendo capaz de\r\nadaptÃ¡-la Ã s suas necessidades. O homem modifica o meioâ€ foi:', null, null, '2', null, null, null, null, null, null);
+INSERT INTO `question` VALUES ('82', '22', 'Quanto a sua localizaÃ§Ã£o cÃ³smica MoÃ§ambique situa-se', null, null, '2', null, null, null, null, null, null);
+INSERT INTO `question` VALUES ('92', '32', 'Para Karl Jaspers, filosofar Ã©:', null, null, '2', null, null, null, null, null, null);
+INSERT INTO `question` VALUES ('102', '32', 'A definiÃ§Ã£o da Filosofia Ã© jÃ¡ um problema filosÃ³fico porque:', null, null, '2', null, null, null, null, null, null);
+INSERT INTO `question` VALUES ('112', '32', 'A utilidade da Filosofia Ã©:', null, null, '2', null, null, null, null, null, null);
+INSERT INTO `question` VALUES ('152', '52', 'Uma das propriedades da membrana plasmÃ¡tica Ã© o controle de entrada e saÃ­da de substÃ¢ncias na cÃ©lula.Sobre os mecanismos desse transporte Ã© correcto afirmar:', null, null, '2', null, null, null, null, null, null);
+INSERT INTO `question` VALUES ('162', '52', 'Quando se usa o microscÃ³pio, Ã© importante saber quanto o instrumento amplia a imagem observada. Se, por exemplo se observar uma cÃ©lula com uma ocular de10 e uma objectiva de 40, a ampliaÃ§Ã£o da imagem obtida serÃ¡ de :', null, null, '2', null, null, null, null, null, null);
+INSERT INTO `question` VALUES ('172', '52', 'Se submetermos uma molÃ©cula de proteina a hidrÃ³lise o produto obtido serÃ¡:', null, null, '2', null, null, null, null, null, null);
+INSERT INTO `question` VALUES ('182', '62', 'A relaÃ§Ã£o entre os vectores (v) e aceleraÃ§Ã£o (a) de um movimento circular uniforme Ã© graficamente representado por:', null, null, '2', null, null, null, null, null, null);
+INSERT INTO `question` VALUES ('192', '62', 'Um corpo parte do repouso e percorre em queda livre 10m no Ãºltimo segundo. Desprezando a restencia do ar, a altura a que se encontra o corpo Ã© igual a:', null, null, '2', null, null, null, null, null, null);
+INSERT INTO `question` VALUES ('202', '62', 'Um automÃ³vel fez um percurso rectilÃ­neo com velocidade escalar mÃ©dia negativa. Podemos afirmar que:', null, null, '2', null, null, null, null, null, null);
+INSERT INTO `question` VALUES ('212', '72', 'A associaÃ§Ã£o correcta modelo/cientista Ã©:', null, null, '2', null, null, null, null, null, null);
+INSERT INTO `question` VALUES ('222', '72', 'Entre as alternativas abaixo, a correcta Ã©:', null, null, '2', null, null, null, null, null, null);
+INSERT INTO `question` VALUES ('232', '72', 'O isÃ³topo de 40K 19 transforma-se no isÃ³topo de 40Ca 20. Qual Ã© tipo de desintegraÃ§Ã£o radioactiva que se dÃ¡:', null, null, '2', null, null, null, null, null, null);
+INSERT INTO `question` VALUES ('252', '92', ' Which biblical principle is the writer referring to in the first paragraph:', null, null, '2', null, null, null, null, null, null);
+INSERT INTO `question` VALUES ('262', '92', 'According to the writer, victims of AIDS can be found', null, null, '2', null, null, null, null, null, null);
+INSERT INTO `question` VALUES ('272', '92', 'In the notorious and infamous area of Jozi', null, null, '2', null, null, null, null, null, null);
+INSERT INTO `question` VALUES ('292', '112', 'Segundo o texto, a Ilha de MoÃ§ambique Ã© importante porque:', null, null, '2', null, null, null, null, null, null);
+INSERT INTO `question` VALUES ('302', '112', 'De acordo com o texto, a Ilha de MoÃ§ambique foi visitada por:', null, null, '2', null, null, null, null, null, null);
+INSERT INTO `question` VALUES ('312', '112', 'A visita de alguns escritores Ã  Ilha deve-se:', null, null, '2', null, null, null, null, null, null);
+INSERT INTO `question` VALUES ('313', '113', 'O Que eh UBS', null, null, '2', null, null, null, null, null, null);
+INSERT INTO `question` VALUES ('314', '114', '$$\\sqrt {{{(2 - \\sqrt 5 )}^2}} $$ É igual a:', null, null, '2', null, null, null, null, null, null);
 
 -- ----------------------------
 -- Table structure for `question_answers`
@@ -453,131 +645,153 @@ INSERT INTO `question` VALUES ('312', '112', 'question 3', 'A visita de alguns e
 DROP TABLE IF EXISTS `question_answers`;
 CREATE TABLE `question_answers` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `char_id` varchar(5) DEFAULT NULL,
   `question` int(11) DEFAULT NULL,
   `answer` longtext,
   `image` varchar(100) DEFAULT NULL,
   `fraction` decimal(10,0) DEFAULT NULL,
-  `feedback` longtext,
+  `rightchoice` tinyint(4) DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `question` (`question`),
   CONSTRAINT `question_answers_ibfk_1` FOREIGN KEY (`question`) REFERENCES `question` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1163 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1170 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of question_answers
 -- ----------------------------
-INSERT INTO `question_answers` VALUES ('2', 'a', '2', '$$31.1\\% $$', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('12', 'b', '2', '$$4.7\\% $$', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('22', 'c', '2', '$$150\\% $$', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('32', 'd', '2', '$$46.7\\% $$', null, '1', '$${7 \\over {15}} \\times 100\\%  = {7 \\over {3 \\times \\not 5}} \\times 1\\not 0 \\times 10\\%  = {{7 \\times 2 \\times 10} \\over 3}\\%  = {{140} \\over 3}\\%  = 46,666 \\approx 46,7\\% $$');
-INSERT INTO `question_answers` VALUES ('42', 'a', '12', '$$128$$', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('52', 'b', '12', '$$256$$', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('62', 'c', '12', '$${1 \\over {128}}$$', null, '1', '$${(16)^{ - 1.75}} = {(16)^{ - {{175} \\over {100}}}} = {(16)^{ - {{35 \\times \\not 5} \\over {20 \\times \\not 5}}}} = {(2)^{ - {{\\not 4 \\times 3\\not 5} \\over {\\not 4 \\times \\not 5}}}} = {2^{ - 7}} = {1 \\over {128}}$$');
-INSERT INTO `question_answers` VALUES ('72', 'd', '12', '$${1 \\over {256}}$$', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('82', 'a', '22', '$$2 - \\sqrt 5 $$', null, '1', '$$\\sqrt {{{\\left( {2 - \\sqrt 5 } \\right)}^{\\not 2}}}  = 2 - \\sqrt 5 $$');
-INSERT INTO `question_answers` VALUES ('92', 'b', '22', '$$\\sqrt 5  - 2$$', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('102', 'c', '22', '$$9 - 4\\sqrt 5 $$', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('112', 'd', '22', '$$9 + 4\\sqrt 5 $$', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('122', 'a', '32', 'L’homme et la vie professionnelle.', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('132', 'b', '32', 'Comment devenir femme contemporaine', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('142', 'c', '32', 'Le couple, la femme et la vie professionnelle.', null, '1', 'resposta correcta');
-INSERT INTO `question_answers` VALUES ('152', 'd', '32', 'La femme au travail', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('162', 'a', '42', 'Le début du XXI siècle', null, '1', 'resposta correcta');
-INSERT INTO `question_answers` VALUES ('172', 'b', '42', 'Vingt ans.', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('182', 'c', '42', 'Deux siècles.', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('192', 'd', '42', 'L’existence des temps.', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('202', 'a', '52', 'de la société.', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('212', 'b', '52', 'de la femme.', null, '1', 'resposta correcta');
-INSERT INTO `question_answers` VALUES ('222', 'c', '52', 'du couple.', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('232', 'd', '52', 'de l’homme.', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('242', 'a', '62', 'Cristóvão Colombo. de 1487 a 1492', null, '1', 'Cristóvão Colombo. de 1487 a 1492 na sua saida de exploracao');
-INSERT INTO `question_answers` VALUES ('252', 'b', '62', 'Vasco da Gama. de 1495 a 1499', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('262', 'c', '62', 'Bartolomeu Dias. de 1482 a 1487', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('272', 'd', '62', 'Fernão de Magalhães. de 1519 a 1522', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('282', 'a', '72', 'Alexandre von Humboldt (1769-1859)', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('292', 'b', '72', 'Paul Vidal de La Blache (1845-1918)', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('302', 'c', '72', 'Frederico Ratzel (1844-1904)', null, '1', 'Pai da geografia');
-INSERT INTO `question_answers` VALUES ('312', 'd', '72', 'Karl Ritter (1779-1859)', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('322', 'a', '82', 'entre os paralelos 30° e 12`e 41° e 51` de latitude Sul, e entre os meridianos\r\n10° e 27`e 26° e 52` de longitude Este;', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('332', 'b', '82', 'entre os paralelos 10° e 27`e 26° e 52` de latitude Sul, e entre os meridianos\r\n30° e 12` e 41° e 51` de longitude Este;', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('342', 'c', '82', 'na costa Oriental do continente Africano, na região da África Austral;', null, '1', 'Costa oriental');
-INSERT INTO `question_answers` VALUES ('352', 'd', '82', 'estende-se do rio Rovuma ao rio Maputo.', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('402', 'a', '92', 'Dizer não', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('412', 'b', '92', 'Movimento que leva do saber à ignorância', null, '1', 'Filosofia a uma disciplina ...');
-INSERT INTO `question_answers` VALUES ('422', 'c', '92', 'Ter os olhos fechados sem nunca os abrir', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('432', 'd', '92', 'História do uso da razão', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('442', 'e', '92', 'Estar a caminho', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('452', 'a', '102', 'A Filosofia não tem definição alguma', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('462', 'b', '102', 'Com a definição da Filosofia começa o filosofar', null, '1', 'Filosofar filosofando');
-INSERT INTO `question_answers` VALUES ('472', 'c', '102', 'Toda a definição de Filosofia não nos leva a nada', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('482', 'd', '102', 'A Filosofia não tem objecto de estudo', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('492', 'e', '102', 'Todos podem filosofar', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('502', 'a', '112', 'Teórica', null, '1', 'Ajuda-mos a perceber ...');
-INSERT INTO `question_answers` VALUES ('512', 'b', '112', 'Nula', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('522', 'c', '112', 'Teórica e prática', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('532', 'd', '112', 'Desconhecida', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('542', 'e', '112', 'Prática', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('552', 'a', '152', 'Na osmose o solvente difunde-se em direcção à região de maior concentração de suas moléculas.', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('562', 'b', '152', 'No transporte activo certas substâncias migram a favor do gradiente de concentração com alto gasto de ATP.', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('572', 'c', '152', 'No transporte activo as substâncias atravessam a membrana contra um gradiente de concentração com proteinas e com gasto de ATP.', null, '1', 'A resposta correcta porque ...');
-INSERT INTO `question_answers` VALUES ('582', 'd', '152', 'Na pinocitose a libertação de macropartículas no interior da célula requer a formação de grandes vesículas.', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('592', 'a', '162', '4x', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('602', 'b', '162', '400x', null, '1', '400x porque ...');
-INSERT INTO `question_answers` VALUES ('612', 'c', '162', '50x', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('622', 'd', '162', '30x', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('632', 'a', '172', 'enzima', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('642', 'b', '172', 'sais minerais', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('652', 'c', '172', 'aminoácidos', null, '1', 'Aminoacidos porque ....');
-INSERT INTO `question_answers` VALUES ('662', 'd', '172', 'água', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('672', 'a', '182', null, 'images/qa/672_182_a.png', '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('682', 'b', '182', null, 'images/qa/672_182_b.png', '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('692', 'c', '182', null, 'images/qa/672_182_c.png', '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('702', 'd', '182', null, 'images/qa/672_182_d.png', '1', 'Porque ...');
-INSERT INTO `question_answers` VALUES ('712', 'a', '192', '11.25 m ', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('722', 'b', '192', '10.0 m ', null, '1', 'Se considerar-mos a aceleracao de gravidade igual 10 m/s');
-INSERT INTO `question_answers` VALUES ('732', 'c', '192', '9.25 m', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('742', 'd', '192', '8.0 m', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('752', 'a', '202', 'se deslocou de marcha atrás', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('772', 'b', '202', 'o movimento teve sentido contrário a orientação positiva do eixo coincidente com a trajectória', null, '1', 'Resposta correcta ....');
-INSERT INTO `question_answers` VALUES ('782', 'c', '202', 'é impossível esta situação, pois não há significado físico para velocidade escalar negativa', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('792', 'd', '202', 'a velocidade escalar(instantanea) foi diminuindo', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('802', 'a', '212', 'I/Rutherford; II/Dalton; III/Bohr', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('812', 'b', '212', 'I/Bohr; II/Dalton; III/Rutherford', null, '1', 'Resposta correcta ...');
-INSERT INTO `question_answers` VALUES ('822', 'c', '212', 'I/Dalton; II/Rutherford; III/Bohr', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('832', 'd', '212', 'I/Rutherford; II/Bohr; III/Dalton', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('842', 'a', '222', 'dois átomos com o mesmo número de neutrões pertencem ao mesmo elemento químico', null, '1', 'Resposta correcta ...');
-INSERT INTO `question_answers` VALUES ('852', 'b', '222', 'dois átomos com o mesmo número de electrões de valência pertencem ao mesmo elemento químico', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('862', 'c', '222', 'dois átomos com o mesmo número de protões pertencem ao mesmo elemento químico', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('872', 'd', '222', 'dois átomos com o mesmo número de massa são isótopos.', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('882', 'a', '232', '5s2', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('892', 'b', '232', ' 5s2 ; 4d3.', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('902', 'c', '232', '5s2 ; 4d6.', null, '1', 'Resposta correcta ...');
-INSERT INTO `question_answers` VALUES ('912', 'd', '232', '5s2 ; 6s1.', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('922', 'a', '252', 'AIDS should kill many people.', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('942', 'c', '252', 'The wages of sin are death.', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('952', 'd', '252', 'Sex is meant for the married.', null, '1', 'Correct');
-INSERT INTO `question_answers` VALUES ('962', 'e', '252', 'AIDS has spread like wild fire.', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('972', 'a', '262', 'in the United States and in AIDS havens only.', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('982', 'b', '262', 'in TV programmes and in the neighbourhood only.', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('992', 'c', '262', 'in the United States, taking a walk and watching TV only.', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('1002', 'd', '262', 'almost everywhere.', null, '1', 'AIDS can be  ...');
-INSERT INTO `question_answers` VALUES ('1012', 'a', '272', 'many people started dying of AIDS.', null, '1', 'AIDS because .....');
-INSERT INTO `question_answers` VALUES ('1022', 'b', '272', 'many people started dying of electrical shock.', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('1032', 'c', '272', 'many people started dying of demonic power.', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('1042', 'd', '272', 'many people started dying of cancer and diabetes.', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('1052', 'a', '292', 'é uma lenda.', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('1062', 'b', '292', 'é mística.', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('1072', 'c', '292', 'é bela e tem mulheres bonitas', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('1082', 'd', '292', 'é histórica, mística e lendária', null, '1', 'Correctissima ....');
-INSERT INTO `question_answers` VALUES ('1092', 'a', '302', 'Rui Knopfli e Virgílio de Lemos.', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('1102', 'b', '302', 'Rui Knopfli e Virgílio de Lemos.', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('1112', 'c', '302', 'Rui Knopfli e Virgílio de Lemos e António Sopa.', null, '1', 'Correctissima ....');
-INSERT INTO `question_answers` VALUES ('1122', 'd', '302', 'tónio Sopa e Sarmento Rodrigues.', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('1132', 'a', '312', 'ao interesse das autoridades locais', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('1142', 'b', '312', 'a um interesse pessoal.', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('1152', 'c', '312', 'ao lusotropicalismo.', null, '0', 'resposta incorecta');
-INSERT INTO `question_answers` VALUES ('1162', 'd', '312', 'à existência de relíquias históricas', null, '1', 'Correctissima ....');
+INSERT INTO `question_answers` VALUES ('2', '2', '$$31.1\\% $$', null, '0', '1');
+INSERT INTO `question_answers` VALUES ('12', '2', '$$4.7\\% $$', null, '0', '0');
+INSERT INTO `question_answers` VALUES ('22', '2', '$$150\\% $$', null, '0', '0');
+INSERT INTO `question_answers` VALUES ('32', '2', '$$46.7\\% $$', null, '1', '0');
+INSERT INTO `question_answers` VALUES ('42', '12', '$$128$$', null, '0', '1');
+INSERT INTO `question_answers` VALUES ('52', '12', '$$256$$', null, '0', '0');
+INSERT INTO `question_answers` VALUES ('62', '12', '$${1 \\over {128}}$$', null, '1', '0');
+INSERT INTO `question_answers` VALUES ('72', '12', '$${1 \\over {256}}$$', null, '0', '0');
+INSERT INTO `question_answers` VALUES ('82', '22', '$$2 - \\sqrt 5 $$', null, '1', '1');
+INSERT INTO `question_answers` VALUES ('92', '22', '$$\\sqrt 5  - 2$$', null, '0', '0');
+INSERT INTO `question_answers` VALUES ('102', '22', '$$9 - 4\\sqrt 5 $$', null, '0', '0');
+INSERT INTO `question_answers` VALUES ('112', '22', '$$9 + 4\\sqrt 5 $$', null, '0', '0');
+INSERT INTO `question_answers` VALUES ('122', '32', 'Lâ€™homme et la vie professionnelle.', null, '0', null);
+INSERT INTO `question_answers` VALUES ('132', '32', 'Comment devenir femme contemporaine', null, '0', null);
+INSERT INTO `question_answers` VALUES ('142', '32', 'Le couple, la femme et la vie professionnelle.', null, '1', null);
+INSERT INTO `question_answers` VALUES ('152', '32', 'La femme au travail', null, '0', null);
+INSERT INTO `question_answers` VALUES ('162', '42', 'Le dÃ©but du XXI siÃ¨cle', null, '1', null);
+INSERT INTO `question_answers` VALUES ('172', '42', 'Vingt ans.', null, '0', null);
+INSERT INTO `question_answers` VALUES ('182', '42', 'Deux siÃ¨cles.', null, '0', null);
+INSERT INTO `question_answers` VALUES ('192', '42', 'Lâ€™existence des temps.', null, '0', null);
+INSERT INTO `question_answers` VALUES ('202', '52', 'de la sociÃ©tÃ©.', null, '0', null);
+INSERT INTO `question_answers` VALUES ('212', '52', 'de la femme.', null, '1', null);
+INSERT INTO `question_answers` VALUES ('222', '52', 'du couple.', null, '0', null);
+INSERT INTO `question_answers` VALUES ('232', '52', 'de lâ€™homme.', null, '0', null);
+INSERT INTO `question_answers` VALUES ('242', '62', 'CristÃ³vÃ£o Colombo. de 1487 a 1492', null, '1', null);
+INSERT INTO `question_answers` VALUES ('252', '62', 'Vasco da Gama. de 1495 a 1499', null, '0', null);
+INSERT INTO `question_answers` VALUES ('262', '62', 'Bartolomeu Dias. de 1482 a 1487', null, '0', null);
+INSERT INTO `question_answers` VALUES ('272', '62', 'FernÃ£o de MagalhÃ£es. de 1519 a 1522', null, '0', null);
+INSERT INTO `question_answers` VALUES ('282', '72', 'Alexandre von Humboldt (1769-1859)', null, '0', null);
+INSERT INTO `question_answers` VALUES ('292', '72', 'Paul Vidal de La Blache (1845-1918)', null, '0', null);
+INSERT INTO `question_answers` VALUES ('302', '72', 'Frederico Ratzel (1844-1904)', null, '1', null);
+INSERT INTO `question_answers` VALUES ('312', '72', 'Karl Ritter (1779-1859)', null, '0', null);
+INSERT INTO `question_answers` VALUES ('322', '82', 'entre os paralelos 30Â° e 12`e 41Â° e 51` de latitude Sul, e entre os meridianos\r\n10Â° e 27`e 26Â° e 52` de longitude Este;', null, '0', null);
+INSERT INTO `question_answers` VALUES ('332', '82', 'entre os paralelos 10Â° e 27`e 26Â° e 52` de latitude Sul, e entre os meridianos\r\n30Â° e 12` e 41Â° e 51` de longitude Este;', null, '0', null);
+INSERT INTO `question_answers` VALUES ('342', '82', 'na costa Oriental do continente Africano, na regiÃ£o da Ãfrica Austral;', null, '1', null);
+INSERT INTO `question_answers` VALUES ('352', '82', 'estende-se do rio Rovuma ao rio Maputo.', null, '0', null);
+INSERT INTO `question_answers` VALUES ('402', '92', 'Dizer nÃ£o', null, '0', null);
+INSERT INTO `question_answers` VALUES ('412', '92', 'Movimento que leva do saber Ã  ignorÃ¢ncia', null, '1', null);
+INSERT INTO `question_answers` VALUES ('422', '92', 'Ter os olhos fechados sem nunca os abrir', null, '0', null);
+INSERT INTO `question_answers` VALUES ('432', '92', 'HistÃ³ria do uso da razÃ£o', null, '0', null);
+INSERT INTO `question_answers` VALUES ('442', '92', 'Estar a caminho', null, '0', null);
+INSERT INTO `question_answers` VALUES ('452', '102', 'A Filosofia nÃ£o tem definiÃ§Ã£o alguma', null, '0', null);
+INSERT INTO `question_answers` VALUES ('462', '102', 'Com a definiÃ§Ã£o da Filosofia comeÃ§a o filosofar', null, '1', null);
+INSERT INTO `question_answers` VALUES ('472', '102', 'Toda a definiÃ§Ã£o de Filosofia nÃ£o nos leva a nada', null, '0', null);
+INSERT INTO `question_answers` VALUES ('482', '102', 'A Filosofia nÃ£o tem objecto de estudo', null, '0', null);
+INSERT INTO `question_answers` VALUES ('492', '102', 'Todos podem filosofar', null, '0', null);
+INSERT INTO `question_answers` VALUES ('502', '112', 'TeÃ³rica', null, '1', null);
+INSERT INTO `question_answers` VALUES ('512', '112', 'Nula', null, '0', null);
+INSERT INTO `question_answers` VALUES ('522', '112', 'TeÃ³rica e prÃ¡tica', null, '0', null);
+INSERT INTO `question_answers` VALUES ('532', '112', 'Desconhecida', null, '0', null);
+INSERT INTO `question_answers` VALUES ('542', '112', 'PrÃ¡tica', null, '0', null);
+INSERT INTO `question_answers` VALUES ('552', '152', 'Na osmose o solvente difunde-se em direcÃ§Ã£o Ã  regiÃ£o de maior concentraÃ§Ã£o de suas molÃ©culas.', null, '0', null);
+INSERT INTO `question_answers` VALUES ('562', '152', 'No transporte activo certas substÃ¢ncias migram a favor do gradiente de concentraÃ§Ã£o com alto gasto de ATP.', null, '0', null);
+INSERT INTO `question_answers` VALUES ('572', '152', 'No transporte activo as substÃ¢ncias atravessam a membrana contra um gradiente de concentraÃ§Ã£o com proteinas e com gasto de ATP.', null, '1', null);
+INSERT INTO `question_answers` VALUES ('582', '152', 'Na pinocitose a libertaÃ§Ã£o de macropartÃ­culas no interior da cÃ©lula requer a formaÃ§Ã£o de grandes vesÃ­culas.', null, '0', null);
+INSERT INTO `question_answers` VALUES ('592', '162', '4x', null, '0', null);
+INSERT INTO `question_answers` VALUES ('602', '162', '400x', null, '1', null);
+INSERT INTO `question_answers` VALUES ('612', '162', '50x', null, '0', null);
+INSERT INTO `question_answers` VALUES ('622', '162', '30x', null, '0', null);
+INSERT INTO `question_answers` VALUES ('632', '172', 'enzima', null, '0', null);
+INSERT INTO `question_answers` VALUES ('642', '172', 'sais minerais', null, '0', null);
+INSERT INTO `question_answers` VALUES ('652', '172', 'aminoÃ¡cidos', null, '1', null);
+INSERT INTO `question_answers` VALUES ('662', '172', 'Ã¡gua', null, '0', null);
+INSERT INTO `question_answers` VALUES ('672', '182', null, 'images/qa/672_182_a.png', '0', null);
+INSERT INTO `question_answers` VALUES ('682', '182', null, 'images/qa/672_182_b.png', '0', null);
+INSERT INTO `question_answers` VALUES ('692', '182', null, 'images/qa/672_182_c.png', '0', null);
+INSERT INTO `question_answers` VALUES ('702', '182', null, 'images/qa/672_182_d.png', '1', null);
+INSERT INTO `question_answers` VALUES ('712', '192', '11.25 m ', null, '0', null);
+INSERT INTO `question_answers` VALUES ('722', '192', '10.0 m ', null, '1', null);
+INSERT INTO `question_answers` VALUES ('732', '192', '9.25 m', null, '0', null);
+INSERT INTO `question_answers` VALUES ('742', '192', '8.0 m', null, '0', null);
+INSERT INTO `question_answers` VALUES ('752', '202', 'se deslocou de marcha atrÃ¡s', null, '0', null);
+INSERT INTO `question_answers` VALUES ('772', '202', 'o movimento teve sentido contrÃ¡rio a orientaÃ§Ã£o positiva do eixo coincidente com a trajectÃ³ria', null, '1', null);
+INSERT INTO `question_answers` VALUES ('782', '202', 'Ã© impossÃ­vel esta situaÃ§Ã£o, pois nÃ£o hÃ¡ significado fÃ­sico para velocidade escalar negativa', null, '0', null);
+INSERT INTO `question_answers` VALUES ('792', '202', 'a velocidade escalar(instantanea) foi diminuindo', null, '0', null);
+INSERT INTO `question_answers` VALUES ('802', '212', 'I/Rutherford; II/Dalton; III/Bohr', null, '0', null);
+INSERT INTO `question_answers` VALUES ('812', '212', 'I/Bohr; II/Dalton; III/Rutherford', null, '1', null);
+INSERT INTO `question_answers` VALUES ('822', '212', 'I/Dalton; II/Rutherford; III/Bohr', null, '0', null);
+INSERT INTO `question_answers` VALUES ('832', '212', 'I/Rutherford; II/Bohr; III/Dalton', null, '0', null);
+INSERT INTO `question_answers` VALUES ('842', '222', 'dois Ã¡tomos com o mesmo nÃºmero de neutrÃµes pertencem ao mesmo elemento quÃ­mico', null, '1', null);
+INSERT INTO `question_answers` VALUES ('852', '222', 'dois Ã¡tomos com o mesmo nÃºmero de electrÃµes de valÃªncia pertencem ao mesmo elemento quÃ­mico', null, '0', null);
+INSERT INTO `question_answers` VALUES ('862', '222', 'dois Ã¡tomos com o mesmo nÃºmero de protÃµes pertencem ao mesmo elemento quÃ­mico', null, '0', null);
+INSERT INTO `question_answers` VALUES ('872', '222', 'dois Ã¡tomos com o mesmo nÃºmero de massa sÃ£o isÃ³topos.', null, '0', null);
+INSERT INTO `question_answers` VALUES ('882', '232', '5s2', null, '0', null);
+INSERT INTO `question_answers` VALUES ('892', '232', ' 5s2 ; 4d3.', null, '0', null);
+INSERT INTO `question_answers` VALUES ('902', '232', '5s2 ; 4d6.', null, '1', null);
+INSERT INTO `question_answers` VALUES ('912', '232', '5s2 ; 6s1.', null, '0', null);
+INSERT INTO `question_answers` VALUES ('922', '252', 'AIDS should kill many people.', null, '0', null);
+INSERT INTO `question_answers` VALUES ('942', '252', 'The wages of sin are death.', null, '0', null);
+INSERT INTO `question_answers` VALUES ('952', '252', 'Sex is meant for the married.', null, '1', null);
+INSERT INTO `question_answers` VALUES ('962', '252', 'AIDS has spread like wild fire.', null, '0', null);
+INSERT INTO `question_answers` VALUES ('972', '262', 'in the United States and in AIDS havens only.', null, '0', null);
+INSERT INTO `question_answers` VALUES ('982', '262', 'in TV programmes and in the neighbourhood only.', null, '0', null);
+INSERT INTO `question_answers` VALUES ('992', '262', 'in the United States, taking a walk and watching TV only.', null, '0', null);
+INSERT INTO `question_answers` VALUES ('1002', '262', 'almost everywhere.', null, '1', null);
+INSERT INTO `question_answers` VALUES ('1012', '272', 'many people started dying of AIDS.', null, '1', null);
+INSERT INTO `question_answers` VALUES ('1022', '272', 'many people started dying of electrical shock.', null, '0', null);
+INSERT INTO `question_answers` VALUES ('1032', '272', 'many people started dying of demonic power.', null, '0', null);
+INSERT INTO `question_answers` VALUES ('1042', '272', 'many people started dying of cancer and diabetes.', null, '0', null);
+INSERT INTO `question_answers` VALUES ('1052', '292', 'Ã© uma lenda.', null, '0', null);
+INSERT INTO `question_answers` VALUES ('1062', '292', 'Ã© mÃ­stica.', null, '0', null);
+INSERT INTO `question_answers` VALUES ('1072', '292', 'Ã© bela e tem mulheres bonitas', null, '0', null);
+INSERT INTO `question_answers` VALUES ('1082', '292', 'Ã© histÃ³rica, mÃ­stica e lendÃ¡ria', null, '1', null);
+INSERT INTO `question_answers` VALUES ('1092', '302', 'Rui Knopfli e VirgÃ­lio de Lemos.', null, '0', null);
+INSERT INTO `question_answers` VALUES ('1102', '302', 'Rui Knopfli e VirgÃ­lio de Lemos.', null, '0', null);
+INSERT INTO `question_answers` VALUES ('1112', '302', 'Rui Knopfli e VirgÃ­lio de Lemos e AntÃ³nio Sopa.', null, '1', null);
+INSERT INTO `question_answers` VALUES ('1122', '302', 'tÃ³nio Sopa e Sarmento Rodrigues.', null, '0', null);
+INSERT INTO `question_answers` VALUES ('1132', '312', 'ao interesse das autoridades locais', null, '0', null);
+INSERT INTO `question_answers` VALUES ('1142', '312', 'a um interesse pessoal.', null, '0', null);
+INSERT INTO `question_answers` VALUES ('1152', '312', 'ao lusotropicalismo.', null, '0', null);
+INSERT INTO `question_answers` VALUES ('1162', '312', 'Ã  existÃªncia de relÃ­quias histÃ³ricas', null, '1', null);
+INSERT INTO `question_answers` VALUES ('1163', '313', 'Alternativa 1', null, null, '0');
+INSERT INTO `question_answers` VALUES ('1164', '313', 'Alternativa 2', null, null, '1');
+INSERT INTO `question_answers` VALUES ('1165', '313', 'Alternstiva 3', null, null, '0');
+INSERT INTO `question_answers` VALUES ('1166', '314', '$$31.1\\% $$', null, null, '0');
+INSERT INTO `question_answers` VALUES ('1167', '314', '$$4.7\\% $$', null, null, '0');
+INSERT INTO `question_answers` VALUES ('1168', '314', '$$150\\% $$', null, null, '1');
+INSERT INTO `question_answers` VALUES ('1169', '314', '$$46.7\\% $$', null, null, '0');
+
+-- ----------------------------
+-- Table structure for `role`
+-- ----------------------------
+DROP TABLE IF EXISTS `role`;
+CREATE TABLE `role` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `role` varchar(250) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+-- ----------------------------
+-- Records of role
+-- ----------------------------
+INSERT INTO `role` VALUES ('1', 'ADMIN');
+INSERT INTO `role` VALUES ('2', 'USER');
 
 -- ----------------------------
 -- Table structure for `university`
@@ -588,15 +802,16 @@ CREATE TABLE `university` (
   `name` varchar(250) DEFAULT NULL,
   `shortname` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of university
 -- ----------------------------
 INSERT INTO `university` VALUES ('2', 'Universidade Eduardo Mondlane', 'UEM');
-INSERT INTO `university` VALUES ('12', 'Universidade Lúrio', 'UniLúrio');
+INSERT INTO `university` VALUES ('12', 'Universidade LÃºrio', 'UniLÃºrio');
 INSERT INTO `university` VALUES ('22', 'Universidade Zambenze', 'UniZambeze');
-INSERT INTO `university` VALUES ('32', 'Universidade Pedagógica', 'UP');
+INSERT INTO `university` VALUES ('32', 'Universidade PedagÃ³gica', 'UP');
+INSERT INTO `university` VALUES ('33', 'Universidade Lurio - Bussiness School', 'UBS');
 
 -- ----------------------------
 -- Table structure for `user`
@@ -606,27 +821,47 @@ CREATE TABLE `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `first_name` varchar(150) NOT NULL,
   `last_name` varchar(150) NOT NULL,
-  `address_1` varchar(255) NOT NULL,
-  `address_2` varchar(255) NOT NULL,
-  `town` varchar(255) NOT NULL,
-  `county` varchar(255) NOT NULL,
-  `post_code` varchar(10) NOT NULL,
-  `country` int(11) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `date` datetime NOT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT '0',
+  `datecreated` datetime DEFAULT NULL,
+  `active` tinyint(1) DEFAULT '0',
   `hash` varchar(255) DEFAULT NULL,
+  `district` int(11) DEFAULT NULL,
+  `university` int(11) DEFAULT NULL,
+  `contact` varchar(255) DEFAULT NULL,
+  `pin` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `country` (`country`)
-) ENGINE=InnoDB AUTO_INCREMENT=232 DEFAULT CHARSET=utf8;
+  KEY `district` (`district`),
+  KEY `university` (`university`),
+  CONSTRAINT `user_ibfk_1` FOREIGN KEY (`district`) REFERENCES `district` (`id`),
+  CONSTRAINT `user_ibfk_2` FOREIGN KEY (`university`) REFERENCES `university` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=239 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('172', 'felermino', 'ali', 'Casa Residenza, B1-09-05, Jalan Teknologi 2/1D', 'Casa Residenza, B1-09-05, Jalan Teknologi 2/1D', 'Petaling jaya', 'Kota Damansara', '', '133', 'felerminoali@gmail.com', 'd404559f602eab6fd602ac7680dacbfaadd13630335e951f097af3900e9de176b6db28512f2e000b9d04fba5133e8b1c6e8df59db3a8ab9d60be4b97cc9e81db', '2016-11-23 10:37:51', '1', '20161123103751');
-INSERT INTO `user` VALUES ('182', 'felermino', 'ali', 'Casa Residenza, B1-09-05, Jalan Teknologi 2/1D', 'Casa Residenza, B1-09-05, Jalan Teknologi 2/1D', 'Petaling jaya', 'Kota Damansara', '', '133', 'felermino.ali@unilurio.ac.mz', 'd404559f602eab6fd602ac7680dacbfaadd13630335e951f097af3900e9de176b6db28512f2e000b9d04fba5133e8b1c6e8df59db3a8ab9d60be4b97cc9e81db', '2016-11-24 07:45:24', '1', '20161124074524');
-INSERT INTO `user` VALUES ('192', 'felermino', 'ali', 'Casa Residenza, B1-09-05, Jalan Teknologi 2/1D', 'Casa Residenza, B1-09-05, Jalan Teknologi 2/1D', 'Petaling jaya', 'Kota Damansara', '', '133', 'felasbe@hotmail.com', 'b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86', '2017-01-01 20:00:12', '1', '20170101200012');
-INSERT INTO `user` VALUES ('202', 'Serafino', 'Mucova', 'Expamsao', '', 'Pemba', 'Pemba', '', '149', 'smucova@gmail.com', 'fa585d89c851dd338a70dcf535aa2a92fee7836dd6aff1226583e88e0996293f16bc009c652826e0fc5c706695a03cddce372f139eff4d13959da6f1f5d3eabe', '2017-02-21 14:34:49', '1', '20170221143449');
-INSERT INTO `user` VALUES ('212', 'Bero ', 'Muimela', 'Ff', '', 'Pemba', 'Juddj', '', '149', 'beromuimela@gmail.com', 'fa585d89c851dd338a70dcf535aa2a92fee7836dd6aff1226583e88e0996293f16bc009c652826e0fc5c706695a03cddce372f139eff4d13959da6f1f5d3eabe', '2017-04-15 15:13:16', '1', '20170415151316');
-INSERT INTO `user` VALUES ('222', 'sunil', 'comando', 'Expamsao', '', 'Pemba', 'Pemba', '', '149', 'scomando@unilurio.ac.mz', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', '2017-07-27 09:46:49', '1', '20170727094649');
+INSERT INTO `user` VALUES ('235', 'Bania', 'Fonseca', 'bfonseca@unilurio.ac.mzo', '$2a$10$h68zxfuxp/6iF38/Euefpe0MTyuML72dh233PhF.bullttXxiIaFu', '2019-10-07 20:24:22', '1', null, '1', '2', 'ghugyu', '0648');
+INSERT INTO `user` VALUES ('236', 'Dario', 'Mario', 'felasbe@hotmail.com', '$2a$10$1DI/wpMmgCi/TPC0BoNL9O9Y9u.rLixWPNbn/bH7V7JbdKSAQoPyy', '2019-10-09 19:37:52', '1', null, '1', '2', '825407883', '1576');
+INSERT INTO `user` VALUES ('237', 'Babe', 'Bealgun', 'egimo@unilurio.ac.mz', '$2a$10$I2aa/enXEBtaT4TUp0VkwuWFmLTEs50CJKKO6J4R.DJaDup/nmd22', '2019-10-19 15:58:20', '1', null, '1', '2', '846689637', '5738');
+INSERT INTO `user` VALUES ('238', 'Admin', 'Admin', 'felermino.ali@unilurio.ac.mz', '$2a$10$1DI/wpMmgCi/TPC0BoNL9O9Y9u.rLixWPNbn/bH7V7JbdKSAQoPyy', null, '1', null, null, null, null, null);
+
+-- ----------------------------
+-- Table structure for `user_role`
+-- ----------------------------
+DROP TABLE IF EXISTS `user_role`;
+CREATE TABLE `user_role` (
+  `user_id` int(11) NOT NULL DEFAULT '0',
+  `role_id` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`user_id`,`role_id`),
+  KEY `role_id` (`role_id`),
+  CONSTRAINT `user_role_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
+  CONSTRAINT `user_role_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- ----------------------------
+-- Records of user_role
+-- ----------------------------
+INSERT INTO `user_role` VALUES ('238', '1');
+INSERT INTO `user_role` VALUES ('235', '2');
+INSERT INTO `user_role` VALUES ('236', '2');
+INSERT INTO `user_role` VALUES ('237', '2');

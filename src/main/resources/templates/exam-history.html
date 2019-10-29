@@ -18,53 +18,66 @@
         <div class="row">
 
             <strong>
-                <a href="/" class="btn btn-success"><i class="fa fa-angle-double-left" aria-hidden="true"></i> Voltar</a>
+                <a href="/" class="btn btn-success"><i class="fa fa-angle-double-left" aria-hidden="true"></i>
+                    Voltar</a>
             </strong>
 
             <div class="details">
                 <legend>
-                    <h3>Histório</h3>
+                    <h3>Histórico de Exames Feitos</h3>
                 </legend>
-                <div>
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-striped table-info">
-                            <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Last Name</th>
-                                <th>Adress1</th>
-                                <th>City</th>
-                                <th>Email</th>
-                                <th>Date</th>
-                            </tr>
-                            </thead>
 
-                            <tbody>
-                            <tr>
-                                <td>Feler</td>
-                                <td>Ali</td>
-                                <td>fdfdfd</td>
-                                <td>fdfdf</td>
-                                <td>dsdsds</td>
-                                <td>sasasa</td>
-                            </tr>
-                            <tr>
-                                <td>Feler</td>
-                                <td>Ali</td>
-                                <td>fdfdfd</td>
-                                <td>fdfdf</td>
-                                <td>dsdsds</td>
-                                <td>sasasa</td>
-                            </tr>
-                            </tbody>
-                        </table>
+
+                <div th:switch="${examAttempts}">
+                    <h2 th:case="null"><p th:text="Nao há registo de nenhum exame feito Exames"></p></h2>
+                    <br/>
+                    <div th:case="*">
+                        <div class="table-responsive">
+                            <table id="tblhistory" class="table table-bordered table-striped" width="100%">
+                                <thead>
+                                <tr>
+                                    <th>Exame</th>
+                                    <th>Início</th>
+                                    <th>Fim</th>
+                                    <th>Resultado</th>
+                                    <th>Classificação</th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                <tr th:each="attemps: ${examAttempts}">
+                                    <td th:text="${attemps.exam.description}"></td>
+                                    <td th:text="${attemps.start}"></td>
+                                    <td th:text="${attemps.ExamAttemptsPK.end}"></td>
+                                    <td th:text="${attemps.result}"></td>
+                                    <td th:if="${attemps.result>=50}" th:text="Aprovado" style="color: green;"></td>
+                                    <td th:if="${attemps.result<50}" th:text="Reprovado" style="color: red;"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
 
                     </div>
                 </div>
 
+
             </div>
+
+
         </div>
     </div>
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#tblhistory').DataTable({
+                "scrollY": "50vh",
+                "scrollCollapse": true,
+            });
+            $('.dataTables_length').addClass('bs-select');
+        });
+    </script>
 
 
 </th:block>

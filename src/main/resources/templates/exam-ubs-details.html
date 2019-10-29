@@ -81,7 +81,9 @@
                                         <div class="container-share">
                                             <p class="p-share">
 
-                                            <a th:if="${exame.hassimulation}" th:href="@{/ubs/online-test(id = ${exame.id})}" class="btn btn-success" role="button" id="start-simulation">Iniciar Diagonostico </a>
+                                                <a th:if="${exame.hassimulation and attemptAllowed}" th:href="@{/online-test(id = ${exame.id})}" class="btn btn-success" role="button" id="start-simulation">Iniciar Diagonostico </a>
+                                                <a th:if="not ${attemptAllowed}" th:href="@{/ubs/history}" class="btn btn-success" role="button">Monstrar Histórico de Exames feitos </a>
+
                                         </div>
                                     </div>
 

@@ -21,6 +21,7 @@ import java.security.Principal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 @Controller
 @RequestMapping("ubs")
@@ -62,6 +63,17 @@ public class UBSController {
             model.addObject("university", university);
             model.addObject("category", "../" + category.getCover());
             model.addObject("exame", exam);
+
+            User user = crudService.findEntByJPQuery("FROM User u WHERE u.email = '" + ((CustomUserDetails) userDetails).getEmail() + "'", null);
+            List<ExamAttempts> examAttempts = crudService.findByJPQuery("SELECT e FROM ExamAttempts e where e.user.id = " + user.getId()+" and e.exam.id="+id, null);;
+
+
+            boolean attemptAllowed = true;
+            if(examAttempts!=null && examAttempts.size()>0){
+                attemptAllowed = false;
+            }
+
+            model.addObject("attemptAllowed", attemptAllowed);
 
         } else {
 
@@ -198,10 +210,31 @@ public class UBSController {
     public ModelAndView history(@AuthenticationPrincipal final UserDetails userDetails, HttpServletRequest request, HttpSession session) {
 
         ModelAndView modelo = new ModelAndView("exam-history");
+
+
+        User user = crudService.findEntByJPQuery("FROM User u WHERE u.email = '" + ((CustomUserDetails) userDetails).getEmail() + "'", null);
+
+        List<ExamAttempts> examAttempts = crudService.findByJPQuery("SELECT e FROM ExamAttempts e where e.user.id = " + user.getId(), null);;
+
+        modelo.addObject("examAttempts",examAttempts);
+
+//      long diffInMillies = Math.abs(secondD.getTime() - firstDate.getTime());
+//        long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+
+
+
         return modelo;
 
     }
 
+
+    @RequestMapping(value = "/admin", method = RequestMethod.GET)
+    public ModelAndView admin(@AuthenticationPrincipal final UserDetails userDetails, HttpServletRequest request, HttpSession session) {
+
+        ModelAndView modelo = new ModelAndView("403");
+
+        return modelo;
+    }
 
         private Date stringToDate(String strDate, Locale locale) throws ParseException {
         return new SimpleDateFormat("dd MMM yyyy, HH:mm:ss", locale).parse(strDate);

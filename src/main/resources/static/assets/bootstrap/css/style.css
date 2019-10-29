@@ -1960,3 +1960,15 @@ body {
 .soc-item {
     margin: 0 .5rem;
 }
+
+.my-custom-scrollbar {
+    position: relative;
+    height: 300px;
+    overflow: auto;
+}
+.table-wrapper-scroll-y {
+    display: block;
+}
+
+.tableFixHead          { overflow-y: auto; height: 100px; }
+.tableFixHead thead th { position: sticky; top: 0; }

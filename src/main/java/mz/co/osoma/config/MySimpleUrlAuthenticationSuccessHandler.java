@@ -31,6 +31,7 @@ public class MySimpleUrlAuthenticationSuccessHandler extends SimpleUrlAuthentica
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
+
         handle(httpServletRequest, httpServletResponse, authentication);
         clearAuthenticationAttributes(httpServletRequest);
     }
@@ -60,10 +61,14 @@ public class MySimpleUrlAuthenticationSuccessHandler extends SimpleUrlAuthentica
             }
         }
 
+
+
+
         if (isUser) {
             return "/ubs";
         } else if (isAdmin) {
-            return "/ubs";
+
+            return "/ubs/admin";
         } else {
             throw new IllegalStateException();
         }
