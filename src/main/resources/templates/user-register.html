@@ -204,15 +204,18 @@
                         $('#distrito').append('<option value="' + value.id + '">' + value.district + '</option>');
                     });
                 },
-                error: function () {
-                    alert('An error has occurred');
+                error: function(xhr, textStatus, error){
+                    // alert('An error has occurred ::from save answer ajax call --> ' + error);
+                    console.log(xhr.statusText);
+                    console.log(textStatus);
+                    console.log(error);
                 }
             });
         }
 
         function find(type, value) {
 
-            var url = '/users/' + type + "/" + value;
+            var url = '/users/'+type+"/"+value;
             var result = false;
 
             $.ajax({
@@ -227,8 +230,11 @@
                         result = false;
                     }
                 },
-                error: function () {
-                    alert('An error has occurred');
+                error: function(xhr, textStatus, error){
+                    // alert('An error has occurred ::from save answer ajax call --> ' + error);
+                    console.log(xhr.statusText);
+                    console.log(textStatus);
+                    console.log(error);
                 }
             });
             return result;

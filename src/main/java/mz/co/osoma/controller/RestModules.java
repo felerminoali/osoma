@@ -50,6 +50,10 @@ public class RestModules {
             Map<String, Object> par = new HashMap<String, Object>();
             par.put("p",id);
             List<District> districtList = crudService.findByJPQuery("SELECT d FROM District d WHERE d.province.id = :p", par);
+
+            if(districtList == null){
+                return  new  ResponseEntity<Object>(new EmptyJsonResponse(), HttpStatus.OK);
+            }
             return new  ResponseEntity<Object>(districtList, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -77,8 +81,13 @@ public class RestModules {
                 user = crudService.findEntByJPQuery("FROM User u WHERE u.contact = :contact", par);
             }
 
+            if(user == null){
+                return  new  ResponseEntity<Object>(new EmptyJsonResponse(), HttpStatus.OK);
+            }
 
             return new  ResponseEntity<Object>(user, HttpStatus.OK);
+
+
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
