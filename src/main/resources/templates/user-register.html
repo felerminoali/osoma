@@ -190,8 +190,6 @@
             var id = $('.province-selected').val();
             var url = "/districts/" + id;
 
-
-
             $.ajax({
                 url: url,
                 method: "GET",
@@ -286,6 +284,7 @@
                                 message: 'Este contacto já está registado no sistema',
                                 callback: function (value, validator) {
                                     // var items = $('#captchaOperation').html().split(' '), sum = parseInt(items[0]) + parseInt(items[2]);
+
                                     return find('contact',value);
                                 }
                             }
@@ -347,7 +346,7 @@
                             },
                             different: {
                                 field: 'username',
-                                message: 'A palavra-passe não deve ser similar ou usuário'
+                                message: 'A palavra-passe deve ser similar ou usuário'
                             }
                         }
                     },

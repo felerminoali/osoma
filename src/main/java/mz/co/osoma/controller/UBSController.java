@@ -69,9 +69,9 @@ public class UBSController {
 
 
             boolean attemptAllowed = true;
-            if(examAttempts!=null && examAttempts.size()>0){
-                attemptAllowed = false;
-            }
+//            if(examAttempts!=null && examAttempts.size()>0){
+//                attemptAllowed = false;
+//            }
 
             model.addObject("attemptAllowed", attemptAllowed);
 
@@ -236,7 +236,18 @@ public class UBSController {
         return modelo;
     }
 
-        private Date stringToDate(String strDate, Locale locale) throws ParseException {
+
+    @RequestMapping(value = "/help", method = RequestMethod.GET)
+    public ModelAndView help(@AuthenticationPrincipal final UserDetails userDetails, HttpServletRequest request, HttpSession session) {
+
+        ModelAndView modelo = new ModelAndView("help");
+
+        return modelo;
+    }
+
+    private Date stringToDate(String strDate, Locale locale) throws ParseException {
         return new SimpleDateFormat("dd MMM yyyy, HH:mm:ss", locale).parse(strDate);
     }
+
+
 }

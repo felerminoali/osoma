@@ -3,6 +3,7 @@ package mz.co.osoma.controller;
 
 import mz.co.osoma.model.*;
 import mz.co.osoma.service.CRUDService;
+import org.jsoup.Jsoup;
 import org.omg.DynamicAny.DynArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -66,6 +67,8 @@ public class ExamDetails {
         int nrQuestion = 0;
         modelo.addObject("id", id);
 
+
+
         if (questions != null && questions.size() > 0) {
             if (pg.isPresent()) {
                 nrQuestion = pg.get();
@@ -76,6 +79,16 @@ public class ExamDetails {
 
         if (questions.size() > nrQuestion) {
             Question question = questions.get(nrQuestion);
+
+            String htmlCaseOfStudy = question.getExtratext();
+
+            if(htmlCaseOfStudy!=null){
+                String noHtmlCaseOfStudy = Jsoup.parse(htmlCaseOfStudy).text();
+                String shortText = noHtmlCaseOfStudy.substring(0,120)+" ... " + "<a href=\"#\" data-toggle=\"modal\" data-target=\"#myModal\">Monstrar mais</a>";
+                modelo.addObject("shortText",shortText);
+                modelo.addObject("htmlCaseOfStudy",htmlCaseOfStudy);
+            }
+
             List<QuestionAnswers> questionAnswers =
                     crudService.findByJPQuery("SELECT e FROM QuestionAnswers e, Question q where e.question = q.id and  q.id = " + question.getId(), null);
 
@@ -83,8 +96,6 @@ public class ExamDetails {
 
             modelo.addObject("questions", question);
             modelo.addObject("questionAnswers", questionAnswers);
-
-
 
             if (session != null) {
                 if( session.getAttribute(question.getId().toString()) !=null){

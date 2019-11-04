@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50550
 File Encoding         : 65001
 
-Date: 2019-10-29 23:08:57
+Date: 2019-11-04 08:34:22
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -533,8 +533,13 @@ CREATE TABLE `exam_attempts` (
 -- ----------------------------
 -- Records of exam_attempts
 -- ----------------------------
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-10-29 22:16:53', '2019-10-29 22:16:48', '100');
-INSERT INTO `exam_attempts` VALUES ('114', '236', '2019-10-29 22:28:43', '2019-10-29 22:28:23', '0');
+INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-01 15:09:02', '2019-11-01 15:08:52', '0');
+INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-01 15:15:28', '2019-11-01 15:15:06', '0');
+INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-01 15:27:50', '2019-11-01 15:27:40', '0');
+INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-01 15:28:05', '2019-11-01 15:28:00', '0');
+INSERT INTO `exam_attempts` VALUES ('114', '236', '2019-11-01 15:18:31', '2019-11-01 15:18:22', '0');
+INSERT INTO `exam_attempts` VALUES ('114', '236', '2019-11-01 15:19:42', '2019-11-01 15:19:33', '0');
+INSERT INTO `exam_attempts` VALUES ('114', '236', '2019-11-01 15:20:20', '2019-11-01 15:19:48', '0');
 
 -- ----------------------------
 -- Table structure for `province`
@@ -604,7 +609,7 @@ CREATE TABLE `question` (
   CONSTRAINT `question_ibfk_2` FOREIGN KEY (`createdby`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `question_ibfk_3` FOREIGN KEY (`modifiedby`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `question_ibfk_4` FOREIGN KEY (`exam`) REFERENCES `exam` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=315 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=330 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of question
@@ -636,7 +641,7 @@ INSERT INTO `question` VALUES ('272', '92', 'In the notorious and infamous area 
 INSERT INTO `question` VALUES ('292', '112', 'Segundo o texto, a Ilha de MoÃ§ambique Ã© importante porque:', null, null, '2', null, null, null, null, null, null);
 INSERT INTO `question` VALUES ('302', '112', 'De acordo com o texto, a Ilha de MoÃ§ambique foi visitada por:', null, null, '2', null, null, null, null, null, null);
 INSERT INTO `question` VALUES ('312', '112', 'A visita de alguns escritores Ã  Ilha deve-se:', null, null, '2', null, null, null, null, null, null);
-INSERT INTO `question` VALUES ('313', '113', 'O Que eh UBS', null, null, '2', null, null, null, null, null, null);
+INSERT INTO `question` VALUES ('313', '113', 'A opção que melhor completa a frase “O efeito do casamento prematuro nas raparigas é nefasto, na medida em que”', null, null, '2', null, null, null, null, '<p style=\"text-align: justify;\">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent iaculis tincidunt neque eu luctus. Curabitur et aliquam ex, vitae tincidunt metus. Vivamus quis sem neque. Phasellus faucibus sagittis tortor. In odio turpis, malesuada sit amet vulputate in, vulputate a est. Vestibulum malesuada sapien at leo interdum sagittis. Suspendisse potenti. Donec gravida sem tortor, at sollicitudin lorem luctus quis. Mauris egestas ac lorem nec condimentum. Pellentesque tincidunt vulputate quam. In dapibus quis sapien a malesuada. Duis ac ligula nunc. Mauris sollicitudin faucibus quam, sed bibendum mi pharetra sed. Etiam quis turpis lacinia, sollicitudin arcu eget, hendrerit arcu.</p>\r\n<p style=\"text-align: justify;\">Vivamus pellentesque sagittis justo accumsan pellentesque. Fusce ac venenatis sapien, at feugiat lectus. Etiam vehicula ante ut sollicitudin porttitor. Nunc id malesuada mauris, vitae pretium odio. Fusce molestie nec metus a porta. Donec gravida hendrerit lorem sit amet cursus. Suspendisse sit amet dolor sem. Aliquam et lacus tincidunt sem aliquam mattis. Etiam quam dui, sollicitudin et porttitor id, elementum ac urna. Phasellus leo nulla, porttitor at lectus at, laoreet auctor massa. Vivamus dignissim congue augue, eget fringilla ipsum mollis ac. Duis vel neque ac libero feugiat bibendum. Suspendisse aliquam nulla lectus, nec posuere nunc lacinia vitae. Aliquam suscipit dolor ut libero lobortis vulputate. Praesent eu augue porttitor, convallis tellus at, porttitor sem. Morbi commodo lacinia nisl, vel congue est ullamcorper id.</p>\r\n<p style=\"text-align: justify;\">Mauris sed mattis purus. Quisque viverra arcu id tincidunt posuere. Aenean at sem rutrum, consequat nibh tincidunt, elementum justo. Donec varius ante quis volutpat posuere. Morbi eu ullamcorper tortor, at aliquet nisi. Proin aliquam augue sit amet urna rhoncus posuere. Sed turpis purus, condimentum quis finibus sed, lobortis semper eros. Donec non sem elementum, ullamcorper ligula vitae, finibus ante. Curabitur porta maximus dolor. Praesent id egestas nibh. Donec ultrices lectus vel nibh laoreet cursus quis vel lacus. Suspendisse quis nulla egestas, consequat magna at, rhoncus est. Ut eleifend at neque sit amet venenatis. Maecenas nec nisi ut sem tincidunt tempus a id risus.</p>\r\n<p style=\"text-align: justify;\">Nullam id tortor varius, commodo odio vel, pharetra erat. Fusce dui lorem, iaculis eget porttitor ac, faucibus non quam. Proin feugiat elit sed elementum accumsan. Nulla porttitor interdum arcu, nec iaculis ligula vulputate in. Maecenas sit amet rutrum ante. In suscipit, est vitae finibus pretium, velit lacus bibendum urna, at elementum erat purus eu quam. Aenean dolor ipsum, aliquam quis congue et, euismod id diam. Mauris eleifend cursus mauris, vel vehicula dolor porttitor id. Nam et accumsan velit. In sed lobortis mauris. In suscipit id diam in volutpat. Integer volutpat enim id bibendum aliquet. Donec fermentum elementum arcu in tincidunt. Morbi viverra massa quis elit dapibus ullamcorper.</p>', null);
 INSERT INTO `question` VALUES ('314', '114', '$$\\sqrt {{{(2 - \\sqrt 5 )}^2}} $$ É igual a:', null, null, '2', null, null, null, null, null, null);
 
 -- ----------------------------
