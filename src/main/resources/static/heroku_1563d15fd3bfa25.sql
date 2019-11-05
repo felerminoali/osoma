@@ -588,7 +588,7 @@ CREATE TABLE `question` (
   `timemodified` bigint(10) DEFAULT NULL,
   `createdby` int(11) DEFAULT NULL,
   `modifiedby` int(11) DEFAULT NULL,
-  `extratext` longtext,
+  `caseOfStudy` longtext,
   `youtubeurl` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `qtype` (`qtype`),

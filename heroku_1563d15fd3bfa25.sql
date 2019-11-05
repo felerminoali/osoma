@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50550
 File Encoding         : 65001
 
-Date: 2019-11-04 08:34:22
+Date: 2019-11-05 20:09:54
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -59,6 +59,144 @@ INSERT INTO `category` VALUES ('72', 'desenho', 'images/cover/desenho.png', 'ima
 INSERT INTO `category` VALUES ('82', 'filosofia', 'images/cover/filosofia.png', 'images/disciplinas/filosofia.png');
 INSERT INTO `category` VALUES ('92', 'biologia', 'images/cover/biologia.png', 'images/disciplinas/biologia.png');
 INSERT INTO `category` VALUES ('102', 'portuguÃªs', 'images/cover/portugues.png', 'images/disciplinas/portugues.png');
+
+-- ----------------------------
+-- Table structure for `choice`
+-- ----------------------------
+DROP TABLE IF EXISTS `choice`;
+CREATE TABLE `choice` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `question` int(11) DEFAULT NULL,
+  `answer` longtext,
+  `image` varchar(100) DEFAULT NULL,
+  `fraction` decimal(10,0) DEFAULT NULL,
+  `rightchoice` tinyint(4) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `question` (`question`),
+  CONSTRAINT `choice_ibfk_1` FOREIGN KEY (`question`) REFERENCES `question` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1170 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of choice
+-- ----------------------------
+INSERT INTO `choice` VALUES ('2', '2', '$$31.1\\% $$', null, '0', '1');
+INSERT INTO `choice` VALUES ('12', '2', '$$4.7\\% $$', null, '0', '0');
+INSERT INTO `choice` VALUES ('22', '2', '$$150\\% $$', null, '0', '0');
+INSERT INTO `choice` VALUES ('32', '2', '$$46.7\\% $$', null, '1', '0');
+INSERT INTO `choice` VALUES ('42', '12', '$$128$$', null, '0', '1');
+INSERT INTO `choice` VALUES ('52', '12', '$$256$$', null, '0', '0');
+INSERT INTO `choice` VALUES ('62', '12', '$${1 \\over {128}}$$', null, '1', '0');
+INSERT INTO `choice` VALUES ('72', '12', '$${1 \\over {256}}$$', null, '0', '0');
+INSERT INTO `choice` VALUES ('82', '22', '$$2 - \\sqrt 5 $$', null, '1', '1');
+INSERT INTO `choice` VALUES ('92', '22', '$$\\sqrt 5  - 2$$', null, '0', '0');
+INSERT INTO `choice` VALUES ('102', '22', '$$9 - 4\\sqrt 5 $$', null, '0', '0');
+INSERT INTO `choice` VALUES ('112', '22', '$$9 + 4\\sqrt 5 $$', null, '0', '0');
+INSERT INTO `choice` VALUES ('122', '32', 'Lâ€™homme et la vie professionnelle.', null, '0', null);
+INSERT INTO `choice` VALUES ('132', '32', 'Comment devenir femme contemporaine', null, '0', null);
+INSERT INTO `choice` VALUES ('142', '32', 'Le couple, la femme et la vie professionnelle.', null, '1', null);
+INSERT INTO `choice` VALUES ('152', '32', 'La femme au travail', null, '0', null);
+INSERT INTO `choice` VALUES ('162', '42', 'Le dÃ©but du XXI siÃ¨cle', null, '1', null);
+INSERT INTO `choice` VALUES ('172', '42', 'Vingt ans.', null, '0', null);
+INSERT INTO `choice` VALUES ('182', '42', 'Deux siÃ¨cles.', null, '0', null);
+INSERT INTO `choice` VALUES ('192', '42', 'Lâ€™existence des temps.', null, '0', null);
+INSERT INTO `choice` VALUES ('202', '52', 'de la sociÃ©tÃ©.', null, '0', null);
+INSERT INTO `choice` VALUES ('212', '52', 'de la femme.', null, '1', null);
+INSERT INTO `choice` VALUES ('222', '52', 'du couple.', null, '0', null);
+INSERT INTO `choice` VALUES ('232', '52', 'de lâ€™homme.', null, '0', null);
+INSERT INTO `choice` VALUES ('242', '62', 'CristÃ³vÃ£o Colombo. de 1487 a 1492', null, '1', null);
+INSERT INTO `choice` VALUES ('252', '62', 'Vasco da Gama. de 1495 a 1499', null, '0', null);
+INSERT INTO `choice` VALUES ('262', '62', 'Bartolomeu Dias. de 1482 a 1487', null, '0', null);
+INSERT INTO `choice` VALUES ('272', '62', 'FernÃ£o de MagalhÃ£es. de 1519 a 1522', null, '0', null);
+INSERT INTO `choice` VALUES ('282', '72', 'Alexandre von Humboldt (1769-1859)', null, '0', null);
+INSERT INTO `choice` VALUES ('292', '72', 'Paul Vidal de La Blache (1845-1918)', null, '0', null);
+INSERT INTO `choice` VALUES ('302', '72', 'Frederico Ratzel (1844-1904)', null, '1', null);
+INSERT INTO `choice` VALUES ('312', '72', 'Karl Ritter (1779-1859)', null, '0', null);
+INSERT INTO `choice` VALUES ('322', '82', 'entre os paralelos 30Â° e 12`e 41Â° e 51` de latitude Sul, e entre os meridianos\r\n10Â° e 27`e 26Â° e 52` de longitude Este;', null, '0', null);
+INSERT INTO `choice` VALUES ('332', '82', 'entre os paralelos 10Â° e 27`e 26Â° e 52` de latitude Sul, e entre os meridianos\r\n30Â° e 12` e 41Â° e 51` de longitude Este;', null, '0', null);
+INSERT INTO `choice` VALUES ('342', '82', 'na costa Oriental do continente Africano, na regiÃ£o da Ãfrica Austral;', null, '1', null);
+INSERT INTO `choice` VALUES ('352', '82', 'estende-se do rio Rovuma ao rio Maputo.', null, '0', null);
+INSERT INTO `choice` VALUES ('402', '92', 'Dizer nÃ£o', null, '0', null);
+INSERT INTO `choice` VALUES ('412', '92', 'Movimento que leva do saber Ã  ignorÃ¢ncia', null, '1', null);
+INSERT INTO `choice` VALUES ('422', '92', 'Ter os olhos fechados sem nunca os abrir', null, '0', null);
+INSERT INTO `choice` VALUES ('432', '92', 'HistÃ³ria do uso da razÃ£o', null, '0', null);
+INSERT INTO `choice` VALUES ('442', '92', 'Estar a caminho', null, '0', null);
+INSERT INTO `choice` VALUES ('452', '102', 'A Filosofia nÃ£o tem definiÃ§Ã£o alguma', null, '0', null);
+INSERT INTO `choice` VALUES ('462', '102', 'Com a definiÃ§Ã£o da Filosofia comeÃ§a o filosofar', null, '1', null);
+INSERT INTO `choice` VALUES ('472', '102', 'Toda a definiÃ§Ã£o de Filosofia nÃ£o nos leva a nada', null, '0', null);
+INSERT INTO `choice` VALUES ('482', '102', 'A Filosofia nÃ£o tem objecto de estudo', null, '0', null);
+INSERT INTO `choice` VALUES ('492', '102', 'Todos podem filosofar', null, '0', null);
+INSERT INTO `choice` VALUES ('502', '112', 'TeÃ³rica', null, '1', null);
+INSERT INTO `choice` VALUES ('512', '112', 'Nula', null, '0', null);
+INSERT INTO `choice` VALUES ('522', '112', 'TeÃ³rica e prÃ¡tica', null, '0', null);
+INSERT INTO `choice` VALUES ('532', '112', 'Desconhecida', null, '0', null);
+INSERT INTO `choice` VALUES ('542', '112', 'PrÃ¡tica', null, '0', null);
+INSERT INTO `choice` VALUES ('552', '152', 'Na osmose o solvente difunde-se em direcÃ§Ã£o Ã  regiÃ£o de maior concentraÃ§Ã£o de suas molÃ©culas.', null, '0', null);
+INSERT INTO `choice` VALUES ('562', '152', 'No transporte activo certas substÃ¢ncias migram a favor do gradiente de concentraÃ§Ã£o com alto gasto de ATP.', null, '0', null);
+INSERT INTO `choice` VALUES ('572', '152', 'No transporte activo as substÃ¢ncias atravessam a membrana contra um gradiente de concentraÃ§Ã£o com proteinas e com gasto de ATP.', null, '1', null);
+INSERT INTO `choice` VALUES ('582', '152', 'Na pinocitose a libertaÃ§Ã£o de macropartÃ­culas no interior da cÃ©lula requer a formaÃ§Ã£o de grandes vesÃ­culas.', null, '0', null);
+INSERT INTO `choice` VALUES ('592', '162', '4x', null, '0', null);
+INSERT INTO `choice` VALUES ('602', '162', '400x', null, '1', null);
+INSERT INTO `choice` VALUES ('612', '162', '50x', null, '0', null);
+INSERT INTO `choice` VALUES ('622', '162', '30x', null, '0', null);
+INSERT INTO `choice` VALUES ('632', '172', 'enzima', null, '0', null);
+INSERT INTO `choice` VALUES ('642', '172', 'sais minerais', null, '0', null);
+INSERT INTO `choice` VALUES ('652', '172', 'aminoÃ¡cidos', null, '1', null);
+INSERT INTO `choice` VALUES ('662', '172', 'Ã¡gua', null, '0', null);
+INSERT INTO `choice` VALUES ('672', '182', null, 'images/qa/672_182_a.png', '0', null);
+INSERT INTO `choice` VALUES ('682', '182', null, 'images/qa/672_182_b.png', '0', null);
+INSERT INTO `choice` VALUES ('692', '182', null, 'images/qa/672_182_c.png', '0', null);
+INSERT INTO `choice` VALUES ('702', '182', null, 'images/qa/672_182_d.png', '1', null);
+INSERT INTO `choice` VALUES ('712', '192', '11.25 m ', null, '0', null);
+INSERT INTO `choice` VALUES ('722', '192', '10.0 m ', null, '1', null);
+INSERT INTO `choice` VALUES ('732', '192', '9.25 m', null, '0', null);
+INSERT INTO `choice` VALUES ('742', '192', '8.0 m', null, '0', null);
+INSERT INTO `choice` VALUES ('752', '202', 'se deslocou de marcha atrÃ¡s', null, '0', null);
+INSERT INTO `choice` VALUES ('772', '202', 'o movimento teve sentido contrÃ¡rio a orientaÃ§Ã£o positiva do eixo coincidente com a trajectÃ³ria', null, '1', null);
+INSERT INTO `choice` VALUES ('782', '202', 'Ã© impossÃ­vel esta situaÃ§Ã£o, pois nÃ£o hÃ¡ significado fÃ­sico para velocidade escalar negativa', null, '0', null);
+INSERT INTO `choice` VALUES ('792', '202', 'a velocidade escalar(instantanea) foi diminuindo', null, '0', null);
+INSERT INTO `choice` VALUES ('802', '212', 'I/Rutherford; II/Dalton; III/Bohr', null, '0', null);
+INSERT INTO `choice` VALUES ('812', '212', 'I/Bohr; II/Dalton; III/Rutherford', null, '1', null);
+INSERT INTO `choice` VALUES ('822', '212', 'I/Dalton; II/Rutherford; III/Bohr', null, '0', null);
+INSERT INTO `choice` VALUES ('832', '212', 'I/Rutherford; II/Bohr; III/Dalton', null, '0', null);
+INSERT INTO `choice` VALUES ('842', '222', 'dois Ã¡tomos com o mesmo nÃºmero de neutrÃµes pertencem ao mesmo elemento quÃ­mico', null, '1', null);
+INSERT INTO `choice` VALUES ('852', '222', 'dois Ã¡tomos com o mesmo nÃºmero de electrÃµes de valÃªncia pertencem ao mesmo elemento quÃ­mico', null, '0', null);
+INSERT INTO `choice` VALUES ('862', '222', 'dois Ã¡tomos com o mesmo nÃºmero de protÃµes pertencem ao mesmo elemento quÃ­mico', null, '0', null);
+INSERT INTO `choice` VALUES ('872', '222', 'dois Ã¡tomos com o mesmo nÃºmero de massa sÃ£o isÃ³topos.', null, '0', null);
+INSERT INTO `choice` VALUES ('882', '232', '5s2', null, '0', null);
+INSERT INTO `choice` VALUES ('892', '232', ' 5s2 ; 4d3.', null, '0', null);
+INSERT INTO `choice` VALUES ('902', '232', '5s2 ; 4d6.', null, '1', null);
+INSERT INTO `choice` VALUES ('912', '232', '5s2 ; 6s1.', null, '0', null);
+INSERT INTO `choice` VALUES ('922', '252', 'AIDS should kill many people.', null, '0', null);
+INSERT INTO `choice` VALUES ('942', '252', 'The wages of sin are death.', null, '0', null);
+INSERT INTO `choice` VALUES ('952', '252', 'Sex is meant for the married.', null, '1', null);
+INSERT INTO `choice` VALUES ('962', '252', 'AIDS has spread like wild fire.', null, '0', null);
+INSERT INTO `choice` VALUES ('972', '262', 'in the United States and in AIDS havens only.', null, '0', null);
+INSERT INTO `choice` VALUES ('982', '262', 'in TV programmes and in the neighbourhood only.', null, '0', null);
+INSERT INTO `choice` VALUES ('992', '262', 'in the United States, taking a walk and watching TV only.', null, '0', null);
+INSERT INTO `choice` VALUES ('1002', '262', 'almost everywhere.', null, '1', null);
+INSERT INTO `choice` VALUES ('1012', '272', 'many people started dying of AIDS.', null, '1', null);
+INSERT INTO `choice` VALUES ('1022', '272', 'many people started dying of electrical shock.', null, '0', null);
+INSERT INTO `choice` VALUES ('1032', '272', 'many people started dying of demonic power.', null, '0', null);
+INSERT INTO `choice` VALUES ('1042', '272', 'many people started dying of cancer and diabetes.', null, '0', null);
+INSERT INTO `choice` VALUES ('1052', '292', 'Ã© uma lenda.', null, '0', null);
+INSERT INTO `choice` VALUES ('1062', '292', 'Ã© mÃ­stica.', null, '0', null);
+INSERT INTO `choice` VALUES ('1072', '292', 'Ã© bela e tem mulheres bonitas', null, '0', null);
+INSERT INTO `choice` VALUES ('1082', '292', 'Ã© histÃ³rica, mÃ­stica e lendÃ¡ria', null, '1', null);
+INSERT INTO `choice` VALUES ('1092', '302', 'Rui Knopfli e VirgÃ­lio de Lemos.', null, '0', null);
+INSERT INTO `choice` VALUES ('1102', '302', 'Rui Knopfli e VirgÃ­lio de Lemos.', null, '0', null);
+INSERT INTO `choice` VALUES ('1112', '302', 'Rui Knopfli e VirgÃ­lio de Lemos e AntÃ³nio Sopa.', null, '1', null);
+INSERT INTO `choice` VALUES ('1122', '302', 'tÃ³nio Sopa e Sarmento Rodrigues.', null, '0', null);
+INSERT INTO `choice` VALUES ('1132', '312', 'ao interesse das autoridades locais', null, '0', null);
+INSERT INTO `choice` VALUES ('1142', '312', 'a um interesse pessoal.', null, '0', null);
+INSERT INTO `choice` VALUES ('1152', '312', 'ao lusotropicalismo.', null, '0', null);
+INSERT INTO `choice` VALUES ('1162', '312', 'Ã  existÃªncia de relÃ­quias histÃ³ricas', null, '1', null);
+INSERT INTO `choice` VALUES ('1163', '313', 'Alternativa 1', null, null, '0');
+INSERT INTO `choice` VALUES ('1164', '313', 'Alternativa 2', null, null, '1');
+INSERT INTO `choice` VALUES ('1165', '313', 'Alternstiva 3', null, null, '0');
+INSERT INTO `choice` VALUES ('1166', '314', '$$31.1\\% $$', null, null, '0');
+INSERT INTO `choice` VALUES ('1167', '314', '$$4.7\\% $$', null, null, '0');
+INSERT INTO `choice` VALUES ('1168', '314', '$$150\\% $$', null, null, '1');
+INSERT INTO `choice` VALUES ('1169', '314', '$$46.7\\% $$', null, null, '0');
 
 -- ----------------------------
 -- Table structure for `countries`
@@ -526,6 +664,8 @@ CREATE TABLE `exam_attempts` (
   `result` double(10,0) DEFAULT NULL,
   PRIMARY KEY (`exam`,`user`,`end`),
   KEY `user` (`user`),
+  KEY `exam` (`exam`),
+  KEY `end` (`end`),
   CONSTRAINT `exam_attempts_ibfk_1` FOREIGN KEY (`exam`) REFERENCES `exam` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `exam_attempts_ibfk_2` FOREIGN KEY (`user`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -537,9 +677,49 @@ INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-01 15:09:02', '2019-1
 INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-01 15:15:28', '2019-11-01 15:15:06', '0');
 INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-01 15:27:50', '2019-11-01 15:27:40', '0');
 INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-01 15:28:05', '2019-11-01 15:28:00', '0');
+INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-04 08:36:03', '2019-11-04 08:35:42', '100');
+INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 10:09:45', '2019-11-05 10:09:24', '0');
+INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 17:29:28', '2019-11-05 17:29:18', '0');
+INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 17:37:24', '2019-11-05 17:37:17', '0');
+INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 17:37:47', '2019-11-05 17:37:26', '0');
+INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 17:38:28', '2019-11-05 17:37:59', '0');
+INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 17:40:18', '2019-11-05 17:40:10', '0');
+INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 17:40:54', '2019-11-05 17:40:25', '0');
+INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 17:42:25', '2019-11-05 17:40:25', '0');
+INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 17:42:44', '2019-11-05 17:42:33', '100');
+INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 17:47:19', '2019-11-05 17:47:15', '0');
+INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 17:54:11', '2019-11-05 17:54:05', '0');
+INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 17:55:52', '2019-11-05 17:55:48', '100');
+INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 17:56:29', '2019-11-05 17:56:00', '100');
+INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 17:57:39', '2019-11-05 17:57:09', '100');
+INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 18:06:02', '2019-11-05 18:05:57', '0');
+INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 18:06:36', '2019-11-05 18:06:11', '0');
+INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 18:06:49', '2019-11-05 18:06:46', '100');
+INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 18:07:42', '2019-11-05 18:06:56', '100');
+INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 18:18:28', '2019-11-05 18:18:23', '0');
+INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 18:19:31', '2019-11-05 18:19:25', '0');
+INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 18:20:31', '2019-11-05 18:20:26', '100');
+INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 18:24:11', '2019-11-05 18:24:07', '0');
+INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 18:24:27', '2019-11-05 18:24:23', '0');
+INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 18:32:29', '2019-11-05 18:32:25', '0');
+INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 18:33:12', '2019-11-05 18:32:39', '0');
+INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 18:38:46', '2019-11-05 18:38:37', '0');
+INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 18:39:19', '2019-11-05 18:38:58', '0');
+INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 18:40:31', '2019-11-05 18:40:27', '0');
+INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 18:40:48', '2019-11-05 18:40:43', '0');
+INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 18:49:41', '2019-11-05 18:49:06', '0');
+INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 18:51:45', '2019-11-05 18:51:17', '0');
+INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 18:54:41', '2019-11-05 18:54:34', '0');
+INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 18:55:19', '2019-11-05 18:54:49', '0');
+INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 18:58:27', '2019-11-05 18:58:21', '0');
+INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 18:58:41', '2019-11-05 18:58:36', '0');
+INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 18:58:54', '2019-11-05 18:58:49', '100');
+INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 18:59:08', '2019-11-05 18:59:02', '100');
+INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 19:46:20', '2019-11-05 19:46:10', '0');
 INSERT INTO `exam_attempts` VALUES ('114', '236', '2019-11-01 15:18:31', '2019-11-01 15:18:22', '0');
 INSERT INTO `exam_attempts` VALUES ('114', '236', '2019-11-01 15:19:42', '2019-11-01 15:19:33', '0');
 INSERT INTO `exam_attempts` VALUES ('114', '236', '2019-11-01 15:20:20', '2019-11-01 15:19:48', '0');
+INSERT INTO `exam_attempts` VALUES ('114', '236', '2019-11-04 08:36:22', '2019-11-04 08:36:14', '0');
 
 -- ----------------------------
 -- Table structure for `province`
@@ -598,7 +778,7 @@ CREATE TABLE `question` (
   `timemodified` bigint(10) DEFAULT NULL,
   `createdby` int(11) DEFAULT NULL,
   `modifiedby` int(11) DEFAULT NULL,
-  `extratext` longtext,
+  `caseofstudy` longtext,
   `youtubeurl` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `qtype` (`qtype`),
@@ -645,142 +825,24 @@ INSERT INTO `question` VALUES ('313', '113', 'A opção que melhor completa a fr
 INSERT INTO `question` VALUES ('314', '114', '$$\\sqrt {{{(2 - \\sqrt 5 )}^2}} $$ É igual a:', null, null, '2', null, null, null, null, null, null);
 
 -- ----------------------------
--- Table structure for `question_answers`
+-- Table structure for `result`
 -- ----------------------------
-DROP TABLE IF EXISTS `question_answers`;
-CREATE TABLE `question_answers` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `question` int(11) DEFAULT NULL,
-  `answer` longtext,
-  `image` varchar(100) DEFAULT NULL,
-  `fraction` decimal(10,0) DEFAULT NULL,
-  `rightchoice` tinyint(4) DEFAULT '0',
-  PRIMARY KEY (`id`),
-  KEY `question` (`question`),
-  CONSTRAINT `question_answers_ibfk_1` FOREIGN KEY (`question`) REFERENCES `question` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1170 DEFAULT CHARSET=utf8;
+DROP TABLE IF EXISTS `result`;
+CREATE TABLE `result` (
+  `exam` int(11) NOT NULL DEFAULT '0',
+  `user` int(11) NOT NULL DEFAULT '0',
+  `timestamp` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `choice` int(11) DEFAULT NULL,
+  PRIMARY KEY (`exam`,`user`,`timestamp`),
+  KEY `user` (`user`),
+  KEY `timestamp` (`timestamp`),
+  KEY `choice` (`choice`),
+  CONSTRAINT `result_ibfk_4` FOREIGN KEY (`choice`) REFERENCES `choice` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- ----------------------------
--- Records of question_answers
+-- Records of result
 -- ----------------------------
-INSERT INTO `question_answers` VALUES ('2', '2', '$$31.1\\% $$', null, '0', '1');
-INSERT INTO `question_answers` VALUES ('12', '2', '$$4.7\\% $$', null, '0', '0');
-INSERT INTO `question_answers` VALUES ('22', '2', '$$150\\% $$', null, '0', '0');
-INSERT INTO `question_answers` VALUES ('32', '2', '$$46.7\\% $$', null, '1', '0');
-INSERT INTO `question_answers` VALUES ('42', '12', '$$128$$', null, '0', '1');
-INSERT INTO `question_answers` VALUES ('52', '12', '$$256$$', null, '0', '0');
-INSERT INTO `question_answers` VALUES ('62', '12', '$${1 \\over {128}}$$', null, '1', '0');
-INSERT INTO `question_answers` VALUES ('72', '12', '$${1 \\over {256}}$$', null, '0', '0');
-INSERT INTO `question_answers` VALUES ('82', '22', '$$2 - \\sqrt 5 $$', null, '1', '1');
-INSERT INTO `question_answers` VALUES ('92', '22', '$$\\sqrt 5  - 2$$', null, '0', '0');
-INSERT INTO `question_answers` VALUES ('102', '22', '$$9 - 4\\sqrt 5 $$', null, '0', '0');
-INSERT INTO `question_answers` VALUES ('112', '22', '$$9 + 4\\sqrt 5 $$', null, '0', '0');
-INSERT INTO `question_answers` VALUES ('122', '32', 'Lâ€™homme et la vie professionnelle.', null, '0', null);
-INSERT INTO `question_answers` VALUES ('132', '32', 'Comment devenir femme contemporaine', null, '0', null);
-INSERT INTO `question_answers` VALUES ('142', '32', 'Le couple, la femme et la vie professionnelle.', null, '1', null);
-INSERT INTO `question_answers` VALUES ('152', '32', 'La femme au travail', null, '0', null);
-INSERT INTO `question_answers` VALUES ('162', '42', 'Le dÃ©but du XXI siÃ¨cle', null, '1', null);
-INSERT INTO `question_answers` VALUES ('172', '42', 'Vingt ans.', null, '0', null);
-INSERT INTO `question_answers` VALUES ('182', '42', 'Deux siÃ¨cles.', null, '0', null);
-INSERT INTO `question_answers` VALUES ('192', '42', 'Lâ€™existence des temps.', null, '0', null);
-INSERT INTO `question_answers` VALUES ('202', '52', 'de la sociÃ©tÃ©.', null, '0', null);
-INSERT INTO `question_answers` VALUES ('212', '52', 'de la femme.', null, '1', null);
-INSERT INTO `question_answers` VALUES ('222', '52', 'du couple.', null, '0', null);
-INSERT INTO `question_answers` VALUES ('232', '52', 'de lâ€™homme.', null, '0', null);
-INSERT INTO `question_answers` VALUES ('242', '62', 'CristÃ³vÃ£o Colombo. de 1487 a 1492', null, '1', null);
-INSERT INTO `question_answers` VALUES ('252', '62', 'Vasco da Gama. de 1495 a 1499', null, '0', null);
-INSERT INTO `question_answers` VALUES ('262', '62', 'Bartolomeu Dias. de 1482 a 1487', null, '0', null);
-INSERT INTO `question_answers` VALUES ('272', '62', 'FernÃ£o de MagalhÃ£es. de 1519 a 1522', null, '0', null);
-INSERT INTO `question_answers` VALUES ('282', '72', 'Alexandre von Humboldt (1769-1859)', null, '0', null);
-INSERT INTO `question_answers` VALUES ('292', '72', 'Paul Vidal de La Blache (1845-1918)', null, '0', null);
-INSERT INTO `question_answers` VALUES ('302', '72', 'Frederico Ratzel (1844-1904)', null, '1', null);
-INSERT INTO `question_answers` VALUES ('312', '72', 'Karl Ritter (1779-1859)', null, '0', null);
-INSERT INTO `question_answers` VALUES ('322', '82', 'entre os paralelos 30Â° e 12`e 41Â° e 51` de latitude Sul, e entre os meridianos\r\n10Â° e 27`e 26Â° e 52` de longitude Este;', null, '0', null);
-INSERT INTO `question_answers` VALUES ('332', '82', 'entre os paralelos 10Â° e 27`e 26Â° e 52` de latitude Sul, e entre os meridianos\r\n30Â° e 12` e 41Â° e 51` de longitude Este;', null, '0', null);
-INSERT INTO `question_answers` VALUES ('342', '82', 'na costa Oriental do continente Africano, na regiÃ£o da Ãfrica Austral;', null, '1', null);
-INSERT INTO `question_answers` VALUES ('352', '82', 'estende-se do rio Rovuma ao rio Maputo.', null, '0', null);
-INSERT INTO `question_answers` VALUES ('402', '92', 'Dizer nÃ£o', null, '0', null);
-INSERT INTO `question_answers` VALUES ('412', '92', 'Movimento que leva do saber Ã  ignorÃ¢ncia', null, '1', null);
-INSERT INTO `question_answers` VALUES ('422', '92', 'Ter os olhos fechados sem nunca os abrir', null, '0', null);
-INSERT INTO `question_answers` VALUES ('432', '92', 'HistÃ³ria do uso da razÃ£o', null, '0', null);
-INSERT INTO `question_answers` VALUES ('442', '92', 'Estar a caminho', null, '0', null);
-INSERT INTO `question_answers` VALUES ('452', '102', 'A Filosofia nÃ£o tem definiÃ§Ã£o alguma', null, '0', null);
-INSERT INTO `question_answers` VALUES ('462', '102', 'Com a definiÃ§Ã£o da Filosofia comeÃ§a o filosofar', null, '1', null);
-INSERT INTO `question_answers` VALUES ('472', '102', 'Toda a definiÃ§Ã£o de Filosofia nÃ£o nos leva a nada', null, '0', null);
-INSERT INTO `question_answers` VALUES ('482', '102', 'A Filosofia nÃ£o tem objecto de estudo', null, '0', null);
-INSERT INTO `question_answers` VALUES ('492', '102', 'Todos podem filosofar', null, '0', null);
-INSERT INTO `question_answers` VALUES ('502', '112', 'TeÃ³rica', null, '1', null);
-INSERT INTO `question_answers` VALUES ('512', '112', 'Nula', null, '0', null);
-INSERT INTO `question_answers` VALUES ('522', '112', 'TeÃ³rica e prÃ¡tica', null, '0', null);
-INSERT INTO `question_answers` VALUES ('532', '112', 'Desconhecida', null, '0', null);
-INSERT INTO `question_answers` VALUES ('542', '112', 'PrÃ¡tica', null, '0', null);
-INSERT INTO `question_answers` VALUES ('552', '152', 'Na osmose o solvente difunde-se em direcÃ§Ã£o Ã  regiÃ£o de maior concentraÃ§Ã£o de suas molÃ©culas.', null, '0', null);
-INSERT INTO `question_answers` VALUES ('562', '152', 'No transporte activo certas substÃ¢ncias migram a favor do gradiente de concentraÃ§Ã£o com alto gasto de ATP.', null, '0', null);
-INSERT INTO `question_answers` VALUES ('572', '152', 'No transporte activo as substÃ¢ncias atravessam a membrana contra um gradiente de concentraÃ§Ã£o com proteinas e com gasto de ATP.', null, '1', null);
-INSERT INTO `question_answers` VALUES ('582', '152', 'Na pinocitose a libertaÃ§Ã£o de macropartÃ­culas no interior da cÃ©lula requer a formaÃ§Ã£o de grandes vesÃ­culas.', null, '0', null);
-INSERT INTO `question_answers` VALUES ('592', '162', '4x', null, '0', null);
-INSERT INTO `question_answers` VALUES ('602', '162', '400x', null, '1', null);
-INSERT INTO `question_answers` VALUES ('612', '162', '50x', null, '0', null);
-INSERT INTO `question_answers` VALUES ('622', '162', '30x', null, '0', null);
-INSERT INTO `question_answers` VALUES ('632', '172', 'enzima', null, '0', null);
-INSERT INTO `question_answers` VALUES ('642', '172', 'sais minerais', null, '0', null);
-INSERT INTO `question_answers` VALUES ('652', '172', 'aminoÃ¡cidos', null, '1', null);
-INSERT INTO `question_answers` VALUES ('662', '172', 'Ã¡gua', null, '0', null);
-INSERT INTO `question_answers` VALUES ('672', '182', null, 'images/qa/672_182_a.png', '0', null);
-INSERT INTO `question_answers` VALUES ('682', '182', null, 'images/qa/672_182_b.png', '0', null);
-INSERT INTO `question_answers` VALUES ('692', '182', null, 'images/qa/672_182_c.png', '0', null);
-INSERT INTO `question_answers` VALUES ('702', '182', null, 'images/qa/672_182_d.png', '1', null);
-INSERT INTO `question_answers` VALUES ('712', '192', '11.25 m ', null, '0', null);
-INSERT INTO `question_answers` VALUES ('722', '192', '10.0 m ', null, '1', null);
-INSERT INTO `question_answers` VALUES ('732', '192', '9.25 m', null, '0', null);
-INSERT INTO `question_answers` VALUES ('742', '192', '8.0 m', null, '0', null);
-INSERT INTO `question_answers` VALUES ('752', '202', 'se deslocou de marcha atrÃ¡s', null, '0', null);
-INSERT INTO `question_answers` VALUES ('772', '202', 'o movimento teve sentido contrÃ¡rio a orientaÃ§Ã£o positiva do eixo coincidente com a trajectÃ³ria', null, '1', null);
-INSERT INTO `question_answers` VALUES ('782', '202', 'Ã© impossÃ­vel esta situaÃ§Ã£o, pois nÃ£o hÃ¡ significado fÃ­sico para velocidade escalar negativa', null, '0', null);
-INSERT INTO `question_answers` VALUES ('792', '202', 'a velocidade escalar(instantanea) foi diminuindo', null, '0', null);
-INSERT INTO `question_answers` VALUES ('802', '212', 'I/Rutherford; II/Dalton; III/Bohr', null, '0', null);
-INSERT INTO `question_answers` VALUES ('812', '212', 'I/Bohr; II/Dalton; III/Rutherford', null, '1', null);
-INSERT INTO `question_answers` VALUES ('822', '212', 'I/Dalton; II/Rutherford; III/Bohr', null, '0', null);
-INSERT INTO `question_answers` VALUES ('832', '212', 'I/Rutherford; II/Bohr; III/Dalton', null, '0', null);
-INSERT INTO `question_answers` VALUES ('842', '222', 'dois Ã¡tomos com o mesmo nÃºmero de neutrÃµes pertencem ao mesmo elemento quÃ­mico', null, '1', null);
-INSERT INTO `question_answers` VALUES ('852', '222', 'dois Ã¡tomos com o mesmo nÃºmero de electrÃµes de valÃªncia pertencem ao mesmo elemento quÃ­mico', null, '0', null);
-INSERT INTO `question_answers` VALUES ('862', '222', 'dois Ã¡tomos com o mesmo nÃºmero de protÃµes pertencem ao mesmo elemento quÃ­mico', null, '0', null);
-INSERT INTO `question_answers` VALUES ('872', '222', 'dois Ã¡tomos com o mesmo nÃºmero de massa sÃ£o isÃ³topos.', null, '0', null);
-INSERT INTO `question_answers` VALUES ('882', '232', '5s2', null, '0', null);
-INSERT INTO `question_answers` VALUES ('892', '232', ' 5s2 ; 4d3.', null, '0', null);
-INSERT INTO `question_answers` VALUES ('902', '232', '5s2 ; 4d6.', null, '1', null);
-INSERT INTO `question_answers` VALUES ('912', '232', '5s2 ; 6s1.', null, '0', null);
-INSERT INTO `question_answers` VALUES ('922', '252', 'AIDS should kill many people.', null, '0', null);
-INSERT INTO `question_answers` VALUES ('942', '252', 'The wages of sin are death.', null, '0', null);
-INSERT INTO `question_answers` VALUES ('952', '252', 'Sex is meant for the married.', null, '1', null);
-INSERT INTO `question_answers` VALUES ('962', '252', 'AIDS has spread like wild fire.', null, '0', null);
-INSERT INTO `question_answers` VALUES ('972', '262', 'in the United States and in AIDS havens only.', null, '0', null);
-INSERT INTO `question_answers` VALUES ('982', '262', 'in TV programmes and in the neighbourhood only.', null, '0', null);
-INSERT INTO `question_answers` VALUES ('992', '262', 'in the United States, taking a walk and watching TV only.', null, '0', null);
-INSERT INTO `question_answers` VALUES ('1002', '262', 'almost everywhere.', null, '1', null);
-INSERT INTO `question_answers` VALUES ('1012', '272', 'many people started dying of AIDS.', null, '1', null);
-INSERT INTO `question_answers` VALUES ('1022', '272', 'many people started dying of electrical shock.', null, '0', null);
-INSERT INTO `question_answers` VALUES ('1032', '272', 'many people started dying of demonic power.', null, '0', null);
-INSERT INTO `question_answers` VALUES ('1042', '272', 'many people started dying of cancer and diabetes.', null, '0', null);
-INSERT INTO `question_answers` VALUES ('1052', '292', 'Ã© uma lenda.', null, '0', null);
-INSERT INTO `question_answers` VALUES ('1062', '292', 'Ã© mÃ­stica.', null, '0', null);
-INSERT INTO `question_answers` VALUES ('1072', '292', 'Ã© bela e tem mulheres bonitas', null, '0', null);
-INSERT INTO `question_answers` VALUES ('1082', '292', 'Ã© histÃ³rica, mÃ­stica e lendÃ¡ria', null, '1', null);
-INSERT INTO `question_answers` VALUES ('1092', '302', 'Rui Knopfli e VirgÃ­lio de Lemos.', null, '0', null);
-INSERT INTO `question_answers` VALUES ('1102', '302', 'Rui Knopfli e VirgÃ­lio de Lemos.', null, '0', null);
-INSERT INTO `question_answers` VALUES ('1112', '302', 'Rui Knopfli e VirgÃ­lio de Lemos e AntÃ³nio Sopa.', null, '1', null);
-INSERT INTO `question_answers` VALUES ('1122', '302', 'tÃ³nio Sopa e Sarmento Rodrigues.', null, '0', null);
-INSERT INTO `question_answers` VALUES ('1132', '312', 'ao interesse das autoridades locais', null, '0', null);
-INSERT INTO `question_answers` VALUES ('1142', '312', 'a um interesse pessoal.', null, '0', null);
-INSERT INTO `question_answers` VALUES ('1152', '312', 'ao lusotropicalismo.', null, '0', null);
-INSERT INTO `question_answers` VALUES ('1162', '312', 'Ã  existÃªncia de relÃ­quias histÃ³ricas', null, '1', null);
-INSERT INTO `question_answers` VALUES ('1163', '313', 'Alternativa 1', null, null, '0');
-INSERT INTO `question_answers` VALUES ('1164', '313', 'Alternativa 2', null, null, '1');
-INSERT INTO `question_answers` VALUES ('1165', '313', 'Alternstiva 3', null, null, '0');
-INSERT INTO `question_answers` VALUES ('1166', '314', '$$31.1\\% $$', null, null, '0');
-INSERT INTO `question_answers` VALUES ('1167', '314', '$$4.7\\% $$', null, null, '0');
-INSERT INTO `question_answers` VALUES ('1168', '314', '$$150\\% $$', null, null, '1');
-INSERT INTO `question_answers` VALUES ('1169', '314', '$$46.7\\% $$', null, null, '0');
 
 -- ----------------------------
 -- Table structure for `role`

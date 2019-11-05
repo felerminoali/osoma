@@ -52,8 +52,8 @@ public class Question implements Serializable {
     @Column(name = "timemodified")
     private BigInteger timemodified;
     @Lob
-    @Column(name = "extratext")
-    private String extratext;
+    @Column(name = "caseofstudy")
+    private String caseOfStudy;
     @Column(name = "youtubeurl")
     private String youtubeurl;
     @JoinColumn(name = "qtype", referencedColumnName = "id")
@@ -126,12 +126,12 @@ public class Question implements Serializable {
         this.timemodified = timemodified;
     }
 
-    public String getExtratext() {
-        return extratext;
+    public String getCaseOfStudy() {
+        return caseOfStudy;
     }
 
-    public void setExtratext(String extratext) {
-        this.extratext = extratext;
+    public void setCaseOfStudy(String caseOfStudy) {
+        this.caseOfStudy = caseOfStudy;
     }
 
     public String getYoutubeurl() {

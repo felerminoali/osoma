@@ -74,7 +74,7 @@ public class ExamDetails {
         if (questions.size() > nrQuestion) {
             Question question = questions.get(nrQuestion);
 
-            String htmlCaseOfStudy = question.getExtratext();
+            String htmlCaseOfStudy = question.getCaseOfStudy();
 
             if (htmlCaseOfStudy != null) {
                 String noHtmlCaseOfStudy = Jsoup.parse(htmlCaseOfStudy).text();
@@ -147,6 +147,8 @@ public class ExamDetails {
         int correct = 0;
 
         for (Question q : questions) {
+
+
             Map<String, Object> par = new HashMap<String, Object>();
             par.put("q", q.getId());
             par.put("r", Short.parseShort("1"));
@@ -155,8 +157,6 @@ public class ExamDetails {
             if (session.getAttribute(q.getId() + "") != null && session.getAttribute(q.getId() + "").equals(choice.getId() + "")) {
                 correct++;
             }
-            // Remove attribute from session
-            session.removeAttribute(q.getId() + "");
 
         }
         modelo.addObject("percentage", ((float) correct / questions.size()) * 100.00f);
