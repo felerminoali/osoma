@@ -69,7 +69,7 @@ public class Question implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     private Exam exam;
     @OneToMany(mappedBy = "question", fetch = FetchType.LAZY)
-    private List<QuestionAnswers> questionAnswersList;
+    private List<Choice> choiceList;
 
     public Question() {
     }
@@ -174,12 +174,12 @@ public class Question implements Serializable {
         this.exam = exam;
     }
 
-    public List<QuestionAnswers> getQuestionAnswersList() {
-        return questionAnswersList;
+    public List<Choice> getChoiceList() {
+        return choiceList;
     }
 
-    public void setQuestionAnswersList(List<QuestionAnswers> questionAnswersList) {
-        this.questionAnswersList = questionAnswersList;
+    public void setChoiceList(List<Choice> choiceList) {
+        this.choiceList = choiceList;
     }
 
     @Override

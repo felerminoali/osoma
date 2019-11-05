@@ -121,10 +121,10 @@ public class QuestionTest {
     }
 
     @Test
-    public void getQuestionAnswersList() {
+    public void getChoicesList() {
         Question question = new Question();
-        question.setQuestionAnswersList(null);
-        assertNull(question.getQuestionAnswersList());
+        question.setChoiceList(null);
+        assertNull(question.getChoiceList());
     }
 
     @Test

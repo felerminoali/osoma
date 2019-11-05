@@ -25,10 +25,10 @@ import javax.persistence.Table;
  * @author user
  */
 @Entity
-@Table(name = "question_answers")
+@Table(name = "choice")
 @NamedQueries({
-    @NamedQuery(name = "QuestionAnswers.findAll", query = "SELECT q FROM QuestionAnswers q")})
-public class QuestionAnswers implements Serializable {
+    @NamedQuery(name = "Choice.findAll", query = "SELECT c FROM Choice c")})
+public class Choice implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -49,10 +49,10 @@ public class QuestionAnswers implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     private Question question;
 
-    public QuestionAnswers() {
+    public Choice() {
     }
 
-    public QuestionAnswers(Integer id) {
+    public Choice(Integer id) {
         this.id = id;
     }
 
@@ -114,10 +114,10 @@ public class QuestionAnswers implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof QuestionAnswers)) {
+        if (!(object instanceof Choice)) {
             return false;
         }
-        QuestionAnswers other = (QuestionAnswers) object;
+        Choice other = (Choice) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -126,7 +126,7 @@ public class QuestionAnswers implements Serializable {
 
     @Override
     public String toString() {
-        return "mz.co.osoma.model.QuestionAnswers[ id=" + id + " ]";
+        return "mz.co.osoma.model.Choice[ id=" + id + " ]";
     }
     
 }

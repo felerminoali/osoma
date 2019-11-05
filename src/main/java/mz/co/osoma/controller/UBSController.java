@@ -4,9 +4,7 @@ import mz.co.osoma.model.*;
 import mz.co.osoma.service.CRUDService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,11 +15,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.security.Principal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 
 @Controller
 @RequestMapping("ubs")
@@ -101,13 +97,13 @@ public class UBSController {
 
         if (questions.size() > nrQuestion) {
             Question question = questions.get(nrQuestion);
-            List<QuestionAnswers> questionAnswers =
-                    crudService.findByJPQuery("SELECT e FROM QuestionAnswers e, Question q where e.question = q.id and  q.id = " + question.getId(), null);
+            List<Choice> choices =
+                    crudService.findByJPQuery("SELECT e FROM Choice e, Question q where e.question = q.id and  q.id = " + question.getId(), null);
 
-            Collections.shuffle(questionAnswers);
+            Collections.shuffle(choices);
 
             modelo.addObject("questions", question);
-            modelo.addObject("questionAnswers", questionAnswers);
+            modelo.addObject("questionAnswers", choices);
 
 
             if (session != null) {
@@ -171,7 +167,7 @@ public class UBSController {
             Map<String, Object> par = new HashMap<String, Object>();
             par.put("q", q.getId());
             par.put("r", Short.parseShort("1"));
-            QuestionAnswers answers = crudService.findEntByJPQuery("FROM QuestionAnswers p WHERE p.question.id = :q AND p.rightchoice = :r", par);
+            Choice answers = crudService.findEntByJPQuery("FROM Choice p WHERE p.question.id = :q AND p.rightchoice = :r", par);
 
             if (session.getAttribute(q.getId() + "") != null && session.getAttribute(q.getId() + "").equals(answers.getId() + "")) {
                 correct++;

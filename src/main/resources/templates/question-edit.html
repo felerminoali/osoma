@@ -53,10 +53,10 @@
 
                         <td>
                             <span><b>Opção correcta: *</b></span>
-                            <div th:switch="${question.questionAnswersList}">
+                            <div th:switch="${question.choiceList}">
                                 <h2 th:case="null"><p th:text="#{Nao_Exames}"></p></h2>
                                 <div th:case="*">
-                                    <div th:each="answers: ${question.questionAnswersList}">
+                                    <div th:each="answers: ${question.choiceList}">
                                         <div class="ans_content editor">
                                                 <span th:if="${answers.fraction} == 1" >
                                                     <input type="text" class="form-control" name="correctAnswer" th:value="${answers.answer}">
@@ -83,10 +83,10 @@
                         <div class="col-md-12">
 
                             <legend>Outras opcões</legend>
-                                <div th:switch="${question.questionAnswersList}">
+                                <div th:switch="${question.choiceList}">
                                     <h2 th:case="null"><p th:text="#{Nao_Exames}"></p></h2>
                                     <div th:case="*">
-                                        <div th:each="answers: ${question.questionAnswersList}">
+                                        <div th:each="answers: ${question.choiceList}">
                                             <div class="ans_content editor">
                                                 <span th:if="${answers.fraction} == 0" >
                                                     <input type="text" class="form-control" name="answer" th:value="${answers.answer}">

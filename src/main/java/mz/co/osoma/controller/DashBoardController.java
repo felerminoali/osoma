@@ -2,7 +2,6 @@ package mz.co.osoma.controller;
 
 import mz.co.osoma.model.*;
 import mz.co.osoma.service.CRUDService;
-import org.aspectj.lang.annotation.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -49,9 +48,9 @@ public class DashBoardController {
             List<Question> questions = crudService.findByJPQuery("SELECT q FROM Question q where q.exam.id=" + exam.getId(), null);
 
             for (Question question : questions) {
-                List<QuestionAnswers> questionAnswers = crudService.findByJPQuery("SELECT q FROM QuestionAnswers q where q.question.id=" + question.getId(), null);
+                List<Choice> choices = crudService.findByJPQuery("SELECT q FROM Choice q where q.question.id=" + question.getId(), null);
 
-                for (QuestionAnswers questionAnswer : questionAnswers) {
+                for (Choice questionAnswer : choices) {
                     try {
                         crudService.delete(questionAnswer);
                     } catch (Exception e) {
@@ -122,11 +121,11 @@ public class DashBoardController {
         if (questionId.hashCode() > 0) {
             Question question = crudService.get(Question.class, questionId.hashCode());
 
-            List<QuestionAnswers> questionAnswers = crudService.findByJPQuery("SELECT q FROM QuestionAnswers q where q.question.id=" + question.getId(), null);
+            List<Choice> choices = crudService.findByJPQuery("SELECT q FROM Choice q where q.question.id=" + question.getId(), null);
 
-            for (QuestionAnswers questionAnswer : questionAnswers) {
+            for (Choice choice : choices) {
                 try {
-                    crudService.delete(questionAnswer);
+                    crudService.delete(choice);
                 } catch (Exception e) {
                     System.out.println("Nao foi possivel apagar uma das opcoes da questao ");
                 }
@@ -151,11 +150,9 @@ public class DashBoardController {
         model = new ModelAndView("question-details");
         Question question = crudService.get(Question.class, questionId);
         Exam exam = crudService.get(Exam.class, examId);
-        List<QuestionAnswers> questionAnswers = crudService.findByJPQuery("SELECT e FROM QuestionAnswers e where e.question.id = " + question.getId(), null);
+        List<Choice> choices = crudService.findByJPQuery("SELECT e FROM Choice e where e.question.id = " + question.getId(), null);
         model.addObject("question", question);
-        //model.addObject("exam",examId);
         model.addObject("exam", exam);
-        //model.addObject("questionAnswers", questionAnswers);
         return model;
     }
 
@@ -165,12 +162,7 @@ public class DashBoardController {
 
         model = new ModelAndView("question-edit");
         Question question = crudService.get(Question.class, questionId);
-        // Exam exam=crudService.get(Exam.class,examId);
-        //List<QuestionAnswers> questionAnswers = crudService.findByJPQuery("SELECT e FROM QuestionAnswers e where e.question.id = "+question.getId(), null);
         model.addObject("question", question);
-        //model.addObject("exam",examId);
-        // model.addObject("exam",exam);
-        //model.addObject("questionAnswers", questionAnswers);
         return model;
     }
 
@@ -292,7 +284,7 @@ public class DashBoardController {
             crudService.Save(question);
             List<Question> questions = crudService.getAll(Question.class);
             Question question1 = questions.get(questions.size() - 1);
-            QuestionAnswers correct = new QuestionAnswers();
+            Choice correct = new Choice();
             correct.setFraction((long) 1);
             correct.setRightchoice((short)1);
             // char character=charId.charAt(0);
@@ -317,15 +309,15 @@ public class DashBoardController {
 
                 System.out.println(questionOption);
                 if (!questionOption.equals(null)) {
-                    QuestionAnswers questionAnswers = new QuestionAnswers();
-                    questionAnswers.setFraction((long) 0);
-                    questionAnswers.setRightchoice((short)0);
+                    Choice choice = new Choice();
+                    choice.setFraction((long) 0);
+                    choice.setRightchoice((short)0);
 
-                    questionAnswers.setQuestion(question1);
-                    questionAnswers.setAnswer(questionOption);
+                    choice.setQuestion(question1);
+                    choice.setAnswer(questionOption);
 
                     try {
-                        crudService.Save(questionAnswers);
+                        crudService.Save(choice);
                         System.out.println("===========" + i + "============");
                     } catch (Exception e) {
                         System.out.println("Error, nao conseguiu inserir uma das questoes");

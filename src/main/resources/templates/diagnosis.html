@@ -132,15 +132,15 @@
                                     <div class="dotted"></div>
                                     <div class="answersDiv">
                                         <table width="100%">
-                                            <tr th:each="answers: ${questionAnswers}">
+                                            <tr th:each="alternative: ${choices}">
                                                 <div class="clear"></div>
                                                 <div class="ans_select">
-                                                    <input type="radio" th:id="${'q_'+questions.id+'_'+answers.id}"
-                                                           name="q_choice" th:checked="${answers.id == sessionAnswer}">
+                                                    <input type="radio" th:id="${'q_'+questions.id+'_'+alternative.id}"
+                                                           name="q_choice" th:checked="${alternative.id == sessionAnswer}">
                                                 </div>
                                                 <div class="ans_content editor">
-                                                    <label th:for="${'q_'+questions.id+'_'+answers.id}">
-                                                        <span th:text="${answers.answer}">.</span>
+                                                    <label th:for="${'q_'+questions.id+'_'+alternative.id}">
+                                                        <span th:text="${alternative.answer}">.</span>
                                                     </label>
                                                 </div>
                                             </tr>

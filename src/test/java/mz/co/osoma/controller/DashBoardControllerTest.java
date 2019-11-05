@@ -1,14 +1,9 @@
 package mz.co.osoma.controller;
 
 import mz.co.osoma.config.HibernateConf;
-import mz.co.osoma.controller.DashBoardController;
 import mz.co.osoma.model.Exam;
-import mz.co.osoma.model.ExamAttempts;
-import mz.co.osoma.model.Question;
-import mz.co.osoma.model.QuestionAnswers;
 import mz.co.osoma.service.CRUDService;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +15,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 import java.util.Optional;
-
-import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest

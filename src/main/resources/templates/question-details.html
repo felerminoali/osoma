@@ -36,11 +36,11 @@
 
                                     <form id="examRegister" action="/exams-admin/exam-add/exam-save" method="POST">
 
-                                        <div th:switch="${question.questionAnswersList}">
+                                        <div th:switch="${question.choiceList}">
                                             <h2 th:case="null"><p th:text="#{Nao_Exames}"></p></h2>
                                             <br/>
                                             <div th:case="*">
-                                                <div th:each="answers: ${question.questionAnswersList}">
+                                                <div th:each="answers: ${question.choiceList}">
                                                     <div class="clear"></div>
                                                     <div class="ans_select">
                                                         <input type="radio" th:id="${'q_'+question.id+'_'+answers.id}" name="q_choice"  th:checked="${answers.id == sessionAnswer}">

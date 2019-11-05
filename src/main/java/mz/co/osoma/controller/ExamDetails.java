@@ -4,18 +4,14 @@ package mz.co.osoma.controller;
 import mz.co.osoma.model.*;
 import mz.co.osoma.service.CRUDService;
 import org.jsoup.Jsoup;
-import org.omg.DynamicAny.DynArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -58,7 +54,6 @@ public class ExamDetails {
     }
 
 
-
     @RequestMapping(value = "/online-test", method = RequestMethod.GET)
     public ModelAndView examDiagnosis(@RequestParam("id") int id, @RequestParam("question") Optional<Integer> pg, HttpSession session) {
         ModelAndView modelo = new ModelAndView("diagnosis");
@@ -66,7 +61,6 @@ public class ExamDetails {
 
         int nrQuestion = 0;
         modelo.addObject("id", id);
-
 
 
         if (questions != null && questions.size() > 0) {
@@ -82,33 +76,33 @@ public class ExamDetails {
 
             String htmlCaseOfStudy = question.getExtratext();
 
-            if(htmlCaseOfStudy!=null){
+            if (htmlCaseOfStudy != null) {
                 String noHtmlCaseOfStudy = Jsoup.parse(htmlCaseOfStudy).text();
-                String shortText = noHtmlCaseOfStudy.substring(0,120)+" ... " + "<a href=\"#\" data-toggle=\"modal\" data-target=\"#myModal\">Monstrar mais</a>";
-                modelo.addObject("shortText",shortText);
-                modelo.addObject("htmlCaseOfStudy",htmlCaseOfStudy);
+                String shortText = noHtmlCaseOfStudy.substring(0, 120) + " ... " + "<a href=\"#\" data-toggle=\"modal\" data-target=\"#myModal\">Monstrar mais</a>";
+                modelo.addObject("shortText", shortText);
+                modelo.addObject("htmlCaseOfStudy", htmlCaseOfStudy);
             }
 
-            List<QuestionAnswers> questionAnswers =
-                    crudService.findByJPQuery("SELECT e FROM QuestionAnswers e, Question q where e.question = q.id and  q.id = " + question.getId(), null);
+            List<Choice> choices =
+                    crudService.findByJPQuery("SELECT e FROM Choice e, Question q where e.question = q.id and  q.id = " + question.getId(), null);
 
-            Collections.shuffle(questionAnswers);
+            Collections.shuffle(choices);
 
             modelo.addObject("questions", question);
-            modelo.addObject("questionAnswers", questionAnswers);
+            modelo.addObject("choices", choices);
 
             if (session != null) {
-                if( session.getAttribute(question.getId().toString()) !=null){
-                    int answerId = Integer.parseInt((String)session.getAttribute(question.getId().toString()));
+                if (session.getAttribute(question.getId().toString()) != null) {
+                    int answerId = Integer.parseInt((String) session.getAttribute(question.getId().toString()));
                     modelo.addObject("sessionAnswer", answerId);
                 }
             }
 
             modelo.addObject("quantidadeExames", questions.size());
             modelo.addObject("next", nrQuestion + 1);
-            Locale l = new Locale("pt","BR");
+            Locale l = new Locale("pt", "BR");
             Calendar c = Calendar.getInstance(l);
-            SimpleDateFormat df = new SimpleDateFormat("dd MMM yyyy, HH:mm:ss",l);
+            SimpleDateFormat df = new SimpleDateFormat("dd MMM yyyy, HH:mm:ss", l);
             modelo.addObject("starttimestamp", df.format(c.getTime()));
         } else {
             modelo.addObject("next", -1);
@@ -145,24 +139,27 @@ public class ExamDetails {
         modelo.addObject("exam", exam);
         modelo.addObject("qtdquestion", questions.size());
         modelo.addObject("start", start);
-        Locale l = new Locale("pt","BR");
+        Locale l = new Locale("pt", "BR");
         Calendar c = Calendar.getInstance(l);
-        SimpleDateFormat df = new SimpleDateFormat("dd MMM yyyy, HH:mm:ss",l);
+        SimpleDateFormat df = new SimpleDateFormat("dd MMM yyyy, HH:mm:ss", l);
         modelo.addObject("finish", df.format(c.getTime()));
 
         int correct = 0;
 
-        for (Question q:questions) {
+        for (Question q : questions) {
             Map<String, Object> par = new HashMap<String, Object>();
             par.put("q", q.getId());
             par.put("r", Short.parseShort("1"));
-            QuestionAnswers answers = crudService.findEntByJPQuery("FROM QuestionAnswers p WHERE p.question.id = :q AND p.rightchoice = :r", par);
+            Choice choice = crudService.findEntByJPQuery("FROM Choice p WHERE p.question.id = :q AND p.rightchoice = :r", par);
 
-            if(session.getAttribute(q.getId()+"")!= null && session.getAttribute(q.getId()+"").equals(answers.getId()+"")){
+            if (session.getAttribute(q.getId() + "") != null && session.getAttribute(q.getId() + "").equals(choice.getId() + "")) {
                 correct++;
             }
+            // Remove attribute from session
+            session.removeAttribute(q.getId() + "");
+
         }
-        modelo.addObject("percentage", ( (float) correct/questions.size())*100.00f);
+        modelo.addObject("percentage", ((float) correct / questions.size()) * 100.00f);
         return modelo;
     }
 }
