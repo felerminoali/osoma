@@ -213,6 +213,14 @@
 
         function find(type, value) {
 
+            if(type == 'email' && !validateEmail(value)){
+                return false;
+            }
+
+            if(type == 'contact' && !validateContact(value)){
+                return false;
+            }
+
             var url = '/users/'+type+"/"+value;
             var result = false;
 
@@ -238,7 +246,20 @@
             return result;
         }
 
+
+        function validateEmail(email) {
+            var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(email);
+        }
+
+        function validateContact(contact){
+            return contact.length >= 7;
+        }
+
         $(document).ready(function () {
+
+
+
             $('.registerForm').bootstrapValidator({
                 message: 'This value is not valid',
                 feedbackIcons: {
