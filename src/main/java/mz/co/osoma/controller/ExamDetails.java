@@ -74,7 +74,7 @@ public class ExamDetails {
         if (questions.size() > nrQuestion) {
             Question question = questions.get(nrQuestion);
 
-            String htmlCaseOfStudy = question.getCaseOfStudy();
+            String htmlCaseOfStudy = question.getCaseofstudy();
 
             if (htmlCaseOfStudy != null) {
                 String noHtmlCaseOfStudy = Jsoup.parse(htmlCaseOfStudy).text();
@@ -122,7 +122,7 @@ public class ExamDetails {
         }
     }
 
-    @RequestMapping(value = "/results", method = RequestMethod.POST)
+    @RequestMapping(value = "/result", method = RequestMethod.POST)
     public ModelAndView results(HttpServletRequest request, HttpSession session) {
 
         ModelAndView modelo = new ModelAndView("exam-results");

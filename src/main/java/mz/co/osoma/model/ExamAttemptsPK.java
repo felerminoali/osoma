@@ -27,17 +27,17 @@ public class ExamAttemptsPK implements Serializable {
     @Column(name = "user")
     private int user;
     @Basic(optional = false)
-    @Column(name = "end")
+    @Column(name = "timestamp")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date end;
+    private Date timestamp;
 
     public ExamAttemptsPK() {
     }
 
-    public ExamAttemptsPK(int exam, int user, Date end) {
+    public ExamAttemptsPK(int exam, int user, Date timestamp) {
         this.exam = exam;
         this.user = user;
-        this.end = end;
+        this.timestamp = timestamp;
     }
 
     public int getExam() {
@@ -56,12 +56,12 @@ public class ExamAttemptsPK implements Serializable {
         this.user = user;
     }
 
-    public Date getEnd() {
-        return end;
+    public Date getTimestamp() {
+        return timestamp;
     }
 
-    public void setEnd(Date end) {
-        this.end = end;
+    public void setTimestamp(Date timestamp) {
+        this.timestamp = timestamp;
     }
 
     @Override
@@ -69,7 +69,7 @@ public class ExamAttemptsPK implements Serializable {
         int hash = 0;
         hash += (int) exam;
         hash += (int) user;
-        hash += (end != null ? end.hashCode() : 0);
+        hash += (timestamp != null ? timestamp.hashCode() : 0);
         return hash;
     }
 
@@ -86,7 +86,7 @@ public class ExamAttemptsPK implements Serializable {
         if (this.user != other.user) {
             return false;
         }
-        if ((this.end == null && other.end != null) || (this.end != null && !this.end.equals(other.end))) {
+        if ((this.timestamp == null && other.timestamp != null) || (this.timestamp != null && !this.timestamp.equals(other.timestamp))) {
             return false;
         }
         return true;
@@ -94,7 +94,7 @@ public class ExamAttemptsPK implements Serializable {
 
     @Override
     public String toString() {
-        return "mz.co.osoma.model.ExamAttemptsPK[ exam=" + exam + ", user=" + user + ", end=" + end + " ]";
+        return "mz.co.osoma.model.ExamAttemptsPK[ exam=" + exam + ", user=" + user + ", timestamp=" + timestamp + " ]";
     }
     
 }

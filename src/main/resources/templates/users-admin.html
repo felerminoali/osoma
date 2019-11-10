@@ -53,18 +53,18 @@
 
                         <tbody>
                         <div th:switch="${users}">
-                            <h2 th:case="null"><p th:text="#{no-user}"></p></h2>
+                            <h2 th:case="null"><p th:text="#{no-createdby}"></p></h2>
                             <div th:case="*">
-                                <div th:each="user: ${users}">
+                                <div th:each="createdby: ${users}">
                                     <tr>
-                                        <td th:text="${user.name}"></td>
-                                        <td th:text="${user.lastName}"></td>
-                                        <td th:text="${user.address1}"></td>
-                                        <td th:text="${user.city}"></td>
-                                        <td th:text="${user.email}"></td>
-                                        <td th:text="${user.date}"></td>
+                                        <td th:text="${createdby.name}"></td>
+                                        <td th:text="${createdby.lastName}"></td>
+                                        <td th:text="${createdby.address1}"></td>
+                                        <td th:text="${createdby.city}"></td>
+                                        <td th:text="${createdby.email}"></td>
+                                        <td th:text="${createdby.date}"></td>
                                         <td><a href="">edit</a></td>
-                                        <td ><a th:href="@{/(userId=${user.id})}" >remove</a></td>
+                                        <td ><a th:href="@{/(userId=${createdby.id})}" >remove</a></td>
                                     </tr>
                                 </div>
                             </div>

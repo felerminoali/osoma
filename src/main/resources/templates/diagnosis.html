@@ -51,7 +51,7 @@
                             </script>
 
                         </div>
-                        <form action="/ubs/results" method="post" autocomplete="off" id="questionform">
+                        <form action="/ubs/result" method="post" autocomplete="off" id="questionform">
                             <input type="hidden" id="timeoutinput" name="na1" value="na">
                             <input type="hidden" id="finishnowinput" name="na2" value="na">
                             <input type="hidden" id="examid" name="examid" th:value="${id}">
@@ -91,7 +91,7 @@
                                                                                         th:text="${questions.question}">:</span>
                                                         </h4>
                                                         <br/>
-                                                        <div class="span6 pull-left" th:if="${questions.caseOfStudy}!=null">
+                                                        <div class="span6 pull-left" th:if="${questions.caseofstudy}!=null">
 
                                                             <div class="casestudy" th:utext="${shortText}"></div>
 

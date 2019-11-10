@@ -6,7 +6,9 @@
 package mz.co.osoma.model;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -18,6 +20,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -45,6 +48,8 @@ public class Choice implements Serializable {
     private Long fraction;
     @Column(name = "rightchoice")
     private Short rightchoice;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "choice", fetch = FetchType.LAZY)
+    private List<AttemptResult> attemptResultList;
     @JoinColumn(name = "question", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Question question;
@@ -94,6 +99,14 @@ public class Choice implements Serializable {
 
     public void setRightchoice(Short rightchoice) {
         this.rightchoice = rightchoice;
+    }
+
+    public List<AttemptResult> getAttemptResultList() {
+        return attemptResultList;
+    }
+
+    public void setAttemptResultList(List<AttemptResult> attemptResultList) {
+        this.attemptResultList = attemptResultList;
     }
 
     public Question getQuestion() {

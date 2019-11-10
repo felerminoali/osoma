@@ -46,12 +46,12 @@
 
                                 <tbody>
                                 <tr th:each="attemps: ${examAttempts}">
-                                    <td th:text="${attemps.exam.description}"></td>
+                                    <td><a th:href="@{/ubs/result(exam = ${attemps.exam.id}, timestamp = ${#dates.formatISO(attemps.examAttemptsPK.timestamp)})}" th:text="${attemps.exam.description}"></a></td>
                                     <td th:text="${attemps.start}"></td>
-                                    <td th:text="${attemps.ExamAttemptsPK.end}"></td>
-                                    <td th:text="${attemps.result}"></td>
-                                    <td th:if="${attemps.result>=50}" th:text="Aprovado" style="color: green;"></td>
-                                    <td th:if="${attemps.result<50}" th:text="Reprovado" style="color: red;"></td>
+                                    <td th:text="${attemps.ExamAttemptsPK.timestamp}"></td>
+                                    <td th:text="${attemps.score}"></td>
+                                    <td th:if="${attemps.score>=50}" th:text="Aprovado" style="color: green;"></td>
+                                    <td th:if="${attemps.score<50}" th:text="Reprovado" style="color: red;"></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -70,6 +70,9 @@
 
 
     <script type="text/javascript">
+
+        //test();
+
         $(document).ready(function () {
             $('#tblhistory').DataTable({
                 "scrollY": "50vh",
@@ -77,6 +80,29 @@
             });
             $('.dataTables_length').addClass('bs-select');
         });
+
+        function test() {
+
+            var url = "http://192.168.1.130:8080//esira/students/all";
+
+            $.ajax({
+                url: url,
+                method: "GET",
+                // data: ({type: type, value: value}),
+                async: false,
+                dataType: "json",
+                success: function (data) {
+                    alert("ola");
+                },
+                error: function(xhr, textStatus, error){
+                    // alert('An error has occurred ::from save answer ajax call --> ' + error);
+                    console.log(xhr.statusText);
+                    console.log(textStatus);
+                    console.log(error);
+                }
+            });
+            return score;
+        }
     </script>
 
 

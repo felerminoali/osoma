@@ -518,13 +518,13 @@ INSERT INTO `exam` VALUES ('112', '102', '2005', 'Exame de Portugues', '10', '3'
 DROP TABLE IF EXISTS `exam_attempts`;
 CREATE TABLE `exam_attempts` (
   `exam` int(11) NOT NULL,
-  `user` int(11) NOT NULL,
+  `createdby` int(11) NOT NULL,
   `attempt_datetime` datetime DEFAULT NULL,
-  `result` decimal(10,0) DEFAULT NULL,
-  PRIMARY KEY (`exam`,`user`),
-  KEY `user` (`user`),
+  `score` decimal(10,0) DEFAULT NULL,
+  PRIMARY KEY (`exam`,`createdby`),
+  KEY `createdby` (`createdby`),
   CONSTRAINT `exam_attempts_ibfk_1` FOREIGN KEY (`exam`) REFERENCES `exam` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `exam_attempts_ibfk_2` FOREIGN KEY (`user`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `exam_attempts_ibfk_2` FOREIGN KEY (`createdby`) REFERENCES `createdby` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -596,8 +596,8 @@ CREATE TABLE `question` (
   KEY `modifiedby` (`modifiedby`),
   KEY `exam` (`exam`),
   CONSTRAINT `question_ibfk_1` FOREIGN KEY (`qtype`) REFERENCES `qtype` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `question_ibfk_2` FOREIGN KEY (`createdby`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `question_ibfk_3` FOREIGN KEY (`modifiedby`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `question_ibfk_2` FOREIGN KEY (`createdby`) REFERENCES `createdby` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `question_ibfk_3` FOREIGN KEY (`modifiedby`) REFERENCES `createdby` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `question_ibfk_4` FOREIGN KEY (`exam`) REFERENCES `exam` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=313 DEFAULT CHARSET=utf8;
 
@@ -799,10 +799,10 @@ INSERT INTO `university` VALUES ('22', 'Universidade Zambenze', 'UniZambeze');
 INSERT INTO `university` VALUES ('32', 'Universidade PedagÃ³gica', 'UP');
 
 -- ----------------------------
--- Table structure for `user`
+-- Table structure for `createdby`
 -- ----------------------------
-DROP TABLE IF EXISTS `user`;
-CREATE TABLE `user` (
+DROP TABLE IF EXISTS `createdby`;
+CREATE TABLE `createdby` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `first_name` varchar(150) NOT NULL,
   `last_name` varchar(150) NOT NULL,
@@ -823,10 +823,10 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB AUTO_INCREMENT=237 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of user
+-- Records of createdby
 -- ----------------------------
-INSERT INTO `user` VALUES ('235', 'Bania', 'Fonseca', 'bfonseca@unilurio.ac.mzo', '$2a$10$h68zxfuxp/6iF38/Euefpe0MTyuML72dh233PhF.bullttXxiIaFu', '2019-10-07 20:24:22', '1', null, '1', '2', 'ghugyu', '0648');
-INSERT INTO `user` VALUES ('236', 'Dario', 'Mario', 'felasbe@hotmail.com', '$2a$10$1DI/wpMmgCi/TPC0BoNL9O9Y9u.rLixWPNbn/bH7V7JbdKSAQoPyy', '2019-10-09 19:37:52', '1', null, '1', '2', '825407883', '1576');
+INSERT INTO `createdby` VALUES ('235', 'Bania', 'Fonseca', 'bfonseca@unilurio.ac.mzo', '$2a$10$h68zxfuxp/6iF38/Euefpe0MTyuML72dh233PhF.bullttXxiIaFu', '2019-10-07 20:24:22', '1', null, '1', '2', 'ghugyu', '0648');
+INSERT INTO `createdby` VALUES ('236', 'Dario', 'Mario', 'felasbe@hotmail.com', '$2a$10$1DI/wpMmgCi/TPC0BoNL9O9Y9u.rLixWPNbn/bH7V7JbdKSAQoPyy', '2019-10-09 19:37:52', '1', null, '1', '2', '825407883', '1576');
 
 -- ----------------------------
 -- Table structure for `user_role`
@@ -837,7 +837,7 @@ CREATE TABLE `user_role` (
   `role_id` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`user_id`,`role_id`),
   UNIQUE KEY `UK_it77eq964jhfqtu54081ebtio` (`role_id`),
-  CONSTRAINT `user_role_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `user_role_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `createdby` (`id`) ON DELETE CASCADE,
   CONSTRAINT `user_role_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 

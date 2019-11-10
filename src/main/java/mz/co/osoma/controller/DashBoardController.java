@@ -275,7 +275,7 @@ public class DashBoardController {
 
         question.setQuestion(questiontextformat);
         question.setYoutubeurl(video);
-        question.setCaseOfStudy(text);
+        question.setCaseofstudy(text);
         question.setQtype(questionType);
         question.setFeedback(answerFeedback.toString());
 

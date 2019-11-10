@@ -2,9 +2,11 @@ package mz.co.osoma.controller;
 
 import mz.co.osoma.model.*;
 import mz.co.osoma.service.CRUDService;
+import org.hibernate.Session;
 import org.jsoup.Jsoup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -16,9 +18,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 @Controller
 @RequestMapping("ubs")
@@ -85,8 +91,8 @@ public class UBSController {
         ModelAndView modelo = new ModelAndView("diagnosis");
         List<Question> questions = crudService.findByJPQuery("SELECT e FROM Question e where e.exam = " + exam, null);
 
-        if(questions !=null){
-            cleanSession(session,questions);
+        if (questions != null) {
+            cleanSession(session, questions);
         }
 
         int nrQuestion = 0;
@@ -104,7 +110,7 @@ public class UBSController {
         if (questions.size() > nrQuestion) {
             Question question = questions.get(nrQuestion);
 
-            String htmlCaseOfStudy = question.getCaseOfStudy();
+            String htmlCaseOfStudy = question.getCaseofstudy();
 
             if (htmlCaseOfStudy != null) {
                 String noHtmlCaseOfStudy = Jsoup.parse(htmlCaseOfStudy).text();
@@ -148,15 +154,89 @@ public class UBSController {
         }
     }
 
-    @RequestMapping(value = "/results", method = RequestMethod.POST)
-    public ModelAndView results(@AuthenticationPrincipal final UserDetails userDetails, HttpServletRequest request, HttpSession session) {
+
+    @RequestMapping(value = "/result", method = RequestMethod.GET)
+    public ModelAndView resultPost(@AuthenticationPrincipal final UserDetails userDetails, HttpServletRequest request, HttpSession session, @RequestParam("exam") Optional<Integer> idExam, @RequestParam("timestamp")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime timestamp) {
+
+        ModelAndView modelo = new ModelAndView("exam-results");
+        if (idExam.isPresent()) {
+
+            Exam exam = crudService.get(Exam.class, idExam.get());
+            User user = crudService.findEntByJPQuery("FROM User u WHERE u.email = '" + ((CustomUserDetails) userDetails).getEmail() + "'", null);
+
+            try {
+                updateSession(idExam.get(), user.getId(), timestamp, session);
+            }catch (Exception e){
+
+
+            }
+
+
+            List<Question> questions = crudService.findByJPQuery("SELECT e FROM Question e where e.exam = " + idExam.get(), null);
+
+            modelo.addObject("questions", questions);
+            modelo.addObject("exam", exam);
+            modelo.addObject("qtdquestion", questions.size());
+//            modelo.addObject("start", start);
+            Locale locale = new Locale("pt", "BR");
+            Calendar c = Calendar.getInstance(locale);
+            SimpleDateFormat df = new SimpleDateFormat("dd MMM yyyy, HH:mm:ss", locale);
+            modelo.addObject("finish", timestamp);
+
+            int correct = 0;
+
+            for (Question q : questions) {
+                Map<String, Object> par = new HashMap<String, Object>();
+                par.put("q", q.getId());
+                par.put("r", Short.parseShort("1"));
+                Choice answers = crudService.findEntByJPQuery("FROM Choice p WHERE p.question.id = :q AND p.rightchoice = :r", par);
+
+                if (session.getAttribute(q.getId().toString()) != null && session.getAttribute(q.getId().toString()).equals(answers.getId().toString())) {
+
+                    correct++;
+                }
+            }
+
+            double score = ((double) correct / questions.size()) * 100.00f;
+            modelo.addObject("percentage", score);
+
+            return modelo;
+        }
+        modelo = new ModelAndView("error");
+        return modelo;
+    }
+
+
+    public void updateSession(int idExam, int idUser, LocalDateTime timestamp, HttpSession session) {
+
+
+        Date date = Date.from( timestamp.atZone( ZoneId.systemDefault()).toInstant());
+
+        Map<String, Object> par = new HashMap<String, Object>();
+        par.put("exam", idExam);
+        par.put("user", idUser);
+        par.put("timestamp", date);
+
+//        System.out.println("daaa "+dateToString(date));
+
+        List<AttemptResult> attemptResults = crudService.findByJPQuery("SELECT a FROM AttemptResult a WHERE  a.examAttempts.examAttemptsPK.exam = :exam and  a.examAttempts.examAttemptsPK.user = :user and a.examAttempts.examAttemptsPK.timestamp = :timestamp", par);
+
+        if(attemptResults != null){
+            for (AttemptResult attemptResult:attemptResults){
+                session.setAttribute(attemptResult.getChoice().getQuestion().getId().toString(), attemptResult.getChoice().getId().toString());
+            }
+        }
+    }
+
+    @RequestMapping(value = "/result", method = RequestMethod.POST)
+    public ModelAndView resultPost(@AuthenticationPrincipal final UserDetails userDetails, HttpServletRequest request, HttpSession session) {
 
         ModelAndView modelo = new ModelAndView("exam-results");
 
+
         int idExam = Integer.parseInt(request.getParameter("examid"));
-
         String start = request.getParameter("starttimestamp");
-
         Exam exam = crudService.get(Exam.class, idExam);
 
         List<Question> questions = crudService.findByJPQuery("SELECT e FROM Question e where e.exam = " + idExam, null);
@@ -173,10 +253,27 @@ public class UBSController {
 
         int correct = 0;
 
-//        Result resultObj = new Result();
         User user = crudService.findEntByJPQuery("FROM User u WHERE u.email = '" + ((CustomUserDetails) userDetails).getEmail() + "'", null);
 
+        ExamAttempts attempts = new ExamAttempts();
+        ExamAttemptsPK examAttemptsPK = new ExamAttemptsPK();
+        examAttemptsPK.setExam(exam.getId());
+        examAttemptsPK.setExam(exam.getId());
+        examAttemptsPK.setUser(user.getId());
+        examAttemptsPK.setTimestamp(timestamp);
 
+        try {
+            Date startDate = stringToDate(start, locale);
+            attempts.setStart(startDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        attempts.setExamAttemptsPK(examAttemptsPK);
+        attempts.setUser(user);
+        attempts.setExam(exam);
+
+        List<AttemptResult> attemptResultList = new ArrayList<>();
         for (Question q : questions) {
             Map<String, Object> par = new HashMap<String, Object>();
             par.put("q", q.getId());
@@ -187,39 +284,22 @@ public class UBSController {
                 correct++;
             }
 
-//            ResultPK resultPK = new ResultPK();
-//            resultPK.setExam(exam.getId());
-//            resultPK.setUser(user.getId());
-//            resultPK.setTimestamp(timestamp);
-//
-//            Choice choice = crudService.get(Choice.class, Integer.parseInt((String) session.getAttribute(q.getId() + "")));
-//            resultObj.setChoice(choice);
-//            resultObj.setResultPK(resultPK);
+            Choice choice = crudService.get(Choice.class, Integer.parseInt((String) session.getAttribute(q.getId() + "")));
 
+            if (choice != null) {
+                AttemptResult attemptResult = new AttemptResult();
+                attemptResult.setChoice(choice);
+                attemptResult.setExamAttempts(attempts);
+                attemptResultList.add(attemptResult);
+            }
         }
 
-        double result = ((double) correct / questions.size()) * 100.00f;
-        modelo.addObject("percentage", result);
+        double score = ((double) correct / questions.size()) * 100.00f;
+        modelo.addObject("percentage", score);
+        attempts.setScore(score);
 
-        ExamAttempts attempts = new ExamAttempts();
-        ExamAttemptsPK examAttemptsPK = new ExamAttemptsPK();
-        examAttemptsPK.setExam(exam.getId());
-
-
-        examAttemptsPK.setExam(exam.getId());
-        examAttemptsPK.setUser(user.getId());
-        examAttemptsPK.setEnd(timestamp);
-
-        try {
-            Date startDate = stringToDate(start, locale);
-            attempts.setStart(startDate);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        attempts.setExamAttemptsPK(examAttemptsPK);
-        attempts.setResult(result);
-
+        attempts.setAttemptResultList(attemptResultList);
+        // Saving Attempts
         crudService.Save(attempts);
 
         return modelo;
@@ -230,13 +310,11 @@ public class UBSController {
 
         ModelAndView modelo = new ModelAndView("exam-history");
 
-
         User user = crudService.findEntByJPQuery("FROM User u WHERE u.email = '" + ((CustomUserDetails) userDetails).getEmail() + "'", null);
-
-        List<ExamAttempts> examAttempts = crudService.findByJPQuery("SELECT e FROM ExamAttempts e where e.user.id = " + user.getId(), null);
-        ;
+        List<ExamAttempts> examAttempts = crudService.findByJPQuery("SELECT e FROM ExamAttempts e where e.user.id = " + user.getId()+" order by e.examAttemptsPK.timestamp", null);;
 
         modelo.addObject("examAttempts", examAttempts);
+        modelo.addObject("user", user);
 
 //      long diffInMillies = Math.abs(secondD.getTime() - firstDate.getTime());
 //        long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
@@ -266,6 +344,11 @@ public class UBSController {
 
     private Date stringToDate(String strDate, Locale locale) throws ParseException {
         return new SimpleDateFormat("dd MMM yyyy, HH:mm:ss", locale).parse(strDate);
+    }
+
+    private String dateToString(Date date){
+        DateFormat format = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+        return format.format(date);
     }
 
 

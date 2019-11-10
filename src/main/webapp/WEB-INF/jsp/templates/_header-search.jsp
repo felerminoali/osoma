@@ -76,7 +76,7 @@
 
                 <li>
                     <a href="/?page=login">
-                        <i class="fa fa-user" aria-hidden="true"></i>
+                        <i class="fa fa-createdby" aria-hidden="true"></i>
                         Login                            </a>
 
                 </li>

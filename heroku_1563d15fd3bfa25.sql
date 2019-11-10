@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50550
 File Encoding         : 65001
 
-Date: 2019-11-05 20:09:54
+Date: 2019-11-10 13:03:52
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -32,6 +32,32 @@ CREATE TABLE `admin` (
 -- Records of admin
 -- ----------------------------
 INSERT INTO `admin` VALUES ('12', 'Felermino', 'Ali', 'felerminoali@gmail.com', 'b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86');
+
+-- ----------------------------
+-- Table structure for `attempt_result`
+-- ----------------------------
+DROP TABLE IF EXISTS `attempt_result`;
+CREATE TABLE `attempt_result` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `exam` int(11) NOT NULL DEFAULT '0',
+  `user` int(11) NOT NULL DEFAULT '0',
+  `timestamp` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `choice` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `attempt_result_ibfk_1` (`exam`),
+  KEY `user` (`user`) USING BTREE,
+  KEY `timestamp` (`timestamp`),
+  KEY `choice` (`choice`),
+  CONSTRAINT `attempt_result_ibfk_1` FOREIGN KEY (`exam`) REFERENCES `exam_attempts` (`exam`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `attempt_result_ibfk_2` FOREIGN KEY (`user`) REFERENCES `exam_attempts` (`user`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `attempt_result_ibfk_3` FOREIGN KEY (`timestamp`) REFERENCES `exam_attempts` (`timestamp`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `attempt_result_ibfk_4` FOREIGN KEY (`choice`) REFERENCES `choice` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+
+-- ----------------------------
+-- Records of attempt_result
+-- ----------------------------
+INSERT INTO `attempt_result` VALUES ('14', '113', '236', '2019-11-10 12:35:40', '1163');
 
 -- ----------------------------
 -- Table structure for `category`
@@ -659,13 +685,13 @@ DROP TABLE IF EXISTS `exam_attempts`;
 CREATE TABLE `exam_attempts` (
   `exam` int(11) NOT NULL,
   `user` int(11) NOT NULL,
-  `end` datetime NOT NULL,
+  `timestamp` datetime NOT NULL,
   `start` datetime DEFAULT NULL,
-  `result` double(10,0) DEFAULT NULL,
-  PRIMARY KEY (`exam`,`user`,`end`),
+  `score` double(10,0) DEFAULT NULL,
+  PRIMARY KEY (`exam`,`user`,`timestamp`),
   KEY `user` (`user`),
   KEY `exam` (`exam`),
-  KEY `end` (`end`),
+  KEY `end` (`timestamp`),
   CONSTRAINT `exam_attempts_ibfk_1` FOREIGN KEY (`exam`) REFERENCES `exam` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `exam_attempts_ibfk_2` FOREIGN KEY (`user`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -673,53 +699,7 @@ CREATE TABLE `exam_attempts` (
 -- ----------------------------
 -- Records of exam_attempts
 -- ----------------------------
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-01 15:09:02', '2019-11-01 15:08:52', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-01 15:15:28', '2019-11-01 15:15:06', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-01 15:27:50', '2019-11-01 15:27:40', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-01 15:28:05', '2019-11-01 15:28:00', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-04 08:36:03', '2019-11-04 08:35:42', '100');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 10:09:45', '2019-11-05 10:09:24', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 17:29:28', '2019-11-05 17:29:18', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 17:37:24', '2019-11-05 17:37:17', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 17:37:47', '2019-11-05 17:37:26', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 17:38:28', '2019-11-05 17:37:59', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 17:40:18', '2019-11-05 17:40:10', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 17:40:54', '2019-11-05 17:40:25', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 17:42:25', '2019-11-05 17:40:25', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 17:42:44', '2019-11-05 17:42:33', '100');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 17:47:19', '2019-11-05 17:47:15', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 17:54:11', '2019-11-05 17:54:05', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 17:55:52', '2019-11-05 17:55:48', '100');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 17:56:29', '2019-11-05 17:56:00', '100');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 17:57:39', '2019-11-05 17:57:09', '100');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 18:06:02', '2019-11-05 18:05:57', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 18:06:36', '2019-11-05 18:06:11', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 18:06:49', '2019-11-05 18:06:46', '100');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 18:07:42', '2019-11-05 18:06:56', '100');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 18:18:28', '2019-11-05 18:18:23', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 18:19:31', '2019-11-05 18:19:25', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 18:20:31', '2019-11-05 18:20:26', '100');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 18:24:11', '2019-11-05 18:24:07', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 18:24:27', '2019-11-05 18:24:23', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 18:32:29', '2019-11-05 18:32:25', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 18:33:12', '2019-11-05 18:32:39', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 18:38:46', '2019-11-05 18:38:37', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 18:39:19', '2019-11-05 18:38:58', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 18:40:31', '2019-11-05 18:40:27', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 18:40:48', '2019-11-05 18:40:43', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 18:49:41', '2019-11-05 18:49:06', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 18:51:45', '2019-11-05 18:51:17', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 18:54:41', '2019-11-05 18:54:34', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 18:55:19', '2019-11-05 18:54:49', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 18:58:27', '2019-11-05 18:58:21', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 18:58:41', '2019-11-05 18:58:36', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 18:58:54', '2019-11-05 18:58:49', '100');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 18:59:08', '2019-11-05 18:59:02', '100');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-05 19:46:20', '2019-11-05 19:46:10', '0');
-INSERT INTO `exam_attempts` VALUES ('114', '236', '2019-11-01 15:18:31', '2019-11-01 15:18:22', '0');
-INSERT INTO `exam_attempts` VALUES ('114', '236', '2019-11-01 15:19:42', '2019-11-01 15:19:33', '0');
-INSERT INTO `exam_attempts` VALUES ('114', '236', '2019-11-01 15:20:20', '2019-11-01 15:19:48', '0');
-INSERT INTO `exam_attempts` VALUES ('114', '236', '2019-11-04 08:36:22', '2019-11-04 08:36:14', '0');
+INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-10 12:35:40', '2019-11-10 12:35:31', '0');
 
 -- ----------------------------
 -- Table structure for `province`
@@ -823,26 +803,6 @@ INSERT INTO `question` VALUES ('302', '112', 'De acordo com o texto, a Ilha de M
 INSERT INTO `question` VALUES ('312', '112', 'A visita de alguns escritores Ã  Ilha deve-se:', null, null, '2', null, null, null, null, null, null);
 INSERT INTO `question` VALUES ('313', '113', 'A opção que melhor completa a frase “O efeito do casamento prematuro nas raparigas é nefasto, na medida em que”', null, null, '2', null, null, null, null, '<p style=\"text-align: justify;\">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent iaculis tincidunt neque eu luctus. Curabitur et aliquam ex, vitae tincidunt metus. Vivamus quis sem neque. Phasellus faucibus sagittis tortor. In odio turpis, malesuada sit amet vulputate in, vulputate a est. Vestibulum malesuada sapien at leo interdum sagittis. Suspendisse potenti. Donec gravida sem tortor, at sollicitudin lorem luctus quis. Mauris egestas ac lorem nec condimentum. Pellentesque tincidunt vulputate quam. In dapibus quis sapien a malesuada. Duis ac ligula nunc. Mauris sollicitudin faucibus quam, sed bibendum mi pharetra sed. Etiam quis turpis lacinia, sollicitudin arcu eget, hendrerit arcu.</p>\r\n<p style=\"text-align: justify;\">Vivamus pellentesque sagittis justo accumsan pellentesque. Fusce ac venenatis sapien, at feugiat lectus. Etiam vehicula ante ut sollicitudin porttitor. Nunc id malesuada mauris, vitae pretium odio. Fusce molestie nec metus a porta. Donec gravida hendrerit lorem sit amet cursus. Suspendisse sit amet dolor sem. Aliquam et lacus tincidunt sem aliquam mattis. Etiam quam dui, sollicitudin et porttitor id, elementum ac urna. Phasellus leo nulla, porttitor at lectus at, laoreet auctor massa. Vivamus dignissim congue augue, eget fringilla ipsum mollis ac. Duis vel neque ac libero feugiat bibendum. Suspendisse aliquam nulla lectus, nec posuere nunc lacinia vitae. Aliquam suscipit dolor ut libero lobortis vulputate. Praesent eu augue porttitor, convallis tellus at, porttitor sem. Morbi commodo lacinia nisl, vel congue est ullamcorper id.</p>\r\n<p style=\"text-align: justify;\">Mauris sed mattis purus. Quisque viverra arcu id tincidunt posuere. Aenean at sem rutrum, consequat nibh tincidunt, elementum justo. Donec varius ante quis volutpat posuere. Morbi eu ullamcorper tortor, at aliquet nisi. Proin aliquam augue sit amet urna rhoncus posuere. Sed turpis purus, condimentum quis finibus sed, lobortis semper eros. Donec non sem elementum, ullamcorper ligula vitae, finibus ante. Curabitur porta maximus dolor. Praesent id egestas nibh. Donec ultrices lectus vel nibh laoreet cursus quis vel lacus. Suspendisse quis nulla egestas, consequat magna at, rhoncus est. Ut eleifend at neque sit amet venenatis. Maecenas nec nisi ut sem tincidunt tempus a id risus.</p>\r\n<p style=\"text-align: justify;\">Nullam id tortor varius, commodo odio vel, pharetra erat. Fusce dui lorem, iaculis eget porttitor ac, faucibus non quam. Proin feugiat elit sed elementum accumsan. Nulla porttitor interdum arcu, nec iaculis ligula vulputate in. Maecenas sit amet rutrum ante. In suscipit, est vitae finibus pretium, velit lacus bibendum urna, at elementum erat purus eu quam. Aenean dolor ipsum, aliquam quis congue et, euismod id diam. Mauris eleifend cursus mauris, vel vehicula dolor porttitor id. Nam et accumsan velit. In sed lobortis mauris. In suscipit id diam in volutpat. Integer volutpat enim id bibendum aliquet. Donec fermentum elementum arcu in tincidunt. Morbi viverra massa quis elit dapibus ullamcorper.</p>', null);
 INSERT INTO `question` VALUES ('314', '114', '$$\\sqrt {{{(2 - \\sqrt 5 )}^2}} $$ É igual a:', null, null, '2', null, null, null, null, null, null);
-
--- ----------------------------
--- Table structure for `result`
--- ----------------------------
-DROP TABLE IF EXISTS `result`;
-CREATE TABLE `result` (
-  `exam` int(11) NOT NULL DEFAULT '0',
-  `user` int(11) NOT NULL DEFAULT '0',
-  `timestamp` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `choice` int(11) DEFAULT NULL,
-  PRIMARY KEY (`exam`,`user`,`timestamp`),
-  KEY `user` (`user`),
-  KEY `timestamp` (`timestamp`),
-  KEY `choice` (`choice`),
-  CONSTRAINT `result_ibfk_4` FOREIGN KEY (`choice`) REFERENCES `choice` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- ----------------------------
--- Records of result
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for `role`

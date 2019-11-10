@@ -25,7 +25,7 @@ import javax.persistence.Table;
 
 /**
  *
- * @author user
+ * @author createdby
  */
 @Entity
 @Table(name = "question")
@@ -53,7 +53,7 @@ public class Question implements Serializable {
     private BigInteger timemodified;
     @Lob
     @Column(name = "caseofstudy")
-    private String caseOfStudy;
+    private String caseofstudy;
     @Column(name = "youtubeurl")
     private String youtubeurl;
     @JoinColumn(name = "qtype", referencedColumnName = "id")
@@ -126,12 +126,12 @@ public class Question implements Serializable {
         this.timemodified = timemodified;
     }
 
-    public String getCaseOfStudy() {
-        return caseOfStudy;
+    public String getCaseofstudy() {
+        return caseofstudy;
     }
 
-    public void setCaseOfStudy(String caseOfStudy) {
-        this.caseOfStudy = caseOfStudy;
+    public void setCaseofstudy(String caseofstudy) {
+        this.caseofstudy = caseofstudy;
     }
 
     public String getYoutubeurl() {

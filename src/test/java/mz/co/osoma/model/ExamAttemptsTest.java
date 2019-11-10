@@ -34,11 +34,11 @@ public class ExamAttemptsTest {
 //    }
 //
 //    @Test
-//    public void getResult() {
+//    public void getScore() {
 //        long result = 200;
 //        ExamAttempts examAttempts = new ExamAttempts();
-//        examAttempts.setResult(result);
-//        assertEquals(result,(long)examAttempts.getResult());
+//        examAttempts.setScore(result);
+//        assertEquals(result,(long)examAttempts.getScore());
 //    }
 
     @Test

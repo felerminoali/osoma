@@ -7,6 +7,8 @@ package mz.co.osoma.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -15,6 +17,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -36,14 +39,20 @@ public class ExamAttempts implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date start;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "result")
-    private Double result;
+    @Column(name = "score")
+    private Double score;
     @JoinColumn(name = "exam", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Exam exam;
     @JoinColumn(name = "user", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private User user;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "examAttempts", fetch = FetchType.LAZY)
+    private List<AttemptResult> attemptResultList;
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "examAttempts1", fetch = FetchType.LAZY)
+//    private List<AttemptResult> attemptResultList1;
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "examAttempts2", fetch = FetchType.LAZY)
+//    private List<AttemptResult> attemptResultList2;
 
     public ExamAttempts() {
     }
@@ -52,8 +61,8 @@ public class ExamAttempts implements Serializable {
         this.examAttemptsPK = examAttemptsPK;
     }
 
-    public ExamAttempts(int exam, int user, Date end) {
-        this.examAttemptsPK = new ExamAttemptsPK(exam, user, end);
+    public ExamAttempts(int exam, int user, Date timestamp) {
+        this.examAttemptsPK = new ExamAttemptsPK(exam, user, timestamp);
     }
 
     public ExamAttemptsPK getExamAttemptsPK() {
@@ -72,12 +81,12 @@ public class ExamAttempts implements Serializable {
         this.start = start;
     }
 
-    public Double getResult() {
-        return result;
+    public Double getScore() {
+        return score;
     }
 
-    public void setResult(Double result) {
-        this.result = result;
+    public void setScore(Double score) {
+        this.score = score;
     }
 
     public Exam getExam() {
@@ -95,6 +104,15 @@ public class ExamAttempts implements Serializable {
     public void setUser(User user) {
         this.user = user;
     }
+
+    public List<AttemptResult> getAttemptResultList() {
+        return attemptResultList;
+    }
+
+    public void setAttemptResultList(List<AttemptResult> attemptResultList) {
+        this.attemptResultList = attemptResultList;
+    }
+
 
     @Override
     public int hashCode() {
