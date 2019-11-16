@@ -217,6 +217,7 @@
 					<!--</table>-->
 				<!--</div>-->
 			<!--</div>-->
+			<p id="demo"></p>
 		</div>
 	</div>
 
@@ -226,6 +227,42 @@
         $(document).ready(function() {
             $("#myModal").modal();
         });
+
+        // var xmlhttp = new XMLHttpRequest();
+        // xmlhttp.onreadystatechange = function() {
+        //     if (this.readyState == 4 && this.status == 200) {
+        //         var myObj = JSON.parse(this.responseText);
+        //         document.getElementById("demo").innerHTML = myObj.name;
+        //     }
+        // };
+        // xmlhttp.open("GET", "http://41.94.238.10:8080/esira/students/all", true);
+        // xmlhttp.send();
+
+
+        // test();
+
+        function test() {
+
+            var url = "http://41.94.238.10:8080/esira/students/all";
+
+            $.ajax({
+                url: url,
+                method: "GET",
+                // data: ({type: type, value: value}),
+                async: false,
+                dataType: "json",
+                success: function (data) {
+                    alert("ola");
+                },
+                error: function(xhr, textStatus, error){
+                    // alert('An error has occurred ::from save answer ajax call --> ' + error);
+                    console.log(xhr.statusText);
+                    console.log(textStatus);
+                    console.log(error);
+                }
+            });
+            return score;
+        }
 
 	</script>
 </th:block>

@@ -1972,3 +1972,7 @@ body {
 
 .tableFixHead          { overflow-y: auto; height: 100px; }
 .tableFixHead thead th { position: sticky; top: 0; }
+
+.media {
+    margin-top: 0px;
+}

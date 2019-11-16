@@ -77,32 +77,26 @@
             $('#tblhistory').DataTable({
                 "scrollY": "50vh",
                 "scrollCollapse": true,
+                "searching": false,
+                "language": {
+                    "lengthMenu": "Mostrar _MENU_ itens por página",
+                    "zeroRecords": "Não foi encontrado nenhum registo",
+                    "info": "Mostrando página _PAGE_ de _PAGES_",
+                    "infoEmpty": "Nenhum registo encontrado",
+                    "infoFiltered": "(fitrados apartir _MAX_ dos registos)",
+                    "paginate": {
+                        "first":      "Primeiro",
+                        "last":       "Último",
+                        "next":       "Proximo",
+                        "previous":   "Anterior"
+                    },
+                    "search":         "Pesquisar:"
+                }
             });
             $('.dataTables_length').addClass('bs-select');
         });
 
-        function test() {
 
-            var url = "http://192.168.1.130:8080//esira/students/all";
-
-            $.ajax({
-                url: url,
-                method: "GET",
-                // data: ({type: type, value: value}),
-                async: false,
-                dataType: "json",
-                success: function (data) {
-                    alert("ola");
-                },
-                error: function(xhr, textStatus, error){
-                    // alert('An error has occurred ::from save answer ajax call --> ' + error);
-                    console.log(xhr.statusText);
-                    console.log(textStatus);
-                    console.log(error);
-                }
-            });
-            return score;
-        }
     </script>
 
 

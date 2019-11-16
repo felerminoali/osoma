@@ -284,7 +284,7 @@ public class UBSController {
                 correct++;
             }
 
-            Choice choice = crudService.get(Choice.class, Integer.parseInt((String) session.getAttribute(q.getId() + "")));
+            Choice choice = (session.getAttribute(q.getId() + "")) != null ?  crudService.get(Choice.class, Integer.parseInt((String) session.getAttribute(q.getId() + ""))) : null;
 
             if (choice != null) {
                 AttemptResult attemptResult = new AttemptResult();
@@ -311,7 +311,7 @@ public class UBSController {
         ModelAndView modelo = new ModelAndView("exam-history");
 
         User user = crudService.findEntByJPQuery("FROM User u WHERE u.email = '" + ((CustomUserDetails) userDetails).getEmail() + "'", null);
-        List<ExamAttempts> examAttempts = crudService.findByJPQuery("SELECT e FROM ExamAttempts e where e.user.id = " + user.getId()+" order by e.examAttemptsPK.timestamp", null);;
+        List<ExamAttempts> examAttempts = crudService.findByJPQuery("SELECT e FROM ExamAttempts e where e.user.id = " + user.getId()+" ORDER BY e.examAttemptsPK.timestamp DESC", null);;
 
         modelo.addObject("examAttempts", examAttempts);
         modelo.addObject("user", user);

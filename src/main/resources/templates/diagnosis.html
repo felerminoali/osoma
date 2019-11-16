@@ -83,7 +83,7 @@
                                                 <div class="media">
                                                     <div class="media-left" th:if="${questions.image}!=null">
                                                         <a href="#">
-                                                            <img class="media-object" src="${questions.image}" alt="${questions.image}">
+                                                            <img class="media-object" th:src="${questions.image}" alt="questions.image">
                                                         </a>
                                                     </div>
                                                     <div class="media-body">
@@ -133,15 +133,27 @@
                                     <div class="answersDiv">
                                         <table width="100%">
                                             <tr th:each="alternative: ${choices}">
-                                                <div class="clear"></div>
-                                                <div class="ans_select">
-                                                    <input type="radio" th:id="${'q_'+questions.id+'_'+alternative.id}"
-                                                           name="q_choice" th:checked="${alternative.id == sessionAnswer}">
-                                                </div>
-                                                <div class="ans_content editor">
-                                                    <label th:for="${'q_'+questions.id+'_'+alternative.id}">
-                                                        <span th:text="${alternative.answer}">.</span>
-                                                    </label>
+
+                                                <div class="media">
+
+                                                    <div class="media-body">
+                                                        <div class="clear"></div>
+                                                        <div class="ans_select">
+                                                            <input type="radio" th:id="${'q_'+questions.id+'_'+alternative.id}"
+                                                                   name="q_choice" th:checked="${alternative.id == sessionAnswer}">
+                                                        </div>
+                                                        <div class="ans_content editor">
+                                                            <label th:for="${'q_'+questions.id+'_'+alternative.id}">
+                                                                <span th:text="${alternative.answer}">.</span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="media-left pull-left" th:if="${alternative.image}!=null">
+                                                        <a href="#">
+                                                            <img class="media-object" th:src="${alternative.image}" alt="alternative.image">
+                                                        </a>
+                                                    </div>
                                                 </div>
                                             </tr>
                                         </table>
