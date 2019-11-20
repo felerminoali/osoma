@@ -67,8 +67,7 @@ public class UBSController {
             model.addObject("exame", exam);
 
             User user = crudService.findEntByJPQuery("FROM User u WHERE u.email = '" + ((CustomUserDetails) userDetails).getEmail() + "'", null);
-            List<ExamAttempts> examAttempts = crudService.findByJPQuery("SELECT e FROM ExamAttempts e where e.user.id = " + user.getId() + " and e.exam.id=" + id, null);
-            ;
+            List<ExamAttempts> examAttempts = crudService.findByJPQuery("SELECT e FROM ExamAttempts e where e.user.id = " + user.getId() + " and e.exam.id=" + id, null);;
 
 
             boolean attemptAllowed = true;
@@ -178,7 +177,6 @@ public class UBSController {
             modelo.addObject("questions", questions);
             modelo.addObject("exam", exam);
             modelo.addObject("qtdquestion", questions.size());
-//            modelo.addObject("start", start);
             Locale locale = new Locale("pt", "BR");
             Calendar c = Calendar.getInstance(locale);
             SimpleDateFormat df = new SimpleDateFormat("dd MMM yyyy, HH:mm:ss", locale);

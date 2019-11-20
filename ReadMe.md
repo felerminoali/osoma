@@ -108,3 +108,9 @@ Qualquer dificuldade que encontrar para correr o projeto, consultar a equipe ant
                     Guerzeneldo Marcelino       | gfernando@unilurio.ac.mz
                     Elton Gimo                  | egimo@unilurio.ac.mz
                     Caudencia Chereria          | cchereria@unilurio.ac.mz
+                    
+                    
+ Heroku: felerminoali@outlook.com
+ CLEARDB_DATABASE_URL: mysql://b8b80c31776c4a:28db730f@us-cdbr-iron-east-05.cleardb.net/heroku_c7035568cd423c2?recon
+ nect=true
+

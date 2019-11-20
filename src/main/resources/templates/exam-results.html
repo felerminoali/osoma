@@ -108,14 +108,25 @@
                                             <div class="clear"></div>
                                         </div>
                                         <div class="col600 qsholder editor">
-                                            <!--<p>-->
-                                            <dl id="question_div">
-                                                <dd class="q_question">
-                                                        <span style="display: inline;"
-                                                              th:text="${question.question}"></span>
-                                                </dd>
-                                            </dl>
-                                            <!--</p>-->
+                                            <div id="question_div">
+
+                                                <div class="media">
+                                                    <div class="media-left" th:if="${question.image}!=null">
+                                                        <a href="#">
+                                                            <img class="media-object" th:src="${question.image}" alt="questions.image">
+                                                        </a>
+                                                    </div>
+
+                                                    <div class="media-body">
+
+                                                        <h4 class="media-heading"><span style="display: inline;" th:text="${question.question}">:</span></h4>
+                                                        <br/>
+                                                        <div class="span6 pull-left" th:if="${question.caseofstudy}!=null"><div class="casestudy" th:utext="${shortText}"></div>
+                                                        <!-- modal -->
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                         </div>
                                         <div class="dotted"></div>
                                         <table width="100%">
@@ -141,6 +152,13 @@
                                                                   th:text="${choice.answer}"></span>
                                                         </label>
 
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="pull-left" th:if="${choice.image}!=null">
+                                                        <a href="#">
+                                                            <img class="media-object" th:src="${choice.image}" alt="alternative.image">
+                                                        </a>
                                                     </div>
                                                 </td>
                                             </tr>
