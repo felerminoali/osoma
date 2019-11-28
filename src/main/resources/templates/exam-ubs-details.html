@@ -19,18 +19,11 @@
 
             <!--Main content-->
             <div class="col-md-7" style="background-color: white; border: 1px solid #c2cbd4;">
-
                 <!--Exames Details-->
                 <div class="row">
-
-
                     <div class="col-sm-12 col-md-12">
-
-
                         <div class="page-header">
-
                             <fieldset>
-
                                 <legend>
                                     <h1 th:text="${exame.description}">  </h1>
                                     <small th:text="${university.shortname}+' ('+${exame.examYear}+')'">
@@ -43,15 +36,14 @@
 
 
                                 <div>
-
                                     <h4>
                                         <p>
                                             <span class="glyphicon glyphicon-question-sign"></span>
-                                            <span th:text="${exame.noquestion}"></span>
+                                            <span th:text="${nrQuestions}"></span>
                                             &nbsp;
                                             <span class="glyphicon glyphicon-time"></span>
-                                            <span th:text="${exame.duration}"></span>
-                                            Minutos
+                                            <span th:if="${exame.duration}<60" th:text="${exame.duration+' Segundos'}"></span>
+                                            <span th:if="${exame.duration}>=60" th:text="${(exame.duration)/60+' Minutos'}"></span>
                                         </p>
                                     </h4>
                                 </div>

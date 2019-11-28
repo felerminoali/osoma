@@ -121,8 +121,37 @@
 
                                                         <h4 class="media-heading"><span style="display: inline;" th:text="${question.question}">:</span></h4>
                                                         <br/>
-                                                        <div class="span6 pull-left" th:if="${question.caseofstudy}!=null"><div class="casestudy" th:utext="${shortText}"></div>
-                                                        <!-- modal -->
+
+                                                        <br/>
+
+
+                                                        <div class="span6 pull-left" th:if="${question.caseofstudy}!=null">
+                                                            <div class="casestudy" th:utext="${T(mz.co.osoma.service.Helper).shortenHTMLText(question.caseofstudy)+T(mz.co.osoma.service.Helper).linkModal()}"></div>
+
+                                                            <div class="modal fade" id="myModal" tabindex="-1"
+                                                                 role="dialog" aria-labelledby="myModalLabel">
+                                                                <div class="modal-dialog modal-lg" role="document">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <button type="button" class="close"
+                                                                                    data-dismiss="modal"
+                                                                                    aria-label="Close"><span
+                                                                                    aria-hidden="true">&times;</span>
+                                                                            </button>
+                                                                            <h4 class="modal-title" id="myModalLabel">
+                                                                                Texto</h4>
+                                                                        </div>
+                                                                        <div class="modal-body" th:utext="${question.caseofstudy}"></div>
+                                                                        <div class="modal-footer">
+                                                                            <button type="button"
+                                                                                    class="btn btn-default"
+                                                                                    data-dismiss="modal">Close
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>

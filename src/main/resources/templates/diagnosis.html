@@ -30,7 +30,11 @@
 
                             <script type="text/javascript" src="/js/online-test.js"></script>
 
-                            <div id="status"><strong>Tempo remanescente: </strong>00:00:10<br>
+                            <div id="status">
+                                <!--<input type="hidden" id="duration" th:value="${exam.duration}"/>-->
+                                <!--<strong th:text="${'Tempo remanescente: '+T(mz.co.osoma.service.Helper).convertSecondsToTimeFormat(exam.duration)}"> </strong>-->
+                                <strong> Tempo remanescente: 00:00:20</strong>
+                                <br/>
                                 <div class="progress">
                                     <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="70"
                                          aria-valuemin="0" aria-valuemax="100" style="width:70%"></div>
@@ -39,6 +43,8 @@
 
                             <script type="text/javascript">
                                 var maxSec = "20";
+                                // var maxSec = $("#duration").val();
+
                             </script>
 
                             <script type="text/javascript">
@@ -71,9 +77,14 @@
                                         <div class="clear"></div>
                                     </div>
                                     <div class="col600 qsholder editor">
-
+                                        <p>
+                                        </p>
                                         <dl id="question_div">
                                             <dd class="q_question">
+
+                                                <!--<div class="span6 pull-left">-->
+                                                <!--<span style="display: inline;" th:text="${questions.question}">:</span>-->
+                                                <!--</div>-->
 
                                                 <div class="media">
                                                     <div class="media-left" th:if="${questions.image}!=null">
@@ -114,6 +125,8 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
+
+
                                                         </div>
                                                     </div>
                                                 </div>
@@ -142,12 +155,11 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="media-left pull-left" th:if="${alternative.image}!=null">
+                                                    <div class="media-right" th:if="${alternative.image}!=null">
                                                         <a href="#">
                                                             <img class="media-object" th:src="${alternative.image}" alt="alternative.image">
                                                         </a>
                                                     </div>
-
                                                 </div>
                                             </tr>
                                         </table>
@@ -184,10 +196,6 @@
                         </form>
 
                         <script type="text/javascript">
-
-
-
-
 
                             if ($('.t_finish').length > 0) {
                                 ($('.t_finish').click(function () {

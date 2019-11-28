@@ -130,8 +130,6 @@ function saveAnswer() {
     var id = q_choice.attr('id');
     var item = id.split('_');
 
-    // alert("enrei");
-    
     $.ajax({
         type: 'POST',
         url: '/mod/save_answer',

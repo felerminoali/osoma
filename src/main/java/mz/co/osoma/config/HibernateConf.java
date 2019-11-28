@@ -46,9 +46,9 @@ public class HibernateConf {
 //        dataSource.setPassword("637b79e7");
 
 
-        dataSource.setUrl("jdbc:mysql://us-cdbr-iron-east-05.cleardb.net:3306/heroku_c7035568cd423c2");
-        dataSource.setUsername("b8b80c31776c4a");
-        dataSource.setPassword("28db730f");
+//        dataSource.setUrl("jdbc:mysql://us-cdbr-iron-east-05.cleardb.net:3306/heroku_c7035568cd423c2");
+//        dataSource.setUsername("b8b80c31776c4a");
+//        dataSource.setPassword("28db730f");
 
 
 

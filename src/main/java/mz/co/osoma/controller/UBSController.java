@@ -2,6 +2,7 @@ package mz.co.osoma.controller;
 
 import mz.co.osoma.model.*;
 import mz.co.osoma.service.CRUDService;
+import mz.co.osoma.service.Helper;
 import org.hibernate.Session;
 import org.jsoup.Jsoup;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,6 +76,7 @@ public class UBSController {
 //                attemptAllowed = false;
 //            }
 
+            model.addObject("nrQuestions", exam.getQuestionList().size());
             model.addObject("attemptAllowed", attemptAllowed);
 
         } else {
@@ -86,34 +88,31 @@ public class UBSController {
     }
 
     @RequestMapping(value = "/online-test", method = RequestMethod.GET)
-    public ModelAndView examDiagnosis(@RequestParam("id") int exam, @RequestParam("question") Optional<Integer> pg, HttpSession session) {
+    public ModelAndView examDiagnosis(@RequestParam("id") int examID, @RequestParam("question") Optional<Integer> pg, HttpSession session) {
         ModelAndView modelo = new ModelAndView("diagnosis");
-        List<Question> questions = crudService.findByJPQuery("SELECT e FROM Question e where e.exam = " + exam, null);
+        List<Question> questions = crudService.findByJPQuery("SELECT e FROM Question e where e.exam = " + examID, null);
 
-        if (questions != null) {
-            cleanSession(session, questions);
-        }
-
-        int nrQuestion = 0;
-        modelo.addObject("id", exam);
-
-
-        if (questions != null && questions.size() > 0) {
-            if (pg.isPresent()) {
-                nrQuestion = pg.get();
-            }
-        } else if (questions == null) {
+        if (questions == null) {
             return new ModelAndView("exam-noquestion");
         }
 
-        if (questions.size() > nrQuestion) {
-            Question question = questions.get(nrQuestion);
+        // clean case has has some response already
+        cleanSession(session, questions);
+
+        modelo.addObject("id", examID);
+        Exam exame = crudService.get(Exam.class, examID);
+        modelo.addObject("exam", exame);
+
+        int index = (pg.isPresent()) ? pg.get() : 0 ;
+        System.out.println("index "+index+" ------------>"+exame.getId());
+
+        if (questions.size() > index) {
+            Question question = questions.get(index);
 
             String htmlCaseOfStudy = question.getCaseofstudy();
-
             if (htmlCaseOfStudy != null) {
-                String noHtmlCaseOfStudy = Jsoup.parse(htmlCaseOfStudy).text();
-                String shortText = noHtmlCaseOfStudy.substring(0, 120) + " ... " + "<a href=\"#\" data-toggle=\"modal\" data-target=\"#myModal\">Monstrar mais</a>";
+                String shortText = Helper.shortenHTMLText(htmlCaseOfStudy);
+                shortText += Helper.linkModal();
                 modelo.addObject("shortText", shortText);
                 modelo.addObject("htmlCaseOfStudy", htmlCaseOfStudy);
             }
@@ -122,7 +121,6 @@ public class UBSController {
                     crudService.findByJPQuery("SELECT e FROM Choice e, Question q where e.question = q.id and  q.id = " + question.getId(), null);
 
             Collections.shuffle(choices);
-
             modelo.addObject("questions", question);
             modelo.addObject("choices", choices);
 
@@ -134,7 +132,7 @@ public class UBSController {
             }
 
             modelo.addObject("quantidadeExames", questions.size());
-            modelo.addObject("next", nrQuestion + 1);
+            modelo.addObject("next", index + 1);
             Locale l = new Locale("pt", "BR");
             Calendar c = Calendar.getInstance(l);
             SimpleDateFormat df = new SimpleDateFormat("dd MMM yyyy, HH:mm:ss", l);

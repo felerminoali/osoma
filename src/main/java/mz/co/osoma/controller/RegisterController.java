@@ -2,6 +2,8 @@ package mz.co.osoma.controller;
 
 import mz.co.osoma.model.*;
 import mz.co.osoma.service.CRUDService;
+import mz.co.osoma.service.Email;
+import mz.co.osoma.service.SuccessfulRegisted;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -78,7 +80,9 @@ public class RegisterController {
 
         crudService.Save(user);
 
-
+        Email email = new Email();
+//        email.setTo(user.getEmail());
+        email.send(new SuccessfulRegisted(user));
 
         model.addObject("user",user);
         return model;
