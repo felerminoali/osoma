@@ -68,7 +68,8 @@ public class UBSController {
             model.addObject("exame", exam);
 
             User user = crudService.findEntByJPQuery("FROM User u WHERE u.email = '" + ((CustomUserDetails) userDetails).getEmail() + "'", null);
-            List<ExamAttempts> examAttempts = crudService.findByJPQuery("SELECT e FROM ExamAttempts e where e.user.id = " + user.getId() + " and e.exam.id=" + id, null);;
+            List<ExamAttempts> examAttempts = crudService.findByJPQuery("SELECT e FROM ExamAttempts e where e.user.id = " + user.getId() + " and e.exam.id=" + id, null);
+            ;
 
 
             boolean attemptAllowed = true;
@@ -89,7 +90,7 @@ public class UBSController {
 
     @RequestMapping(value = "/online-test", method = RequestMethod.GET)
     public ModelAndView examDiagnosis(@RequestParam("id") int examID, @RequestParam("question") Optional<Integer> pg, HttpSession session) {
-        ModelAndView modelo = new ModelAndView("diagnosis");
+        ModelAndView model = new ModelAndView("diagnosis");
         List<Question> questions = crudService.findByJPQuery("SELECT e FROM Question e where e.exam = " + examID, null);
 
         if (questions == null) {
@@ -99,50 +100,51 @@ public class UBSController {
         // clean case has has some response already
         cleanSession(session, questions);
 
-        modelo.addObject("id", examID);
-        Exam exame = crudService.get(Exam.class, examID);
-        modelo.addObject("exam", exame);
+        model.addObject("id", examID);
+        Exam exam = crudService.get(Exam.class, examID);
+        model.addObject("exam", exam);
 
-        int index = (pg.isPresent()) ? pg.get() : 0 ;
-        System.out.println("index "+index+" ------------>"+exame.getId());
+        int index = (pg.isPresent()) ? pg.get() : 0;
 
-        if (questions.size() > index) {
-            Question question = questions.get(index);
-
-            String htmlCaseOfStudy = question.getCaseofstudy();
-            if (htmlCaseOfStudy != null) {
-                String shortText = Helper.shortenHTMLText(htmlCaseOfStudy);
-                shortText += Helper.linkModal();
-                modelo.addObject("shortText", shortText);
-                modelo.addObject("htmlCaseOfStudy", htmlCaseOfStudy);
-            }
-
-            List<Choice> choices =
-                    crudService.findByJPQuery("SELECT e FROM Choice e, Question q where e.question = q.id and  q.id = " + question.getId(), null);
-
-            Collections.shuffle(choices);
-            modelo.addObject("questions", question);
-            modelo.addObject("choices", choices);
-
-            if (session != null) {
-                if (session.getAttribute(question.getId().toString()) != null) {
-                    int answerId = Integer.parseInt((String) session.getAttribute(question.getId().toString()));
-                    modelo.addObject("sessionAnswer", answerId);
-                }
-            }
-
-            modelo.addObject("quantidadeExames", questions.size());
-            modelo.addObject("next", index + 1);
-            Locale l = new Locale("pt", "BR");
-            Calendar c = Calendar.getInstance(l);
-            SimpleDateFormat df = new SimpleDateFormat("dd MMM yyyy, HH:mm:ss", l);
-            modelo.addObject("starttimestamp", df.format(c.getTime()));
-        } else {
-            modelo.addObject("next", -1);
-            modelo.addObject("quantidadeExames", questions.size());
+        // end of list
+        if (index > questions.size()) {
+            model.addObject("next", -1);
+            model.addObject("quantidadeExames", questions.size());
             return new ModelAndView("exam-results");
         }
-        return modelo;
+
+        Question question = questions.get(index);
+
+        String htmlCaseOfStudy = question.getCaseofstudy();
+        if (htmlCaseOfStudy != null) {
+            String shortText = Helper.shortenHTMLText(htmlCaseOfStudy);
+            shortText += Helper.linkModal();
+            model.addObject("shortText", shortText);
+            model.addObject("htmlCaseOfStudy", htmlCaseOfStudy);
+        }
+
+        List<Choice> choices =
+                crudService.findByJPQuery("SELECT e FROM Choice e, Question q where e.question = q.id and  q.id = " + question.getId(), null);
+
+        Collections.shuffle(choices);
+        model.addObject("questions", question);
+        model.addObject("choices", choices);
+
+        if (session != null) {
+            if (session.getAttribute(question.getId().toString()) != null) {
+                int answerId = Integer.parseInt((String) session.getAttribute(question.getId().toString()));
+                model.addObject("sessionAnswer", answerId);
+            }
+        }
+
+        model.addObject("quantidadeExames", questions.size());
+        model.addObject("next", index + 1);
+        Locale l = new Locale("pt", "BR");
+        Calendar c = Calendar.getInstance(l);
+        SimpleDateFormat df = new SimpleDateFormat("dd MMM yyyy, HH:mm:ss", l);
+        model.addObject("starttimestamp", df.format(c.getTime()));
+
+        return model;
     }
 
     private void cleanSession(HttpSession session, List<Question> questions) {
@@ -156,7 +158,7 @@ public class UBSController {
     public ModelAndView resultPost(@AuthenticationPrincipal final UserDetails userDetails, HttpServletRequest request, HttpSession session, @RequestParam("exam") Optional<Integer> idExam, @RequestParam("timestamp")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime timestamp) {
 
-        ModelAndView modelo = new ModelAndView("exam-results");
+        ModelAndView model = new ModelAndView("exam-results");
         if (idExam.isPresent()) {
 
             Exam exam = crudService.get(Exam.class, idExam.get());
@@ -164,21 +166,20 @@ public class UBSController {
 
             try {
                 updateSession(idExam.get(), user.getId(), timestamp, session);
-            }catch (Exception e){
-
+            } catch (Exception e) {
 
             }
 
 
             List<Question> questions = crudService.findByJPQuery("SELECT e FROM Question e where e.exam = " + idExam.get(), null);
 
-            modelo.addObject("questions", questions);
-            modelo.addObject("exam", exam);
-            modelo.addObject("qtdquestion", questions.size());
+            model.addObject("questions", questions);
+            model.addObject("exam", exam);
+            model.addObject("qtdquestion", questions.size());
             Locale locale = new Locale("pt", "BR");
             Calendar c = Calendar.getInstance(locale);
             SimpleDateFormat df = new SimpleDateFormat("dd MMM yyyy, HH:mm:ss", locale);
-            modelo.addObject("finish", timestamp);
+            model.addObject("finish", timestamp);
 
             int correct = 0;
 
@@ -195,19 +196,19 @@ public class UBSController {
             }
 
             double score = ((double) correct / questions.size()) * 100.00f;
-            modelo.addObject("percentage", score);
+            model.addObject("percentage", score);
 
-            return modelo;
+            return model;
         }
-        modelo = new ModelAndView("error");
-        return modelo;
+        model = new ModelAndView("error");
+        return model;
     }
 
 
     public void updateSession(int idExam, int idUser, LocalDateTime timestamp, HttpSession session) {
 
 
-        Date date = Date.from( timestamp.atZone( ZoneId.systemDefault()).toInstant());
+        Date date = Date.from(timestamp.atZone(ZoneId.systemDefault()).toInstant());
 
         Map<String, Object> par = new HashMap<String, Object>();
         par.put("exam", idExam);
@@ -218,8 +219,8 @@ public class UBSController {
 
         List<AttemptResult> attemptResults = crudService.findByJPQuery("SELECT a FROM AttemptResult a WHERE  a.examAttempts.examAttemptsPK.exam = :exam and  a.examAttempts.examAttemptsPK.user = :user and a.examAttempts.examAttemptsPK.timestamp = :timestamp", par);
 
-        if(attemptResults != null){
-            for (AttemptResult attemptResult:attemptResults){
+        if (attemptResults != null) {
+            for (AttemptResult attemptResult : attemptResults) {
                 session.setAttribute(attemptResult.getChoice().getQuestion().getId().toString(), attemptResult.getChoice().getId().toString());
             }
         }
@@ -280,7 +281,7 @@ public class UBSController {
                 correct++;
             }
 
-            Choice choice = (session.getAttribute(q.getId() + "")) != null ?  crudService.get(Choice.class, Integer.parseInt((String) session.getAttribute(q.getId() + ""))) : null;
+            Choice choice = (session.getAttribute(q.getId() + "")) != null ? crudService.get(Choice.class, Integer.parseInt((String) session.getAttribute(q.getId() + ""))) : null;
 
             if (choice != null) {
                 AttemptResult attemptResult = new AttemptResult();
@@ -307,7 +308,8 @@ public class UBSController {
         ModelAndView modelo = new ModelAndView("exam-history");
 
         User user = crudService.findEntByJPQuery("FROM User u WHERE u.email = '" + ((CustomUserDetails) userDetails).getEmail() + "'", null);
-        List<ExamAttempts> examAttempts = crudService.findByJPQuery("SELECT e FROM ExamAttempts e where e.user.id = " + user.getId()+" ORDER BY e.examAttemptsPK.timestamp DESC", null);;
+        List<ExamAttempts> examAttempts = crudService.findByJPQuery("SELECT e FROM ExamAttempts e where e.user.id = " + user.getId() + " ORDER BY e.examAttemptsPK.timestamp DESC", null);
+        ;
 
         modelo.addObject("examAttempts", examAttempts);
         modelo.addObject("user", user);
@@ -342,7 +344,7 @@ public class UBSController {
         return new SimpleDateFormat("dd MMM yyyy, HH:mm:ss", locale).parse(strDate);
     }
 
-    private String dateToString(Date date){
+    private String dateToString(Date date) {
         DateFormat format = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
         return format.format(date);
     }

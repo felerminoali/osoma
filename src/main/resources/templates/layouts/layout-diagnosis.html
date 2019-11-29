@@ -14,77 +14,69 @@
     <!--    awesome font-->
     <link rel="stylesheet" href="/assets/bootstrap/css/font-awesome.css">
     <!-- Custom Theme files -->
-    <!--<link href="css/style.css" rel='stylesheet' type='text/css'/>-->
     <link rel="stylesheet" href="/assets/bootstrap/css/style.css">
+    <link rel="stylesheet" href="/assets/datatables/datatables.min.css">
+
     <!--    web fonts-->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800,700' rel='stylesheet' type='text/css'>
     <link rel="shortcut icon" href="/images/fav.png"/>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="/js/jquery.min.js"></script>
+
+
     <!--    bootstrap js-->
     <script type="text/javascript" src="/assets/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/assets/datatables/datatables.min.js"></script>
     <script type="text/javascript" src="/js/exams-page.js"></script>
-    <!--<script type="text/javascript" src="/js/MathJax.js"></script>-->
+
+    <!--MathJax-->
+    <script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+
+
     <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
     <script type="text/javascript" src="/js/online-test-core.js"></script>
     <script type="text/javascript" src="/js/online-test.js"></script>
 
+    <!-- Latest compiled and minified CSS -->
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">-->
+
+    <!-- Optional theme -->
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">-->
+
+    <!-- Latest compiled and minified JavaScript -->
+    <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>-->
 
 </head>
 
 <body>
 <!-- Header -->
-<nav class="navbar navbar-fixed-top navbar-custom">
-    <div class="container">
-        <div class="navbar-header">
-
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
-                    aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <div class="logo">
-                <a href="/"><img src="/images/logo2.png" title="logo"/></a>
+<div th:replace="fragments/header-diagnosis :: header">
+    <!-- ============================================================================ -->
+    <!-- This content is only used for static prototyping purposes (natural templates)-->
+    <!-- and is therefore entirely optional, as this markup fragment will be included -->
+    <!-- from "fragments/header.html" at runtime.                                     -->
+    <!-- ============================================================================ -->
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Static header</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Home</a></li>
+                </ul>
             </div>
         </div>
-
-        <!--<div id="navbar" class="navbar-collapse collapse">-->
-            <!--<ul class="nav navbar-nav navbar-right">-->
-
-                <!--<li>-->
-                    <!--<a href="/login">-->
-                        <!--<i class="fa fa-user" aria-hidden="true"></i>-->
-                        <!--Login                        </a>-->
-
-                <!--</li>-->
-
-                <!--<li>-->
-                    <!--<a class="change-lang" href="#" hreflang="pt" rel="en_pt">-->
-                        <!--<img src="/images/lang/pt.png" alt="PT">-->
-                    <!--</a>-->
-                <!--</li>-->
-                <!--<li>-->
-                    <!--<a class="change-lang" href="#" hreflang="en" rel="en_pt">-->
-                        <!--<img src="/images/lang/en.png" alt="EN">-->
-                    <!--</a>-->
-                <!--</li>-->
-
-            <!--</ul>-->
-        <!--</div>-->
-
     </div>
-
-</nav>
+</div>
 
 <br/>
 <br/>
 <br/>
 
 
-<div layout:fragment="contentDiag">
+<div layout:fragment="content">
     <p>Content goes here...</p>
 </div>
 

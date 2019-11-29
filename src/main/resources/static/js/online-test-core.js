@@ -18,13 +18,14 @@ $(document).ready(function () {
         if ($('input[name=q_choice]:checked').val() == null) {
 
             var message = '<div class="alert alert-warning" role="alert">';
-            message += '<h4>Questão não respondida!</h4>';
+            message += '<p>Questão não respondida!</p>';
             message += '<div class="clearheight30"></div>';
             message += '<div class="dotted"></div>';
             message += '<p>Deve seleccionar pelo menos uma das respostas abaixo</p>';
             message += '</div>';
 
             $(".failx").html(message);
+            $(".failx").fadeOut(3000);
 
             e.preventDefault();
             return false;

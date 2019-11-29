@@ -49,8 +49,8 @@
 
                                 <tr>
                                     <td class="nrg_score_table_left"><h5><strong>Duração:</strong></h5></td>
-                                    <td class="nrg_score_table_right" id="resultsdiv_duration_tt"
-                                        th:text="${exam.duration}+' minutos'"></td>
+                                    <td class="nrg_score_table_right" id="resultsdiv_duration_tt" th:if="${exam.duration}<60" th:text="${exam.duration+' Segundos'}"></td>
+                                    <td class="nrg_score_table_right" id="resultsdiv_duration_tt"th:if="${exam.duration}>=60" th:text="${(exam.duration)/60+' Minutos'}"></td>
                                 </tr>
 
                                 <tr>
