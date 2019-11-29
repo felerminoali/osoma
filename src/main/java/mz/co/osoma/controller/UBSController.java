@@ -68,8 +68,7 @@ public class UBSController {
             model.addObject("exame", exam);
 
             User user = crudService.findEntByJPQuery("FROM User u WHERE u.email = '" + ((CustomUserDetails) userDetails).getEmail() + "'", null);
-            List<ExamAttempts> examAttempts = crudService.findByJPQuery("SELECT e FROM ExamAttempts e where e.user.id = " + user.getId() + " and e.exam.id=" + id, null);
-            ;
+            List<ExamAttempts> examAttempts = crudService.findByJPQuery("SELECT e FROM ExamAttempts e where e.user.id = " + user.getId() + " and e.exam.id=" + id, null);;
 
 
             boolean attemptAllowed = true;
@@ -155,7 +154,7 @@ public class UBSController {
 
 
     @RequestMapping(value = "/result", method = RequestMethod.GET)
-    public ModelAndView resultPost(@AuthenticationPrincipal final UserDetails userDetails, HttpServletRequest request, HttpSession session, @RequestParam("exam") Optional<Integer> idExam, @RequestParam("timestamp")
+    public ModelAndView resultGET(@AuthenticationPrincipal final UserDetails userDetails, HttpServletRequest request, HttpSession session, @RequestParam("exam") Optional<Integer> idExam, @RequestParam("timestamp")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime timestamp) {
 
         ModelAndView model = new ModelAndView("exam-results");
@@ -164,12 +163,18 @@ public class UBSController {
             Exam exam = crudService.get(Exam.class, idExam.get());
             User user = crudService.findEntByJPQuery("FROM User u WHERE u.email = '" + ((CustomUserDetails) userDetails).getEmail() + "'", null);
 
+            Map<String, Object> parm = new HashMap<String, Object>();
+            parm.put("exam", exam.getId());
+            parm.put("user", user.getId());
+            parm.put("timestamp", Date.from(timestamp.atZone(ZoneId.systemDefault()).toInstant()));
+
+            ExamAttempts examAttempts = crudService.findEntByJPQuery("SELECT a FROM ExamAttempts a WHERE  a.examAttemptsPK.exam = :exam and  a.examAttemptsPK.user = :user and a.examAttemptsPK.timestamp = :timestamp", parm);
+
             try {
                 updateSession(idExam.get(), user.getId(), timestamp, session);
             } catch (Exception e) {
 
             }
-
 
             List<Question> questions = crudService.findByJPQuery("SELECT e FROM Question e where e.exam = " + idExam.get(), null);
 
@@ -179,7 +184,8 @@ public class UBSController {
             Locale locale = new Locale("pt", "BR");
             Calendar c = Calendar.getInstance(locale);
             SimpleDateFormat df = new SimpleDateFormat("dd MMM yyyy, HH:mm:ss", locale);
-            model.addObject("finish", timestamp);
+            model.addObject("finish", df.format(Date.from(timestamp.atZone(ZoneId.systemDefault()).toInstant())));
+            model.addObject("start",df.format(examAttempts.getStart()));
 
             int correct = 0;
 
@@ -190,7 +196,6 @@ public class UBSController {
                 Choice answers = crudService.findEntByJPQuery("FROM Choice p WHERE p.question.id = :q AND p.rightchoice = :r", par);
 
                 if (session.getAttribute(q.getId().toString()) != null && session.getAttribute(q.getId().toString()).equals(answers.getId().toString())) {
-
                     correct++;
                 }
             }
@@ -205,17 +210,13 @@ public class UBSController {
     }
 
 
-    public void updateSession(int idExam, int idUser, LocalDateTime timestamp, HttpSession session) {
-
-
+    public List<AttemptResult> updateSession(int idExam, int idUser, LocalDateTime timestamp, HttpSession session) {
         Date date = Date.from(timestamp.atZone(ZoneId.systemDefault()).toInstant());
 
         Map<String, Object> par = new HashMap<String, Object>();
         par.put("exam", idExam);
         par.put("user", idUser);
         par.put("timestamp", date);
-
-//        System.out.println("daaa "+dateToString(date));
 
         List<AttemptResult> attemptResults = crudService.findByJPQuery("SELECT a FROM AttemptResult a WHERE  a.examAttempts.examAttemptsPK.exam = :exam and  a.examAttempts.examAttemptsPK.user = :user and a.examAttempts.examAttemptsPK.timestamp = :timestamp", par);
 
@@ -224,13 +225,14 @@ public class UBSController {
                 session.setAttribute(attemptResult.getChoice().getQuestion().getId().toString(), attemptResult.getChoice().getId().toString());
             }
         }
+
+        return attemptResults;
     }
 
     @RequestMapping(value = "/result", method = RequestMethod.POST)
     public ModelAndView resultPost(@AuthenticationPrincipal final UserDetails userDetails, HttpServletRequest request, HttpSession session) {
 
         ModelAndView modelo = new ModelAndView("exam-results");
-
 
         int idExam = Integer.parseInt(request.getParameter("examid"));
         String start = request.getParameter("starttimestamp");
@@ -308,16 +310,12 @@ public class UBSController {
         ModelAndView modelo = new ModelAndView("exam-history");
 
         User user = crudService.findEntByJPQuery("FROM User u WHERE u.email = '" + ((CustomUserDetails) userDetails).getEmail() + "'", null);
-        List<ExamAttempts> examAttempts = crudService.findByJPQuery("SELECT e FROM ExamAttempts e where e.user.id = " + user.getId() + " ORDER BY e.examAttemptsPK.timestamp DESC", null);
-        ;
+        List<ExamAttempts> examAttempts = crudService.findByJPQuery("SELECT e FROM ExamAttempts e where e.user.id = " + user.getId() + " ORDER BY e.examAttemptsPK.timestamp DESC", null);;
 
         modelo.addObject("examAttempts", examAttempts);
         modelo.addObject("user", user);
-
 //      long diffInMillies = Math.abs(secondD.getTime() - firstDate.getTime());
 //        long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
-
-
         return modelo;
 
     }
@@ -325,18 +323,14 @@ public class UBSController {
 
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public ModelAndView admin(@AuthenticationPrincipal final UserDetails userDetails, HttpServletRequest request, HttpSession session) {
-
         ModelAndView modelo = new ModelAndView("403");
-
         return modelo;
     }
 
 
     @RequestMapping(value = "/help", method = RequestMethod.GET)
     public ModelAndView help(@AuthenticationPrincipal final UserDetails userDetails, HttpServletRequest request, HttpSession session) {
-
         ModelAndView modelo = new ModelAndView("help");
-
         return modelo;
     }
 
@@ -348,6 +342,4 @@ public class UBSController {
         DateFormat format = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
         return format.format(date);
     }
-
-
 }
