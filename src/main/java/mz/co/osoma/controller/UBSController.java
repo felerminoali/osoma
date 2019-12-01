@@ -314,6 +314,7 @@ public class UBSController {
 
         modelo.addObject("examAttempts", examAttempts);
         modelo.addObject("user", user);
+
 //      long diffInMillies = Math.abs(secondD.getTime() - firstDate.getTime());
 //        long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
         return modelo;

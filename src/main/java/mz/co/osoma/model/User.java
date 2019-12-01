@@ -59,6 +59,11 @@ public class User implements Serializable {
     @Column(name = "contact")
     private String contact;
 
+    @Basic(optional = false)
+    @Column(name = "reset_token")
+    private String resetToken;
+
+
 
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
@@ -87,47 +92,50 @@ public class User implements Serializable {
     private Set<Role> roles;
 	
 
-    public User() {
-    }
+    public User() { }
 
-    public User(String name, String lastName, String email, String password, Date datecreated) {
-        this.name = name;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = password;
-        this.datecreated = datecreated;
-
-    }
-
-    public User(User user){
+    public User(User user) {
         this.name = user.getName();
         this.lastName = user.getLastName();
         this.email = user.getEmail();
         this.password = user.getPassword();
         this.datecreated = user.getDatecreated();
-        this.active = user.getActive();
+        this.active = user.isActive();
         this.hash = user.getHash();
-        this.university = user.getUniversity();
-        this.district = user.getDistrict();
-        this.roles = user.getRoles();
+        this.pin = user.getPin();
+        this.contact = user.getContact();
+        this.resetToken = user.getResetToken();
         this.examAttemptsList = user.getExamAttemptsList();
         this.questionCreated = user.getQuestionCreated();
         this.questionModified = user.getQuestionModified();
+        this.university = user.getUniversity();
+        this.district = user.getDistrict();
+        this.roles = user.getRoles();
+
     }
 
-    public User(int id) {
-        this.id = id;
-    }
 
-    public User(int id, String name, String lastName, String email, String password, Date datecreated, boolean active) {
-        this.id = id;
+
+    public User(String name, String lastName, String email, String password, Date datecreated, boolean active, String hash, String pin, String contact, String resetToken, List<ExamAttempts> examAttemptsList, List<Question> questionCreated, List<Question> questionModified, University university, District district, Set<Role> roles) {
         this.name = name;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.datecreated = datecreated;
         this.active = active;
+        this.hash = hash;
+        this.pin = pin;
+        this.contact = contact;
+        this.resetToken = resetToken;
+        this.examAttemptsList = examAttemptsList;
+        this.questionCreated = questionCreated;
+        this.questionModified = questionModified;
+        this.university = university;
+        this.district = district;
+        this.roles = roles;
     }
+
+
 
     public int getId() {
         return id;
@@ -207,6 +215,18 @@ public class User implements Serializable {
 
     public void setContact(String contact) {
         this.contact = contact;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public String getResetToken() {
+        return resetToken;
+    }
+
+    public void setResetToken(String resetToken) {
+        this.resetToken = resetToken;
     }
 
     public List<ExamAttempts> getExamAttemptsList() {

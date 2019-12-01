@@ -36,9 +36,9 @@
                             <table id="tblhistory" class="table table-bordered table-striped" width="100%">
                                 <thead>
                                 <tr>
+                                    <th>Data e Hora de Início</th>
                                     <th>Exame</th>
-                                    <th>Início</th>
-                                    <th>Fim</th>
+                                    <th>Duração</th>
                                     <th>Resultado</th>
                                     <th>Classificação</th>
                                 </tr>
@@ -46,9 +46,10 @@
 
                                 <tbody>
                                 <tr th:each="attemps: ${examAttempts}">
-                                    <td><a th:href="@{/ubs/result(exam = ${attemps.exam.id}, timestamp = ${#dates.formatISO(attemps.examAttemptsPK.timestamp)})}" th:text="${attemps.exam.description}"></a></td>
                                     <td th:text="${attemps.start}"></td>
-                                    <td th:text="${attemps.ExamAttemptsPK.timestamp}"></td>
+                                    <td><a th:href="@{/ubs/result(exam = ${attemps.exam.id}, timestamp = ${#dates.formatISO(attemps.examAttemptsPK.timestamp)})}" th:text="${attemps.exam.description}"></a></td>
+                                    <td th:text="${T(mz.co.osoma.service.Helper).timeDifferenceInSeconds(attemps.start,attemps.ExamAttemptsPK.timestamp)}"></td>
+
                                     <td th:text="${attemps.score}"></td>
                                     <td th:if="${attemps.score>=50}" th:text="Aprovado" style="color: green;"></td>
                                     <td th:if="${attemps.score<50}" th:text="Reprovado" style="color: red;"></td>

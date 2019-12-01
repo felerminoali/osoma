@@ -10,6 +10,8 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.*;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.format.FormatterRegistry;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ViewResolver;
@@ -30,6 +32,8 @@ import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 
 import java.util.Locale;
+import java.util.Properties;
+
 @Configuration
 @ComponentScan({ "mz.co.osoma" })
 public class WebMVCConfig implements WebMvcConfigurer , ApplicationContextAware {
@@ -42,6 +46,26 @@ public class WebMVCConfig implements WebMvcConfigurer , ApplicationContextAware 
         slr.setDefaultLocale(Locale.US);
         return slr;
     }
+
+    @Bean
+    public JavaMailSender mailSender(){
+
+        JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+        mailSender.setHost("smtp.gmail.com");
+        mailSender.setPort(587);
+
+        mailSender.setUsername("osoma.mz@gmail.com");
+        mailSender.setPassword("Osoma4ever");
+
+        Properties props = mailSender.getJavaMailProperties();
+        props.put("mail.transport.protocol", "smtp");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.debug", "true");
+
+        return mailSender;
+    }
+
 
     @Bean
     public LocaleChangeInterceptor localeChangeInterceptor() {

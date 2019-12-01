@@ -2,7 +2,9 @@ package mz.co.osoma.service;
 
 import org.jsoup.Jsoup;
 
+import java.util.Date;
 import java.util.Hashtable;
+import java.util.concurrent.TimeUnit;
 
 public class Helper {
 
@@ -49,5 +51,13 @@ public class Helper {
 
     private static String timeFormatter(int value){
         return (value<10) ? "0"+value : value+"";
+    }
+
+    public static String timeDifferenceInSeconds(Date firstDate, Date secondDate){
+
+        long diffInMillies = Math.abs(secondDate.getTime() - firstDate.getTime());
+        long diff = TimeUnit.SECONDS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+
+        return convertSecondsToTimeFormat((int) diff);
     }
 }

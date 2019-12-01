@@ -9,8 +9,8 @@ import java.util.stream.Collectors;
 
 public class CustomUserDetails extends User implements UserDetails {
 
-    public CustomUserDetails(final User users) {
-        super(users);
+    public CustomUserDetails(final User user) {
+        super(user);
     }
 
     @Override
