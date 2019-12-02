@@ -105,8 +105,8 @@ public class LoginController {
             passwordResetEmail.setFrom("osoma.mz@gmail.com");
 //            passwordResetEmail.setTo(user.getEmail());
             passwordResetEmail.setTo("felerminoali@gmail.com");
-            passwordResetEmail.setSubject("Password Reset Request");
-            passwordResetEmail.setText("To reset your password, click the link below:\n" + appUrl
+            passwordResetEmail.setSubject("Requisição de redifinição de senha");
+            passwordResetEmail.setText("Clique o link abaixo para poder redifinir sua senha:\n" + appUrl
                     + "/reset?token=" + user.getResetToken());
 
             emailService.sendEmail(passwordResetEmail);
@@ -132,7 +132,7 @@ public class LoginController {
         if (user.isPresent()) { // Token found in DB
             modelAndView.addObject("resetToken", token);
         } else { // Token not found in DB
-            modelAndView.addObject("errorMessage", "Oops!  Este é um link inválido para resetar password.");
+            modelAndView.addObject("errorMessage", "Oops!  Este é um link inválido para redifinir password.");
         }
 
         modelAndView.setViewName("resetPassword");
@@ -166,13 +166,13 @@ public class LoginController {
 
             // In order to set a model attribute on a redirect, we must use
             // RedirectAttributes
-            redir.addFlashAttribute("successMessage", "Modificou a sua palavra-passe com sucesso.  Agora pode entrar no sistema.");
+            redir.addFlashAttribute("successMessage", "Modificou a sua senha com sucesso.  Agora pode entrar no sistema.");
 
             modelAndView.setViewName("redirect:login");
             return modelAndView;
 
         } else {
-            modelAndView.addObject("errorMessage", "Oops!  Este é um link inválido para resetar password.");
+            modelAndView.addObject("errorMessage", "Oops!  Este é um link inválido para redifinir senha.");
             modelAndView.setViewName("resetPassword");
         }
 
