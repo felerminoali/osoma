@@ -103,8 +103,14 @@
                                             <div class="qboxleft">
                                                 <div><h4>Quest&atilde;o <span
                                                         th:text="${inter.index+1}"></span> de <span
-                                                        th:text="${qtdquestion}"></span></h4></div>
+                                                        th:text="${qtdquestion}"></span></h4>
+                                                </div>
                                             </div>
+                                            <!--<div class="pull-right">-->
+                                                <!--<h4><span class="label label-success" th:if="${T(mz.co.osoma.service.Helper).isCorrectChoice(question,#session.getAttribute(question.id+''))==1}">Correcto</span></h4>-->
+                                                <!--<h4><span class="label label-danger" th:if="${T(mz.co.osoma.service.Helper).isCorrectChoice(question,#session.getAttribute(question.id+''))}==0">Incorrecto</span></h4>-->
+                                                <!--<h4><span class="label label-info" th:if="${T(mz.co.osoma.service.Helper).isCorrectChoice(question,#session.getAttribute(question.id+''))==-1}">Nenhuma alternativa seleccionada</span></h4>-->
+                                            <!--</div>-->
                                             <div class="clear"></div>
                                         </div>
                                         <div class="col600 qsholder editor">

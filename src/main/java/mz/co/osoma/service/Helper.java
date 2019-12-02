@@ -1,12 +1,22 @@
 package mz.co.osoma.service;
 
+import mz.co.osoma.model.Choice;
+import mz.co.osoma.model.Question;
 import org.jsoup.Jsoup;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
+import javax.servlet.http.HttpSession;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class Helper {
+
+
+
 
     public static Hashtable<String, String> lang = new Hashtable<String, String>() {{
         put("en", "/images/lang/en.png");
@@ -59,5 +69,20 @@ public class Helper {
         long diff = TimeUnit.SECONDS.convert(diffInMillies, TimeUnit.MILLISECONDS);
 
         return convertSecondsToTimeFormat((int) diff);
+    }
+
+    public static int isCorrectChoice(Question question, String choice){
+
+        if (choice == null) return -1;
+
+
+        Integer choiceId = Integer.parseInt(choice);
+        for (Choice c:question.getChoiceList()) {
+            if (c.getId().intValue() == choiceId.intValue()){
+                return c.getRightchoice() == 1 ? 1 : 0;
+            }
+        }
+
+        return 0;
     }
 }
