@@ -60,7 +60,19 @@ public class UBSController {
 
 
         Exam exam = crudService.findEntByJPQueryT("SELECT e FROM Exam e where e.id = " + id, null);
+
+
+
+
         if (exam != null) {
+
+
+            List<Question> questions = crudService.findByJPQuery("SELECT e FROM Question e where e.exam = " + exam.getId(), null);
+            if (questions != null) {
+                // clean case has has some response already
+                cleanSession(session, questions);
+            }
+
             University university = crudService.findEntByJPQueryT("SELECT u FROM University u where u.id = " + exam.getUniversity().getId(), null);
             Category category = crudService.findEntByJPQueryT("SELECT c FROM Category c where c.id = " + exam.getCategory().getId(), null);
             model.addObject("university", university);
@@ -97,7 +109,7 @@ public class UBSController {
         }
 
         // clean case has has some response already
-        cleanSession(session, questions);
+        //cleanSession(session, questions);
 
         model.addObject("id", examID);
         Exam exam = crudService.get(Exam.class, examID);
