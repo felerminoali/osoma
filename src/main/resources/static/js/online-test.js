@@ -118,9 +118,9 @@ function redirect2Results() {
 
 
 function checkAndSave() {
-    if ($('input[name=q_choice]:checked').val() != null) {
+    // if ($('input[name=q_choice]:checked').val() != null) {
         saveAnswer();
-    }
+    // }
 }
 
 function saveAnswer() {
@@ -133,7 +133,7 @@ function saveAnswer() {
     $.ajax({
         type: 'POST',
         url: '/mod/save_answer',
-        data: ({qid: item[1], answerid: item[2]}),
+        data: ({qid: item[1], answerid: item[2], label:item[3]}),
         success: function (data) {
             // alert("test "+data);
         },

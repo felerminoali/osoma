@@ -137,13 +137,16 @@ public class UBSController {
         List<Choice> choices =
                 crudService.findByJPQuery("SELECT e FROM Choice e, Question q where e.question = q.id and  q.id = " + question.getId(), null);
 
-        Collections.shuffle(choices);
+        //Collections.shuffle(choices);
         model.addObject("questions", question);
         model.addObject("choices", choices);
+        model.addObject("questionlist", questions);
 
         if (session != null) {
             if (session.getAttribute(question.getId().toString()) != null) {
-                int answerId = Integer.parseInt((String) session.getAttribute(question.getId().toString()));
+                String answerSession = (String) session.getAttribute(question.getId().toString());
+                String[] answerArray = answerSession.split("_");
+                Integer answerId = Integer.parseInt(answerArray[0]);
                 model.addObject("sessionAnswer", answerId);
             }
         }
@@ -295,7 +298,18 @@ public class UBSController {
                 correct++;
             }
 
-            Choice choice = (session.getAttribute(q.getId() + "")) != null ? crudService.get(Choice.class, Integer.parseInt((String) session.getAttribute(q.getId() + ""))) : null;
+            String ansSession = (String) session.getAttribute(q.getId() + "");
+            // AnswerSession = 1223_A
+
+            Choice choice = null;
+            if(ansSession !=null){
+
+
+                String[] arrayAnswer = ansSession.split("_");
+                Integer ansId = Integer.parseInt(arrayAnswer[0]);
+                choice = (session.getAttribute(q.getId() + "")) != null ? crudService.get(Choice.class, ansId) : null;
+
+            }
 
             if (choice != null) {
                 AttemptResult attemptResult = new AttemptResult();
@@ -326,9 +340,6 @@ public class UBSController {
 
         modelo.addObject("examAttempts", examAttempts);
         modelo.addObject("user", user);
-
-//      long diffInMillies = Math.abs(secondD.getTime() - firstDate.getTime());
-//        long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
         return modelo;
 
     }

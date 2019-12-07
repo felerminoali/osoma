@@ -27,24 +27,11 @@ public class RestModules {
     @RequestMapping(value = "/mod/save_answer", method = RequestMethod.POST)
     public @ResponseBody String add(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception {
 
-
-
         String qid = request.getParameter("qid");
         String answerid = request.getParameter("answerid");
+        String label = request.getParameter("label");
 
-        System.out.println("--------------*** qid="+qid+" ans="+answerid);
-
-        session.setAttribute(qid, answerid);
-
-
-        Enumeration<String> names = session.getAttributeNames();
-        while (names.hasMoreElements()){
-
-            System.out.println(names.nextElement());
-        }
-
-
-
+        session.setAttribute(qid, answerid+"_"+label);
         return "Done";
     }
 

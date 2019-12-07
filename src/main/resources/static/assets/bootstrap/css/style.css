@@ -1976,3 +1976,11 @@ body {
 .media {
     margin-top: 0px;
 }
+
+div.scroll{
+    margin: 4px, 4px;
+    padding: 4px;
+    height: 500px;
+    overflow-x: hidden;
+    overflow-x: auto;
+}

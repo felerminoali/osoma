@@ -72,17 +72,27 @@ public class Helper {
     }
 
     public static int isCorrectChoice(Question question, String choice){
-
         if (choice == null) return -1;
 
+        String[] arrayChoice = choice.split("_");
+        Integer choiceId = Integer.parseInt(arrayChoice[0]);
 
-        Integer choiceId = Integer.parseInt(choice);
+//        Integer choiceId = Integer.parseInt(choice);
         for (Choice c:question.getChoiceList()) {
             if (c.getId().intValue() == choiceId.intValue()){
                 return c.getRightchoice() == 1 ? 1 : 0;
             }
         }
-
         return 0;
+    }
+
+    public static String asciiToString(int value){
+        return ((char) value)+"";
+    }
+
+    public static String getlabel(String answerSession){
+        if (answerSession == null) return null;
+        String[] array = answerSession.split("_");
+        return array[1];
     }
 }

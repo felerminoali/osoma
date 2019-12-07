@@ -165,25 +165,26 @@
                                         </div>
                                         <div class="dotted"></div>
                                         <table width="100%">
-                                            <tr th:each=" choice: ${question.choiceList}">
-                                                <td th:style="${choice.rightchoice==1 ? 'background-color: #B0EEAF;':{choice.rightchoice==0 && #session.getAttribute(question.id+'')==choice.id+''} ? 'background-color: #FFE4E9;':''}"
+                                            <tr th:each=" choice, inter: ${question.choiceList}">
+                                                <td th:style="${choice.rightchoice==1 ? 'background-color: #B0EEAF;':{choice.rightchoice==0 && #session.getAttribute(question.id+'')==choice.id+'_'+T(mz.co.osoma.service.Helper).asciiToString(64+(inter.index+1))} ? 'background-color: #FFE4E9;':''}"
                                                     width="10px">
                                                     <div class="ans_select">
                                                         <input type="radio"
-                                                               th:id="${'q_'+question.id+'_'+choice.id}"
-                                                               name="q_choice">
+                                                               th:id="${'q_'+question.id+'_'+choice.id+'_'+T(mz.co.osoma.service.Helper).asciiToString(64+(inter.index+1))}"
+                                                               name="q_choice"
+                                                               th:checked="${choice.id == sessionAnswer}">
                                                     </div>
                                                 </td>
-                                                <td th:style="${choice.rightchoice==1 ? 'background-color: #B0EEAF;':{choice.rightchoice==0 && #session.getAttribute(question.id+'')==choice.id+''} ? 'background-color: #FFE4E9;':''}">
+                                                <td th:style="${choice.rightchoice==1 ? 'background-color: #B0EEAF;':{choice.rightchoice==0 && #session.getAttribute(question.id+'')==choice.id+'_'+T(mz.co.osoma.service.Helper).asciiToString(64+(inter.index+1))} ? 'background-color: #FFE4E9;':''}">
                                                     <div class="ans_content editor">
                                                         <label th:for="${'q_'+question.id+'_'+choice.id}">
                                                                 <span th:if="${choice.rightchoice==1}"
                                                                       th:text="${choice.answer}"
                                                                       style="font-weight: bold;"></span>
-                                                            <span th:if="${choice.rightchoice==0 && #session.getAttribute(question.id+'')==choice.id+''}"
+                                                            <span th:if="${choice.rightchoice==0 && #session.getAttribute(question.id+'')==choice.id+'_'+T(mz.co.osoma.service.Helper).asciiToString(64+(inter.index+1))}"
                                                                   th:text="${choice.answer}"
                                                                   style="color:red; font-weight: bold;"></span>
-                                                            <span th:if="${choice.rightchoice==0 && #session.getAttribute(question.id+'')!=choice.id+''}"
+                                                            <span th:if="${choice.rightchoice==0 && #session.getAttribute(question.id+'')!=choice.id+'_'+T(mz.co.osoma.service.Helper).asciiToString(64+(inter.index+1))}"
                                                                   th:text="${choice.answer}"></span>
                                                         </label>
 
