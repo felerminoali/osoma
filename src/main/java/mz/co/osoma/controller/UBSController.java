@@ -216,7 +216,7 @@ public class UBSController {
             }
 
             double score = ((double) correct / questions.size()) * 100.00f;
-            model.addObject("percentage", score);
+            model.addObject("percentage", (int)score);
 
             return model;
         }
@@ -247,7 +247,7 @@ public class UBSController {
     @RequestMapping(value = "/result", method = RequestMethod.POST)
     public ModelAndView resultPost(@AuthenticationPrincipal final UserDetails userDetails, HttpServletRequest request, HttpSession session) {
 
-        ModelAndView modelo = new ModelAndView("exam-results");
+        ModelAndView model = new ModelAndView("exam-results");
 
         int idExam = Integer.parseInt(request.getParameter("examid"));
         String start = request.getParameter("starttimestamp");
@@ -255,15 +255,15 @@ public class UBSController {
 
         List<Question> questions = crudService.findByJPQuery("SELECT e FROM Question e where e.exam = " + idExam, null);
 
-        modelo.addObject("questions", questions);
-        modelo.addObject("exam", exam);
-        modelo.addObject("qtdquestion", questions.size());
-        modelo.addObject("start", start);
+        model.addObject("questions", questions);
+        model.addObject("exam", exam);
+        model.addObject("qtdquestion", questions.size());
+        model.addObject("start", start);
         Locale locale = new Locale("pt", "BR");
         Calendar c = Calendar.getInstance(locale);
         Date timestamp = c.getTime();
         SimpleDateFormat df = new SimpleDateFormat("dd MMM yyyy, HH:mm:ss", locale);
-        modelo.addObject("finish", df.format(c.getTime()));
+        model.addObject("finish", df.format(c.getTime()));
 
         int correct = 0;
 
@@ -294,21 +294,16 @@ public class UBSController {
             par.put("r", Short.parseShort("1"));
             Choice answers = crudService.findEntByJPQuery("FROM Choice p WHERE p.question.id = :q AND p.rightchoice = :r", par);
 
-            if (session.getAttribute(q.getId() + "") != null && session.getAttribute(q.getId() + "").equals(answers.getId() + "")) {
+            // AnswerSession = 1223_A
+            String[] sessionAnswers = session.getAttribute(q.getId().toString())!=null ? ((String) session.getAttribute(q.getId() + "")).split("_") : null;
+            if (sessionAnswers != null && sessionAnswers[0].equals(answers.getId() + "")) {
                 correct++;
             }
 
-            String ansSession = (String) session.getAttribute(q.getId() + "");
-            // AnswerSession = 1223_A
-
             Choice choice = null;
-            if(ansSession !=null){
-
-
-                String[] arrayAnswer = ansSession.split("_");
-                Integer ansId = Integer.parseInt(arrayAnswer[0]);
+            if(sessionAnswers !=null){
+                Integer ansId = Integer.parseInt(sessionAnswers[0]);
                 choice = (session.getAttribute(q.getId() + "")) != null ? crudService.get(Choice.class, ansId) : null;
-
             }
 
             if (choice != null) {
@@ -319,15 +314,15 @@ public class UBSController {
             }
         }
 
-        double score = ((double) correct / questions.size()) * 100.00f;
-        modelo.addObject("percentage", score);
+        double score = ((double) correct / questions.size()) * 100;
+        model.addObject("percentage", (int)score);
         attempts.setScore(score);
 
         attempts.setAttemptResultList(attemptResultList);
         // Saving Attempts
         crudService.Save(attempts);
 
-        return modelo;
+        return model;
     }
 
     @RequestMapping(value = "/history", method = RequestMethod.GET)

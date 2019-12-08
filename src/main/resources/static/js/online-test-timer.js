@@ -3,6 +3,9 @@
  */
 
 
+
+
+
 var timer;
 
 function getEndTime(timeInSec) {
@@ -91,7 +94,7 @@ function countDown(secs, secsMax, elem) {
 
         $('#ajax-container').fadeOut(200, function () {
             // $(this).html(message).fadeIn(200, function () {
-            checkAndSave();
+            saveAnswer();
             redirect2Results();
             // });
         });
@@ -118,31 +121,35 @@ function redirect2Results() {
 
 
 function checkAndSave() {
-    // if ($('input[name=q_choice]:checked').val() != null) {
+     //if ($('input[name=q_choice]:checked').val() != null) {
         saveAnswer();
-    // }
+     //}
 }
 
 function saveAnswer() {
 
     var q_choice = $('input[name=q_choice]:checked');
 
-    var id = q_choice.attr('id');
-    var item = id.split('_');
+    if(q_choice.val() != null){
+        var id = q_choice.attr('id');
+        var item = id.split('_');
 
-    $.ajax({
-        type: 'POST',
-        url: '/mod/save_answer',
-        data: ({qid: item[1], answerid: item[2], label:item[3]}),
-        success: function (data) {
-            // alert("test "+data);
-        },
-        error: function(xhr, textStatus, error){
-            // alert('An error has occurred ::from save answer ajax call --> ' + error);
-            console.log(xhr.statusText);
-            console.log(textStatus);
-            console.log(error);
-        }
-    });
+        $.ajax({
+            type: 'POST',
+            url: '/mod/save_answer',
+            data: ({qid: item[1], answerid: item[2], label:item[3]}),
+            success: function (data) {
+                // alert("test "+data);
+            },
+            error: function(xhr, textStatus, error){
+                // alert('An error has occurred ::from save answer ajax call --> ' + error);
+                console.log(xhr.statusText);
+                console.log(textStatus);
+                console.log(error);
+            }
+        });
+    }
+
+
     
 }

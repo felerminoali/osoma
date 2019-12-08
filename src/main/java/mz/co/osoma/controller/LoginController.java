@@ -103,8 +103,8 @@ public class LoginController {
             // Email message
             SimpleMailMessage passwordResetEmail = new SimpleMailMessage();
             passwordResetEmail.setFrom("osoma.mz@gmail.com");
-//            passwordResetEmail.setTo(user.getEmail());
-            passwordResetEmail.setTo("felerminoali@gmail.com");
+            passwordResetEmail.setTo(user.getEmail());
+//            passwordResetEmail.setTo("felerminoali@gmail.com");
             passwordResetEmail.setSubject("Requisição de redifinição de senha");
             passwordResetEmail.setText("Clique o link abaixo para poder redifinir sua senha:\n" + appUrl
                     + "/reset?token=" + user.getResetToken());

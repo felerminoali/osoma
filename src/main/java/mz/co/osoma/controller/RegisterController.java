@@ -81,7 +81,7 @@ public class RegisterController {
         crudService.Save(user);
 
         Email email = new Email();
-//        email.setTo(user.getEmail());
+        email.setTo(user.getEmail());
         email.send(new SuccessfulRegisted(user));
 
         model.addObject("user",user);

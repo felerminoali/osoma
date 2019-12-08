@@ -229,7 +229,19 @@
     </div>
 
     <script type="text/javascript">
-        javascript:window.history.forward(1);
+        !function (){
+            var t;
+            try {
+                for (t=0; 10>t; ++t){
+                    history.pushState({},"", "#");
+                }
+                onpopstate = function (t) {
+                    t.state && location.replace("/ubs/history");
+                }
+            }catch (e) {
+                console.log(e);
+            }
+        }();
     </script>
 
 

@@ -36,8 +36,8 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                            aria-expanded="false"><span sec:authentication="name"></span> <i class="fa fa-createdby fa-lg"></i></a>
                         <ul class="dropdown-menu">
-                            <li><a th:href="@{/logout}">Sair</a></li>
-                            <li><a th:href="@{/ubs/history}">Histório</a></li>
+                            <li class="dropdown-item"><a th:href="@{/ubs/history}">Histórico</a></li>
+                            <li class="dropdown-item"><a th:href="@{/logout}">Sair</a></li>
                         </ul>
                     </li>
                 </div>
