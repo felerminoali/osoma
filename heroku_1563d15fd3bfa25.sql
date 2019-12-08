@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50550
 File Encoding         : 65001
 
-Date: 2019-12-02 15:50:02
+Date: 2019-12-08 15:55:29
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -52,68 +52,11 @@ CREATE TABLE `attempt_result` (
   CONSTRAINT `attempt_result_ibfk_2` FOREIGN KEY (`user`) REFERENCES `exam_attempts` (`user`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `attempt_result_ibfk_3` FOREIGN KEY (`timestamp`) REFERENCES `exam_attempts` (`timestamp`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `attempt_result_ibfk_4` FOREIGN KEY (`choice`) REFERENCES `choice` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=105 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=316 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of attempt_result
 -- ----------------------------
-INSERT INTO `attempt_result` VALUES ('48', '114', '236', '2019-11-20 17:58:06', '1166');
-INSERT INTO `attempt_result` VALUES ('49', '114', '236', '2019-11-20 17:58:06', '1171');
-INSERT INTO `attempt_result` VALUES ('50', '113', '236', '2019-11-20 18:06:16', '1164');
-INSERT INTO `attempt_result` VALUES ('51', '113', '236', '2019-11-20 18:06:41', '1165');
-INSERT INTO `attempt_result` VALUES ('52', '113', '236', '2019-11-20 18:11:38', '1163');
-INSERT INTO `attempt_result` VALUES ('53', '114', '236', '2019-11-20 18:12:19', '1167');
-INSERT INTO `attempt_result` VALUES ('54', '114', '236', '2019-11-21 08:41:49', '1166');
-INSERT INTO `attempt_result` VALUES ('55', '114', '236', '2019-11-21 08:41:49', '1172');
-INSERT INTO `attempt_result` VALUES ('56', '113', '237', '2019-11-21 10:59:37', '1163');
-INSERT INTO `attempt_result` VALUES ('57', '114', '236', '2019-11-21 12:15:27', '1168');
-INSERT INTO `attempt_result` VALUES ('58', '114', '236', '2019-11-21 12:15:27', '1171');
-INSERT INTO `attempt_result` VALUES ('59', '114', '236', '2019-11-28 08:01:04', '1168');
-INSERT INTO `attempt_result` VALUES ('60', '114', '236', '2019-11-28 08:01:04', '1173');
-INSERT INTO `attempt_result` VALUES ('61', '114', '236', '2019-11-28 11:53:06', '1168');
-INSERT INTO `attempt_result` VALUES ('62', '114', '236', '2019-11-28 11:53:06', '1171');
-INSERT INTO `attempt_result` VALUES ('63', '114', '236', '2019-11-28 11:54:20', '1168');
-INSERT INTO `attempt_result` VALUES ('64', '114', '236', '2019-11-28 11:54:20', '1171');
-INSERT INTO `attempt_result` VALUES ('65', '114', '236', '2019-11-28 11:56:40', '1168');
-INSERT INTO `attempt_result` VALUES ('66', '114', '236', '2019-11-28 11:56:40', '1171');
-INSERT INTO `attempt_result` VALUES ('67', '114', '236', '2019-11-28 11:57:58', '1168');
-INSERT INTO `attempt_result` VALUES ('68', '114', '236', '2019-11-28 11:57:58', '1171');
-INSERT INTO `attempt_result` VALUES ('69', '114', '236', '2019-11-28 18:31:09', '1172');
-INSERT INTO `attempt_result` VALUES ('70', '114', '236', '2019-11-28 18:31:57', '1172');
-INSERT INTO `attempt_result` VALUES ('71', '114', '236', '2019-11-28 18:35:39', '1173');
-INSERT INTO `attempt_result` VALUES ('72', '114', '236', '2019-11-28 18:42:24', '1173');
-INSERT INTO `attempt_result` VALUES ('73', '114', '236', '2019-11-28 19:20:31', '1173');
-INSERT INTO `attempt_result` VALUES ('74', '114', '236', '2019-11-28 19:21:32', '1172');
-INSERT INTO `attempt_result` VALUES ('75', '113', '236', '2019-11-28 20:12:44', '1165');
-INSERT INTO `attempt_result` VALUES ('76', '113', '236', '2019-11-28 20:21:03', '1163');
-INSERT INTO `attempt_result` VALUES ('77', '113', '236', '2019-11-28 20:35:50', '1165');
-INSERT INTO `attempt_result` VALUES ('78', '113', '236', '2019-11-28 20:37:43', '1164');
-INSERT INTO `attempt_result` VALUES ('79', '113', '236', '2019-11-28 20:51:42', '1163');
-INSERT INTO `attempt_result` VALUES ('80', '113', '236', '2019-11-28 20:53:16', '1165');
-INSERT INTO `attempt_result` VALUES ('81', '113', '236', '2019-11-28 21:10:18', '1163');
-INSERT INTO `attempt_result` VALUES ('82', '113', '236', '2019-11-28 21:12:50', '1165');
-INSERT INTO `attempt_result` VALUES ('83', '113', '236', '2019-11-28 21:14:45', '1165');
-INSERT INTO `attempt_result` VALUES ('84', '113', '237', '2019-11-28 22:02:26', '1165');
-INSERT INTO `attempt_result` VALUES ('85', '114', '237', '2019-11-28 22:03:21', '1171');
-INSERT INTO `attempt_result` VALUES ('86', '113', '236', '2019-11-29 12:58:56', '1165');
-INSERT INTO `attempt_result` VALUES ('87', '114', '236', '2019-11-29 14:29:10', '1172');
-INSERT INTO `attempt_result` VALUES ('88', '114', '236', '2019-11-29 14:52:05', '1171');
-INSERT INTO `attempt_result` VALUES ('89', '113', '236', '2019-11-29 14:55:27', '1163');
-INSERT INTO `attempt_result` VALUES ('90', '114', '248', '2019-11-29 14:58:28', '1170');
-INSERT INTO `attempt_result` VALUES ('91', '113', '248', '2019-11-29 15:13:33', '1163');
-INSERT INTO `attempt_result` VALUES ('92', '114', '236', '2019-11-29 16:12:34', '1173');
-INSERT INTO `attempt_result` VALUES ('93', '114', '236', '2019-11-29 16:14:02', '1173');
-INSERT INTO `attempt_result` VALUES ('94', '113', '236', '2019-11-30 15:43:29', '1163');
-INSERT INTO `attempt_result` VALUES ('95', '113', '236', '2019-11-30 15:47:27', '1164');
-INSERT INTO `attempt_result` VALUES ('96', '113', '239', '2019-11-30 21:47:07', '1163');
-INSERT INTO `attempt_result` VALUES ('97', '113', '249', '2019-12-01 08:20:42', '1164');
-INSERT INTO `attempt_result` VALUES ('98', '114', '236', '2019-12-01 09:37:27', '1172');
-INSERT INTO `attempt_result` VALUES ('99', '114', '236', '2019-12-01 09:39:21', '1173');
-INSERT INTO `attempt_result` VALUES ('100', '113', '236', '2019-12-01 09:40:02', '1163');
-INSERT INTO `attempt_result` VALUES ('101', '114', '236', '2019-12-02 10:00:04', '1171');
-INSERT INTO `attempt_result` VALUES ('102', '114', '236', '2019-12-02 14:56:35', '1172');
-INSERT INTO `attempt_result` VALUES ('103', '113', '236', '2019-12-02 14:56:50', '1163');
-INSERT INTO `attempt_result` VALUES ('104', '114', '236', '2019-12-02 15:00:38', '1170');
 
 -- ----------------------------
 -- Table structure for `category`
@@ -156,7 +99,7 @@ CREATE TABLE `choice` (
   PRIMARY KEY (`id`),
   KEY `question` (`question`),
   CONSTRAINT `choice_ibfk_1` FOREIGN KEY (`question`) REFERENCES `question` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1174 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1182 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of choice
@@ -283,6 +226,14 @@ INSERT INTO `choice` VALUES ('1170', '315', '$$128$$', null, null, '1');
 INSERT INTO `choice` VALUES ('1171', '315', '$$256$$', null, null, '0');
 INSERT INTO `choice` VALUES ('1172', '315', '$${1 \\over {128}}$$', null, null, '0');
 INSERT INTO `choice` VALUES ('1173', '315', '$${1 \\over {256}}$$', null, null, '0');
+INSERT INTO `choice` VALUES ('1174', '316', 'Rui Knopfli e VirgÃ­lio de Lemos.', null, null, '1');
+INSERT INTO `choice` VALUES ('1175', '316', 'Rui Knopfli e VirgÃ­lio de Lemos e AntÃ³nio Sopa.', null, null, '0');
+INSERT INTO `choice` VALUES ('1176', '316', 'Rui Knopfli e VirgÃ­lio de Lemos e AntÃ³nio Sopa.', null, null, '0');
+INSERT INTO `choice` VALUES ('1177', '316', 'tÃ³nio Sopa e Sarmento Rodrigues.', null, null, '0');
+INSERT INTO `choice` VALUES ('1178', '317', 'ao interesse das autoridades locais', null, null, '1');
+INSERT INTO `choice` VALUES ('1179', '317', 'a um interesse pessoal.', null, null, '0');
+INSERT INTO `choice` VALUES ('1180', '317', 'ao lusotropicalismo.', null, null, '0');
+INSERT INTO `choice` VALUES ('1181', '317', 'ao lusotropicalismo.', null, null, '0');
 
 -- ----------------------------
 -- Table structure for `countries`
@@ -759,124 +710,6 @@ CREATE TABLE `exam_attempts` (
 -- ----------------------------
 -- Records of exam_attempts
 -- ----------------------------
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-20 18:05:54', '2019-11-20 18:05:51', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-20 18:06:16', '2019-11-20 18:06:03', '100');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-20 18:06:41', '2019-11-20 18:06:24', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-20 18:11:38', '2019-11-20 18:11:31', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-21 12:22:57', '2019-11-21 12:22:37', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-21 12:24:44', '2019-11-21 12:24:18', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-27 19:43:42', '2019-11-27 19:43:21', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-28 18:52:44', '2019-11-28 18:52:33', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-28 18:52:59', '2019-11-28 18:52:49', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-28 18:54:02', '2019-11-28 18:53:52', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-28 18:56:30', '2019-11-28 18:53:52', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-28 18:56:37', '2019-11-28 18:53:52', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-28 18:57:42', '2019-11-28 18:53:52', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-28 18:58:19', '2019-11-28 18:58:08', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-28 19:21:51', '2019-11-28 19:21:40', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-28 19:22:11', '2019-11-28 19:22:00', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-28 19:22:30', '2019-11-28 19:22:19', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-28 19:22:47', '2019-11-28 19:22:36', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-28 19:23:30', '2019-11-28 19:23:19', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-28 19:25:12', '2019-11-28 19:24:51', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-28 20:11:51', '2019-11-28 20:11:30', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-28 20:12:37', '2019-11-28 20:12:16', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-28 20:12:44', '2019-11-28 20:12:40', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-28 20:19:29', '2019-11-28 20:19:08', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-28 20:21:03', '2019-11-28 20:20:42', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-28 20:23:14', '2019-11-28 20:22:53', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-28 20:35:50', '2019-11-28 20:35:46', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-28 20:36:17', '2019-11-28 20:35:56', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-28 20:37:43', '2019-11-28 20:37:33', '100');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-28 20:38:49', '2019-11-28 20:38:29', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-28 20:51:42', '2019-11-28 20:51:27', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-28 20:53:16', '2019-11-28 20:53:10', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-28 21:04:27', '2019-11-28 21:04:00', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-28 21:08:04', '2019-11-28 21:07:41', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-28 21:10:18', '2019-11-28 21:10:13', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-28 21:11:00', '2019-11-28 21:10:34', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-28 21:12:50', '2019-11-28 21:12:40', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-28 21:13:29', '2019-11-28 21:13:01', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-28 21:14:26', '2019-11-28 21:13:01', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-28 21:14:45', '2019-11-28 21:14:38', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-28 21:15:12', '2019-11-28 21:14:52', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-28 21:15:42', '2019-11-28 21:15:21', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-29 12:58:56', '2019-11-29 12:58:46', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-29 14:55:27', '2019-11-29 14:55:07', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-29 15:59:52', '2019-11-29 15:59:27', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-30 15:43:29', '2019-11-30 15:43:21', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-11-30 15:47:27', '2019-11-30 15:47:16', '100');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-12-01 09:35:15', '2019-12-01 09:34:54', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-12-01 09:40:02', '2019-12-01 09:39:55', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-12-01 09:40:35', '2019-12-01 09:40:05', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '236', '2019-12-02 14:56:50', '2019-12-02 14:56:47', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '237', '2019-11-21 10:59:37', '2019-11-21 10:59:34', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '237', '2019-11-28 22:02:26', '2019-11-28 22:02:07', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '239', '2019-11-30 21:47:07', '2019-11-30 21:46:59', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '248', '2019-11-29 15:00:03', '2019-11-29 14:59:42', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '248', '2019-11-29 15:06:58', '2019-11-29 15:06:37', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '248', '2019-11-29 15:13:33', '2019-11-29 15:13:26', '0');
-INSERT INTO `exam_attempts` VALUES ('113', '249', '2019-12-01 08:20:42', '2019-12-01 08:20:39', '100');
-INSERT INTO `exam_attempts` VALUES ('114', '236', '2019-11-20 17:58:06', '2019-11-20 17:57:58', '0');
-INSERT INTO `exam_attempts` VALUES ('114', '236', '2019-11-20 18:12:19', '2019-11-20 18:11:59', '0');
-INSERT INTO `exam_attempts` VALUES ('114', '236', '2019-11-21 08:41:49', '2019-11-21 08:41:45', '0');
-INSERT INTO `exam_attempts` VALUES ('114', '236', '2019-11-21 12:15:27', '2019-11-21 12:15:23', '50');
-INSERT INTO `exam_attempts` VALUES ('114', '236', '2019-11-21 12:21:57', '2019-11-21 12:21:41', '0');
-INSERT INTO `exam_attempts` VALUES ('114', '236', '2019-11-21 12:22:28', '2019-11-21 12:22:07', '0');
-INSERT INTO `exam_attempts` VALUES ('114', '236', '2019-11-21 12:23:45', '2019-11-21 12:23:23', '0');
-INSERT INTO `exam_attempts` VALUES ('114', '236', '2019-11-21 12:29:22', '2019-11-21 12:29:01', '0');
-INSERT INTO `exam_attempts` VALUES ('114', '236', '2019-11-21 12:29:51', '2019-11-21 12:29:27', '0');
-INSERT INTO `exam_attempts` VALUES ('114', '236', '2019-11-27 19:46:20', '2019-11-27 19:46:09', '0');
-INSERT INTO `exam_attempts` VALUES ('114', '236', '2019-11-27 20:02:02', '2019-11-27 20:01:51', '0');
-INSERT INTO `exam_attempts` VALUES ('114', '236', '2019-11-27 20:04:30', '2019-11-27 20:04:07', '0');
-INSERT INTO `exam_attempts` VALUES ('114', '236', '2019-11-27 20:06:37', '2019-11-27 20:06:21', '0');
-INSERT INTO `exam_attempts` VALUES ('114', '236', '2019-11-27 20:09:34', '2019-11-27 20:09:23', '0');
-INSERT INTO `exam_attempts` VALUES ('114', '236', '2019-11-27 20:10:22', '2019-11-27 20:10:01', '0');
-INSERT INTO `exam_attempts` VALUES ('114', '236', '2019-11-27 20:13:17', '2019-11-27 20:12:56', '0');
-INSERT INTO `exam_attempts` VALUES ('114', '236', '2019-11-28 07:50:35', '2019-11-28 07:50:26', '0');
-INSERT INTO `exam_attempts` VALUES ('114', '236', '2019-11-28 07:56:21', '2019-11-28 07:56:10', '0');
-INSERT INTO `exam_attempts` VALUES ('114', '236', '2019-11-28 08:00:28', '2019-11-28 08:00:16', '0');
-INSERT INTO `exam_attempts` VALUES ('114', '236', '2019-11-28 08:01:04', '2019-11-28 08:00:52', '50');
-INSERT INTO `exam_attempts` VALUES ('114', '236', '2019-11-28 11:53:06', '2019-11-28 11:53:01', '50');
-INSERT INTO `exam_attempts` VALUES ('114', '236', '2019-11-28 11:54:20', '2019-11-28 11:54:14', '50');
-INSERT INTO `exam_attempts` VALUES ('114', '236', '2019-11-28 11:56:40', '2019-11-28 11:56:37', '50');
-INSERT INTO `exam_attempts` VALUES ('114', '236', '2019-11-28 11:57:58', '2019-11-28 11:57:47', '50');
-INSERT INTO `exam_attempts` VALUES ('114', '236', '2019-11-28 18:31:09', '2019-11-28 18:30:54', '0');
-INSERT INTO `exam_attempts` VALUES ('114', '236', '2019-11-28 18:31:57', '2019-11-28 18:31:32', '0');
-INSERT INTO `exam_attempts` VALUES ('114', '236', '2019-11-28 18:35:14', '2019-11-28 18:35:09', '0');
-INSERT INTO `exam_attempts` VALUES ('114', '236', '2019-11-28 18:35:39', '2019-11-28 18:35:31', '0');
-INSERT INTO `exam_attempts` VALUES ('114', '236', '2019-11-28 18:42:24', '2019-11-28 18:42:16', '0');
-INSERT INTO `exam_attempts` VALUES ('114', '236', '2019-11-28 18:43:41', '2019-11-28 18:43:19', '0');
-INSERT INTO `exam_attempts` VALUES ('114', '236', '2019-11-28 19:15:14', '2019-11-28 19:14:53', '0');
-INSERT INTO `exam_attempts` VALUES ('114', '236', '2019-11-28 19:20:03', '2019-11-28 19:19:42', '0');
-INSERT INTO `exam_attempts` VALUES ('114', '236', '2019-11-28 19:20:31', '2019-11-28 19:20:26', '0');
-INSERT INTO `exam_attempts` VALUES ('114', '236', '2019-11-28 19:21:32', '2019-11-28 19:21:26', '0');
-INSERT INTO `exam_attempts` VALUES ('114', '236', '2019-11-28 20:14:35', '2019-11-28 20:14:14', '0');
-INSERT INTO `exam_attempts` VALUES ('114', '236', '2019-11-28 20:18:02', '2019-11-28 20:17:34', '0');
-INSERT INTO `exam_attempts` VALUES ('114', '236', '2019-11-28 20:21:40', '2019-11-28 20:21:26', '0');
-INSERT INTO `exam_attempts` VALUES ('114', '236', '2019-11-28 20:35:37', '2019-11-28 20:35:16', '0');
-INSERT INTO `exam_attempts` VALUES ('114', '236', '2019-11-28 20:36:47', '2019-11-28 20:36:37', '0');
-INSERT INTO `exam_attempts` VALUES ('114', '236', '2019-11-28 20:38:17', '2019-11-28 20:37:56', '0');
-INSERT INTO `exam_attempts` VALUES ('114', '236', '2019-11-28 21:00:48', '2019-11-28 21:00:27', '0');
-INSERT INTO `exam_attempts` VALUES ('114', '236', '2019-11-28 21:02:48', '2019-11-28 21:02:23', '0');
-INSERT INTO `exam_attempts` VALUES ('114', '236', '2019-11-29 10:35:27', '2019-11-29 10:35:06', '0');
-INSERT INTO `exam_attempts` VALUES ('114', '236', '2019-11-29 10:35:57', '2019-11-29 10:35:33', '0');
-INSERT INTO `exam_attempts` VALUES ('114', '236', '2019-11-29 10:36:59', '2019-11-29 10:36:56', '0');
-INSERT INTO `exam_attempts` VALUES ('114', '236', '2019-11-29 14:29:10', '2019-11-29 14:29:06', '0');
-INSERT INTO `exam_attempts` VALUES ('114', '236', '2019-11-29 14:52:05', '2019-11-29 14:52:00', '0');
-INSERT INTO `exam_attempts` VALUES ('114', '236', '2019-11-29 16:12:34', '2019-11-29 16:12:15', '0');
-INSERT INTO `exam_attempts` VALUES ('114', '236', '2019-11-29 16:14:02', '2019-11-29 16:13:51', '0');
-INSERT INTO `exam_attempts` VALUES ('114', '236', '2019-12-01 09:36:03', '2019-12-01 09:35:49', '0');
-INSERT INTO `exam_attempts` VALUES ('114', '236', '2019-12-01 09:37:03', '2019-12-01 09:36:58', '0');
-INSERT INTO `exam_attempts` VALUES ('114', '236', '2019-12-01 09:37:27', '2019-12-01 09:37:24', '0');
-INSERT INTO `exam_attempts` VALUES ('114', '236', '2019-12-01 09:39:21', '2019-12-01 09:39:17', '0');
-INSERT INTO `exam_attempts` VALUES ('114', '236', '2019-12-01 09:39:48', '2019-12-01 09:39:30', '0');
-INSERT INTO `exam_attempts` VALUES ('114', '236', '2019-12-02 10:00:04', '2019-12-02 10:00:01', '0');
-INSERT INTO `exam_attempts` VALUES ('114', '236', '2019-12-02 10:00:51', '2019-12-02 10:00:18', '0');
-INSERT INTO `exam_attempts` VALUES ('114', '236', '2019-12-02 14:56:35', '2019-12-02 14:56:26', '0');
-INSERT INTO `exam_attempts` VALUES ('114', '236', '2019-12-02 15:00:38', '2019-12-02 15:00:26', '50');
-INSERT INTO `exam_attempts` VALUES ('114', '237', '2019-11-28 22:03:21', '2019-11-28 22:03:13', '0');
-INSERT INTO `exam_attempts` VALUES ('114', '248', '2019-11-29 14:58:28', '2019-11-29 14:58:22', '50');
 
 -- ----------------------------
 -- Table structure for `province`
@@ -946,7 +779,7 @@ CREATE TABLE `question` (
   CONSTRAINT `question_ibfk_2` FOREIGN KEY (`createdby`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `question_ibfk_3` FOREIGN KEY (`modifiedby`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `question_ibfk_4` FOREIGN KEY (`exam`) REFERENCES `exam` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=316 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=318 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of question
@@ -981,6 +814,8 @@ INSERT INTO `question` VALUES ('312', '112', 'A visita de alguns escritores Ã 
 INSERT INTO `question` VALUES ('313', '113', 'A opção que melhor completa a frase “O efeito do casamento prematuro nas raparigas é nefasto, na medida em que”', '/images/qa/672_182_a.png', null, '2', null, null, null, null, '<p style=\"text-align: justify;\">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent iaculis tincidunt neque eu luctus. Curabitur et aliquam ex, vitae tincidunt metus. Vivamus quis sem neque. Phasellus faucibus sagittis tortor. In odio turpis, malesuada sit amet vulputate in, vulputate a est. Vestibulum malesuada sapien at leo interdum sagittis. Suspendisse potenti. Donec gravida sem tortor, at sollicitudin lorem luctus quis. Mauris egestas ac lorem nec condimentum. Pellentesque tincidunt vulputate quam. In dapibus quis sapien a malesuada. Duis ac ligula nunc. Mauris sollicitudin faucibus quam, sed bibendum mi pharetra sed. Etiam quis turpis lacinia, sollicitudin arcu eget, hendrerit arcu.</p>\r\n<p style=\"text-align: justify;\">Vivamus pellentesque sagittis justo accumsan pellentesque. Fusce ac venenatis sapien, at feugiat lectus. Etiam vehicula ante ut sollicitudin porttitor. Nunc id malesuada mauris, vitae pretium odio. Fusce molestie nec metus a porta. Donec gravida hendrerit lorem sit amet cursus. Suspendisse sit amet dolor sem. Aliquam et lacus tincidunt sem aliquam mattis. Etiam quam dui, sollicitudin et porttitor id, elementum ac urna. Phasellus leo nulla, porttitor at lectus at, laoreet auctor massa. Vivamus dignissim congue augue, eget fringilla ipsum mollis ac. Duis vel neque ac libero feugiat bibendum. Suspendisse aliquam nulla lectus, nec posuere nunc lacinia vitae. Aliquam suscipit dolor ut libero lobortis vulputate. Praesent eu augue porttitor, convallis tellus at, porttitor sem. Morbi commodo lacinia nisl, vel congue est ullamcorper id.</p>\r\n<p style=\"text-align: justify;\">Mauris sed mattis purus. Quisque viverra arcu id tincidunt posuere. Aenean at sem rutrum, consequat nibh tincidunt, elementum justo. Donec varius ante quis volutpat posuere. Morbi eu ullamcorper tortor, at aliquet nisi. Proin aliquam augue sit amet urna rhoncus posuere. Sed turpis purus, condimentum quis finibus sed, lobortis semper eros. Donec non sem elementum, ullamcorper ligula vitae, finibus ante. Curabitur porta maximus dolor. Praesent id egestas nibh. Donec ultrices lectus vel nibh laoreet cursus quis vel lacus. Suspendisse quis nulla egestas, consequat magna at, rhoncus est. Ut eleifend at neque sit amet venenatis. Maecenas nec nisi ut sem tincidunt tempus a id risus.</p>\r\n<p style=\"text-align: justify;\">Nullam id tortor varius, commodo odio vel, pharetra erat. Fusce dui lorem, iaculis eget porttitor ac, faucibus non quam. Proin feugiat elit sed elementum accumsan. Nulla porttitor interdum arcu, nec iaculis ligula vulputate in. Maecenas sit amet rutrum ante. In suscipit, est vitae finibus pretium, velit lacus bibendum urna, at elementum erat purus eu quam. Aenean dolor ipsum, aliquam quis congue et, euismod id diam. Mauris eleifend cursus mauris, vel vehicula dolor porttitor id. Nam et accumsan velit. In sed lobortis mauris. In suscipit id diam in volutpat. Integer volutpat enim id bibendum aliquet. Donec fermentum elementum arcu in tincidunt. Morbi viverra massa quis elit dapibus ullamcorper.</p>', null);
 INSERT INTO `question` VALUES ('314', '114', '$$\\sqrt {{{(2 - \\sqrt 5 )}^2}} $$ É igual a:', '/images/qa/672_182_a.png', null, '2', null, null, null, null, null, null);
 INSERT INTO `question` VALUES ('315', '114', 'Qual Ã¨ o valor de $${(16)^{ - 1.75}}$$', null, null, '2', null, null, null, null, null, null);
+INSERT INTO `question` VALUES ('316', '113', 'Segundo o texto, a Ilha de MoÃ§ambique Ã© importante porque:', null, null, null, null, null, null, null, null, null);
+INSERT INTO `question` VALUES ('317', '113', 'A visita de alguns escritores Ã  Ilha deve-se:', null, null, null, null, null, null, null, null, null);
 
 -- ----------------------------
 -- Table structure for `role`
