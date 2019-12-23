@@ -5,6 +5,8 @@
  */
 package mz.co.osoma.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -42,6 +44,7 @@ public class Category implements Serializable {
     private String cover;
     @Column(name = "image")
     private String image;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "category", fetch = FetchType.LAZY)
     private List<Exam> examList;
 

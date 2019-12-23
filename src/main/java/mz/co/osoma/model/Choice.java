@@ -5,6 +5,8 @@
  */
 package mz.co.osoma.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -48,8 +50,10 @@ public class Choice implements Serializable {
     private Long fraction;
     @Column(name = "rightchoice")
     private Short rightchoice;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "choice", fetch = FetchType.LAZY)
     private List<AttemptResult> attemptResultList;
+    @JsonIgnore
     @JoinColumn(name = "question", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Question question;

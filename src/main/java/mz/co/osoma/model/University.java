@@ -42,6 +42,7 @@ public class University implements Serializable {
     private String name;
     @Column(name = "shortname")
     private String shortname;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "university", fetch = FetchType.LAZY)
     private List<Exam> examList;
     @JsonIgnore

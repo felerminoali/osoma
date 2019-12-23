@@ -102,7 +102,8 @@ $(document).ready(function () {
                 url: "/mod/load_more_exams.php",
                 method: "POST",
                 data: {last_exam: last_exam},
-                dataType: "html",
+                dataType: "html" +
+                    "+4",
                 success: function (data) {
                     if (data != '') {
                         $('.remove_row_exam').remove();

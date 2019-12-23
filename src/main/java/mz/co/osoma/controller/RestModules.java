@@ -1,9 +1,6 @@
 package mz.co.osoma.controller;
 
-import mz.co.osoma.model.District;
-import mz.co.osoma.model.Province;
-import mz.co.osoma.model.Question;
-import mz.co.osoma.model.User;
+import mz.co.osoma.model.*;
 import mz.co.osoma.service.CRUDService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -89,4 +86,52 @@ public class RestModules {
         }
     }
 
+
+    @RequestMapping(
+            value = "/question/{examid}/{index}",
+            method = RequestMethod.GET,
+            produces = { MimeTypeUtils.APPLICATION_JSON_VALUE },
+            headers = "Accept=application/json"
+    )
+    public ResponseEntity<Object> findExamQuestion(@PathVariable("examid") int examID, @PathVariable("index") int index) {
+        try {
+
+            List<Question> questions = crudService.findByJPQuery("SELECT e FROM Question e where e.exam = " + examID, null);
+
+            if(questions == null){
+                return  new  ResponseEntity<Object>(new EmptyJsonResponse(), HttpStatus.OK);
+            }
+
+            Question question = questions.get(index);
+
+
+            return new  ResponseEntity<Object>(question, HttpStatus.OK);
+
+
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+
+    @RequestMapping(
+            value = "/exam/{examid}",
+            method = RequestMethod.GET,
+            produces = { MimeTypeUtils.APPLICATION_JSON_VALUE },
+            headers = "Accept=application/json"
+    )
+    public ResponseEntity<Object> findExam(@PathVariable("examid") int examID) {
+        try {
+
+            Exam exam = crudService.findEntByJPQuery("SELECT e FROM Exam e where e.id = " + examID, null);
+
+            if(exam == null){
+                return  new  ResponseEntity<Object>(new EmptyJsonResponse(), HttpStatus.OK);
+            }
+
+            return new  ResponseEntity<Object>(exam, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
 }

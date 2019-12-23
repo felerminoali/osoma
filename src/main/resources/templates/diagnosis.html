@@ -18,162 +18,173 @@
 
                     <div class="row" id="ajax-container">
 
-                        <div class="col-md-12" id="main" style="background-color: white; border: 1px solid #c2cbd4;">
-                                <input type="hidden" id="duration" th:value="${exam.duration}"/>
+                        <div class="col-md-10" id="main" style="background-color: white; border: 1px solid #c2cbd4;">
+                            <input type="hidden" id="duration" th:value="${exam.duration}"/>
+                            <input type="hidden" id="examid" th:value="${exam.id}"/>
+                            <input type="hidden" id="index" th:value="${next}"/>
 
-                                <!--</div>-->
-                                <form action="/ubs/result" method="post" autocomplete="off" id="questionform">
-                                    <input type="hidden" id="timeoutinput" name="na1" value="na">
-                                    <input type="hidden" id="finishnowinput" name="na2" value="na">
-                                    <input type="hidden" id="examid" name="examid" th:value="${id}">
-                                    <input type="hidden" id="starttimestamp" name="starttimestamp" th:value="${starttimestamp}">
 
-                                    <div id="question_container">
-                                        <a id="q123"></a>
+                            <!--</div>-->
+                            <form action="/ubs/result" method="post" autocomplete="off" id="questionform">
+                                <input type="hidden" id="timeoutinput" name="na1" value="na">
+                                <input type="hidden" id="finishnowinput" name="na2" value="na">
+                                <input type="hidden" id="examid" name="examid" th:value="${id}">
+                                <input type="hidden" id="starttimestamp" name="starttimestamp"
+                                       th:value="${starttimestamp}">
 
-                                        <div class="single_question_box">
+                                <div id="question_container">
+                                    <div class="single_question_box">
 
-                                            <div class="qbox">
-                                                <div class="qboxleft">
-                                                    <div id="paging"><h4>Questão <span th:text="${next}">1</span> de <span
-                                                            th:text="${quantidadeExames}"></span></h4></div>
-                                                </div>
-                                                <div class="clear"></div>
+                                        <div class="qbox">
+                                            <div class="qboxleft">
+                                                <div id="paging"><h4>Questão <span id="q_index">1</span> de <span
+                                                        th:text="${quantidadeExames}"></span></h4></div>
                                             </div>
-                                            <div class="col600 qsholder editor">
-                                                <p>
-                                                </p>
-                                                <dl id="question_div">
-                                                    <dd class="q_question">
-                                                        <div class="media">
-                                                            <div class="media-left" th:if="${questions.image}!=null">
-                                                                <a href="#">
-                                                                    <img class="media-object" th:src="${questions.image}"
-                                                                         alt="questions.image">
-                                                                </a>
+                                            <div class="clear"></div>
+                                        </div>
+                                        <div class="col600 qsholder editor">
+                                            <p>
+                                            </p>
+                                            <dl id="question_div">
+                                                <dd class="q_question">
+                                                    <div class="media">
+                                                        <div class="media-left q_img" th:if="${questions.image}!=null">
+                                                            <a href="#">
+                                                                <img class="media-object" th:src="${questions.image}"
+                                                                     alt="questions.image">
+                                                            </a>
+                                                        </div>
+
+                                                        <div class="media-body">
+                                                            <h4 class="media-heading q_question"><span
+                                                                    style="display: inline;"
+                                                                    th:text="${questions.question}">:</span></h4>
+                                                            <br/>
+                                                            <div class="span6 pull-left" th:if="${questions.caseofstudy}!=null">
+                                                                <div class="casestudy" th:utext="${shortText}"></div>
                                                             </div>
-                                                            <div class="media-body">
-                                                                <h4 class="media-heading"><span style="display: inline;"
-                                                                                                th:text="${questions.question}">:</span>
-                                                                </h4>
-                                                                <br/>
-                                                                <div class="span6 pull-left"
-                                                                     th:if="${questions.caseofstudy}!=null">
 
-                                                                    <div class="casestudy" th:utext="${shortText}"></div>
-
-                                                                    <!-- Modal -->
-                                                                    <div class="modal fade" id="myModal" tabindex="-1"
-                                                                         role="dialog" aria-labelledby="myModalLabel">
-                                                                        <div class="modal-dialog modal-lg" role="document">
-                                                                            <div class="modal-content">
-                                                                                <div class="modal-header">
-                                                                                    <button type="button" class="close"
-                                                                                            data-dismiss="modal"
-                                                                                            aria-label="Close"><span
-                                                                                            aria-hidden="true">&times;</span>
-                                                                                    </button>
-                                                                                    <h4 class="modal-title" id="myModalLabel">
-                                                                                        Texto</h4>
-                                                                                </div>
-                                                                                <div class="modal-body"
-                                                                                     th:utext="${htmlCaseOfStudy}"></div>
-                                                                                <div class="modal-footer">
-                                                                                    <button type="button"
-                                                                                            class="btn btn-default"
-                                                                                            data-dismiss="modal">Close
-                                                                                    </button>
-                                                                                </div>
-                                                                            </div>
+                                                            <!-- Modal -->
+                                                            <div class="modal fade" id="myModal" tabindex="-1"
+                                                                 role="dialog" aria-labelledby="myModalLabel">
+                                                                <div class="modal-dialog modal-lg" role="document">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <button type="button" class="close"
+                                                                                    data-dismiss="modal"
+                                                                                    aria-label="Close"><span
+                                                                                    aria-hidden="true">&times;</span>
+                                                                            </button>
+                                                                            <h4 class="modal-title"
+                                                                                id="myModalLabel">
+                                                                                Texto</h4>
+                                                                        </div>
+                                                                        <div class="modal-body"
+                                                                             th:utext="${htmlCaseOfStudy}"
+                                                                             id="q_caseofstudy"></div>
+                                                                        <div class="modal-footer">
+                                                                            <button type="button"
+                                                                                    class="btn btn-default"
+                                                                                    data-dismiss="modal">Close
+                                                                            </button>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                    </div>
 
-                                                    </dd>
-                                                </dl>
-                                                <p></p>
-                                            </div>
-                                            <div class="dotted"></div>
-                                            <div class="answersDiv">
-                                                <table width="100%">
-                                                    <tr th:each="alternative, inter: ${choices}">
+                                                </dd>
+                                            </dl>
+                                            <p></p>
+                                        </div>
+                                        <div class="dotted"></div>
+                                        <div class="answersDiv">
+                                            <table width="100%">
+                                                <tr th:each="alternative, inter: ${choices}">
 
-                                                        <div class="media">
+                                                    <div class="media">
 
-                                                            <div class="media-body">
-                                                                <div class="clear"></div>
-                                                                <div class="ans_select">
-                                                                    <input type="radio"
-                                                                           th:id="${'q_'+questions.id+'_'+alternative.id+'_'+T(mz.co.osoma.service.Helper).asciiToString(64+(inter.index+1))}"
-                                                                           name="q_choice"
-                                                                           th:checked="${alternative.id == sessionAnswer}">
-                                                                </div>
-                                                                <div class="ans_content editor">
-                                                                    <label th:for="${'q_'+questions.id+'_'+alternative.id}">
-                                                                        <span th:id="${alternative.id}" th:rel="${T(mz.co.osoma.service.Helper).asciiToString(64+(inter.index+1))}" th:text="${T(mz.co.osoma.service.Helper).asciiToString(64+(inter.index+1))+'. '+alternative.answer}">.</span>
-                                                                    </label>
-                                                                </div>
+                                                        <div class="media-body">
+                                                            <div class="clear"></div>
+                                                            <div class="ans_select">
+                                                                <input type="radio"
+                                                                       th:id="${'q_'+questions.id+'_'+alternative.id+'_'+T(mz.co.osoma.service.Helper).asciiToString(64+(inter.index+1))}"
+                                                                       name="q_choice"
+                                                                       th:checked="${alternative.id == sessionAnswer}">
                                                             </div>
-
-                                                            <div class="media-right" th:if="${alternative.image}!=null">
-                                                                <a href="#">
-                                                                    <img class="media-object" th:src="${alternative.image}"
-                                                                         alt="alternative.image">
-                                                                </a>
+                                                            <div class="ans_content editor">
+                                                                <label th:for="${'q_'+questions.id+'_'+alternative.id}">
+                                                                    <span th:id="${alternative.id}"
+                                                                          th:rel="${T(mz.co.osoma.service.Helper).asciiToString(64+(inter.index+1))}"
+                                                                          th:text="${T(mz.co.osoma.service.Helper).asciiToString(64+(inter.index+1))+'. '+alternative.answer}">.</span>
+                                                                </label>
                                                             </div>
                                                         </div>
-                                                    </tr>
-                                                </table>
-                                            </div>
+
+                                                        <div class="media-right" th:if="${alternative.image}!=null">
+                                                            <a href="#">
+                                                                <img class="media-object" th:src="${alternative.image}"
+                                                                     alt="alternative.image">
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </tr>
+                                            </table>
                                         </div>
-                                    </div>
-
-                                    <div class="nextprev">
-                                        <div class="prevbox">
-                                            <div class="prevbox">
-                                                <a th:if="${next}>1"
-                                                   th:href="@{/ubs/online-test(id = ${id}, question = ${next-2})}"
-                                                   id="qprev" class="btn btn-danger prev"><i
-                                                        class="glyphicon glyphicon-chevron-left"></i> Anterior</a>
-                                            </div>
-                                        </div>
-                                        <div class="nextbox">
-                                            <a th:if="${next<quantidadeExames}"
-                                               th:href="@{/ubs/online-test(id = ${id}, question = ${next})}"
-                                               id="qnext" class="btn btn-danger next">Seguinte
-                                                <i class="glyphicon glyphicon-chevron-right"></i>
-                                            </a>
-                                            <a th:if="${next}>=${quantidadeExames}" id="qfinish"
-                                               class="btn btn-success t_finish">
-                                                Terminar teste
-                                                <i class="glyphicon glyphicon-chevron-right"></i>
-                                            </a>
-                                            <a href="#" class="btn btn-info showlist" id="btnShow">Respostas</a>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-
-                        <div class="col-md-2 hidden" id="side">
-
-                                <div class="list-group">
-                                    <a href="#" class="list-group-item active">
-                                        Respostas
-                                    </a>
-
-                                    <div class="scroll">
-                                        <a th:each="q, inter:${questionlist}"
-                                           th:href="@{/ubs/online-test(id = ${id}, question = ${inter.index})}" class="list-group-item">
-                                            <span class="badge pull-left" th:text="${inter.index+1}"></span>
-                                            &nbsp;
-                                            <span th:id="${'answer_'+q.id}" th:text="${T(mz.co.osoma.service.Helper).getlabel(#session.getAttribute(q.id+''))}"></span>
-                                        </a>
                                     </div>
                                 </div>
+
+                                <div class="nextprev">
+                                    <div class="prevbox">
+                                        <a th:if="${next}>1" id="qprev" class="btn btn-danger prev"><i
+                                                class="glyphicon glyphicon-chevron-left"></i> Anterior</a>
+                                    </div>
+
+                                    <div class="nextbox">
+
+                                        <a th:if="${next<quantidadeExames}"
+                                           id="qnext" class="btn btn-danger next">Seguinte
+                                            <i class="glyphicon glyphicon-chevron-right"></i>
+                                        </a>
+
+
+                                        <a href="#" id="qfinish" class="btn btn-success t_finish">Terminar<i class="glyphicon glyphicon-chevron-up"></i></a>
+
+                                        <a href="#" class="btn btn-info showlist" id="btnShow">Respostas</a>
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="col-md-2" id="side">
+
+                            <div class="list-group">
+                                <a href="#" class="list-group-item active">
+                                    Respostas
+                                </a>
+
+                                <div class="scroll q_response">
+                                    <a th:each="q, inter:${questionlist}"
+                                       th:href="@{/ubs/online-test(id = ${id}, question = ${inter.index})}"
+                                       class="list-group-item">
+                                        <span class="badge pull-left" th:text="${inter.index+1}"></span>
+                                        &nbsp;
+                                        <span th:id="${'answer_'+q.id}"
+                                              th:text="${T(mz.co.osoma.service.Helper).getlabel(#session.getAttribute(q.id+''))}"></span>
+                                    </a>
+                                </div>
                             </div>
+                        </div>
                     </div>
+
+
+                    <div class="row">
+                        <div id="test"></div>
+                    </div>
+
+
                 </div>
             </div>
 
@@ -182,13 +193,13 @@
     </div>
 
 
-
-
-    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="mi-modal">
+    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true"
+         id="mi-modal">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="myModalLabel">Confirmar</h4>
                 </div>
                 <div class="modal-body">
@@ -203,7 +214,8 @@
     </div>
 
     <script type="text/javascript">
-        var maxSec = $("#duration").val();
+        // var maxSec = $("#duration").val();
+        var maxSec = 120;
     </script>
 
     <script type="text/javascript">

@@ -5,6 +5,8 @@
  */
 package mz.co.osoma.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.List;
@@ -67,7 +69,9 @@ public class Question implements Serializable {
     private User modifiedby;
     @JoinColumn(name = "exam", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     private Exam exam;
+
     @OneToMany(mappedBy = "question", fetch = FetchType.LAZY)
     private List<Choice> choiceList;
 

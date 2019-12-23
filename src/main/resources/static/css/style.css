@@ -1726,7 +1726,7 @@ div.classmarker_body_div{
     margin-bottom: 20px;
 }
 
-.nextbox {
+.nextbox .boxbtn{
     width: 50%;
     float: left;
     text-align: right;

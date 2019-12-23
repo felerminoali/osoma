@@ -5,6 +5,8 @@
  */
 package mz.co.osoma.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -56,6 +58,7 @@ public class Exam implements Serializable {
     @Column(name = "hassimulation")
     private Boolean hassimulation;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "exam", fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<ExamAttempts> examAttemptsList;
     @OneToMany(mappedBy = "exam", fetch = FetchType.LAZY)
     private List<Question> questionList;

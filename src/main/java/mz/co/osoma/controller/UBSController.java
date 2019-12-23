@@ -152,7 +152,10 @@ public class UBSController {
         }
 
         model.addObject("quantidadeExames", questions.size());
-        model.addObject("next", index + 1);
+//        model.addObject("next", index + 1);
+
+        model.addObject("next", index);
+
         Locale l = new Locale("pt", "BR");
         Calendar c = Calendar.getInstance(l);
         SimpleDateFormat df = new SimpleDateFormat("dd MMM yyyy, HH:mm:ss", l);

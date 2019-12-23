@@ -5,6 +5,8 @@
  */
 package mz.co.osoma.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -37,6 +39,7 @@ public class Qtype implements Serializable {
     private Integer id;
     @Column(name = "type")
     private String type;
+    @JsonIgnore
     @OneToMany(mappedBy = "qtype", fetch = FetchType.LAZY)
     private List<Question> questionList;
 
