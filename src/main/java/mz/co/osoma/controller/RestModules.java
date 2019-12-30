@@ -2,6 +2,7 @@ package mz.co.osoma.controller;
 
 import mz.co.osoma.model.*;
 import mz.co.osoma.service.CRUDService;
+import mz.co.osoma.service.SavedAnswerResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -122,16 +123,46 @@ public class RestModules {
     )
     public ResponseEntity<Object> findExam(@PathVariable("examid") int examID) {
         try {
-
             Exam exam = crudService.findEntByJPQuery("SELECT e FROM Exam e where e.id = " + examID, null);
 
             if(exam == null){
                 return  new  ResponseEntity<Object>(new EmptyJsonResponse(), HttpStatus.OK);
             }
-
             return new  ResponseEntity<Object>(exam, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+    }
+
+
+
+    @RequestMapping(
+            value = "/mod/saved_answer/{question_id}",
+            method = RequestMethod.GET,
+            produces = { MimeTypeUtils.APPLICATION_JSON_VALUE },
+            headers = "Accept=application/json"
+    )
+    public ResponseEntity<Object> getAnswerByQuestionId(@PathVariable("question_id") String key, HttpSession session) {
+
+        Object value =  session.getAttribute(key);
+
+
+
+        if(value == null){
+            return  new  ResponseEntity<Object>(new EmptyJsonResponse(), HttpStatus.OK);
+        }
+
+        String[] choosed = ((String) value).split("_");
+
+        SavedAnswerResponse response = new SavedAnswerResponse(key, choosed[0], choosed[1]);
+
+        System.out.println(response);
+
+        return new  ResponseEntity<Object>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("/test")
+    public String testRest(){
+        return null;
     }
 }

@@ -63,7 +63,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/users/contact/*",
                         "/users/email/*",
                         "/register/**",
-                        "/ubs/", "/forgot", "/reset", "/question/**", "/exam/*").permitAll()
+                        "/ubs/",
+                        "/forgot",
+                        "/reset",
+                        "/question/**",
+                        "/test",
+                        "/exam/*",
+                        "/mod/saved_answer/*").permitAll()
                 .antMatchers("/js/**").permitAll() // permit JS resources
                 .antMatchers("/fonts/**").permitAll() // permit fonts resources
                 .antMatchers("/images/**").permitAll() // permit images resources

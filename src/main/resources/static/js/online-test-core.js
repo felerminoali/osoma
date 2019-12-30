@@ -126,12 +126,36 @@ $(document).ready(function () {
     }
 
 
+    function getAnswerById(questionId) {
+
+        var ss = null;
+
+        var url = "/mod/saved_answer/" + questionId;
+        $.ajax({
+            url: url,
+            method: "GET",
+            data: ({questionId: questionId}),
+            async: false,
+            dataType: "json",
+            success: function (data) {
+                 if (data != null) {
+                     ss = data;
+                 }
+            },
+            error: function (xhr, textStatus, error) {
+                console.log(xhr.statusText);
+                console.log(textStatus);
+                console.log(error);
+            }
+        });
+
+
+
+        return ss;
+
+    }
 
     function fetchQuestions(pointer) {
-
-        var answerId = /*[[${session.313}]*/ null;
-
-        alert(answerId);
 
         var examID = $('#examid').val();
         var index = parseInt($('#index').val()) + pointer;
@@ -146,7 +170,7 @@ $(document).ready(function () {
             success: function (data) {
 
                 $("#index").val(index);
-                $("#q_index").html(index+1);
+                $("#q_index").html(index + 1);
 
 
                 var media_img = '';
@@ -193,10 +217,16 @@ $(document).ready(function () {
                 $(".answersDiv").html(str);
 
                 var q_response = '';
+
+
+
+
                 for (var i = 0; i < data.questionList.length; i++) {
                     q_response += '<a href="#" class="list-group-item">';
                     q_response += '<span class="badge pull-left">' + (i + 1) + '</span>&nbsp;';
-                    q_response += '<span id="answer_' + data.questionList[i].id + '"></span>';
+
+                    var red = getAnswerById(data.questionList[i].id) != null ? getAnswerById(data.questionList[i].id) : '';
+                    q_response += '<span id="answer_' + data.questionList[i].id + '">' +red==null? '':red['label']+ '</span>';
                     q_response += '</a>';
                 }
 
@@ -205,18 +235,22 @@ $(document).ready(function () {
 
                 var btn_prev = '';
 
-                if(index !== 0){
+                if (index !== 0) {
                     btn_prev += '<a id="qprev" class="btn btn-danger prev"><i class="glyphicon glyphicon-chevron-left"></i> Anterior</a>';
                 }
                 $('.prevbox').html(btn_prev);
 
                 var div_next = '';
-                if(data.questionList.length-1 !== index){
+                if (data.questionList.length - 1 !== index) {
                     div_next += '<a id="qnext" class="btn btn-danger next">Seguinte<i class="glyphicon glyphicon-chevron-right"></i></a>';
                 }
                 div_next += '<a href="#" id="qfinish" class="btn btn-success t_finish">Terminar<i class="glyphicon glyphicon-chevron-up"></i></a>';
                 div_next += '<a href="#" class="btn btn-info showlist" id="btnShow">Respostas</a>';
                 $('.nextbox').html(div_next);
+
+
+                getAnswerById(data.questionList[index].id);
+
 
                 initComponents();
             },
