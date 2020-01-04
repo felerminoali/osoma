@@ -32,6 +32,12 @@ $(document).ready(function () {
 
     function initComponents() {
 
+
+        $(document).ajaxSend(function() {
+            $("#overlay").fadeIn(300);
+        });
+
+
         $('#qnext').on('click', function (e) {
             validateAnswer(e);
         });
@@ -121,6 +127,7 @@ $(document).ready(function () {
                 saveAnswer();
                 redirect2Results();
             } else {
+                $("#overlay").fadeOut(300);
             }
         });
     }
@@ -260,6 +267,10 @@ $(document).ready(function () {
                 console.log(textStatus);
                 console.log(error);
             }
+        }).done(function() {
+            setTimeout(function(){
+                $("#overlay").fadeOut(300);
+            },500);
         });
 
 
