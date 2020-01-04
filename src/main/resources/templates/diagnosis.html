@@ -46,9 +46,9 @@
                                             <p>
                                             </p>
                                             <dl id="question_div">
-                                                <dd class="q_question">
+                                                <dd>
                                                     <div class="media">
-                                                        <div class="media-left q_img" th:if="${questions.image}!=null">
+                                                        <div class="media-left" id="q_img" th:if="${questions.image}!=null">
                                                             <a href="#">
                                                                 <img class="media-object" th:src="${questions.image}"
                                                                      alt="questions.image">
@@ -167,7 +167,7 @@
 
                                 <div class="scroll q_response">
                                     <a th:each="q, inter:${questionlist}"
-                                       th:href="@{/ubs/online-test(id = ${id}, question = ${inter.index})}"
+                                       href="#"
                                        class="list-group-item">
                                         <span class="badge pull-left" th:text="${inter.index+1}"></span>
                                         &nbsp;
@@ -179,10 +179,6 @@
                         </div>
                     </div>
 
-
-                    <div class="row">
-                        <div id="test"></div>
-                    </div>
 
 
                 </div>
@@ -213,9 +209,6 @@
         </div>
     </div>
 
-
-    <!--<button id="button" type="button">Click</button>-->
-
     <div id="overlay">
         <div class="cv-spinner">
             <span class="spinner"></span>
@@ -224,8 +217,8 @@
 
 
     <script type="text/javascript">
-        // var maxSec = $("#duration").val();
-        var maxSec = 20;
+        var maxSec = $("#duration").val();
+        //var maxSec = 120;
     </script>
 
     <script type="text/javascript">

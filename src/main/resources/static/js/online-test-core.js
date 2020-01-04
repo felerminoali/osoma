@@ -76,7 +76,6 @@ $(document).ready(function () {
         if ($('.t_finish').length > 0) {
             ($('.t_finish').click(function () {
                 saveAnswer();
-
             }));
         }
 
@@ -135,8 +134,7 @@ $(document).ready(function () {
 
     function getAnswerById(questionId) {
 
-        var ss = null;
-
+        var result = null;
         var url = "/mod/saved_answer/" + questionId;
         $.ajax({
             url: url,
@@ -146,7 +144,7 @@ $(document).ready(function () {
             dataType: "json",
             success: function (data) {
                  if (data != null) {
-                     ss = data;
+                     result = data;
                  }
             },
             error: function (xhr, textStatus, error) {
@@ -155,12 +153,10 @@ $(document).ready(function () {
                 console.log(error);
             }
         });
-
-
-
-        return ss;
-
+        return result;
     }
+
+
 
     function fetchQuestions(pointer) {
 
@@ -182,10 +178,10 @@ $(document).ready(function () {
 
                 var media_img = '';
                 if (data.questionList[index].image != null) {
-                    media_img = '<a href="#"><img class="media-object" src="' + data.questionList[index].image + '" alt="questions.image"></a>';
+                   var  media_img = '<a href="#"><img class="media-object" src="'+data.questionList[index].image+'" alt="questions.image"></a>';
                 }
 
-                $(".q_img").html(media_img);
+                $('#q_img').html(media_img);
                 $('.q_question').html(data.questionList[index].question);
 
 
@@ -195,12 +191,29 @@ $(document).ready(function () {
                     var noHtmlCaseOfStudy = $(htmlCaseOfStudy);
                     shortText = noHtmlCaseOfStudy.text().substring(0, 120);
                     $('#q_caseofstudy').html(data.questionList[index].caseofstudy);
-                    shortText += '<a href="#" data-toggle="modal" data-target="myModal">Monstrar mais</a>';
+                    shortText += '&nbsp;...&nbsp;'+'<a href="#" data-toggle="modal" data-target="#myModal">Monstrar mais</a>';
                 }
 
                 $('.casestudy').html(shortText);
 
                 var str = '<table width="100%">';
+
+                var q_response = '';
+                for (var i = 0; i < data.questionList.length; i++) {
+                    q_response += '<a href="#" class="list-group-item">';
+                    q_response += '<span class="badge pull-left">' + (i + 1) + '</span>&nbsp;';
+                    var session_saved_choice = getAnswerById(data.questionList[i].id);
+
+                    var labels = '';
+                    if(session_saved_choice['label']!=null){
+                        labels = session_saved_choice['label'];
+                    }
+                    q_response += '<span id="answer_'+data.questionList[i].id+'">'+labels+'</span>';
+                    q_response += '</a>';
+                }
+
+                $(".q_response").html(q_response);
+
 
                 for (var i = 0; i < data.questionList[index].choiceList.length; i++) {
                     var obj = data.questionList[index].choiceList[i];
@@ -209,11 +222,18 @@ $(document).ready(function () {
                     str += '<div class="media-body">';
                     str += '<div class="clear"></div>';
                     str += '<div class="ans_select">';
-                    str += '<input type="radio" id="q_' + data.questionList[index].id + '_' + obj.id + '_' + String.fromCharCode(65 + i) + '" name="q_choice"/>';
+
+                    var choosed = getAnswerById(data.questionList[index].id);
+                    if(choosed['idChoice'] == obj.id && choosed['idChoice']!=null){
+                        str += '<input type="radio" id="q_' + data.questionList[index].id + '_' + obj.id + '_' + String.fromCharCode(65 + i) + '" name="q_choice" checked/>';
+                    }else{
+                        str += '<input type="radio" id="q_' + data.questionList[index].id + '_' + obj.id + '_' + String.fromCharCode(65 + i) + '" name="q_choice"/>';
+                    }
+
                     str += '</div>';
                     str += '<div class="ans_content editor">';
                     str += '<label for="q_' + data.questionList[index].id + '_' + obj.id + '_' + String.fromCharCode(65 + i) + '">';
-                    str += '<span id="' + obj.id + '" rel="' + String.fromCharCode(65 + i) + '">' + String.fromCharCode(65 + i) + '.' + obj.answer + '</span>';
+                    str += '<span id="' + obj.id + '" rel="' + String.fromCharCode(65 + i) + '">' + String.fromCharCode(65 + i) + '.&nbsp;' + obj.answer + '</span>';
                     str += '</label>';
                     str += '</div>';
                     str += '</div>';
@@ -223,21 +243,6 @@ $(document).ready(function () {
                 str += '</table>';
                 $(".answersDiv").html(str);
 
-                var q_response = '';
-
-
-
-
-                for (var i = 0; i < data.questionList.length; i++) {
-                    q_response += '<a href="#" class="list-group-item">';
-                    q_response += '<span class="badge pull-left">' + (i + 1) + '</span>&nbsp;';
-
-                    var red = getAnswerById(data.questionList[i].id) != null ? getAnswerById(data.questionList[i].id) : '';
-                    q_response += '<span id="answer_' + data.questionList[i].id + '">' +red==null? '':red['label']+ '</span>';
-                    q_response += '</a>';
-                }
-
-                $(".q_response").html(q_response);
 
 
                 var btn_prev = '';
@@ -249,15 +254,13 @@ $(document).ready(function () {
 
                 var div_next = '';
                 if (data.questionList.length - 1 !== index) {
-                    div_next += '<a id="qnext" class="btn btn-danger next">Seguinte<i class="glyphicon glyphicon-chevron-right"></i></a>';
+                    div_next += '<a id="qnext" class="btn btn-danger next">Seguinte<i class="glyphicon glyphicon-chevron-right"></i></a>&nbsp;';
                 }
-                div_next += '<a href="#" id="qfinish" class="btn btn-success t_finish">Terminar<i class="glyphicon glyphicon-chevron-up"></i></a>';
-                div_next += '<a href="#" class="btn btn-info showlist" id="btnShow">Respostas</a>';
+                div_next += '<a href="#" id="qfinish" class="btn btn-success t_finish">Terminar<i class="glyphicon glyphicon-chevron-up"></i></a>&nbsp;';
+                div_next += '<a href="#" class="btn btn-info showlist" id="btnShow">Respostas</a>&nbsp;';
                 $('.nextbox').html(div_next);
 
-
                 getAnswerById(data.questionList[index].id);
-
 
                 initComponents();
             },
