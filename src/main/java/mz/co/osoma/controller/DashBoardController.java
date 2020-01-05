@@ -30,6 +30,13 @@ public class DashBoardController {
     private List<User> users = new ArrayList<>();
 
 
+    @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
+    public ModelAndView dashboard(){
+        ModelAndView model = new ModelAndView("dashboard");
+        return model;
+    }
+
+
     @RequestMapping(value = "/exams-admin", method = RequestMethod.GET)
     public ModelAndView adminDashBoard(@RequestParam("pg") Optional<Integer> pg,
                                        @RequestParam("remove") Optional<Integer> examId,

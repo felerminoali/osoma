@@ -68,6 +68,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/reset",
                         "/question/**",
                         "/test",
+                        "/dashboard",
                         "/exam/*",
                         "/mod/saved_answer/*").permitAll()
                 .antMatchers("/js/**").permitAll() // permit JS resources

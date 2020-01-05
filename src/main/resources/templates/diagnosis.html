@@ -168,11 +168,11 @@
                                 <div class="scroll q_response">
                                     <a th:each="q, inter:${questionlist}"
                                        href="#"
-                                       class="list-group-item">
+                                       class="list-group-item answer_index" th:rel="${inter.index}">
                                         <span class="badge pull-left" th:text="${inter.index+1}"></span>
                                         &nbsp;
                                         <span th:id="${'answer_'+q.id}"
-                                              th:text="${T(mz.co.osoma.service.Helper).getlabel(#session.getAttribute(q.id+''))}"></span>
+                                              th:text="${T(mz.co.osoma.service.Helper).getlabel(#session.getAttribute(q.id+''))}" ></span>
                                     </a>
                                 </div>
                             </div>

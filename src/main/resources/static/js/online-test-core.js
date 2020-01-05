@@ -79,6 +79,15 @@ $(document).ready(function () {
             }));
         }
 
+        if ($('.answer_index').length > 0) {
+            ($('.answer_index').click(function () {
+                $('#index').val(0);
+                var index = $(this).attr('rel');
+                saveAnswer();
+                fetchQuestions(parseInt(index));
+            }));
+        }
+
         if ($('.next').length > 0) {
             ($('.next').click(function () {
                 fetchQuestions(1);
@@ -123,10 +132,17 @@ $(document).ready(function () {
 
         modalConfirm(function (confirm) {
             if (confirm) {
-                saveAnswer();
-                redirect2Results();
+
+                setTimeout(function(){
+                    saveAnswer();
+                    $("#overlay").fadeOut(300);
+                    redirect2Results();
+                },500);
+
             } else {
-                $("#overlay").fadeOut(300);
+                setTimeout(function(){
+                    $("#overlay").fadeOut(300);
+                },500);
             }
         });
     }
@@ -167,7 +183,6 @@ $(document).ready(function () {
         $.ajax({
             url: url,
             method: "GET",
-            // data: {examID: examID, index: index},
             data: {examID: examID},
             dataType: "json",
             success: function (data) {
@@ -200,15 +215,15 @@ $(document).ready(function () {
 
                 var q_response = '';
                 for (var i = 0; i < data.questionList.length; i++) {
-                    q_response += '<a href="#" class="list-group-item">';
+                    q_response += '<a href="#" class="list-group-item answer_index" rel="'+i+'">';
                     q_response += '<span class="badge pull-left">' + (i + 1) + '</span>&nbsp;';
                     var session_saved_choice = getAnswerById(data.questionList[i].id);
 
-                    var labels = '';
+                    var label = '';
                     if(session_saved_choice['label']!=null){
-                        labels = session_saved_choice['label'];
+                        label = session_saved_choice['label'];
                     }
-                    q_response += '<span id="answer_'+data.questionList[i].id+'">'+labels+'</span>';
+                    q_response += '<span id="answer_'+data.questionList[i].id+'">'+label+'</span>';
                     q_response += '</a>';
                 }
 
