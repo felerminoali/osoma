@@ -83,6 +83,70 @@ table.tablesorter thead tr th:hover {
   height: 100%;
 }
 
+.navbar-inverse {
+    background-color: #009E49;
+    border-color: #93d3a4;
+}
+.navbar-inverse .navbar-brand {
+    color: #fff;
+}
+
+.navbar-inverse .navbar-brand:hover,
+.navbar-inverse .navbar-brand:focus {
+    color: #000;
+    background-color: transparent;
+}
+
+
+/*felas*/
+
+.navbar-inverse .navbar-nav > li > a {
+    color: #f4f4f4;
+}
+
+.navbar-inverse .navbar-nav > li > a:hover,
+.navbar-inverse .navbar-nav > li > a:focus {
+    color: #000;
+    background-color: transparent;
+}
+
+
+.navbar-inverse .navbar-nav > .active > a,
+.navbar-inverse .navbar-nav > .active > a:hover,
+.navbar-inverse .navbar-nav > .active > a:focus {
+    color: #000;
+    background-color: #fff;
+    border-color:#444;
+}
+.navbar-inverse .navbar-nav > .disabled > a,
+.navbar-inverse .navbar-nav > .disabled > a:hover,
+.navbar-inverse .navbar-nav > .disabled > a:focus {
+    color: #444;
+    background-color: transparent;
+}
+/*.navbar-inverse .navbar-toggle {*/
+    /*border-color: #333;*/
+/*}*/
+/*.navbar-inverse .navbar-toggle:hover,*/
+/*.navbar-inverse .navbar-toggle:focus {*/
+    /*background-color: #333;*/
+/*}*/
+/*.navbar-inverse .navbar-toggle .icon-bar {*/
+    /*background-color: #fff;*/
+/*}*/
+/*.navbar-inverse .navbar-collapse,*/
+/*.navbar-inverse .navbar-form {*/
+    /*border-color: #101010;*/
+/*}*/
+/*.navbar-inverse .navbar-nav > .open > a,*/
+/*.navbar-inverse .navbar-nav > .open > a:hover,*/
+/*.navbar-inverse .navbar-nav > .open > a:focus {*/
+    /*color: #fff;*/
+    /*background-color: #080808;*/
+/*}*/
+
+/*felas*/
+
 /* Edit Below to Customize Widths > 768px */
 @media (min-width:768px) {
 
@@ -100,14 +164,15 @@ table.tablesorter thead tr th:hover {
 
   .side-nav {
 	margin-left: -225px;
-	left: 225px;
+      left: 225px;
 	width: 225px;
 	position: fixed;
-	top: 50px;
+	top: 60px;
 	height: 100%;
 	border-radius: 0;
 	border: none;
-	background-color: #222222;
+	/*background-color: #222222;*/
+      background-color: #373737;
 	overflow-y: auto;
   }
 
@@ -126,16 +191,19 @@ table.tablesorter thead tr th:hover {
   }
 
   .side-nav>li.dropdown>ul.dropdown-menu>li>a {
-	color: #999999;
-	padding: 15px 15px 15px 25px;
+      color: #000;
+	/*padding: 0px 15px 0px 25px;*/
   }
 
   .side-nav>li.dropdown>ul.dropdown-menu>li>a:hover,
-  .side-nav>li.dropdown>ul.dropdown-menu>li>a.active,
-  .side-nav>li.dropdown>ul.dropdown-menu>li>a:focus {
-	color: #fff;
-	background-color: #080808;
-  }
+   .side-nav>li.dropdown>ul.dropdown-menu>li>a.active,
+   .side-nav>li.dropdown>ul.dropdown-menu>li>a:focus {
+       /*color: #fff;*/
+       /*background-color: #080808;*/
+
+      color: #000;
+      background-color: #fff;
+   }
 
   .side-nav>li>a {
 	width: 225px;
@@ -143,7 +211,8 @@ table.tablesorter thead tr th:hover {
 
   .navbar-inverse .navbar-nav>li>a:hover,
   .navbar-inverse .navbar-nav>li>a:focus {
-	background-color: #080808;
+      background-color: #fff;
+      color: #000;
   }
 
   /* Nav Messages */

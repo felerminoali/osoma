@@ -65,13 +65,6 @@ public class LoginController {
     }
 
 
-    @RequestMapping(value = "/admin", method = RequestMethod.GET)
-    public ModelAndView admin() {
-        ModelAndView model = new ModelAndView("dashboard-home");
-        return model;
-    }
-
-
     @RequestMapping(value = "/forgot", method = RequestMethod.GET)
     public ModelAndView forgotGET() {
         ModelAndView model = new ModelAndView("forgotPassword");

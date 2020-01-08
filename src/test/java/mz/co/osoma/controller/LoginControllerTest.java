@@ -39,12 +39,12 @@ public class LoginControllerTest {
 ////        assertEquals(modelAndView.getModel().get("error"), null);
 //    }
 
-    @Test
-    public void admin() {
-        ModelAndView modelAndView = loginController.admin();
-
-        assertEquals(modelAndView.getModel().get("error"), 0);
-    }
+//    @Test
+////    public void admin() {
+////        ModelAndView modelAndView = loginController.admin();
+////
+////        assertEquals(modelAndView.getModel().get("error"), 0);
+////    }
 
 
 //    @Test
