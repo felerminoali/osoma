@@ -56,7 +56,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
         .csrf().disable()
                 .authorizeRequests()
-                .antMatchers( "/admin",
+                .antMatchers(
                         "/",
                         "/mod/save_answer",
                         "/districts/*",
@@ -71,6 +71,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/dashboard",
                         "/exam/*",
                         "/mod/saved_answer/*").permitAll()
+                .antMatchers("/admin/**").hasRole("ADMIN") // permit JS resources
                 .antMatchers("/js/**").permitAll() // permit JS resources
                 .antMatchers("/fonts/**").permitAll() // permit fonts resources
                 .antMatchers("/images/**").permitAll() // permit images resources

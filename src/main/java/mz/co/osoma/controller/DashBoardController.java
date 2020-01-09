@@ -25,14 +25,35 @@ public class DashBoardController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView dashboard(){
-        ModelAndView model = new ModelAndView("dashboard");
+        ModelAndView model = new ModelAndView("admin-dashboard");
         return model;
     }
 
     @RequestMapping(value = "/charts", method = RequestMethod.GET)
     public ModelAndView charts(){
-        ModelAndView model = new ModelAndView("charts");
+        ModelAndView model = new ModelAndView("admin-charts");
         return model;
     }
 
+    @RequestMapping(value = "/users", method = RequestMethod.GET)
+    public ModelAndView users(){
+        ModelAndView model = new ModelAndView("admin-users");
+
+        List<User> users = crudService.getAll(User.class);
+
+        model.addObject("users",users);
+
+        return model;
+    }
+
+    @RequestMapping(value = "/exams", method = RequestMethod.GET)
+    public ModelAndView exams(){
+        ModelAndView model = new ModelAndView("admin-exams");
+
+        List<Exam> exams = crudService.getAll(Exam.class);
+
+        model.addObject("exams",exams);
+
+        return model;
+    }
 }

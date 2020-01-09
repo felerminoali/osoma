@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50550
 File Encoding         : 65001
 
-Date: 2019-12-08 15:55:29
+Date: 2020-01-09 10:42:38
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -52,7 +52,7 @@ CREATE TABLE `attempt_result` (
   CONSTRAINT `attempt_result_ibfk_2` FOREIGN KEY (`user`) REFERENCES `exam_attempts` (`user`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `attempt_result_ibfk_3` FOREIGN KEY (`timestamp`) REFERENCES `exam_attempts` (`timestamp`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `attempt_result_ibfk_4` FOREIGN KEY (`choice`) REFERENCES `choice` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=316 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=593 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of attempt_result
@@ -73,17 +73,17 @@ CREATE TABLE `category` (
 -- ----------------------------
 -- Records of category
 -- ----------------------------
-INSERT INTO `category` VALUES ('2', 'matÃ©matica', 'images/cover/matematica.png', 'images/disciplinas/matematica.png');
-INSERT INTO `category` VALUES ('12', 'fÃ­sica', 'images/cover/fisica.png', 'images/disciplinas/fisica.png');
-INSERT INTO `category` VALUES ('22', 'quÃ­mica', 'images/cover/quimica.png', 'images/disciplinas/quimica.png');
+INSERT INTO `category` VALUES ('2', 'matámatica', 'images/cover/matematica.png', 'images/disciplinas/matematica.png');
+INSERT INTO `category` VALUES ('12', 'física', 'images/cover/fisica.png', 'images/disciplinas/fisica.png');
+INSERT INTO `category` VALUES ('22', 'química', 'images/cover/quimica.png', 'images/disciplinas/quimica.png');
 INSERT INTO `category` VALUES ('32', 'geografia', 'images/cover/geografia.png', 'images/disciplinas/geografia.png');
-INSERT INTO `category` VALUES ('42', 'histÃ³ria', 'images/cover/historia.png', 'images/disciplinas/historia.png');
-INSERT INTO `category` VALUES ('52', 'francÃªs', 'images/cover/frances.png', 'images/disciplinas/frances.png');
-INSERT INTO `category` VALUES ('62', 'inglÃªs', 'images/cover/ingles.png', 'images/disciplinas/ingles.png');
+INSERT INTO `category` VALUES ('42', 'história', 'images/cover/historia.png', 'images/disciplinas/historia.png');
+INSERT INTO `category` VALUES ('52', 'francês', 'images/cover/frances.png', 'images/disciplinas/frances.png');
+INSERT INTO `category` VALUES ('62', 'inglês', 'images/cover/ingles.png', 'images/disciplinas/ingles.png');
 INSERT INTO `category` VALUES ('72', 'desenho', 'images/cover/desenho.png', 'images/disciplinas/desenho.png');
 INSERT INTO `category` VALUES ('82', 'filosofia', 'images/cover/filosofia.png', 'images/disciplinas/filosofia.png');
 INSERT INTO `category` VALUES ('92', 'biologia', 'images/cover/biologia.png', 'images/disciplinas/biologia.png');
-INSERT INTO `category` VALUES ('102', 'portuguÃªs', 'images/cover/portugues.png', 'images/disciplinas/portugues.png');
+INSERT INTO `category` VALUES ('102', 'português', 'images/cover/portugues.png', 'images/disciplinas/portugues.png');
 
 -- ----------------------------
 -- Table structure for `choice`
@@ -98,7 +98,7 @@ CREATE TABLE `choice` (
   `rightchoice` tinyint(4) DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `question` (`question`),
-  CONSTRAINT `choice_ibfk_1` FOREIGN KEY (`question`) REFERENCES `question` (`id`)
+  CONSTRAINT `choice_ibfk_1` FOREIGN KEY (`question`) REFERENCES `question` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=1182 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -215,25 +215,6 @@ INSERT INTO `choice` VALUES ('1132', '312', 'ao interesse das autoridades locais
 INSERT INTO `choice` VALUES ('1142', '312', 'a um interesse pessoal.', null, '0', null);
 INSERT INTO `choice` VALUES ('1152', '312', 'ao lusotropicalismo.', null, '0', null);
 INSERT INTO `choice` VALUES ('1162', '312', 'Ã  existÃªncia de relÃ­quias histÃ³ricas', null, '1', null);
-INSERT INTO `choice` VALUES ('1163', '313', 'Alternativa 1', null, null, '0');
-INSERT INTO `choice` VALUES ('1164', '313', 'Alternativa 2', null, null, '1');
-INSERT INTO `choice` VALUES ('1165', '313', 'Alternstiva 3', null, null, '0');
-INSERT INTO `choice` VALUES ('1166', '314', '$$31.1\\% $$', '/images/qa/672_182_a.png', null, '0');
-INSERT INTO `choice` VALUES ('1167', '314', '$$4.7\\% $$', '/images/qa/672_182_a.png', null, '0');
-INSERT INTO `choice` VALUES ('1168', '314', '$$150\\% $$', '/images/qa/672_182_a.png', null, '1');
-INSERT INTO `choice` VALUES ('1169', '314', '$$46.7\\% $$', '/images/qa/672_182_a.png', null, '0');
-INSERT INTO `choice` VALUES ('1170', '315', '$$128$$', null, null, '1');
-INSERT INTO `choice` VALUES ('1171', '315', '$$256$$', null, null, '0');
-INSERT INTO `choice` VALUES ('1172', '315', '$${1 \\over {128}}$$', null, null, '0');
-INSERT INTO `choice` VALUES ('1173', '315', '$${1 \\over {256}}$$', null, null, '0');
-INSERT INTO `choice` VALUES ('1174', '316', 'Rui Knopfli e VirgÃ­lio de Lemos.', null, null, '1');
-INSERT INTO `choice` VALUES ('1175', '316', 'Rui Knopfli e VirgÃ­lio de Lemos e AntÃ³nio Sopa.', null, null, '0');
-INSERT INTO `choice` VALUES ('1176', '316', 'Rui Knopfli e VirgÃ­lio de Lemos e AntÃ³nio Sopa.', null, null, '0');
-INSERT INTO `choice` VALUES ('1177', '316', 'tÃ³nio Sopa e Sarmento Rodrigues.', null, null, '0');
-INSERT INTO `choice` VALUES ('1178', '317', 'ao interesse das autoridades locais', null, null, '1');
-INSERT INTO `choice` VALUES ('1179', '317', 'a um interesse pessoal.', null, null, '0');
-INSERT INTO `choice` VALUES ('1180', '317', 'ao lusotropicalismo.', null, null, '0');
-INSERT INTO `choice` VALUES ('1181', '317', 'ao lusotropicalismo.', null, null, '0');
 
 -- ----------------------------
 -- Table structure for `countries`
@@ -686,8 +667,6 @@ INSERT INTO `exam` VALUES ('62', '12', '2005', 'Exame de Fisica', '10', '3', nul
 INSERT INTO `exam` VALUES ('72', '22', '2005', 'Exame de Química', '10', '3', null, 'https://drive.google.com/open?id=0B-dOo9jrft_6OGVvdFhYZ0hvcUE', null, '2', '0');
 INSERT INTO `exam` VALUES ('92', '62', '2005', 'Exame de Ingles', '10', '3', null, 'https://drive.google.com/open?id=0B-dOo9jrft_6UmloVHozRWFodHM', null, '2', '0');
 INSERT INTO `exam` VALUES ('112', '102', '2005', 'Exame de Portugues', '10', '3', null, 'https://drive.google.com/open?id=0B-dOo9jrft_6SklCWXdZQkFNQWc', null, '2', '0');
-INSERT INTO `exam` VALUES ('113', '102', '2019', 'Exame de Português', '20', '4', null, null, null, '33', '1');
-INSERT INTO `exam` VALUES ('114', '2', '2019', 'Exame de Matemática', '20', '1', null, null, null, '33', '1');
 
 -- ----------------------------
 -- Table structure for `exam_attempts`
@@ -811,11 +790,6 @@ INSERT INTO `question` VALUES ('272', '92', 'In the notorious and infamous area 
 INSERT INTO `question` VALUES ('292', '112', 'Segundo o texto, a Ilha de MoÃ§ambique Ã© importante porque:', null, null, '2', null, null, null, null, null, null);
 INSERT INTO `question` VALUES ('302', '112', 'De acordo com o texto, a Ilha de MoÃ§ambique foi visitada por:', null, null, '2', null, null, null, null, null, null);
 INSERT INTO `question` VALUES ('312', '112', 'A visita de alguns escritores Ã  Ilha deve-se:', null, null, '2', null, null, null, null, null, null);
-INSERT INTO `question` VALUES ('313', '113', 'A opção que melhor completa a frase “O efeito do casamento prematuro nas raparigas é nefasto, na medida em que”', '/images/qa/672_182_a.png', null, '2', null, null, null, null, '<p style=\"text-align: justify;\">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent iaculis tincidunt neque eu luctus. Curabitur et aliquam ex, vitae tincidunt metus. Vivamus quis sem neque. Phasellus faucibus sagittis tortor. In odio turpis, malesuada sit amet vulputate in, vulputate a est. Vestibulum malesuada sapien at leo interdum sagittis. Suspendisse potenti. Donec gravida sem tortor, at sollicitudin lorem luctus quis. Mauris egestas ac lorem nec condimentum. Pellentesque tincidunt vulputate quam. In dapibus quis sapien a malesuada. Duis ac ligula nunc. Mauris sollicitudin faucibus quam, sed bibendum mi pharetra sed. Etiam quis turpis lacinia, sollicitudin arcu eget, hendrerit arcu.</p>\r\n<p style=\"text-align: justify;\">Vivamus pellentesque sagittis justo accumsan pellentesque. Fusce ac venenatis sapien, at feugiat lectus. Etiam vehicula ante ut sollicitudin porttitor. Nunc id malesuada mauris, vitae pretium odio. Fusce molestie nec metus a porta. Donec gravida hendrerit lorem sit amet cursus. Suspendisse sit amet dolor sem. Aliquam et lacus tincidunt sem aliquam mattis. Etiam quam dui, sollicitudin et porttitor id, elementum ac urna. Phasellus leo nulla, porttitor at lectus at, laoreet auctor massa. Vivamus dignissim congue augue, eget fringilla ipsum mollis ac. Duis vel neque ac libero feugiat bibendum. Suspendisse aliquam nulla lectus, nec posuere nunc lacinia vitae. Aliquam suscipit dolor ut libero lobortis vulputate. Praesent eu augue porttitor, convallis tellus at, porttitor sem. Morbi commodo lacinia nisl, vel congue est ullamcorper id.</p>\r\n<p style=\"text-align: justify;\">Mauris sed mattis purus. Quisque viverra arcu id tincidunt posuere. Aenean at sem rutrum, consequat nibh tincidunt, elementum justo. Donec varius ante quis volutpat posuere. Morbi eu ullamcorper tortor, at aliquet nisi. Proin aliquam augue sit amet urna rhoncus posuere. Sed turpis purus, condimentum quis finibus sed, lobortis semper eros. Donec non sem elementum, ullamcorper ligula vitae, finibus ante. Curabitur porta maximus dolor. Praesent id egestas nibh. Donec ultrices lectus vel nibh laoreet cursus quis vel lacus. Suspendisse quis nulla egestas, consequat magna at, rhoncus est. Ut eleifend at neque sit amet venenatis. Maecenas nec nisi ut sem tincidunt tempus a id risus.</p>\r\n<p style=\"text-align: justify;\">Nullam id tortor varius, commodo odio vel, pharetra erat. Fusce dui lorem, iaculis eget porttitor ac, faucibus non quam. Proin feugiat elit sed elementum accumsan. Nulla porttitor interdum arcu, nec iaculis ligula vulputate in. Maecenas sit amet rutrum ante. In suscipit, est vitae finibus pretium, velit lacus bibendum urna, at elementum erat purus eu quam. Aenean dolor ipsum, aliquam quis congue et, euismod id diam. Mauris eleifend cursus mauris, vel vehicula dolor porttitor id. Nam et accumsan velit. In sed lobortis mauris. In suscipit id diam in volutpat. Integer volutpat enim id bibendum aliquet. Donec fermentum elementum arcu in tincidunt. Morbi viverra massa quis elit dapibus ullamcorper.</p>', null);
-INSERT INTO `question` VALUES ('314', '114', '$$\\sqrt {{{(2 - \\sqrt 5 )}^2}} $$ É igual a:', '/images/qa/672_182_a.png', null, '2', null, null, null, null, null, null);
-INSERT INTO `question` VALUES ('315', '114', 'Qual Ã¨ o valor de $${(16)^{ - 1.75}}$$', null, null, '2', null, null, null, null, null, null);
-INSERT INTO `question` VALUES ('316', '113', 'Segundo o texto, a Ilha de MoÃ§ambique Ã© importante porque:', null, null, null, null, null, null, null, null, null);
-INSERT INTO `question` VALUES ('317', '113', 'A visita de alguns escritores Ã  Ilha deve-se:', null, null, null, null, null, null, null, null, null);
 
 -- ----------------------------
 -- Table structure for `role`
@@ -848,9 +822,9 @@ CREATE TABLE `university` (
 -- Records of university
 -- ----------------------------
 INSERT INTO `university` VALUES ('2', 'Universidade Eduardo Mondlane', 'UEM');
-INSERT INTO `university` VALUES ('12', 'Universidade LÃºrio', 'UniLÃºrio');
+INSERT INTO `university` VALUES ('12', 'Universidade Lúrio', 'UniLúrio');
 INSERT INTO `university` VALUES ('22', 'Universidade Zambenze', 'UniZambeze');
-INSERT INTO `university` VALUES ('32', 'Universidade PedagÃ³gica', 'UP');
+INSERT INTO `university` VALUES ('32', 'Universidade Pedagógica', 'UP');
 INSERT INTO `university` VALUES ('33', 'Universidade Lurio - Bussiness School', 'UBS');
 
 -- ----------------------------
@@ -881,21 +855,7 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('235', 'Bania', 'Fonseca', 'bfonseca@unilurio.ac.mzo', '$2a$10$h68zxfuxp/6iF38/Euefpe0MTyuML72dh233PhF.bullttXxiIaFu', '2019-10-07 20:24:22', '1', null, '1', '2', 'ghugyu', '0648', null);
 INSERT INTO `user` VALUES ('236', 'Dario', 'Mario', 'felasbe@hotmail.com', '$2a$10$1DI/wpMmgCi/TPC0BoNL9O9Y9u.rLixWPNbn/bH7V7JbdKSAQoPyy', '2019-10-09 19:37:52', '1', null, '1', '2', '825407883', '1576', null);
-INSERT INTO `user` VALUES ('237', 'Babe', 'Bealgun', 'egimo@unilurio.ac.mz', '$2a$10$I2aa/enXEBtaT4TUp0VkwuWFmLTEs50CJKKO6J4R.DJaDup/nmd22', '2019-10-19 15:58:20', '1', null, '1', '2', '846689637', '5738', null);
-INSERT INTO `user` VALUES ('238', 'Admin', 'Admin', 'felermino.ali@unilurio.ac.mz', '$2a$10$1DI/wpMmgCi/TPC0BoNL9O9Y9u.rLixWPNbn/bH7V7JbdKSAQoPyy', null, '1', null, null, null, null, null, null);
-INSERT INTO `user` VALUES ('239', 'Felermino', 'Ali', 'felerminoali@hotmail.com', '$2a$10$n97Uk7W/ds5FxF9eeIYsBOGmS0T4vlxH4Z5EAA4QagYL8opD9PZEu', '2019-11-19 12:37:33', '1', null, '1', '2', '825407884', '0232', null);
-INSERT INTO `user` VALUES ('240', 'Felermino', 'Ali', 'tetes@email.com', '$2a$10$j.ZpXSr8MEEEJ3H3eKehQey.PyenDhzdQnHGaCmJotCa0lrINEJKe', '2019-11-19 12:39:34', '1', null, '1', '2', '825407885', '5042', null);
-INSERT INTO `user` VALUES ('241', 'Felermino', 'Ali', 'tete@gmail.com', '$2a$10$peLFr2JZa0bzgjZ3FqA87OLF2VolZw./KFHVOMmAHhOYDasj8VYAO', '2019-11-19 12:42:03', '1', null, '1', '2', '825407886', '1692', null);
-INSERT INTO `user` VALUES ('242', 'dsfdsf', 'dsf', 'felerminoali@hotmail.comm', '$2a$10$cJcR3Qmc5QF3wVUM2uGtVe3pS1THOrDnWWaipR3HAmsFFRLC6iQSK', '2019-11-19 18:29:46', '1', null, '91', '2', '123456789', '6051', null);
-INSERT INTO `user` VALUES ('243', 'Bania', 'Fonseca', 'bfonseca@unilurio.ac.mz', '$2a$10$d9y7mFlxS10doBA.ulLEZu5VK.4Zmc20goaCwNiJI6.3hi5wqAWNS', '2019-11-20 19:39:07', '1', null, '1', '2', '855407883', '8437', null);
-INSERT INTO `user` VALUES ('244', 'Bania', 'Fonseca', 'bfonseca@unilurio.ac.mzp', '$2a$10$lNTsaQJwreV5m6EPan24/uZ0GpgrQcTddlaIZ.K0c7mia9wVAkAj2', '2019-11-20 19:42:12', '1', null, '1', '2', '855407887', '6936', null);
-INSERT INTO `user` VALUES ('245', 'Bania', 'Fonseca', 'bfonseca@unilurio.ac.mzpp', '$2a$10$dyvId7uPS2iNbkn0CidjsOZ4S20zCJ43PU.lF3CzNwqj5cLMFRzXe', '2019-11-20 19:46:58', '1', null, '1', '2', '855407888', '9717', null);
-INSERT INTO `user` VALUES ('246', 'Bania', 'Fonseca', 'bfonseca@unilurio.ac.mzppy', '$2a$10$h65C5sGok77IdX4gKQDN7e/h0EIEnB7SJfU0gouhFi5csfWkOLyDG', '2019-11-21 08:42:37', '1', null, '1', '2', '8554078886', '0332', null);
-INSERT INTO `user` VALUES ('247', 'Bania', 'Fonseca', 'bfonseca@unilurio.ac.mzppyo', '$2a$10$ZrxkmAR7LUMQzTycUiMEg.cQUIyc6eScytK89492FhIluc89KiUPq', '2019-11-21 09:52:52', '1', null, '1', '2', '85540788868', '2275', null);
-INSERT INTO `user` VALUES ('248', 'nn', 'nbv', 'felerminoali@hotmail.comz', '$2a$10$RmS998Y6L81uysM2OGgJ3uBHoSHS927P8IELuTmbt7TpyHFuKaeD2', '2019-11-29 14:57:26', '1', null, '1', '2', '825407889', '0286', null);
-INSERT INTO `user` VALUES ('249', 'Felermino', 'Ali', 'felerminoali@gmail.com', '$2a$10$wVSY/H2kGa/4D.iULLrp7OmF80052p29hJtzEP0Urm1sUMf2/O/Le', '2019-12-01 08:01:36', '1', null, '1', '12', '845407883', '5614', null);
 
 -- ----------------------------
 -- Table structure for `user_role`
@@ -905,26 +865,12 @@ CREATE TABLE `user_role` (
   `user_id` int(11) NOT NULL DEFAULT '0',
   `role_id` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`user_id`,`role_id`),
-  KEY `role_id` (`role_id`),
-  CONSTRAINT `user_role_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
-  CONSTRAINT `user_role_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`)
+  KEY `user_role_ibfk_2` (`role_id`),
+  CONSTRAINT `user_role_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `user_role_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of user_role
 -- ----------------------------
-INSERT INTO `user_role` VALUES ('238', '1');
-INSERT INTO `user_role` VALUES ('235', '2');
-INSERT INTO `user_role` VALUES ('236', '2');
-INSERT INTO `user_role` VALUES ('237', '2');
-INSERT INTO `user_role` VALUES ('239', '2');
-INSERT INTO `user_role` VALUES ('240', '2');
-INSERT INTO `user_role` VALUES ('241', '2');
-INSERT INTO `user_role` VALUES ('242', '2');
-INSERT INTO `user_role` VALUES ('243', '2');
-INSERT INTO `user_role` VALUES ('244', '2');
-INSERT INTO `user_role` VALUES ('245', '2');
-INSERT INTO `user_role` VALUES ('246', '2');
-INSERT INTO `user_role` VALUES ('247', '2');
-INSERT INTO `user_role` VALUES ('248', '2');
-INSERT INTO `user_role` VALUES ('249', '2');
+INSERT INTO `user_role` VALUES ('236', '1');

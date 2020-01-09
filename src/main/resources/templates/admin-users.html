@@ -1,0 +1,133 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout-dashboard}"
+      xmlns="http://www.w3.org/1999/xhtml">
+<th:block layout:fragment="contentDash">
+    <!-- Sidebar -->
+    <div id="page-wrapper">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <h1>Usuários
+                    <small>Gestão de Usuários</small>
+                </h1>
+                <ol class="breadcrumb">
+                    <li><a href="/admin"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+                    <li class="active"><i class="fa fa-table"></i> Usuários</li>
+                </ol>
+                <div class="alert alert-info alert-dismissable hidden">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    We're using <a class="alert-link" href="http://tablesorter.com/docs/">Tablesorter 2.0</a> for the
+                    sort function on the tables. Read the documentation for more customization options or feel free to
+                    use something else!
+                </div>
+            </div>
+        </div><!-- /.row -->
+
+        <div class="row">
+            <div class="col-lg-12">
+
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#home">Links Rápidos</a></li>
+                    <li><a data-toggle="tab" href="#menu1">Contas</a></li>
+                    <li><a data-toggle="tab" href="#menu2">Permissões</a></li>
+                </ul>
+
+                <div class="tab-content">
+                    <div id="home" class="tab-pane fade in active">
+                        <br/>
+                        <ul>
+                            <li><a href="">Ver Lista Completa</a></li>
+                            <li><a href="">Adicionar novo utilizador</a></li>
+                        </ul>
+                    </div>
+                    <div id="menu1" class="tab-pane fade">
+
+                        <div style="font-size: medium;">
+                            <br/>
+                            <table class="table table-hover table-striped tablesorter" id="tbluser"  style="width:100%">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Name / Apelido<i class="fa fa-sort"></i></th>
+                                    <th>Endereço de email</th>
+                                    <th>Contacto <i class="fa fa-sort"></i></th>
+                                    <th>Último Acesso</th>
+                                    <th>Prefêrencia<i class="fa fa-sort"></i></th>
+                                    <th>Acções</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="user, inter: ${users}">
+                                    <td th:text="${inter.index+1}"></td>
+                                    <td th:text="${user.name+' '+user.lastName}"></td>
+                                    <td th:text="${user.email}"></td>
+                                    <td th:text="${user.contact}"></td>
+                                    <td th:text="${'21:00:00 15-01-2020'}"></td>
+                                    <td th:text="${user.university.shortname}"></td>
+                                    <td>
+                                        <a href="#" class="view" title="View" data-toggle="tooltip"><i
+                                                class="fa fa-eye"></i></a>
+                                        <a href="#" class="edit" title="Edit" data-toggle="tooltip"><i
+                                                class="fa fa-edit"></i></a>
+                                        <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i
+                                                class="fa fa-minus-circle"></i></a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                    <div id="menu2" class="tab-pane fade">
+                        <h3>Menu 2</h3>
+                        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
+                            laudantium, totam rem aperiam.</p>
+                    </div>
+                    <!--<div id="menu3" class="tab-pane fade">-->
+                    <!--<h3>Menu 3</h3>-->
+                    <!--<p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>-->
+                    <!--</div>-->
+                </div>
+
+
+            </div>
+
+        </div><!-- /.row -->
+
+
+    </div><!-- /#page-wrapper -->
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#tbluser').DataTable({
+                "scrollY": "40vh",
+                "scrollCollapse": true,
+                "dom": '<"toolbar">frtip',
+                "searching": true,
+                "paging" : false,
+                "info" : false,
+                "language": {
+                    "lengthMenu": "Mostrar _MENU_ itens por página",
+                    "zeroRecords": "Não foi encontrado nenhum registo",
+                    "info": "Mostrando página _PAGE_ de _PAGES_",
+                    "infoEmpty": "Nenhum registo encontrado",
+                    "infoFiltered": "(fitrados apartir _MAX_ dos registos)",
+                    "paginate": {
+                        "first": "Primeiro",
+                        "last": "Último",
+                        "next": "Próximo",
+                        "previous": "Anterior"
+                    },
+                    "search": "Pesquisar: "
+                }
+            });
+            $('.dataTables_length').addClass('bs-select');
+            // $("div.toolbar").html('<h2>Contas</h2>');
+        });
+    </script>
+
+</th:block>
+
+</html>

@@ -3,6 +3,11 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
     <title>Osoma</title>
     <script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -12,151 +17,142 @@
 
     <!-- Custom Theme files -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="/assets/bootstrap/css/bootstrap.min.css" rel='stylesheet' type='text/css'/>
+    <link href="/assets/dashboard/css/bootstrap.css" rel='stylesheet' type='text/css'/>
     <!--    awesome font-->
-    <link rel="stylesheet" href="/assets/bootstrap/css/font-awesome.css">
+    <link rel="stylesheet" href="/assets/dashboard/font-awesome/css/font-awesome.min.css">
     <!-- Custom Theme files -->
     <!--<link href="css/style.css" rel='stylesheet' type='text/css'/>-->
     <link rel="stylesheet" href="/assets/bootstrap/css/style.css">
     <!--    web fonts-->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800,700' rel='stylesheet' type='text/css'>
     <link rel="shortcut icon" href="/images/fav.png"/>
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+
+    <!-- Add custom CSS here -->
+    <link href="/assets/dashboard/css/sb-admin.css" rel="stylesheet">
+    <!-- Page Specific CSS -->
+    <link rel="stylesheet" href="http://cdn.oesmith.co.uk/morris-0.4.3.min.css">
+
     <script src="/js/jquery.min.js"></script>
-
-    <!--    bootstrap js-->
-    <script type="text/javascript" src="/assets/bootstrap/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/js/exams-page.js"></script>
-
-    <!--  Login -->
-    <link rel="stylesheet" type="text/css" href="css/util.css">
-    <link rel="stylesheet" type="text/css" href="css/main.css">
-    <link rel="stylesheet" href="/css/dashboard.css">
-
-    <style>
-        * {box-sizing: border-box}
-
-        /* Style the tab */
-        .tab {
-            float: left;
-          /*  border-right: 1px solid #ccc;*/
-           /* background-color: #f1f1f1; */
-            width: 20%;
-            height: 300px;
-        }
-
-        /* Style the buttons that are used to open the tab content */
-        .tab button {
-            display: block;
-            background-color: inherit;
-            color: black;
-            padding: 22px 16px;
-            width: 100%;
-            border: none;
-            outline: none;
-            text-align: left;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        /* Change background color of buttons on hover */
-        .tab button:hover {
-            background-color: #ddd;
-        }
-
-        /* Create an active/current "tab button" class */
-        .tab button.active {
-            background-color: #ccc;
-        }
-
-        /* Style the tab content */
-
-        .tabcontent {
-            float: left;
-            padding: 0px 12px;
-            border-left: 1px solid #ccc;
-            width: 80%;
-            border-left: none;
-            background: white;
-        }
-
-    </style>
+    <script type="text/javascript" src="/assets/datatables/datatables.min.js"></script>
 
 </head>
 
-<body>
-<nav class="navbar navbar-fixed-top navbar-custom">
-    <div class="container">
-        <div class="navbar-header">
+<body style="background-color: white;">
 
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
-                    aria-expanded="false" aria-controls="navbar">
+<div id="wrapper">
+    <!-- Sidebar -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <div class="logo">
-                <a href="/"><img src="/images/logo2.png" title="logo"/></a>
-            </div>
+            <!--<img src="/images/fav.png" alt="">-->
+            <a class="navbar-brand" href="/">Dashboard</a>
         </div>
 
-        <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav navbar-right">
-
-                <li>
-                    <a href="/">
-                        <i class="fa fa-createdby" aria-hidden="true"></i>
-                        Felermino Ali                        </a>
-
-                </li>
-
-                <li>
-                    <a class="change-lang" href="#" hreflang="pt" rel="en_pt">
-                        <img src="/images/lang/pt.png" alt="PT">
-                    </a>
-                </li>
-                <li>
-                    <a class="change-lang" href="#" hreflang="en" rel="en_pt">
-                        <img src="/images/lang/en.png" alt="EN">
-                    </a>
-                </li>
-
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav side-nav">
+                <li class="active"><a href="/admin/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+                <li ><a href="/admin/charts"><i class="fa fa-bar-chart-o"></i> Estatísticas</a></li>
+                <li ><a href="/admin/users"><i class="fa fa-table"></i> Usuários</a></li>
+                <li ><a href="/admin/exams"><i class="fa fa-edit"></i> Exames</a></li>
             </ul>
-        </div>
 
+            <ul class="nav navbar-nav navbar-right navbar-user">
+                <li class="dropdown messages-dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> Messages <span class="badge">7</span> <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-header">7 New Messages</li>
+                        <li class="message-preview">
+                            <a href="#">
+                                <span class="avatar"><img src="http://placehold.it/50x50"></span>
+                                <span class="name">John Smith:</span>
+                                <span class="message">Hey there, I wanted to ask you something...</span>
+                                <span class="time"><i class="fa fa-clock-o"></i> 4:34 PM</span>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li class="message-preview">
+                            <a href="#">
+                                <span class="avatar"><img src="http://placehold.it/50x50"></span>
+                                <span class="name">John Smith:</span>
+                                <span class="message">Hey there, I wanted to ask you something...</span>
+                                <span class="time"><i class="fa fa-clock-o"></i> 4:34 PM</span>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li class="message-preview">
+                            <a href="#">
+                                <span class="avatar"><img src="http://placehold.it/50x50"></span>
+                                <span class="name">John Smith:</span>
+                                <span class="message">Hey there, I wanted to ask you something...</span>
+                                <span class="time"><i class="fa fa-clock-o"></i> 4:34 PM</span>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li><a href="#">View Inbox <span class="badge">7</span></a></li>
+                    </ul>
+                </li>
+                <li class="dropdown alerts-dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"><i class="fa fa-bell"></i> Alerts <span class="badge">3</span> <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Default <span class="label label-default">Default</span></a></li>
+                        <li><a href="#">Primary <span class="label label-primary">Primary</span></a></li>
+                        <li><a href="#">Success <span class="label label-success">Success</span></a></li>
+                        <li><a href="#">Info <span class="label label-info">Info</span></a></li>
+                        <li><a href="#">Warning <span class="label label-warning">Warning</span></a></li>
+                        <li><a href="#">Danger <span class="label label-danger">Danger</span></a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">View All</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown user-dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> John Smith <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li ><a href="#"><i class="fa fa-user"></i> Profile</a></li>
+                        <li ><a href="#"><i class="fa fa-envelope"></i> Inbox <span class="badge">7</span></a></li>
+                        <li ><a href="#"><i class="fa fa-gear"></i> Settings</a></li>
+                        <li class="divider"></li>
+                        <li ><a href="#"><i class="fa fa-power-off"></i> Log Out</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+
+    </nav>
+
+    <div layout:fragment="contentDash" style=" background: white">
+        <p>Content goes here...</p>
     </div>
 
-</nav>
-<br>
-<br>
-<div class="tab">
-    <!--Ano filter-->
-    <span style='color: #C6C4C6' > <h3>Menu de Navegação</h3></span>
-    <ul class="nav" >
-        <legend>
-            <h4>
-                Tabelas</h4>
-        </legend>
-        <li class="nav-item">
-            <a class="nav-link" href="/exams-admin">Exames</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/users-admin">Usuários</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/explainers-admin">Explicadores</a>
-        </li>
-        <legend>
-            <h4>
-                Outros</h4>
-        </legend>
-    </ul>
-</div>
-<div layout:fragment="contentDash" style=" background: white">
-    <p>Content goes here...</p>
 </div>
 
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<!--<script src="/assets/dashboard/js/jquery-1.10.2.js"></script>-->
+
+<!--    bootstrap js-->
+<script type="text/javascript" src="/assets/dashboard/js/bootstrap.js"></script>
+<script type="text/javascript" src="/assets/datatables/datatables.min.js"></script>
+<script type="text/javascript" src="/js/exams-page.js"></script>
+
+<!-- Page Specific Plugins -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+<script src="http://cdn.oesmith.co.uk/morris-0.4.3.min.js"></script>
+<script src="/assets/dashboard/js/morris/chart-data-morris.js"></script>
+<!--<script src="/assets/dashboard/js/tablesorter/jquery.tablesorter.js"></script>-->
+<!--<script src="/assets/dashboard/js/tablesorter/tables.js"></script>-->
+
+<!--charts-->
+<script src="/assets/dashboard/js/flot/jquery.flot.js"></script>
+<script src="/assets/dashboard/js/flot/jquery.flot.tooltip.min.js"></script>
+<script src="/assets/dashboard/js/flot/jquery.flot.resize.js"></script>
+<script src="/assets/dashboard/js/flot/jquery.flot.pie.js"></script>
+<script src="/assets/dashboard/js/flot/chart-data-flot.js"></script>
 
 
 </body>

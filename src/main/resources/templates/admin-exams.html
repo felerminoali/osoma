@@ -1,0 +1,125 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout-dashboard}"
+      xmlns="http://www.w3.org/1999/xhtml">
+<th:block layout:fragment="contentDash">
+    <!-- Sidebar -->
+    <div id="page-wrapper">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <h1>Exames
+                    <small>Gestão de exames</small>
+                </h1>
+                <ol class="breadcrumb">
+                    <li><a href="index.html"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+                    <li class="active"><i class="fa fa-table"></i> Exames</li>
+                </ol>
+                <div class="alert alert-info alert-dismissable hidden">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    We're using <a class="alert-link" href="http://tablesorter.com/docs/">Tablesorter 2.0</a> for the
+                    sort function on the tables. Read the documentation for more customization options or feel free to
+                    use something else!
+                </div>
+            </div>
+        </div><!-- /.row -->
+
+        <div class="row">
+            <div class="col-lg-12">
+
+
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#home">Links Rápidos</a></li>
+                    <li><a data-toggle="tab" href="#menu1">Exames</a></li>
+                    <li><a data-toggle="tab" href="#menu2">Resultados</a></li>
+                </ul>
+
+                <div class="tab-content">
+                    <div id="home" class="tab-pane fade in active">
+                        <br/>
+                        <ul>
+                            <li><a href="">Ver Lista Completa</a></li>
+                            <li><a href="">Adicionar novo Exame</a></li>
+                        </ul>
+                    </div>
+                    <div id="menu1" class="tab-pane fade">
+                        <br/>
+                        <table class="table table-bordered table-hover tablesorter" id="tblexams" width="100%">
+                            <thead>
+                            <tr>
+                                <th># <i class="fa fa-sort"></i></th>
+                                <th>Categoria <i class="fa fa-sort"></i></th>
+                                <th>Duração<i class="fa fa-sort"></i></th>
+                                <th>Intituição<i class="fa fa-sort"></i></th>
+                                <th>Acções</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="exam, inter: ${exams}">
+                                <td th:text="${inter.index+1}"></td>
+                                <td th:text="${exam.category.name}"></td>
+                                <td th:text="${exam.duration}"></td>
+                                <td th:text="${exam.university.name}"></td>
+                                <td>
+                                    <a href="#" class="view" title="View" data-toggle="tooltip"><i
+                                            class="fa fa-eye"></i></a>
+                                    <a href="#" class="edit" title="Edit" data-toggle="tooltip"><i
+                                            class="fa fa-edit"></i></a>
+                                    <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i
+                                            class="fa fa-minus-circle"></i></a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+
+                    </div>
+                    <div id="menu2" class="tab-pane fade">
+                        <h3>Menu 2</h3>
+                        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
+                            laudantium, totam rem aperiam.</p>
+                    </div>
+                    <!--<div id="menu3" class="tab-pane fade">-->
+                    <!--<h3>Menu 3</h3>-->
+                    <!--<p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>-->
+                    <!--</div>-->
+                </div>
+
+
+            </div>
+
+        </div><!-- /.row -->
+    </div><!-- /#page-wrapper -->
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#tblexams').DataTable({
+                "scrollY": "40vh",
+                "scrollCollapse": true,
+                "dom": '<"toolbar">frtip',
+                "searching": true,
+                "paging": false,
+                "info": false,
+                "language": {
+                    "lengthMenu": "Mostrar _MENU_ itens por página",
+                    "zeroRecords": "Não foi encontrado nenhum registo",
+                    "info": "Mostrando página _PAGE_ de _PAGES_",
+                    "infoEmpty": "Nenhum registo encontrado",
+                    "infoFiltered": "(fitrados apartir _MAX_ dos registos)",
+                    "paginate": {
+                        "first": "Primeiro",
+                        "last": "Último",
+                        "next": "Próximo",
+                        "previous": "Anterior"
+                    },
+                    "search": "Pesquisar: "
+                }
+            });
+            $('.dataTables_length').addClass('bs-select');
+            // $("div.toolbar").html('<h2>Contas</h2>');
+        });
+    </script>
+
+</th:block>
+
+</html>
