@@ -40,7 +40,7 @@ public class UBSController {
 
         Map<String, Object> par = new HashMap<String, Object>();
         par.put("uni", 33);
-        par.put("year", 2019);
+        par.put("year", 2020);
 
         String hqlQuery = "SELECT e FROM Exam e WHERE e.university.id = :uni and  e.examYear = :year";
         List<Exam> exams = crudService.findByJPQuery(hqlQuery, par);
