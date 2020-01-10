@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50550
 File Encoding         : 65001
 
-Date: 2020-01-09 16:21:30
+Date: 2020-01-10 16:40:58
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -52,7 +52,7 @@ CREATE TABLE `attempt_result` (
   CONSTRAINT `attempt_result_ibfk_2` FOREIGN KEY (`user`) REFERENCES `exam_attempts` (`user`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `attempt_result_ibfk_3` FOREIGN KEY (`timestamp`) REFERENCES `exam_attempts` (`timestamp`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `attempt_result_ibfk_4` FOREIGN KEY (`choice`) REFERENCES `choice` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=753 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=906 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of attempt_result
@@ -217,6 +217,159 @@ INSERT INTO `attempt_result` VALUES ('749', '115', '236', '2020-01-09 13:10:25',
 INSERT INTO `attempt_result` VALUES ('750', '115', '236', '2020-01-09 13:10:25', '1251');
 INSERT INTO `attempt_result` VALUES ('751', '115', '236', '2020-01-09 13:10:25', '1257');
 INSERT INTO `attempt_result` VALUES ('752', '115', '236', '2020-01-09 13:10:25', '1258');
+INSERT INTO `attempt_result` VALUES ('753', '116', '236', '2020-01-09 19:30:52', '1267');
+INSERT INTO `attempt_result` VALUES ('754', '116', '236', '2020-01-09 19:30:52', '1272');
+INSERT INTO `attempt_result` VALUES ('755', '116', '236', '2020-01-09 19:30:52', '1274');
+INSERT INTO `attempt_result` VALUES ('756', '116', '236', '2020-01-09 19:30:52', '1280');
+INSERT INTO `attempt_result` VALUES ('757', '116', '236', '2020-01-09 19:30:52', '1282');
+INSERT INTO `attempt_result` VALUES ('758', '116', '236', '2020-01-09 19:30:52', '1286');
+INSERT INTO `attempt_result` VALUES ('759', '116', '236', '2020-01-09 19:30:52', '1291');
+INSERT INTO `attempt_result` VALUES ('760', '116', '236', '2020-01-09 19:30:52', '1294');
+INSERT INTO `attempt_result` VALUES ('761', '116', '236', '2020-01-09 19:30:52', '1298');
+INSERT INTO `attempt_result` VALUES ('762', '116', '236', '2020-01-09 19:30:52', '1303');
+INSERT INTO `attempt_result` VALUES ('763', '116', '236', '2020-01-09 19:30:52', '1309');
+INSERT INTO `attempt_result` VALUES ('764', '116', '236', '2020-01-09 19:30:52', '1311');
+INSERT INTO `attempt_result` VALUES ('765', '116', '236', '2020-01-09 19:30:52', '1316');
+INSERT INTO `attempt_result` VALUES ('766', '116', '236', '2020-01-09 19:30:52', '1318');
+INSERT INTO `attempt_result` VALUES ('767', '116', '236', '2020-01-09 19:30:52', '1322');
+INSERT INTO `attempt_result` VALUES ('768', '116', '236', '2020-01-09 19:30:52', '1327');
+INSERT INTO `attempt_result` VALUES ('769', '116', '236', '2020-01-09 19:30:52', '1332');
+INSERT INTO `attempt_result` VALUES ('770', '116', '236', '2020-01-09 19:30:52', '1337');
+INSERT INTO `attempt_result` VALUES ('771', '116', '236', '2020-01-09 19:30:52', '1342');
+INSERT INTO `attempt_result` VALUES ('772', '116', '236', '2020-01-09 19:30:52', '1267');
+INSERT INTO `attempt_result` VALUES ('773', '116', '236', '2020-01-09 19:30:52', '1272');
+INSERT INTO `attempt_result` VALUES ('774', '116', '236', '2020-01-09 19:30:52', '1267');
+INSERT INTO `attempt_result` VALUES ('775', '116', '236', '2020-01-09 19:30:52', '1272');
+INSERT INTO `attempt_result` VALUES ('776', '116', '236', '2020-01-09 19:30:52', '1274');
+INSERT INTO `attempt_result` VALUES ('777', '116', '236', '2020-01-09 19:30:52', '1280');
+INSERT INTO `attempt_result` VALUES ('778', '116', '236', '2020-01-09 19:30:52', '1282');
+INSERT INTO `attempt_result` VALUES ('779', '116', '236', '2020-01-09 19:30:52', '1286');
+INSERT INTO `attempt_result` VALUES ('780', '116', '236', '2020-01-09 19:30:52', '1291');
+INSERT INTO `attempt_result` VALUES ('781', '116', '236', '2020-01-09 19:30:52', '1294');
+INSERT INTO `attempt_result` VALUES ('782', '116', '236', '2020-01-09 19:30:52', '1298');
+INSERT INTO `attempt_result` VALUES ('783', '116', '236', '2020-01-09 19:30:52', '1303');
+INSERT INTO `attempt_result` VALUES ('784', '116', '236', '2020-01-09 19:30:52', '1309');
+INSERT INTO `attempt_result` VALUES ('785', '116', '236', '2020-01-09 19:30:52', '1311');
+INSERT INTO `attempt_result` VALUES ('786', '116', '236', '2020-01-09 19:30:52', '1316');
+INSERT INTO `attempt_result` VALUES ('787', '116', '236', '2020-01-09 19:30:52', '1318');
+INSERT INTO `attempt_result` VALUES ('788', '116', '236', '2020-01-09 19:30:52', '1322');
+INSERT INTO `attempt_result` VALUES ('789', '116', '236', '2020-01-09 19:30:52', '1327');
+INSERT INTO `attempt_result` VALUES ('790', '116', '236', '2020-01-09 19:30:52', '1332');
+INSERT INTO `attempt_result` VALUES ('791', '116', '236', '2020-01-09 19:30:52', '1274');
+INSERT INTO `attempt_result` VALUES ('792', '116', '236', '2020-01-09 19:30:52', '1337');
+INSERT INTO `attempt_result` VALUES ('793', '116', '236', '2020-01-09 19:30:52', '1280');
+INSERT INTO `attempt_result` VALUES ('794', '116', '236', '2020-01-09 19:30:52', '1342');
+INSERT INTO `attempt_result` VALUES ('795', '116', '236', '2020-01-09 19:30:52', '1282');
+INSERT INTO `attempt_result` VALUES ('796', '116', '236', '2020-01-09 19:30:52', '1286');
+INSERT INTO `attempt_result` VALUES ('797', '116', '236', '2020-01-09 19:30:53', '1267');
+INSERT INTO `attempt_result` VALUES ('798', '116', '236', '2020-01-09 19:30:53', '1272');
+INSERT INTO `attempt_result` VALUES ('799', '116', '236', '2020-01-09 19:30:53', '1274');
+INSERT INTO `attempt_result` VALUES ('800', '116', '236', '2020-01-09 19:30:53', '1280');
+INSERT INTO `attempt_result` VALUES ('801', '116', '236', '2020-01-09 19:30:53', '1282');
+INSERT INTO `attempt_result` VALUES ('802', '116', '236', '2020-01-09 19:30:53', '1286');
+INSERT INTO `attempt_result` VALUES ('803', '116', '236', '2020-01-09 19:30:53', '1291');
+INSERT INTO `attempt_result` VALUES ('804', '116', '236', '2020-01-09 19:30:53', '1294');
+INSERT INTO `attempt_result` VALUES ('805', '116', '236', '2020-01-09 19:30:53', '1298');
+INSERT INTO `attempt_result` VALUES ('806', '116', '236', '2020-01-09 19:30:52', '1291');
+INSERT INTO `attempt_result` VALUES ('807', '116', '236', '2020-01-09 19:30:52', '1294');
+INSERT INTO `attempt_result` VALUES ('808', '116', '236', '2020-01-09 19:30:52', '1298');
+INSERT INTO `attempt_result` VALUES ('809', '116', '236', '2020-01-09 19:30:52', '1303');
+INSERT INTO `attempt_result` VALUES ('810', '116', '236', '2020-01-09 19:30:52', '1309');
+INSERT INTO `attempt_result` VALUES ('811', '116', '236', '2020-01-09 19:30:52', '1311');
+INSERT INTO `attempt_result` VALUES ('812', '116', '236', '2020-01-09 19:30:52', '1316');
+INSERT INTO `attempt_result` VALUES ('813', '116', '236', '2020-01-09 19:30:52', '1318');
+INSERT INTO `attempt_result` VALUES ('814', '116', '236', '2020-01-09 19:30:52', '1322');
+INSERT INTO `attempt_result` VALUES ('815', '116', '236', '2020-01-09 19:30:52', '1327');
+INSERT INTO `attempt_result` VALUES ('816', '116', '236', '2020-01-09 19:30:52', '1332');
+INSERT INTO `attempt_result` VALUES ('817', '116', '236', '2020-01-09 19:30:52', '1337');
+INSERT INTO `attempt_result` VALUES ('818', '116', '236', '2020-01-09 19:30:52', '1342');
+INSERT INTO `attempt_result` VALUES ('819', '116', '236', '2020-01-09 19:30:53', '1303');
+INSERT INTO `attempt_result` VALUES ('820', '116', '236', '2020-01-09 19:30:53', '1309');
+INSERT INTO `attempt_result` VALUES ('821', '116', '236', '2020-01-09 19:30:53', '1311');
+INSERT INTO `attempt_result` VALUES ('822', '116', '236', '2020-01-09 19:30:53', '1316');
+INSERT INTO `attempt_result` VALUES ('823', '116', '236', '2020-01-09 19:30:53', '1318');
+INSERT INTO `attempt_result` VALUES ('824', '116', '236', '2020-01-09 19:30:53', '1322');
+INSERT INTO `attempt_result` VALUES ('825', '116', '236', '2020-01-09 19:30:53', '1327');
+INSERT INTO `attempt_result` VALUES ('826', '116', '236', '2020-01-09 19:30:53', '1332');
+INSERT INTO `attempt_result` VALUES ('827', '116', '236', '2020-01-09 19:30:53', '1337');
+INSERT INTO `attempt_result` VALUES ('828', '116', '236', '2020-01-09 19:30:53', '1342');
+INSERT INTO `attempt_result` VALUES ('829', '116', '236', '2020-01-09 19:30:53', '1267');
+INSERT INTO `attempt_result` VALUES ('830', '116', '236', '2020-01-09 19:30:53', '1272');
+INSERT INTO `attempt_result` VALUES ('831', '116', '236', '2020-01-09 19:30:53', '1274');
+INSERT INTO `attempt_result` VALUES ('832', '116', '236', '2020-01-09 19:30:53', '1280');
+INSERT INTO `attempt_result` VALUES ('833', '116', '236', '2020-01-09 19:30:53', '1282');
+INSERT INTO `attempt_result` VALUES ('834', '116', '236', '2020-01-09 19:30:53', '1286');
+INSERT INTO `attempt_result` VALUES ('835', '116', '236', '2020-01-09 19:30:53', '1291');
+INSERT INTO `attempt_result` VALUES ('836', '116', '236', '2020-01-09 19:30:52', '1267');
+INSERT INTO `attempt_result` VALUES ('837', '116', '236', '2020-01-09 19:30:52', '1272');
+INSERT INTO `attempt_result` VALUES ('838', '116', '236', '2020-01-09 19:30:52', '1274');
+INSERT INTO `attempt_result` VALUES ('839', '116', '236', '2020-01-09 19:30:52', '1280');
+INSERT INTO `attempt_result` VALUES ('840', '116', '236', '2020-01-09 19:30:52', '1282');
+INSERT INTO `attempt_result` VALUES ('841', '116', '236', '2020-01-09 19:30:52', '1286');
+INSERT INTO `attempt_result` VALUES ('842', '116', '236', '2020-01-09 19:30:52', '1291');
+INSERT INTO `attempt_result` VALUES ('843', '116', '236', '2020-01-09 19:30:52', '1294');
+INSERT INTO `attempt_result` VALUES ('844', '116', '236', '2020-01-09 19:30:52', '1298');
+INSERT INTO `attempt_result` VALUES ('845', '116', '236', '2020-01-09 19:30:52', '1303');
+INSERT INTO `attempt_result` VALUES ('846', '116', '236', '2020-01-09 19:30:52', '1309');
+INSERT INTO `attempt_result` VALUES ('847', '116', '236', '2020-01-09 19:30:52', '1311');
+INSERT INTO `attempt_result` VALUES ('848', '116', '236', '2020-01-09 19:30:52', '1316');
+INSERT INTO `attempt_result` VALUES ('849', '116', '236', '2020-01-09 19:30:52', '1318');
+INSERT INTO `attempt_result` VALUES ('850', '116', '236', '2020-01-09 19:30:52', '1322');
+INSERT INTO `attempt_result` VALUES ('851', '116', '236', '2020-01-09 19:30:52', '1327');
+INSERT INTO `attempt_result` VALUES ('852', '116', '236', '2020-01-09 19:30:52', '1332');
+INSERT INTO `attempt_result` VALUES ('853', '116', '236', '2020-01-09 19:30:52', '1337');
+INSERT INTO `attempt_result` VALUES ('854', '116', '236', '2020-01-09 19:30:52', '1342');
+INSERT INTO `attempt_result` VALUES ('855', '116', '236', '2020-01-09 19:30:53', '1294');
+INSERT INTO `attempt_result` VALUES ('856', '116', '236', '2020-01-09 19:30:53', '1298');
+INSERT INTO `attempt_result` VALUES ('857', '116', '236', '2020-01-09 19:30:53', '1303');
+INSERT INTO `attempt_result` VALUES ('858', '116', '236', '2020-01-09 19:30:53', '1309');
+INSERT INTO `attempt_result` VALUES ('859', '116', '236', '2020-01-09 19:30:53', '1311');
+INSERT INTO `attempt_result` VALUES ('860', '116', '236', '2020-01-09 19:30:53', '1316');
+INSERT INTO `attempt_result` VALUES ('861', '116', '236', '2020-01-09 19:30:53', '1318');
+INSERT INTO `attempt_result` VALUES ('862', '116', '236', '2020-01-09 19:30:53', '1322');
+INSERT INTO `attempt_result` VALUES ('863', '116', '236', '2020-01-09 19:30:53', '1327');
+INSERT INTO `attempt_result` VALUES ('864', '116', '236', '2020-01-09 19:30:53', '1332');
+INSERT INTO `attempt_result` VALUES ('865', '116', '236', '2020-01-09 19:30:53', '1337');
+INSERT INTO `attempt_result` VALUES ('866', '116', '236', '2020-01-09 19:30:53', '1342');
+INSERT INTO `attempt_result` VALUES ('867', '116', '236', '2020-01-09 19:30:53', '1267');
+INSERT INTO `attempt_result` VALUES ('868', '116', '236', '2020-01-09 19:30:53', '1272');
+INSERT INTO `attempt_result` VALUES ('869', '116', '236', '2020-01-09 19:30:53', '1274');
+INSERT INTO `attempt_result` VALUES ('870', '116', '236', '2020-01-09 19:30:53', '1280');
+INSERT INTO `attempt_result` VALUES ('871', '116', '236', '2020-01-09 19:30:53', '1282');
+INSERT INTO `attempt_result` VALUES ('872', '116', '236', '2020-01-09 19:30:53', '1286');
+INSERT INTO `attempt_result` VALUES ('873', '116', '236', '2020-01-09 19:30:53', '1291');
+INSERT INTO `attempt_result` VALUES ('874', '116', '236', '2020-01-09 19:30:53', '1294');
+INSERT INTO `attempt_result` VALUES ('875', '116', '236', '2020-01-09 19:30:53', '1298');
+INSERT INTO `attempt_result` VALUES ('876', '116', '236', '2020-01-09 19:30:53', '1303');
+INSERT INTO `attempt_result` VALUES ('877', '116', '236', '2020-01-09 19:30:53', '1309');
+INSERT INTO `attempt_result` VALUES ('878', '116', '236', '2020-01-09 19:30:53', '1311');
+INSERT INTO `attempt_result` VALUES ('879', '116', '236', '2020-01-09 19:30:53', '1316');
+INSERT INTO `attempt_result` VALUES ('880', '116', '236', '2020-01-09 19:30:53', '1318');
+INSERT INTO `attempt_result` VALUES ('881', '116', '236', '2020-01-09 19:30:53', '1322');
+INSERT INTO `attempt_result` VALUES ('882', '116', '236', '2020-01-09 19:30:53', '1327');
+INSERT INTO `attempt_result` VALUES ('883', '116', '236', '2020-01-09 19:30:53', '1332');
+INSERT INTO `attempt_result` VALUES ('884', '116', '236', '2020-01-09 19:30:53', '1337');
+INSERT INTO `attempt_result` VALUES ('885', '116', '236', '2020-01-09 19:30:53', '1342');
+INSERT INTO `attempt_result` VALUES ('886', '116', '236', '2020-01-09 19:30:53', '1267');
+INSERT INTO `attempt_result` VALUES ('887', '116', '236', '2020-01-09 19:30:53', '1272');
+INSERT INTO `attempt_result` VALUES ('888', '116', '236', '2020-01-09 19:30:53', '1274');
+INSERT INTO `attempt_result` VALUES ('889', '116', '236', '2020-01-09 19:30:53', '1280');
+INSERT INTO `attempt_result` VALUES ('890', '116', '236', '2020-01-09 19:30:53', '1282');
+INSERT INTO `attempt_result` VALUES ('891', '116', '236', '2020-01-09 19:30:53', '1286');
+INSERT INTO `attempt_result` VALUES ('892', '116', '236', '2020-01-09 19:30:53', '1291');
+INSERT INTO `attempt_result` VALUES ('893', '116', '236', '2020-01-09 19:30:53', '1294');
+INSERT INTO `attempt_result` VALUES ('894', '116', '236', '2020-01-09 19:30:53', '1298');
+INSERT INTO `attempt_result` VALUES ('895', '116', '236', '2020-01-09 19:30:53', '1303');
+INSERT INTO `attempt_result` VALUES ('896', '116', '236', '2020-01-09 19:30:53', '1309');
+INSERT INTO `attempt_result` VALUES ('897', '116', '236', '2020-01-09 19:30:53', '1311');
+INSERT INTO `attempt_result` VALUES ('898', '116', '236', '2020-01-09 19:30:53', '1316');
+INSERT INTO `attempt_result` VALUES ('899', '116', '236', '2020-01-09 19:30:53', '1318');
+INSERT INTO `attempt_result` VALUES ('900', '116', '236', '2020-01-09 19:30:53', '1322');
+INSERT INTO `attempt_result` VALUES ('901', '116', '236', '2020-01-09 19:30:53', '1327');
+INSERT INTO `attempt_result` VALUES ('902', '116', '236', '2020-01-09 19:30:53', '1332');
+INSERT INTO `attempt_result` VALUES ('903', '116', '236', '2020-01-09 19:30:53', '1337');
+INSERT INTO `attempt_result` VALUES ('904', '116', '236', '2020-01-09 19:30:53', '1342');
+INSERT INTO `attempt_result` VALUES ('905', '116', '236', '2020-01-10 15:41:56', '1262');
 
 -- ----------------------------
 -- Table structure for `category`
@@ -259,7 +412,7 @@ CREATE TABLE `choice` (
   PRIMARY KEY (`id`),
   KEY `question` (`question`),
   CONSTRAINT `choice_ibfk_1` FOREIGN KEY (`question`) REFERENCES `question` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=1343 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1424 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of choice
@@ -458,84 +611,164 @@ INSERT INTO `choice` VALUES ('1261', '337', 'não só … mas também.', null, n
 INSERT INTO `choice` VALUES ('1262', '338', 'Businesses   ', null, null, '0');
 INSERT INTO `choice` VALUES ('1263', '338', 'marketing', null, null, '0');
 INSERT INTO `choice` VALUES ('1264', '338', 'text message', null, null, '0');
-INSERT INTO `choice` VALUES ('1265', '338', 'text message advertising', null, null, '0');
+INSERT INTO `choice` VALUES ('1265', '338', 'text message advertising', null, null, '1');
 INSERT INTO `choice` VALUES ('1266', '339', 'together with', null, null, '0');
-INSERT INTO `choice` VALUES ('1267', '339', 'to join with', null, null, '0');
+INSERT INTO `choice` VALUES ('1267', '339', 'to join with', null, null, '1');
 INSERT INTO `choice` VALUES ('1268', '339', 'to make together', null, null, '0');
 INSERT INTO `choice` VALUES ('1269', '339', 'together connect with', null, null, '0');
 INSERT INTO `choice` VALUES ('1270', '340', 'RSVP', null, null, '0');
 INSERT INTO `choice` VALUES ('1271', '340', 'SMSA', null, null, '0');
-INSERT INTO `choice` VALUES ('1272', '340', 'SMS', null, null, '0');
+INSERT INTO `choice` VALUES ('1272', '340', 'SMS', null, null, '1');
 INSERT INTO `choice` VALUES ('1273', '340', 'TCPA', null, null, '0');
 INSERT INTO `choice` VALUES ('1274', '341', '90% of text messages            ', null, null, '0');
 INSERT INTO `choice` VALUES ('1275', '341', '40% of text messages', null, null, '0');
-INSERT INTO `choice` VALUES ('1276', '341', '20% of text messages', null, null, '0');
+INSERT INTO `choice` VALUES ('1276', '341', '20% of text messages', null, null, '1');
 INSERT INTO `choice` VALUES ('1277', '341', '99% of text messages ', null, null, '0');
 INSERT INTO `choice` VALUES ('1278', '342', 'Excellent', null, null, '0');
 INSERT INTO `choice` VALUES ('1279', '342', 'same', null, null, '0');
-INSERT INTO `choice` VALUES ('1280', '342', 'utilize', null, null, '0');
+INSERT INTO `choice` VALUES ('1280', '342', 'utilize', null, null, '1');
 INSERT INTO `choice` VALUES ('1281', '342', 'message', null, null, '0');
 INSERT INTO `choice` VALUES ('1282', '343', 'the registration is in open doors', null, null, '0');
 INSERT INTO `choice` VALUES ('1283', '343', 'the registration is in closed doors', null, null, '0');
 INSERT INTO `choice` VALUES ('1284', '343', 'the registration is free of charge', null, null, '0');
-INSERT INTO `choice` VALUES ('1285', '343', 'the registration is paid', null, null, '0');
+INSERT INTO `choice` VALUES ('1285', '343', 'the registration is paid', null, null, '1');
 INSERT INTO `choice` VALUES ('1286', '344', 'Monday', null, null, '0');
-INSERT INTO `choice` VALUES ('1287', '344', '01/11/2019', null, null, '0');
+INSERT INTO `choice` VALUES ('1287', '344', '01/11/2019', null, null, '1');
 INSERT INTO `choice` VALUES ('1288', '344', 'Thursday', null, null, '0');
 INSERT INTO `choice` VALUES ('1289', '344', 'Friday', null, null, '0');
 INSERT INTO `choice` VALUES ('1290', '345', 'are', null, null, '0');
-INSERT INTO `choice` VALUES ('1291', '345', 'is', null, null, '0');
+INSERT INTO `choice` VALUES ('1291', '345', 'is', null, null, '1');
 INSERT INTO `choice` VALUES ('1292', '345', 'am', null, null, '0');
 INSERT INTO `choice` VALUES ('1293', '345', 'isn’ t', null, null, '0');
-INSERT INTO `choice` VALUES ('1294', '346', 'are', null, null, '0');
+INSERT INTO `choice` VALUES ('1294', '346', 'are', null, null, '1');
 INSERT INTO `choice` VALUES ('1295', '346', 'am', null, null, '0');
 INSERT INTO `choice` VALUES ('1296', '346', 'is', null, null, '0');
 INSERT INTO `choice` VALUES ('1297', '346', 'isn’ t', null, null, '0');
 INSERT INTO `choice` VALUES ('1298', '347', 'are putting', null, null, '0');
 INSERT INTO `choice` VALUES ('1299', '347', 'is puting', null, null, '0');
-INSERT INTO `choice` VALUES ('1300', '347', 'is putting  ', null, null, '0');
+INSERT INTO `choice` VALUES ('1300', '347', 'is putting  ', null, null, '1');
 INSERT INTO `choice` VALUES ('1301', '347', 'is puts', null, null, '0');
 INSERT INTO `choice` VALUES ('1302', '348', 'studing', null, null, '0');
-INSERT INTO `choice` VALUES ('1303', '348', 'studying', null, null, '0');
+INSERT INTO `choice` VALUES ('1303', '348', 'studying', null, null, '1');
 INSERT INTO `choice` VALUES ('1304', '348', 'studies', null, null, '0');
 INSERT INTO `choice` VALUES ('1305', '348', 'study', null, null, '0');
 INSERT INTO `choice` VALUES ('1306', '349', 'Is swimming', null, null, '0');
 INSERT INTO `choice` VALUES ('1307', '349', 'are swim', null, null, '0');
 INSERT INTO `choice` VALUES ('1308', '349', 'is swims', null, null, '0');
-INSERT INTO `choice` VALUES ('1309', '349', 'are swimming', null, null, '0');
+INSERT INTO `choice` VALUES ('1309', '349', 'are swimming', null, null, '1');
 INSERT INTO `choice` VALUES ('1310', '350', 'aren’t', null, null, '0');
-INSERT INTO `choice` VALUES ('1311', '350', 'is', null, null, '0');
+INSERT INTO `choice` VALUES ('1311', '350', 'is', null, null, '1');
 INSERT INTO `choice` VALUES ('1312', '350', 'are', null, null, '0');
 INSERT INTO `choice` VALUES ('1313', '350', 'am', null, null, '0');
 INSERT INTO `choice` VALUES ('1314', '351', 'are', null, null, '0');
 INSERT INTO `choice` VALUES ('1315', '351', 'am', null, null, '0');
-INSERT INTO `choice` VALUES ('1316', '351', 'is', null, null, '0');
+INSERT INTO `choice` VALUES ('1316', '351', 'is', null, null, '1');
 INSERT INTO `choice` VALUES ('1317', '351', 'isn’t ', null, null, '0');
 INSERT INTO `choice` VALUES ('1318', '352', 'on', null, null, '0');
 INSERT INTO `choice` VALUES ('1319', '352', 'above', null, null, '0');
-INSERT INTO `choice` VALUES ('1320', '352', 'in', null, null, '0');
+INSERT INTO `choice` VALUES ('1320', '352', 'in', null, null, '1');
 INSERT INTO `choice` VALUES ('1321', '352', 'at', null, null, '0');
-INSERT INTO `choice` VALUES ('1322', '353', 'on', null, null, '0');
+INSERT INTO `choice` VALUES ('1322', '353', 'on', null, null, '1');
 INSERT INTO `choice` VALUES ('1323', '353', 'in', null, null, '0');
 INSERT INTO `choice` VALUES ('1324', '353', 'at', null, null, '0');
 INSERT INTO `choice` VALUES ('1325', '353', 'between', null, null, '0');
 INSERT INTO `choice` VALUES ('1326', '354', 'are', null, null, '0');
-INSERT INTO `choice` VALUES ('1327', '354', 'is', null, null, '0');
+INSERT INTO `choice` VALUES ('1327', '354', 'is', null, null, '1');
 INSERT INTO `choice` VALUES ('1328', '354', 'am', null, null, '0');
 INSERT INTO `choice` VALUES ('1329', '354', 'isn’t ', null, null, '0');
 INSERT INTO `choice` VALUES ('1330', '355', 'build', null, null, '0');
 INSERT INTO `choice` VALUES ('1331', '355', 'built', null, null, '0');
-INSERT INTO `choice` VALUES ('1332', '355', 'was built', null, null, '0');
+INSERT INTO `choice` VALUES ('1332', '355', 'was built', null, null, '1');
 INSERT INTO `choice` VALUES ('1333', '355', 'has built', null, null, '0');
 INSERT INTO `choice` VALUES ('1334', '356', 'a', null, null, '0');
 INSERT INTO `choice` VALUES ('1335', '356', 'the', null, null, '0');
 INSERT INTO `choice` VALUES ('1336', '356', 'am', null, null, '0');
-INSERT INTO `choice` VALUES ('1337', '356', 'an', null, null, '0');
+INSERT INTO `choice` VALUES ('1337', '356', 'an', null, null, '1');
 INSERT INTO `choice` VALUES ('1338', '356', 'none of the options ', null, null, '0');
 INSERT INTO `choice` VALUES ('1339', '357', 'sees', null, null, '0');
 INSERT INTO `choice` VALUES ('1340', '357', 'see', null, null, '0');
 INSERT INTO `choice` VALUES ('1341', '357', 'seen', null, null, '0');
-INSERT INTO `choice` VALUES ('1342', '357', 'saw', null, null, '0');
+INSERT INTO `choice` VALUES ('1342', '357', 'saw', null, null, '1');
+INSERT INTO `choice` VALUES ('1343', '358', '2', null, null, '0');
+INSERT INTO `choice` VALUES ('1344', '358', '3', null, null, '0');
+INSERT INTO `choice` VALUES ('1345', '358', '4', null, null, '0');
+INSERT INTO `choice` VALUES ('1346', '358', '5', null, null, '1');
+INSERT INTO `choice` VALUES ('1347', '359', '0', null, null, '1');
+INSERT INTO `choice` VALUES ('1348', '359', '1', null, null, '0');
+INSERT INTO `choice` VALUES ('1349', '359', '2', null, null, '0');
+INSERT INTO `choice` VALUES ('1350', '359', '3', null, null, '0');
+INSERT INTO `choice` VALUES ('1351', '360', '$$\\left\\{ { - 3,\\;\\;0,\\;\\;2} \\right\\}$$', null, null, '1');
+INSERT INTO `choice` VALUES ('1352', '360', '$$\\left\\{ { - 1,\\;\\;0,\\;\\;2} \\right\\}$$', null, null, '0');
+INSERT INTO `choice` VALUES ('1353', '360', '$$\\left\\{ { - 2,\\;\\;0,\\;\\;3} \\right\\}$$', null, null, '0');
+INSERT INTO `choice` VALUES ('1354', '360', '$$\\left\\{ { 2,\\;\\;1,\\;\\;3} \\right\\}$$', null, null, '0');
+INSERT INTO `choice` VALUES ('1355', '361', '$$\\left\\{ { - 1,\\;\\;2} \\right\\}$$', null, null, '0');
+INSERT INTO `choice` VALUES ('1356', '361', '$$\\left\\{ { 1,\\;\\;- 2} \\right\\}$$', null, null, '0');
+INSERT INTO `choice` VALUES ('1357', '361', '$$\\left\\{ { 2,\\;\\;- 1} \\right\\}$$', null, null, '1');
+INSERT INTO `choice` VALUES ('1358', '361', '$$\\left\\{ { 2,\\;\\; 1} \\right\\}$$', null, null, '0');
+INSERT INTO `choice` VALUES ('1359', '362', '$$\\frac{{x + 1}}{{{x^2} - 4}}$$', null, null, '0');
+INSERT INTO `choice` VALUES ('1361', '362', '$$\\sqrt {{x^2} - 3}  - 4x$$', null, null, '0');
+INSERT INTO `choice` VALUES ('1362', '362', '$$\\frac{1}{2}{x^2} + x + 4$$', null, null, '1');
+INSERT INTO `choice` VALUES ('1363', '362', '$$3\\sqrt x  - 4x - 3{x^4}$$', null, null, '0');
+INSERT INTO `choice` VALUES ('1364', '363', '$${x^4} + 6$$', null, null, '0');
+INSERT INTO `choice` VALUES ('1365', '363', '$$\\;{x^3} + 10{x^2} - 20x + 12$$', null, null, '1');
+INSERT INTO `choice` VALUES ('1366', '363', '$${x^4} + 10$$', null, null, '0');
+INSERT INTO `choice` VALUES ('1367', '363', '$${x^4} + 10{x^2} - 10x + 6$$', null, null, '0');
+INSERT INTO `choice` VALUES ('1368', '364', '29', null, null, '0');
+INSERT INTO `choice` VALUES ('1369', '364', '43', null, null, '0');
+INSERT INTO `choice` VALUES ('1370', '364', '3', null, null, '0');
+INSERT INTO `choice` VALUES ('1371', '364', '-1', null, null, '1');
+INSERT INTO `choice` VALUES ('1372', '365', '$$D =  ℝ\\setminus \\left\\{ {1,\\;\\;3} \\right\\}$$', null, null, '0');
+INSERT INTO `choice` VALUES ('1373', '365', '$$D =  ℝ\\setminus \\left\\{ {1,\\;\\;4,\\;\\;5} \\right\\}$$', null, null, '0');
+INSERT INTO `choice` VALUES ('1374', '365', '$$D =  ℝ\\setminus \\left\\{ { - 4,\\; - 1,\\;0} \\right\\}$$', null, null, '0');
+INSERT INTO `choice` VALUES ('1375', '365', '$$D =  ℝ\\setminus \\left\\{ { - 1,\\;0,\\;5} \\right\\}$$', null, null, '1');
+INSERT INTO `choice` VALUES ('1376', '366', '0', null, null, '0');
+INSERT INTO `choice` VALUES ('1377', '366', '1', null, null, '0');
+INSERT INTO `choice` VALUES ('1378', '366', '2', null, null, '1');
+INSERT INTO `choice` VALUES ('1379', '366', '3', null, null, '0');
+INSERT INTO `choice` VALUES ('1380', '367', '$$\\left] { - 7,3} \\right[$$', null, null, '1');
+INSERT INTO `choice` VALUES ('1381', '367', '$$\\left] { - 5,2} \\right[$$', null, null, '0');
+INSERT INTO `choice` VALUES ('1382', '367', '$$\\left] { 5,- 2} \\right[$$', null, null, '0');
+INSERT INTO `choice` VALUES ('1383', '367', '$$\\left] { - \\infty , - 7} \\right[ \\cup \\left] {3, + \\infty } \\right[$$', null, null, '0');
+INSERT INTO `choice` VALUES ('1384', '368', '6', null, null, '0');
+INSERT INTO `choice` VALUES ('1385', '368', '29', null, null, '1');
+INSERT INTO `choice` VALUES ('1386', '368', '30', null, null, '0');
+INSERT INTO `choice` VALUES ('1387', '368', '720', null, null, '0');
+INSERT INTO `choice` VALUES ('1388', '369', '$$ - 12$$', null, null, '0');
+INSERT INTO `choice` VALUES ('1389', '369', '$$13$$', null, null, '1');
+INSERT INTO `choice` VALUES ('1390', '369', '$$25$$', null, null, '0');
+INSERT INTO `choice` VALUES ('1391', '369', '$$156$$', null, null, '0');
+INSERT INTO `choice` VALUES ('1392', '370', '5', null, null, '0');
+INSERT INTO `choice` VALUES ('1393', '370', '6', null, null, '0');
+INSERT INTO `choice` VALUES ('1394', '370', '9', null, null, '0');
+INSERT INTO `choice` VALUES ('1395', '370', '10', null, null, '1');
+INSERT INTO `choice` VALUES ('1396', '371', '$$\\frac{2}{3}$$', null, null, '1');
+INSERT INTO `choice` VALUES ('1397', '371', '$$\\frac{1}{2}$$', null, null, '0');
+INSERT INTO `choice` VALUES ('1398', '371', '$$\\frac{1}{3}$$', null, null, '0');
+INSERT INTO `choice` VALUES ('1399', '371', '1', null, null, '0');
+INSERT INTO `choice` VALUES ('1400', '372', '$$3$$', null, null, '0');
+INSERT INTO `choice` VALUES ('1401', '372', '$$\\frac{3}{2}$$', null, null, '0');
+INSERT INTO `choice` VALUES ('1402', '372', '$${e^3}$$', null, null, '1');
+INSERT INTO `choice` VALUES ('1403', '372', '$${e^{\\frac{3}{2}}}$$', null, null, '0');
+INSERT INTO `choice` VALUES ('1404', '373', '2 e 5', null, null, '0');
+INSERT INTO `choice` VALUES ('1405', '373', '4 e 2', null, null, '0');
+INSERT INTO `choice` VALUES ('1406', '373', '7 e 4', null, null, '0');
+INSERT INTO `choice` VALUES ('1407', '373', '2 e 4', null, null, '1');
+INSERT INTO `choice` VALUES ('1408', '374', '6', null, null, '1');
+INSERT INTO `choice` VALUES ('1409', '374', '5', null, null, '0');
+INSERT INTO `choice` VALUES ('1410', '374', '4', null, null, '0');
+INSERT INTO `choice` VALUES ('1411', '374', '3', null, null, '0');
+INSERT INTO `choice` VALUES ('1412', '375', '$$\\frac{2}{{3\\sqrt {3x - 5} }}$$', null, null, '0');
+INSERT INTO `choice` VALUES ('1413', '375', '$$ - \\frac{5}{{3\\sqrt {3x - 5} }}$$', null, null, '0');
+INSERT INTO `choice` VALUES ('1414', '375', '$$\\frac{1}{{2\\sqrt {3x - 5} }}$$', null, null, '0');
+INSERT INTO `choice` VALUES ('1415', '375', '$$\\frac{3}{{2\\sqrt {3x - 5} }}$$', null, null, '1');
+INSERT INTO `choice` VALUES ('1416', '376', '$$4{e^2}$$', null, null, '0');
+INSERT INTO `choice` VALUES ('1417', '376', '$$4{e^{ - 2x}}$$', null, null, '1');
+INSERT INTO `choice` VALUES ('1418', '376', '$$ - 4{e^{ - 2x}}$$', null, null, '0');
+INSERT INTO `choice` VALUES ('1419', '376', '$$\\frac{1}{4}{e^{ - 2x}}$$', null, null, '0');
+INSERT INTO `choice` VALUES ('1420', '377', '$$\\left] { - \\infty , - 2} \\right[ \\cup \\left] {2, + \\infty } \\right[$$', null, null, '0');
+INSERT INTO `choice` VALUES ('1421', '377', '$$\\left] { - 2,2} \\right[$$', null, null, '0');
+INSERT INTO `choice` VALUES ('1422', '377', '$$\\left] { - 1,1} \\right[$$', null, null, '1');
+INSERT INTO `choice` VALUES ('1423', '377', '$$\\left] { - \\infty , - 1} \\right[ \\cup \\left] {1, + \\infty } \\right[$$', null, null, '0');
 
 -- ----------------------------
 -- Table structure for `countries`
@@ -974,7 +1207,7 @@ CREATE TABLE `exam` (
   KEY `exam_ibfk_2` (`university`),
   CONSTRAINT `exam_ibfk_1` FOREIGN KEY (`category`) REFERENCES `category` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `exam_ibfk_2` FOREIGN KEY (`university`) REFERENCES `university` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=117 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=118 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of exam
@@ -990,6 +1223,7 @@ INSERT INTO `exam` VALUES ('92', '62', '2005', 'Exame de Ingles', '10', '3', nul
 INSERT INTO `exam` VALUES ('112', '102', '2005', 'Exame de Portugues', '10', '3', null, 'https://drive.google.com/open?id=0B-dOo9jrft_6SklCWXdZQkFNQWc', null, '2', '0');
 INSERT INTO `exam` VALUES ('115', '102', '2020', 'Exame de Português', '3600', '20', null, null, null, '33', '1');
 INSERT INTO `exam` VALUES ('116', '62', '2020', 'Exame de Inglês (Variante A)', '3600', '20', null, null, null, '33', '1');
+INSERT INTO `exam` VALUES ('117', '2', '2020', 'Exame de Matemática (Variante A)', '3600', '20', null, null, null, '33', '1');
 
 -- ----------------------------
 -- Table structure for `exam_attempts`
@@ -1031,6 +1265,22 @@ INSERT INTO `exam_attempts` VALUES ('115', '236', '2020-01-09 13:10:24', '2020-0
 INSERT INTO `exam_attempts` VALUES ('115', '236', '2020-01-09 13:10:25', '2020-01-09 13:08:49', '35');
 INSERT INTO `exam_attempts` VALUES ('115', '236', '2020-01-09 13:25:08', '2020-01-09 13:17:54', '0');
 INSERT INTO `exam_attempts` VALUES ('116', '236', '2020-01-09 14:17:26', '2020-01-09 13:54:21', '0');
+INSERT INTO `exam_attempts` VALUES ('116', '236', '2020-01-09 19:08:50', '2020-01-09 19:08:07', '0');
+INSERT INTO `exam_attempts` VALUES ('116', '236', '2020-01-09 19:10:13', '2020-01-09 19:08:59', '0');
+INSERT INTO `exam_attempts` VALUES ('116', '236', '2020-01-09 19:20:32', '2020-01-09 19:20:23', '0');
+INSERT INTO `exam_attempts` VALUES ('116', '236', '2020-01-09 19:30:52', '2020-01-09 19:27:45', '70');
+INSERT INTO `exam_attempts` VALUES ('116', '236', '2020-01-09 19:30:53', '2020-01-09 19:27:45', '70');
+INSERT INTO `exam_attempts` VALUES ('116', '236', '2020-01-10 15:41:56', '2020-01-10 15:40:51', '0');
+INSERT INTO `exam_attempts` VALUES ('117', '236', '2020-01-09 20:08:00', '2020-01-09 20:07:47', '0');
+INSERT INTO `exam_attempts` VALUES ('117', '236', '2020-01-09 20:08:16', '2020-01-09 20:08:11', '0');
+INSERT INTO `exam_attempts` VALUES ('117', '236', '2020-01-09 20:50:57', '2020-01-09 20:50:51', '0');
+INSERT INTO `exam_attempts` VALUES ('117', '236', '2020-01-09 20:51:13', '2020-01-09 20:51:03', '0');
+INSERT INTO `exam_attempts` VALUES ('117', '236', '2020-01-09 20:53:03', '2020-01-09 20:52:55', '0');
+INSERT INTO `exam_attempts` VALUES ('117', '236', '2020-01-10 09:41:30', '2020-01-10 09:30:43', '0');
+INSERT INTO `exam_attempts` VALUES ('117', '236', '2020-01-10 14:04:04', '2020-01-10 14:01:27', '0');
+INSERT INTO `exam_attempts` VALUES ('117', '236', '2020-01-10 15:16:40', '2020-01-10 15:14:43', '0');
+INSERT INTO `exam_attempts` VALUES ('117', '236', '2020-01-10 15:33:30', '2020-01-10 15:33:26', '0');
+INSERT INTO `exam_attempts` VALUES ('117', '236', '2020-01-10 15:36:03', '2020-01-10 15:36:00', '0');
 
 -- ----------------------------
 -- Table structure for `province`
@@ -1100,7 +1350,7 @@ CREATE TABLE `question` (
   CONSTRAINT `question_ibfk_2` FOREIGN KEY (`createdby`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `question_ibfk_3` FOREIGN KEY (`modifiedby`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `question_ibfk_4` FOREIGN KEY (`exam`) REFERENCES `exam` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=362 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=378 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of question
@@ -1169,13 +1419,29 @@ INSERT INTO `question` VALUES ('351', '116', 'Choose the correct option on the f
 INSERT INTO `question` VALUES ('352', '116', 'Choose the correct option on the following Grammar questions.  I always keep my money ________ my bag.  ', null, null, '2', null, null, null, null, null, null);
 INSERT INTO `question` VALUES ('353', '116', 'Choose the correct option on the following Grammar questions. The dog is sleeping _______ the carpet.  ', null, null, '2', null, null, null, null, null, null);
 INSERT INTO `question` VALUES ('354', '116', 'Choose the correct option on the following Grammar questions. My address ______________________ 90 Central Street, London.', null, null, '2', null, null, null, null, null, null);
-INSERT INTO `question` VALUES ('355', '116', 'Choose the correct option on the following Grammar questions. This house is quite old, it _______________ in 1960.', null, null, null, null, null, null, null, null, null);
-INSERT INTO `question` VALUES ('356', '116', 'Choose the correct option on the following Grammar questions. This is ______ excellent business proposal you have written.', null, null, null, null, null, null, null, null, null);
-INSERT INTO `question` VALUES ('357', '116', 'Choose the correct option on the following Grammar questions. I _________________ her in the library yesterday. ', null, null, null, null, null, null, null, null, null);
-INSERT INTO `question` VALUES ('358', null, 'Choose the correct option on the following Grammar questions.', null, null, null, null, null, null, null, null, null);
-INSERT INTO `question` VALUES ('359', null, 'Choose the correct option on the following Grammar questions.', null, null, null, null, null, null, null, null, null);
-INSERT INTO `question` VALUES ('360', null, 'Choose the correct option on the following Grammar questions.', null, null, null, null, null, null, null, null, null);
-INSERT INTO `question` VALUES ('361', null, 'Choose the correct option on the following Grammar questions.', null, null, null, null, null, null, null, null, null);
+INSERT INTO `question` VALUES ('355', '116', 'Choose the correct option on the following Grammar questions. This house is quite old, it _______________ in 1960.', null, null, '2', null, null, null, null, null, null);
+INSERT INTO `question` VALUES ('356', '116', 'Choose the correct option on the following Grammar questions. This is ______ excellent business proposal you have written.', null, null, '2', null, null, null, null, null, null);
+INSERT INTO `question` VALUES ('357', '116', 'Choose the correct option on the following Grammar questions. I _________________ her in the library yesterday. ', null, null, '2', null, null, null, null, null, null);
+INSERT INTO `question` VALUES ('358', '117', 'O grau do polinómio da expressão a seguir é: $$3{x^5} - 7{x^3} - {x^2} + 8$$', null, null, '2', null, null, null, null, null, null);
+INSERT INTO `question` VALUES ('359', '117', 'O resto da divisão dos polinómios a seguir é: $$3{x^4} - {x^2} - 2\\;$$', null, null, '2', null, null, null, null, null, null);
+INSERT INTO `question` VALUES ('360', '117', 'O conjunto solução da equação a seguir é $${x^3} + {x^2} - 6x = 0\\;$$ ', null, null, '2', null, null, null, null, null, null);
+INSERT INTO `question` VALUES ('361', '117', 'O conjunto solução do sistema abaixo é: $$\\left\\{ {\\begin{array}{*{20}{c}}{3x + y = 5}\\\\{2x - 5y = 9}\\end{array}} \\right.$$', null, null, '2', null, null, null, null, null, null);
+INSERT INTO `question` VALUES ('362', '117', 'Das expressões algébricas seguintes, indique a que é racional inteira.', null, null, '2', null, null, null, null, null, null);
+INSERT INTO `question` VALUES ('363', '117', 'Sendo dados os polinómios $$A\\left( x \\right) = {x^4} - 5{x^3} + 10x - 2$$ e $$\\;B\\left( x \\right) = 2{x^4} - 5{x^3} + 10{x^2} + 8$$ Então $$B - 2A$$ será igual a: ', null, null, '2', null, null, null, null, null, null);
+INSERT INTO `question` VALUES ('364', '117', 'Dado o polinómio $$P\\left( x \\right) = 2{x^3} - 5{x^2} - x + 5$$  $$P\\left( 2 \\right)$$ é igual:', null, null, '2', null, null, null, null, null, null);
+INSERT INTO `question` VALUES ('365', '117', 'O domínio da seguinte expressão abaixo é: $$\\frac{{3{x^5} + 1}}{{{x^3} - 4{x^2} - 5x}}$$', null, null, '2', null, null, null, null, null, null);
+INSERT INTO `question` VALUES ('366', '117', 'Uma das soluções da equação abaixo é: $$\\left| {x - 3} \\right| = 1$$', null, null, '2', null, null, null, null, null, null);
+INSERT INTO `question` VALUES ('367', '117', 'A solução da inequação abaixo é: $$\\left| {x + 2} \\right| < 5$$', null, null, '2', null, null, null, null, null, null);
+INSERT INTO `question` VALUES ('368', '117', 'O número abaixo é: $$\\frac{{6! - 4!}}{{4!}}$$', null, null, '2', null, null, null, null, null, null);
+INSERT INTO `question` VALUES ('369', '117', 'A solução da equação abaixo é: $$C_2^n = 78$$', null, null, '2', null, null, null, null, null, null);
+INSERT INTO `question` VALUES ('370', '117', 'Pretende-se escolher três alunos entre cinco candidatos, para formar uma comissão desportiva da escola, sem tarefas diferenciadas. De quantas maneiras diferentes é possível fazer a relação?', null, null, '2', null, null, null, null, null, null);
+INSERT INTO `question` VALUES ('371', '117', 'É lançado um dado perfeito com as faces enumeradas de1 a 6. Qual é a probabilidade de se obter um número não inferior a 3.', null, null, '2', null, null, null, null, null, null);
+INSERT INTO `question` VALUES ('372', '117', 'O limite da sucessão abaixo é igual: $$\\begin{array}{*{20}{c}}{\\lim }\\\\{{\\rm{n}} \\to \\infty }\\end{array}{\\left( {\\frac{{2n +3}}{{2n - 1}}} \\right)^{\\frac{{3n}}{2}}}$$', null, null, '2', null, null, null, null, null, null);
+INSERT INTO `question` VALUES ('373', '117', 'Sendo $${a_4} = 14\\;e\\;{a_{16}} = 62$$ termos de uma progressão aritmética, então os valores do primeiro termo (a1) e a razão (d) são respectivamente:', null, null, '2', null, null, null, null, null, null);
+INSERT INTO `question` VALUES ('374', '117', 'O limite abaixo é igual a: $$\\begin{array}{*{20}{c}}{lim}\\\\{x \\to 3\\;}\\end{array}\\frac{{{x^2} - 9}}{{{x^2} - 5x + 6}}$$', null, null, '2', null, null, null, null, null, null);
+INSERT INTO `question` VALUES ('375', '117', 'A derivada da função abaixo é: $$f\\left( x \\right) = \\sqrt {3x - 5} $$', null, null, '2', null, null, null, null, null, null);
+INSERT INTO `question` VALUES ('376', '117', 'A segunda derivada da função abaixo é: $$h\\left( x \\right) = {e^{ - 2x}}$$', null, null, '2', null, null, null, null, null, null);
+INSERT INTO `question` VALUES ('377', '117', 'Os valores de x para os quais a função abaixo é decrescente são:', '/images/qa/117_377.png', null, null, null, null, null, null, null, null);
 
 -- ----------------------------
 -- Table structure for `role`
