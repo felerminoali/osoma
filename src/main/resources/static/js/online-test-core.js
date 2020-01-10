@@ -33,7 +33,7 @@ $(document).ready(function () {
     function initComponents() {
 
 
-        $(document).ajaxSend(function() {
+        $(document).ajaxSend(function () {
             $("#overlay").fadeIn(300);
         });
 
@@ -133,16 +133,16 @@ $(document).ready(function () {
         modalConfirm(function (confirm) {
             if (confirm) {
 
-                setTimeout(function(){
+                setTimeout(function () {
                     saveAnswer();
                     $("#overlay").fadeOut(300);
                     redirect2Results();
-                },500);
+                }, 500);
 
             } else {
-                setTimeout(function(){
+                setTimeout(function () {
                     $("#overlay").fadeOut(300);
-                },500);
+                }, 500);
             }
         });
     }
@@ -159,9 +159,9 @@ $(document).ready(function () {
             async: false,
             dataType: "json",
             success: function (data) {
-                 if (data != null) {
-                     result = data;
-                 }
+                if (data != null) {
+                    result = data;
+                }
             },
             error: function (xhr, textStatus, error) {
                 console.log(xhr.statusText);
@@ -171,7 +171,6 @@ $(document).ready(function () {
         });
         return result;
     }
-
 
 
     function fetchQuestions(pointer) {
@@ -193,12 +192,14 @@ $(document).ready(function () {
 
                 var media_img = '';
                 if (data.questionList[index].image != null) {
-                   var  media_img = '<a href="#"><img class="media-object" src="'+data.questionList[index].image+'" alt="questions.image"></a>';
+                    var media_img = '<a href="#"><img class="media-object" src="' + data.questionList[index].image + '" alt="questions.image"></a>';
                 }
 
                 $('#q_img').html(media_img);
-                $('.q_question').html(data.questionList[index].question);
 
+                var q_question = document.getElementById("q_question");
+                q_question.innerHTML = data.questionList[index].question;
+                MathJax.Hub.Queue(["Typeset", MathJax.Hub, q_question]);
 
                 var htmlCaseOfStudy = data.questionList[index].caseofstudy;
                 var shortText = '';
@@ -206,7 +207,7 @@ $(document).ready(function () {
                     var noHtmlCaseOfStudy = $(htmlCaseOfStudy);
                     shortText = noHtmlCaseOfStudy.text().substring(0, 120);
                     $('#q_caseofstudy').html(data.questionList[index].caseofstudy);
-                    shortText += '&nbsp;...&nbsp;'+'<a href="#" data-toggle="modal" data-target="#myModal">Monstrar mais</a>';
+                    shortText += '&nbsp;...&nbsp;' + '<a href="#" data-toggle="modal" data-target="#myModal">Monstrar mais</a>';
                 }
 
                 $('.casestudy').html(shortText);
@@ -215,15 +216,15 @@ $(document).ready(function () {
 
                 var q_response = '';
                 for (var i = 0; i < data.questionList.length; i++) {
-                    q_response += '<a href="#" class="list-group-item answer_index" rel="'+i+'">';
+                    q_response += '<a href="#" class="list-group-item answer_index" rel="' + i + '">';
                     q_response += '<span class="badge pull-left">' + (i + 1) + '</span>&nbsp;';
                     var session_saved_choice = getAnswerById(data.questionList[i].id);
 
                     var label = '';
-                    if(session_saved_choice['label']!=null){
+                    if (session_saved_choice['label'] != null) {
                         label = session_saved_choice['label'];
                     }
-                    q_response += '<span id="answer_'+data.questionList[i].id+'">'+label+'</span>';
+                    q_response += '<span id="answer_' + data.questionList[i].id + '">' + label + '</span>';
                     q_response += '</a>';
                 }
 
@@ -239,9 +240,9 @@ $(document).ready(function () {
                     str += '<div class="ans_select">';
 
                     var choosed = getAnswerById(data.questionList[index].id);
-                    if(choosed['idChoice'] == obj.id && choosed['idChoice']!=null){
+                    if (choosed['idChoice'] == obj.id && choosed['idChoice'] != null) {
                         str += '<input type="radio" id="q_' + data.questionList[index].id + '_' + obj.id + '_' + String.fromCharCode(65 + i) + '" name="q_choice" checked/>';
-                    }else{
+                    } else {
                         str += '<input type="radio" id="q_' + data.questionList[index].id + '_' + obj.id + '_' + String.fromCharCode(65 + i) + '" name="q_choice"/>';
                     }
 
@@ -256,9 +257,12 @@ $(document).ready(function () {
                 }
 
                 str += '</table>';
-                $(".answersDiv").html(str);
 
+                var choicesDiv = document.getElementById("choicesDiv");
+                choicesDiv.innerHTML = str;
+                MathJax.Hub.Queue(["Typeset", MathJax.Hub, choicesDiv]);
 
+                // $(".answersDiv").html(str);
 
                 var btn_prev = '';
 
@@ -285,10 +289,10 @@ $(document).ready(function () {
                 console.log(textStatus);
                 console.log(error);
             }
-        }).done(function() {
-            setTimeout(function(){
+        }).done(function () {
+            setTimeout(function () {
                 $("#overlay").fadeOut(300);
-            },500);
+            }, 500);
         });
 
 
