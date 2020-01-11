@@ -91,7 +91,8 @@ public class LoginController {
             // Save token to database
             crudService.update(user);
 
-            String appUrl = request.getScheme() + "://" + request.getServerName();
+//            String appUrl = request.getScheme() + "://" + request.getServerName();
+            String appUrl = request.getScheme() + "://" + "www.osoma.edu.mz";
 
             // Email message
             SimpleMailMessage passwordResetEmail = new SimpleMailMessage();
