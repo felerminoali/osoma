@@ -53,16 +53,16 @@ public class LoginController {
         return "login";
 
     }
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public void loginPost(@RequestParam("username") final String username, @RequestParam("password") final String password, final HttpServletRequest request) {
-        UsernamePasswordAuthenticationToken authReq =
-                new UsernamePasswordAuthenticationToken(username, password);
-        Authentication auth = authManager.authenticate(authReq);
-        SecurityContext sc = SecurityContextHolder.getContext();
-        sc.setAuthentication(auth);
-        HttpSession session = request.getSession(true);
-        session.setAttribute("SPRING_SECURITY_CONTEXT", sc);
-    }
+//    @RequestMapping(value = "/login", method = RequestMethod.POST)
+//    public void loginPost(@RequestParam("username") final String username, @RequestParam("password") final String password, final HttpServletRequest request) {
+//        UsernamePasswordAuthenticationToken authReq =
+//                new UsernamePasswordAuthenticationToken(username, password);
+//        Authentication auth = authManager.authenticate(authReq);
+//        SecurityContext sc = SecurityContextHolder.getContext();
+//        sc.setAuthentication(auth);
+//        HttpSession session = request.getSession(true);
+//        session.setAttribute("SPRING_SECURITY_CONTEXT", sc);
+//    }
 
 
     @RequestMapping(value = "/forgot", method = RequestMethod.GET)
