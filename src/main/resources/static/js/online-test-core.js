@@ -73,11 +73,11 @@ $(document).ready(function () {
             }));
         }
 
-        if ($('.t_finish').length > 0) {
-            ($('.t_finish').click(function () {
-                saveAnswer();
-            }));
-        }
+        // if ($('.t_finish').length > 0) {
+        //     ($('.t_finish').click(function () {
+        //         saveAnswer();
+        //     }));
+        // }
 
         if ($('.answer_index').length > 0) {
             ($('.answer_index').click(function () {
