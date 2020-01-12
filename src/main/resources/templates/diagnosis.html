@@ -157,7 +157,7 @@
                                         </a>
 
 
-                                        <a href="#" id="qfinish" class="btn btn-success t_finish">Terminar<i class="glyphicon glyphicon-chevron-up"></i></a>
+                                        <a href="#" id="qfinish" class="btn btn-success t_finish" data-toggle="modal" data-target="#mi-modal">Terminar<i class="glyphicon glyphicon-chevron-up"></i></a>
 
                                         <a href="#" class="btn btn-info showlist" id="btnShow">Respostas</a>
                                     </div>
@@ -211,7 +211,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" id="modal-btn-si">Sim</button>
-                    <button type="button" class="btn btn-primary" id="modal-btn-no">Não</button>
+                    <button type="button" class="btn btn-primary" id="modal-btn-no" data-dismiss="modal">Não</button>
                 </div>
             </div>
         </div>
@@ -240,6 +240,11 @@
             secods = maxSec;
         }
         countDown(secods, maxSec, "status");
+    </script>
+
+    <script type="text/javascript">
+
+
     </script>
 </th:block>
 </html>

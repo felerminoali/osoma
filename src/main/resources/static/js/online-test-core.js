@@ -41,11 +41,6 @@ $(document).ready(function () {
             validateAnswer(e);
         });
 
-        //$('#qfinish').on('click', function (e) {
-        //if (validateAnswer(e)) {}
-        //});
-
-
         if ($('.showlist').length > 0) {
             ($('.showlist').click(function () {
 
@@ -112,31 +107,15 @@ $(document).ready(function () {
             }));
         }
 
-        var modalConfirm = function (callback) {
+        $('#qfinish').attr("data-toggle", "modal");
+        $('#qfinish').attr("data-target", "#mi-modal");
 
-            $(".t_finish").on("click", function () {
-                $("#mi-modal").modal('show');
-            });
-
-            $("#modal-btn-si").on("click", function () {
-                callback(true);
-                $("#mi-modal").modal('hide');
-            });
-
-            $("#modal-btn-no").on("click", function () {
-                callback(false);
-                $("#mi-modal").modal('hide');
-            });
-        };
-
-        modalConfirm(function (confirm) {
-            if (confirm) {
-                saveAnswer();
-                redirect2Results();
-            }
+        $("#modal-btn-si").on("click", function () {
+            $("#mi-modal").modal('hide');
+            saveAnswer();
+            redirect2Results();
         });
     }
-
 
     function getAnswerById(questionId) {
 
@@ -295,7 +274,7 @@ $(document).ready(function () {
 
 
         $.ajax(this.href, {
-            success: function() {
+            success: function () {
 
                 var index = parseInt($('#index').val()) + pointer;
 
@@ -409,9 +388,7 @@ $(document).ready(function () {
         });
 
 
-
     }
-
 
 
 });
