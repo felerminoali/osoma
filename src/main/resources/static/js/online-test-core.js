@@ -310,12 +310,12 @@ $(document).ready(function () {
                 for (var i = 0; i < data.questionList.length; i++) {
                     q_response += '<a href="#" class="list-group-item answer_index" rel="' + i + '">';
                     q_response += '<span class="badge pull-left">' + (i + 1) + '</span>&nbsp;';
-                    var session_saved_choice = getAnswerById(data.questionList[i].id);
+                    // var session_saved_choice = getAnswerById(data.questionList[i].id);
 
                     var label = '';
-                    if (session_saved_choice['label'] != null) {
-                        label = session_saved_choice['label'];
-                    }
+                    // if (session_saved_choice['label'] != null) {
+                    //     label = session_saved_choice['label'];
+                    // }
                     q_response += '<span id="answer_' + data.questionList[i].id + '">' + label + '</span>';
                     q_response += '</a>';
                 }

@@ -49,6 +49,7 @@ public class Choice implements Serializable {
     @Column(name = "fraction")
     private Long fraction;
     @Column(name = "rightchoice")
+    @JsonIgnore
     private Short rightchoice;
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "choice", fetch = FetchType.LAZY)
