@@ -365,6 +365,8 @@ $(document).ready(function () {
                     if(choosed!=null){
                         if (choosed['idChoice'] == obj.id) {
                             str += '<input type="radio" id="q_' + data.questionList[index].id + '_' + obj.id + '_' + String.fromCharCode(65 + i) + '" name="q_choice" checked/>';
+                        }else{
+                            str += '<input type="radio" id="q_' + data.questionList[index].id + '_' + obj.id + '_' + String.fromCharCode(65 + i) + '" name="q_choice"/>';
                         }
                     }
                     else {
