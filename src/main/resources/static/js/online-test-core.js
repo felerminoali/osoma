@@ -142,6 +142,30 @@ $(document).ready(function () {
     }
 
 
+    function getAnswerByExam(examId) {
+
+        var result = null;
+        var url = "/mod/saved_answers/" + examId;
+        $.ajax({
+            url: url,
+            method: "GET",
+            data: ({questionId: examId}),
+            async: false,
+            dataType: "json",
+            success: function (data) {
+                if (data != null) {
+                    result = data;
+                }
+            },
+            error: function (xhr, textStatus, error) {
+                console.log(xhr.statusText);
+                console.log(textStatus);
+                console.log(error);
+            }
+        });
+        return result;
+    }
+
     function fetchQuestionsAJAX(pointer) {
 
         var examID = $('#examid').val();
@@ -276,6 +300,8 @@ $(document).ready(function () {
         $.ajax(this.href, {
             success: function () {
 
+                var examID = $('#examid').val();
+
                 var index = parseInt($('#index').val()) + pointer;
 
                 $("#index").val(index);
@@ -307,20 +333,23 @@ $(document).ready(function () {
                 var str = '<table width="100%">';
 
                 var q_response = '';
+                var saved_answers_list = getAnswerByExam(parseInt(examID));
                 for (var i = 0; i < data.questionList.length; i++) {
                     q_response += '<a href="#" class="list-group-item answer_index" rel="' + i + '">';
                     q_response += '<span class="badge pull-left">' + (i + 1) + '</span>&nbsp;';
-                    // var session_saved_choice = getAnswerById(data.questionList[i].id);
 
                     var label = '';
-                    // if (session_saved_choice['label'] != null) {
-                    //     label = session_saved_choice['label'];
-                    // }
+                    if (saved_answers_list[data.questionList[i].id] != null) {
+                        label = saved_answers_list[data.questionList[i].id]['label'];
+                    }
                     q_response += '<span id="answer_' + data.questionList[i].id + '">' + label + '</span>';
                     q_response += '</a>';
                 }
 
+                //alert(saved_answers_list[data.questionList[index].id]['label']);
+
                 $(".q_response").html(q_response);
+
 
 
                 for (var i = 0; i < data.questionList[index].choiceList.length; i++) {
@@ -331,10 +360,14 @@ $(document).ready(function () {
                     str += '<div class="clear"></div>';
                     str += '<div class="ans_select">';
 
-                    var choosed = getAnswerById(data.questionList[index].id);
-                    if (choosed['idChoice'] == obj.id && choosed['idChoice'] != null) {
-                        str += '<input type="radio" id="q_' + data.questionList[index].id + '_' + obj.id + '_' + String.fromCharCode(65 + i) + '" name="q_choice" checked/>';
-                    } else {
+                    var choosed = saved_answers_list[data.questionList[index].id];
+
+                    if(choosed!=null){
+                        if (choosed['idChoice'] == obj.id) {
+                            str += '<input type="radio" id="q_' + data.questionList[index].id + '_' + obj.id + '_' + String.fromCharCode(65 + i) + '" name="q_choice" checked/>';
+                        }
+                    }
+                    else {
                         str += '<input type="radio" id="q_' + data.questionList[index].id + '_' + obj.id + '_' + String.fromCharCode(65 + i) + '" name="q_choice"/>';
                     }
 

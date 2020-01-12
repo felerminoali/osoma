@@ -2,7 +2,7 @@ package mz.co.osoma.controller;
 
 import mz.co.osoma.model.*;
 import mz.co.osoma.service.CRUDService;
-import mz.co.osoma.service.SavedAnswerResponse;
+import mz.co.osoma.service.SavedAnswer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -154,15 +154,42 @@ public class RestModules {
 
         String[] choosed = ((String) value).split("_");
 
-        SavedAnswerResponse response = new SavedAnswerResponse(key, choosed[0], choosed[1]);
+        SavedAnswer response = new SavedAnswer(key, choosed[0], choosed[1]);
 
 //        System.out.println(response);
 
         return new  ResponseEntity<Object>(response, HttpStatus.OK);
     }
 
-    @GetMapping("/test")
-    public String testRest(){
-        return null;
+    @RequestMapping(
+            value = "/mod/saved_answers/{examid}",
+            method = RequestMethod.GET,
+            produces = { MimeTypeUtils.APPLICATION_JSON_VALUE },
+            headers = "Accept=application/json"
+    )
+    public ResponseEntity<?> getAnswersByExam(@PathVariable("examid") String examid, HttpSession session) {
+
+        List<Question> questions = crudService.findByJPQuery("SELECT e FROM Question e where e.exam = " + examid, null);
+
+        if(questions == null){
+            return  new  ResponseEntity<Object>(new EmptyJsonResponse(), HttpStatus.OK);
+        }
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        for (Question question: questions){
+            Object value =  session.getAttribute(question.getId()+"");
+            if(value!=null){
+                String[] choosed = ((String) value).split("_");
+                SavedAnswer response = new SavedAnswer(question.getId()+"", choosed[0], choosed[1]);
+                map.put(question.getId()+"",  new SavedAnswer(question.getId()+"", choosed[0], choosed[1]));
+            }
+        }
+
+        if(map.isEmpty()){
+            return  new  ResponseEntity<Object>(new EmptyJsonResponse(), HttpStatus.OK);
+        }
+
+        return ResponseEntity.ok(map);
     }
+
 }

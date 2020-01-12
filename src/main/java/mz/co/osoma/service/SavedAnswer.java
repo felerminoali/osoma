@@ -1,18 +1,18 @@
 package mz.co.osoma.service;
 
-public class SavedAnswerResponse {
+public class SavedAnswer {
 
     private String idQuestion;
     private String idChoice;
     private String label;
 
-    public SavedAnswerResponse(String idQuestion, String idChoice, String label) {
+    public SavedAnswer(String idQuestion, String idChoice, String label) {
         this.idQuestion = idQuestion;
         this.idChoice = idChoice;
         this.label = label;
     }
 
-    public SavedAnswerResponse() {
+    public SavedAnswer() {
     }
 
     public String getIdQuestion() {
@@ -41,7 +41,7 @@ public class SavedAnswerResponse {
 
     @Override
     public String toString() {
-        return "SavedAnswerResponse{" +
+        return "SavedAnswer{" +
                 "idQuestion='" + idQuestion + '\'' +
                 ", idChoice='" + idChoice + '\'' +
                 ", label='" + label + '\'' +
