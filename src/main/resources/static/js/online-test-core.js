@@ -133,16 +133,16 @@ $(document).ready(function () {
         modalConfirm(function (confirm) {
             if (confirm) {
 
-                setTimeout(function () {
+
                     saveAnswer();
-                    $("#overlay").fadeOut(300);
+                    //$("#overlay").fadeOut(300);
                     redirect2Results();
-                }, 500);
+
 
             } else {
-                setTimeout(function () {
-                    $("#overlay").fadeOut(300);
-                }, 500);
+
+                   // $("#overlay").fadeOut(300);
+
             }
         });
     }
@@ -292,7 +292,7 @@ $(document).ready(function () {
         }).done(function () {
             setTimeout(function () {
                 $("#overlay").fadeOut(300);
-            }, 500);
+            }, 200);
         });
 
 
