@@ -6,6 +6,7 @@
 package mz.co.osoma.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.io.Serializable;
 import java.math.BigInteger;
@@ -60,6 +61,7 @@ public class Question implements Serializable {
     private String youtubeurl;
     @JoinColumn(name = "qtype", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     private Qtype qtype;
     @JoinColumn(name = "createdby", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)

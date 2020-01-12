@@ -63,8 +63,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/users/contact/*",
                         "/users/email/*",
                         "/register/**",
-                        "/ubs/",
-//                        "/ubs/online-test",
+                        "/ubs/*",
+                        "/ubs/online-test",
+
                         "/forgot",
                         "/reset",
                         "/question/**",

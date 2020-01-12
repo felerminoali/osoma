@@ -1,5 +1,9 @@
 package mz.co.osoma.controller;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import mz.co.osoma.model.*;
 import mz.co.osoma.service.CRUDService;
 import mz.co.osoma.service.Helper;
@@ -114,6 +118,23 @@ public class UBSController {
         model.addObject("id", examID);
         Exam exam = crudService.get(Exam.class, examID);
         model.addObject("exam", exam);
+
+//        Admin admin = crudService.get(Admin.class, 12);
+//        JSONObject examJson = new JSONObject(exam);
+
+//        Gson gson = new Gson();
+        ObjectMapper objectMapper = new ObjectMapper();
+
+       try {
+           model.addObject("examJson", objectMapper.writeValueAsString(exam));
+       }catch (JsonProcessingException ex){
+           ex.printStackTrace();
+       }
+
+
+
+
+
 
         int index = (pg.isPresent()) ? pg.get() : 0;
 

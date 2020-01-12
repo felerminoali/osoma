@@ -64,9 +64,11 @@ public class Exam implements Serializable {
     private List<Question> questionList;
     @JoinColumn(name = "category", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JsonIgnore
     private Category category;
     @JoinColumn(name = "university", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JsonIgnore
     private University university;
 
     public Exam() {

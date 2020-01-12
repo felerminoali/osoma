@@ -5,6 +5,7 @@
  */
 package mz.co.osoma.model;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.io.Serializable;
