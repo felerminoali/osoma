@@ -346,11 +346,7 @@ $(document).ready(function () {
                     q_response += '</a>';
                 }
 
-                //alert(saved_answers_list[data.questionList[index].id]['label']);
-
                 $(".q_response").html(q_response);
-
-
 
                 for (var i = 0; i < data.questionList[index].choiceList.length; i++) {
                     var obj = data.questionList[index].choiceList[i];

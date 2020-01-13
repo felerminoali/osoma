@@ -260,8 +260,14 @@ public class UBSController {
         List<AttemptResult> attemptResults = crudService.findByJPQuery("SELECT a FROM AttemptResult a WHERE  a.examAttempts.examAttemptsPK.exam = :exam and  a.examAttempts.examAttemptsPK.user = :user and a.examAttempts.examAttemptsPK.timestamp = :timestamp", par);
 
         if (attemptResults != null) {
-            for (AttemptResult attemptResult : attemptResults) {
-                session.setAttribute(attemptResult.getChoice().getQuestion().getId().toString(), attemptResult.getChoice().getId().toString());
+//            for (AttemptResult attemptResult : attemptResults) {
+//                session.setAttribute(attemptResult.getChoice().getQuestion().getId().toString(), attemptResult.getChoice().getId().toString());
+//            }
+
+            for (int i=0; i<attemptResults.size(); i++) {
+                String key = attemptResults.get(i).getChoice().getQuestion().getId().toString()+"_"+((char)i+65);
+                String value = attemptResults.get(i).getChoice().getId().toString();
+                session.setAttribute(key,value);
             }
         }
 
@@ -351,6 +357,13 @@ public class UBSController {
         par.put("timestamp", attempts.getExamAttemptsPK().getTimestamp());
 
         ExamAttempts eA = crudService.findEntByJPQueryT("SELECT e FROM ExamAttempts e WHERE e.examAttemptsPK.user = :user AND e.examAttemptsPK.exam = :exam AND e.examAttemptsPK.timestamp = :timestamp", par);
+
+
+
+//        for (AttemptResult attemptResult:attemptResultList){
+//            System.out.println(attemptResult);
+//        }
+
 
         // Saving Attempts
         if(eA == null){

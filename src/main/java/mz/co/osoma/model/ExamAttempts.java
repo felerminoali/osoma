@@ -136,7 +136,13 @@ public class ExamAttempts implements Serializable {
 
     @Override
     public String toString() {
-        return "mz.co.osoma.model.ExamAttempts[ examAttemptsPK=" + examAttemptsPK + " ]";
+        return "ExamAttempts{" +
+                "examAttemptsPK=" + examAttemptsPK +
+                ", start=" + start +
+                ", score=" + score +
+                ", exam=" + exam +
+                ", user=" + user +
+                ", attemptResultList=" + attemptResultList +
+                '}';
     }
-    
 }

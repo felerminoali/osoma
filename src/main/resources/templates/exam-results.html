@@ -179,13 +179,15 @@
                                                     <div class="ans_content editor">
                                                         <label th:for="${'q_'+question.id+'_'+choice.id}">
                                                                 <span th:if="${choice.rightchoice==1}"
-                                                                      th:text="${choice.answer}"
+                                                                      th:text="${T(mz.co.osoma.service.Helper).asciiToString(64+(inter.index+1))+'. '+choice.answer}"
                                                                       style="font-weight: bold;"></span>
                                                             <span th:if="${choice.rightchoice==0 && #session.getAttribute(question.id+'')==choice.id+'_'+T(mz.co.osoma.service.Helper).asciiToString(64+(inter.index+1))}"
-                                                                  th:text="${choice.answer}"
+                                                                  th:text="${T(mz.co.osoma.service.Helper).asciiToString(64+(inter.index+1))+'. '+choice.answer}"
                                                                   style="color:red; font-weight: bold;"></span>
                                                             <span th:if="${choice.rightchoice==0 && #session.getAttribute(question.id+'')!=choice.id+'_'+T(mz.co.osoma.service.Helper).asciiToString(64+(inter.index+1))}"
-                                                                  th:text="${choice.answer}"></span>
+                                                                  th:text="${T(mz.co.osoma.service.Helper).asciiToString(64+(inter.index+1))+'. '+choice.answer}">
+
+                                                            </span>
                                                         </label>
 
                                                     </div>

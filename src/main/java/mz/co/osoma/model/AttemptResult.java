@@ -88,7 +88,10 @@ public class AttemptResult implements Serializable {
 
     @Override
     public String toString() {
-        return "mz.co.osoma.model.AttemptResult[ id=" + id + " ]";
+        return "AttemptResult{" +
+                "id=" + id +
+                ", examAttempts=" + examAttempts +
+                ", choice=" + choice +
+                '}';
     }
-
 }
