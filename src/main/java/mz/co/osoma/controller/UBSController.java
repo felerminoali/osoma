@@ -265,9 +265,15 @@ public class UBSController {
 //            }
 
             for (int i=0; i<attemptResults.size(); i++) {
-                String key = attemptResults.get(i).getChoice().getQuestion().getId().toString()+"_"+((char)i+65);
-                String value = attemptResults.get(i).getChoice().getId().toString();
-                session.setAttribute(key,value);
+                List<Choice> choices =
+                        crudService.findByJPQuery("SELECT c FROM Choice c WHERE c.question.id = " + attemptResults.get(i).getChoice().getQuestion().getId(), null);
+                for(int j=0; j<choices.size(); j++){
+                    if(attemptResults.get(i).getChoice().getId() == choices.get(j).getId()){
+                        String key = attemptResults.get(i).getChoice().getQuestion().getId().toString();
+                        String value = attemptResults.get(i).getChoice().getId().toString()+"_"+((char)(j+65));
+                        session.setAttribute(key,value);
+                    }
+                }
             }
         }
 

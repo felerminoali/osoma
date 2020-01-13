@@ -193,6 +193,7 @@
                                                     </div>
                                                 </td>
                                                 <td>
+                                                    <p th:text="${#session.getAttribute(question.id+'')}"></p>
                                                     <div class="pull-left" th:if="${choice.image}!=null">
                                                         <a href="#">
                                                             <img class="media-object" th:src="${choice.image}" alt="alternative.image">
