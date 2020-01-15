@@ -5,7 +5,6 @@
 
 
 
-
 var timer;
 
 function getEndTime(timeInSec) {
@@ -117,8 +116,15 @@ function redirect2Results() {
     $("#finishnowinput").attr("name", "finish");
     $("#finishnowinput").attr("value", "finish");
     $('form#questionform').submit();
-}
 
+    // $("form#questionform").submit(function() {
+    //     $(this).find('input[type="submit"]').prop("disabled", true);
+    // })
+
+    // $("#finishnowinput").attr("disabled", "disabled");
+
+
+}
 
 function checkAndSave() {
      //if ($('input[name=q_choice]:checked').val() != null) {
@@ -150,6 +156,6 @@ function saveAnswer() {
         });
     }
 
-
-    
 }
+
+

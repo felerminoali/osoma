@@ -359,25 +359,13 @@ public class UBSController {
 
         attempts.setAttemptResultList(attemptResultList);
 
-
         Map<String, Object> par = new HashMap<String, Object>();
         par.put("user", attempts.getExamAttemptsPK().getUser());
         par.put("exam", attempts.getExamAttemptsPK().getExam());
         par.put("timestamp", attempts.getExamAttemptsPK().getTimestamp());
 
-//        ExamAttempts eA = crudService.findEntByJPQueryT("SELECT e FROM ExamAttempts e WHERE e.examAttemptsPK.user = :user AND e.examAttemptsPK.exam = :exam AND e.examAttemptsPK.timestamp = :timestamp", par);
-
-
-
-//        for (AttemptResult attemptResult:attemptResultList){
-//            System.out.println(attemptResult);
-//        }
-
-
         // Saving Attempts
-
         crudService.Save(attempts);
-
 
         return model;
     }
