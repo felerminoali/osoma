@@ -40,7 +40,7 @@
                                     <th>Exame</th>
                                     <th>Duração</th>
                                     <th>Resultado</th>
-                                    <th>Classificação</th>
+                                    <!--<th>Classificação</th>-->
                                 </tr>
                                 </thead>
 
@@ -51,8 +51,8 @@
                                     <td th:text="${T(mz.co.osoma.service.Helper).timeDifferenceInSeconds(attemps.start,attemps.ExamAttemptsPK.timestamp)}"></td>
 
                                     <td th:text="${attemps.score}"></td>
-                                    <td th:if="${attemps.score>=50}" th:text="Aprovado" style="color: green;"></td>
-                                    <td th:if="${attemps.score<50}" th:text="Reprovado" style="color: red;"></td>
+                                    <!--<td th:if="${attemps.score>=50}" th:text="Aprovado" style="color: green;"></td>-->
+                                    <!--<td th:if="${attemps.score<50}" th:text="Reprovado" style="color: red;"></td>-->
                                 </tr>
                                 </tbody>
                             </table>

@@ -234,7 +234,12 @@ public class UBSController {
                 par.put("r", Short.parseShort("1"));
                 Choice answers = crudService.findEntByJPQuery("FROM Choice p WHERE p.question.id = :q AND p.rightchoice = :r", par);
 
-                if (session.getAttribute(q.getId().toString()) != null && session.getAttribute(q.getId().toString()).equals(answers.getId().toString())) {
+
+                System.out.println(session.getAttribute(q.getId().toString()) +" vs "+answers.getId());
+
+                // AnswerSession = 1223_A
+                String[] sessionAnswers = session.getAttribute(q.getId().toString())!=null ? ((String) session.getAttribute(q.getId() + "")).split("_") : null;
+                if (sessionAnswers != null && sessionAnswers[0].equals(answers.getId() + "")) {
                     correct++;
                 }
             }
@@ -260,15 +265,12 @@ public class UBSController {
         List<AttemptResult> attemptResults = crudService.findByJPQuery("SELECT a FROM AttemptResult a WHERE  a.examAttempts.examAttemptsPK.exam = :exam and  a.examAttempts.examAttemptsPK.user = :user and a.examAttempts.examAttemptsPK.timestamp = :timestamp", par);
 
         if (attemptResults != null) {
-//            for (AttemptResult attemptResult : attemptResults) {
-//                session.setAttribute(attemptResult.getChoice().getQuestion().getId().toString(), attemptResult.getChoice().getId().toString());
-//            }
 
             for (int i=0; i<attemptResults.size(); i++) {
                 List<Choice> choices =
                         crudService.findByJPQuery("SELECT c FROM Choice c WHERE c.question.id = " + attemptResults.get(i).getChoice().getQuestion().getId(), null);
                 for(int j=0; j<choices.size(); j++){
-                    if(attemptResults.get(i).getChoice().getId() == choices.get(j).getId()){
+                    if(attemptResults.get(i).getChoice().getId().intValue() == choices.get(j).getId().intValue()){
                         String key = attemptResults.get(i).getChoice().getQuestion().getId().toString();
                         String value = attemptResults.get(i).getChoice().getId().toString()+"_"+((char)(j+65));
                         session.setAttribute(key,value);
@@ -332,6 +334,7 @@ public class UBSController {
 
             // AnswerSession = 1223_A
             String[] sessionAnswers = session.getAttribute(q.getId().toString())!=null ? ((String) session.getAttribute(q.getId() + "")).split("_") : null;
+
             if (sessionAnswers != null && sessionAnswers[0].equals(answers.getId() + "")) {
                 correct++;
             }
@@ -362,7 +365,7 @@ public class UBSController {
         par.put("exam", attempts.getExamAttemptsPK().getExam());
         par.put("timestamp", attempts.getExamAttemptsPK().getTimestamp());
 
-        ExamAttempts eA = crudService.findEntByJPQueryT("SELECT e FROM ExamAttempts e WHERE e.examAttemptsPK.user = :user AND e.examAttemptsPK.exam = :exam AND e.examAttemptsPK.timestamp = :timestamp", par);
+//        ExamAttempts eA = crudService.findEntByJPQueryT("SELECT e FROM ExamAttempts e WHERE e.examAttemptsPK.user = :user AND e.examAttemptsPK.exam = :exam AND e.examAttemptsPK.timestamp = :timestamp", par);
 
 
 
@@ -372,11 +375,9 @@ public class UBSController {
 
 
         // Saving Attempts
-        if(eA == null){
-            crudService.Save(attempts);
-        }else{
-            crudService.update(attempts);
-        }
+
+        crudService.Save(attempts);
+
 
         return model;
     }
