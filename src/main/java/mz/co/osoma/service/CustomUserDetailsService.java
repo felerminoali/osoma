@@ -29,7 +29,8 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         Map<String, Object> par = new HashMap<String, Object>();
         par.put("username", username);
-        User u = crudService.findEntByJPQueryT("SELECT u FROM User u WHERE u.email = :username OR u.contact = :username ", par);
+        User u = crudService.findEntByJPQueryT("SELECT u FROM User u WHERE u.email = :username OR u.contact = :username", par);
+
 
         CustomUserDetails customUserDetails = null;
 

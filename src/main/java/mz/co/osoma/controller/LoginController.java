@@ -1,7 +1,9 @@
 package mz.co.osoma.controller;
 
+import mz.co.osoma.model.CustomUserDetails;
 import mz.co.osoma.model.User;
 import mz.co.osoma.service.CRUDService;
+import mz.co.osoma.service.CustomUserDetailsService;
 import mz.co.osoma.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -9,6 +11,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -19,14 +22,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import sun.security.util.Password;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 
 @Controller
@@ -42,27 +43,42 @@ public class LoginController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public User user;
+    @Autowired
+    private CustomUserDetailsService userDetailsService;
 
-    @Resource(name="authenticationManager")
+
+    @Resource(name = "authenticationManager")
     private AuthenticationManager authManager;
 
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String loginGet(){
+    public String loginGet() {
         return "login";
 
     }
-//    @RequestMapping(value = "/login", method = RequestMethod.POST)
-//    public void loginPost(@RequestParam("username") final String username, @RequestParam("password") final String password, final HttpServletRequest request) {
-//        UsernamePasswordAuthenticationToken authReq =
-//                new UsernamePasswordAuthenticationToken(username, password);
-//        Authentication auth = authManager.authenticate(authReq);
-//        SecurityContext sc = SecurityContextHolder.getContext();
-//        sc.setAuthentication(auth);
-//        HttpSession session = request.getSession(true);
-//        session.setAttribute("SPRING_SECURITY_CONTEXT", sc);
-//    }
+
+
+    @RequestMapping(value = "/codelogin", method = RequestMethod.POST)
+    public ModelAndView loginPost(@RequestParam("pin") final String pin, final HttpServletRequest request) {
+
+
+        Map<String, Object> par = new HashMap<String, Object>();
+        par.put("pin", pin);
+        User user = crudService.findEntByJPQueryT("SELECT u FROM User u WHERE u.pin = :pin ", par);
+
+        if (user == null) {
+            return new ModelAndView("redirect:" + "/login?error=true");
+        }
+
+        final Authentication auth = new UsernamePasswordAuthenticationToken(userDetailsService.loadUserByUsername(user.getEmail()), null, new CustomUserDetails(user).getAuthorities());
+        SecurityContext sc = SecurityContextHolder.getContext();
+        sc.setAuthentication(auth);
+
+        HttpSession session = request.getSession(true);
+        session.setAttribute("SPRING_SECURITY_CONTEXT", sc);
+
+        return new ModelAndView("redirect:" + "/ubs/");
+    }
 
 
     @RequestMapping(value = "/forgot", method = RequestMethod.GET)
@@ -78,7 +94,7 @@ public class LoginController {
         // Lookup user in database by e-mail
         Map<String, Object> par = new HashMap<String, Object>();
         par.put("email", email);
-        Optional<User> optional= Optional.ofNullable(crudService.findEntByJPQueryT("SELECT u FROM User u WHERE u.email = :email", par));
+        Optional<User> optional = Optional.ofNullable(crudService.findEntByJPQueryT("SELECT u FROM User u WHERE u.email = :email", par));
 
         if (!optional.isPresent()) {
             modelAndView.addObject("errorMessage", "Não encontramos nenhuma conta com o email fornecido.");
@@ -105,7 +121,7 @@ public class LoginController {
 
             emailService.sendEmail(passwordResetEmail);
 
-            System.out.println("URL: "+appUrl);
+            System.out.println("URL: " + appUrl);
             // Add success message to view
             modelAndView.addObject("successMessage", "Um link para resetar o sua palavra-passe foi enviada para o email: " + user.getEmail());
 
@@ -135,7 +151,7 @@ public class LoginController {
 
 
     @RequestMapping(value = "/reset", method = RequestMethod.POST)
-    public ModelAndView resetPOST(ModelAndView modelAndView, @RequestParam Map<String, String> requestParams, RedirectAttributes redir){
+    public ModelAndView resetPOST(ModelAndView modelAndView, @RequestParam Map<String, String> requestParams, RedirectAttributes redir) {
 
 
         // Find the user associated with the reset token

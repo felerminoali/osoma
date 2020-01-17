@@ -64,12 +64,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/users/email/*",
                         "/register/**",
                         "/ubs/",
-//                        "/ubs/online-test",
-
                         "/forgot",
                         "/reset",
                         "/question/**",
                         "/test",
+                        "/codelogin",
                         "/dashboard",
                         "/exam/*",
                         "/mod/saved_answer/*",
