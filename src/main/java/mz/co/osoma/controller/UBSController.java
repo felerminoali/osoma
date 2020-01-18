@@ -398,6 +398,17 @@ public class UBSController {
         return modelo;
     }
 
+
+    @RequestMapping(value = "/preregistration", method = RequestMethod.GET)
+    public ModelAndView preregistration(@AuthenticationPrincipal final UserDetails userDetails, HttpServletRequest request, HttpSession session) {
+        ModelAndView modelo = new ModelAndView("preregistration");
+
+
+        return modelo;
+    }
+
+
+
     private Date stringToDate(String strDate, Locale locale) throws ParseException {
         return new SimpleDateFormat("dd MMM yyyy, HH:mm:ss", locale).parse(strDate);
     }
