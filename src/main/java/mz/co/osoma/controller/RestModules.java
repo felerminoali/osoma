@@ -2,17 +2,23 @@ package mz.co.osoma.controller;
 
 import mz.co.osoma.model.*;
 import mz.co.osoma.service.CRUDService;
+import mz.co.osoma.service.PreregistedUser;
 import mz.co.osoma.service.SavedAnswer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.util.MimeTypeUtils;
 import org.springframework.web.bind.annotation.*;
+import sun.security.util.Password;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.ZoneId;
 import java.util.*;
 
 @RestController
@@ -54,6 +60,58 @@ public class RestModules {
         }
     }
 
+
+    @RequestMapping(
+            value = "/users/preregisted",
+            method = RequestMethod.GET,
+            produces = { MimeTypeUtils.APPLICATION_JSON_VALUE },
+            headers = "Accept=application/json"
+    )
+    public ResponseEntity<Object> preregistedList() {
+        try {
+            Map<String, Object> par = new HashMap<String, Object>();
+            par.put("preregisted",Short.parseShort("1"));
+            List<User> users = crudService.findByJPQuery("SELECT u FROM User u Where u.preregisted = :preregisted", par);
+
+            if(users == null){
+                return  new  ResponseEntity<Object>(new EmptyJsonResponse(), HttpStatus.OK);
+            }
+
+            List<PreregistedUser> list = new ArrayList<>();
+            for (int i = 0; i<users.size(); i++) {
+
+                User user = users.get(i);
+
+                PreregistedUser pregUser = new PreregistedUser();
+
+                pregUser.setCount(i+1);
+                pregUser.setName(user.getName()+" "+user.getLastName());
+                pregUser.setEmail(user.getEmail());
+                pregUser.setContact(user.getContact());
+                pregUser.setAge(20);
+                pregUser.setCode(user.getPreRegistationCode());
+                pregUser.setProvince(user.getDistrict().getProvince().getProvince());
+
+                String html = "<a href=\"#\" class=\"view\" title=\"View\" data-toggle=\"tooltip\"><i class=\"fa fa-eye\"></i></a>";
+                html+="&nbsp;&nbsp;<a href=\"#\" rel=\""+user.getId()+"\"class=\"edit\" title=\"Edit\" data-toggle=\"tooltip\"><i class=\"fa fa-edit\"></i></a>";
+                html+="&nbsp;&nbsp;<a href=\"#\" class=\"delete\" title=\"Delete\" data-toggle=\"tooltip\"><i class=\"fa fa-minus-circle\"></i></a>";
+
+                pregUser.setAction(html);
+
+                list.add(pregUser);
+            }
+
+            Map<String, Object> result = new HashMap<String, Object>();
+            result.put("data", list);
+            result.put("recordsTotal", users.size());
+            result.put("draw", 1);
+            result.put("recordsFiltered", users.size());
+
+            return new  ResponseEntity<Object>(result, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
 
     @RequestMapping(
             value = "/users/{type}/{value}",
@@ -135,6 +193,22 @@ public class RestModules {
     }
 
 
+    @RequestMapping(
+            value = "/user/{id}",
+            method = RequestMethod.GET,
+            produces = { MimeTypeUtils.APPLICATION_JSON_VALUE },
+            headers = "Accept=application/json"
+    )
+    public ResponseEntity<Object> getUser(@PathVariable("id") int id) {
+
+        User user = crudService.findEntByJPQuery("SELECT u FROM User u where u.id = " + id, null);
+
+        if(user == null){
+            return  new  ResponseEntity<Object>(new EmptyJsonResponse(), HttpStatus.OK);
+        }
+
+        return new  ResponseEntity<Object>(user, HttpStatus.OK);
+    }
 
     @RequestMapping(
             value = "/mod/saved_answer/{question_id}",
@@ -155,8 +229,6 @@ public class RestModules {
         String[] choosed = ((String) value).split("_");
 
         SavedAnswer response = new SavedAnswer(key, choosed[0], choosed[1]);
-
-//        System.out.println(response);
 
         return new  ResponseEntity<Object>(response, HttpStatus.OK);
     }
@@ -192,4 +264,81 @@ public class RestModules {
         return ResponseEntity.ok(map);
     }
 
+
+    @RequestMapping(
+            value = "/user/add",
+            method = RequestMethod.POST,
+            produces = { MimeTypeUtils.APPLICATION_JSON_VALUE },
+            headers = "Accept=application/json"
+    )
+    public ResponseEntity<Object> addUser(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+
+        String fname = request.getParameter("fname");
+        String lname = request.getParameter("lname");
+        String gender = request.getParameter("gender");
+        String email = request.getParameter("email");
+        String contact = request.getParameter("contact");
+
+
+        String gpa = request.getParameter("gpa");
+        String instituion = request.getParameter("instituion");
+        String ms = request.getParameter("ms");
+        String province = request.getParameter("province");
+        String district = request.getParameter("district");
+        String dob = request.getParameter("dob");
+
+        User user = new User();
+
+        user.setName(fname);
+        user.setLastName(lname);
+        user.setEmail(email);
+        user.setContact(contact);
+        user.setGender(crudService.get(Gender.class, Integer.parseInt(gender)));
+        user.setGpa(Integer.parseInt(gpa));
+        user.setHighSchoolName(instituion);
+        user.setMaritalStatus(crudService.get(MaritalStatus.class, Integer.parseInt(ms)));
+        user.setDistrict(crudService.get(District.class, Integer.parseInt(district)));
+        user.setUniversity(crudService.get(University.class,33));
+        user.setPreregisted(Short.parseShort("1"));
+
+        try {
+            user.setDob(new SimpleDateFormat("dd/MM/yyyy").parse(dob));
+        }catch (ParseException ex){
+            ex.printStackTrace();
+        }
+
+        String password = new BCryptPasswordEncoder().encode("password").toString();
+        user.setPassword(password);
+
+        user.setDatecreated(Calendar.getInstance().getTime());
+        user.setActive(true);
+
+        crudService.Save(user);
+        user.setPreRegistationCode(user.getId()+1000+"");
+        crudService.update(user);
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("status",true);
+        return new  ResponseEntity<Object>(map, HttpStatus.OK);
+    }
+
+    @RequestMapping(
+            value = "/user/update",
+            method = RequestMethod.POST,
+            produces = { MimeTypeUtils.APPLICATION_JSON_VALUE },
+            headers = "Accept=application/json"
+    )
+    public ResponseEntity<Object> updateUser() {
+
+//        User user = crudService.findEntByJPQuery("SELECT u FROM User u where u.id = " + id, null);
+//
+//        if(user == null){
+//            return  new  ResponseEntity<Object>(new EmptyJsonResponse(), HttpStatus.OK);
+//        }
+
+        Map<String, Object> map = new HashMap<String, Object>();
+
+        map.put("status",true);
+        return new  ResponseEntity<Object>(map, HttpStatus.OK);
+    }
 }

@@ -63,8 +63,8 @@ public class LoginController {
 
 
         Map<String, Object> par = new HashMap<String, Object>();
-        par.put("pin", pin);
-        User user = crudService.findEntByJPQueryT("SELECT u FROM User u WHERE u.pin = :pin ", par);
+        par.put("preRegistationCode", pin);
+        User user = crudService.findEntByJPQueryT("SELECT u FROM User u WHERE u.preRegistationCode = :preRegistationCode ", par);
 
         if (user == null) {
             return new ModelAndView("redirect:" + "/login?error=true");

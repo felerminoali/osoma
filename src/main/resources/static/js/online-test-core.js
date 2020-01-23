@@ -111,6 +111,9 @@ $(document).ready(function () {
         $('#qfinish').attr("data-target", "#mi-modal");
 
         $("#modal-btn-si").on("click", function () {
+
+            $('#modal-btn-si').attr('disabled',true);
+
             $("#mi-modal").modal('hide');
             saveAnswer();
             redirect2Results();

@@ -117,6 +117,8 @@ function redirect2Results() {
     $("#finishnowinput").attr("value", "finish");
     $('form#questionform').submit();
 
+
+    $('#modal-btn-si').attr('disabled',false);
     // $("form#questionform").submit(function() {
     //     $(this).find('input[type="submit"]').prop("disabled", true);
     // })

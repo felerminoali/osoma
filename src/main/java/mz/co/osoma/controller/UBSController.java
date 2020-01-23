@@ -404,6 +404,16 @@ public class UBSController {
         ModelAndView modelo = new ModelAndView("preregistration");
 
 
+        List<Gender> genders = crudService.getAll(Gender.class);
+        List<MaritalStatus> maritalStatuses = crudService.getAll(MaritalStatus.class);
+        List<Province> provinces = crudService.getAll(Province.class);
+        List<District> districts = crudService.getAll(District.class);
+
+        modelo.addObject("genders",genders);
+        modelo.addObject("maritalStatuses",maritalStatuses);
+        modelo.addObject("provinces",provinces);
+        modelo.addObject("districts",districts);
+
         return modelo;
     }
 

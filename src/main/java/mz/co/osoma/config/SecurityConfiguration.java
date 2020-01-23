@@ -62,11 +62,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/districts/*",
                         "/users/contact/*",
                         "/users/email/*",
+                        "/user/*",
                         "/register/**",
                         "/ubs/",
                         "/forgot",
                         "/reset",
                         "/question/**",
+                        "/users/preregisted",
                         "/test",
                         "/codelogin",
                         "/dashboard",
@@ -75,7 +77,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/mod/saved_answers/*"
 
                 ).permitAll()
-                .antMatchers("/admin/**").hasRole("ADMIN") // permit JS resources
+                .antMatchers("/admin/**", "/ubs/preregistration").hasRole("ADMIN") // permit JS resources
                 .antMatchers("/js/**").permitAll() // permit JS resources
                 .antMatchers("/fonts/**").permitAll() // permit fonts resources
                 .antMatchers("/images/**").permitAll() // permit images resources

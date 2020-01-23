@@ -38,6 +38,8 @@ public class User implements Serializable {
     @Basic(optional = false)
     @Column(name = "email")
     private String email;
+
+    @JsonIgnore
     @Basic(optional = false)
     @Column(name = "password")
     private String password;
@@ -55,6 +57,7 @@ public class User implements Serializable {
     @Column(name = "pin")
     private String pin;
 
+
     @Basic(optional = false)
     @Column(name = "contact")
     private String contact;
@@ -63,7 +66,31 @@ public class User implements Serializable {
     @Column(name = "reset_token")
     private String resetToken;
 
+    @Basic(optional = false)
+    @Column(name = "pre_registation_code")
+    private String preRegistationCode;
 
+    @Basic(optional = false)
+    @Column(name = "gpa")
+    private Integer gpa;
+
+    @Basic(optional = false)
+    @Column(name = "high_school_name")
+    private String highSchoolName;
+
+    @Basic(optional = false)
+    @Column(name = "dob")
+    @Temporal(TemporalType.DATE)
+    private Date dob;
+
+    @Basic(optional = false)
+    @Column(name = "last_access")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date lastAccess;
+
+    @Basic(optional = false)
+    @Column(name = "preregisted")
+    private Short preregisted;
 
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
@@ -77,20 +104,26 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "modifiedby", fetch = FetchType.LAZY)
     private List<Question> questionModified;
 
-    @JsonIgnore
     @JoinColumn(name = "university", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private University university;
 
-    @JsonIgnore
     @JoinColumn(name = "district", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private District district;
-	
+
+    @JoinColumn(name = "gender", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Gender gender;
+
+
+    @JoinColumn(name = "marital_status", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private MaritalStatus maritalStatus;
+
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
-	
 
     public User() { }
 
@@ -261,14 +294,6 @@ public class User implements Serializable {
         this.roles = roles;
     }
 
-    //    public List<UserRole> getUserRoleList() {
-//        return userRoleList;
-//    }
-//
-//    public void setUserRoleList(List<UserRole> userRoleList) {
-//        this.userRoleList = userRoleList;
-//    }
-
     public University getUniversity() {
         return university;
     }
@@ -283,6 +308,74 @@ public class User implements Serializable {
 
     public void setDistrict(District district) {
         this.district = district;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public String getPreRegistationCode() {
+        return preRegistationCode;
+    }
+
+    public void setPreRegistationCode(String preRegistationCode) {
+        this.preRegistationCode = preRegistationCode;
+    }
+
+    public Integer getGpa() {
+        return gpa;
+    }
+
+    public void setGpa(Integer gpa) {
+        this.gpa = gpa;
+    }
+
+    public String getHighSchoolName() {
+        return highSchoolName;
+    }
+
+    public void setHighSchoolName(String highSchoolName) {
+        this.highSchoolName = highSchoolName;
+    }
+
+    public Date getDob() {
+        return dob;
+    }
+
+    public void setDob(Date dob) {
+        this.dob = dob;
+    }
+
+    public Date getLastAccess() {
+        return lastAccess;
+    }
+
+    public void setLastAccess(Date lastAccess) {
+        this.lastAccess = lastAccess;
+    }
+
+    public Short getPreregisted() {
+        return preregisted;
+    }
+
+    public void setPreregisted(Short preregisted) {
+        this.preregisted = preregisted;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
+    public MaritalStatus getMaritalStatus() {
+        return maritalStatus;
+    }
+
+    public void setMaritalStatus(MaritalStatus maritalStatus) {
+        this.maritalStatus = maritalStatus;
     }
 
     @Override
