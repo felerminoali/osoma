@@ -70,6 +70,10 @@ public class LoginController {
             return new ModelAndView("redirect:" + "/login?error=true");
         }
 
+        user.setLastAccess(Calendar.getInstance().getTime());
+
+        crudService.update(user);
+
         final Authentication auth = new UsernamePasswordAuthenticationToken(userDetailsService.loadUserByUsername(user.getEmail()), null, new CustomUserDetails(user).getAuthorities());
         SecurityContext sc = SecurityContextHolder.getContext();
         sc.setAuthentication(auth);
