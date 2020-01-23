@@ -338,7 +338,7 @@ $(document).ready(function () {
 //datepicker
 $('.datepicker').datepicker({
     autoclose: true,
-    format: "dd/mm/yyyy",
+    format: "dd/mm/yy",
     todayHighlight: true,
     orientation: "top auto",
     todayBtn: true,
