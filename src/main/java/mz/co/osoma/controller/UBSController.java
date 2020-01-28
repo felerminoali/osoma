@@ -413,6 +413,7 @@ public class UBSController {
         modelo.addObject("maritalStatuses",maritalStatuses);
         modelo.addObject("provinces",provinces);
         modelo.addObject("districts",districts);
+        modelo.addObject(new User());
 
         return modelo;
     }

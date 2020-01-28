@@ -6,12 +6,18 @@
 package mz.co.osoma.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import mz.co.osoma.validation.EmailOrContactDuplication;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -29,12 +35,20 @@ public class User implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private int id;
+
+    @NotNull(message = "Este campo não deve estar vazio")
     @Basic(optional = false)
     @Column(name = "first_name")
     private String name;
+
+    @NotNull(message = "Este campo não deve estar vazio")
     @Basic(optional = false)
     @Column(name = "last_name")
     private String lastName;
+
+    @NotNull(message = "Este campo não deve estar vazio")
+    @Email
+    @EmailOrContactDuplication(message="Este email/contacto já existe no sistema")
     @Basic(optional = false)
     @Column(name = "email")
     private String email;
@@ -43,13 +57,19 @@ public class User implements Serializable {
     @Basic(optional = false)
     @Column(name = "password")
     private String password;
+
+
     @Basic(optional = false)
     @Column(name = "datecreated")
     @Temporal(TemporalType.TIMESTAMP)
     private Date datecreated;
+
+
     @Basic(optional = false)
     @Column(name = "active")
     private boolean active;
+
+
     @Column(name = "hash")
     private String hash;
 
@@ -57,7 +77,9 @@ public class User implements Serializable {
     @Column(name = "pin")
     private String pin;
 
-
+    @NotNull(message = "Este campo não deve estar vazio")
+    @EmailOrContactDuplication(message="Este email/contacto já existe no sistema")
+    @Size(min = 9, max = 15)
     @Basic(optional = false)
     @Column(name = "contact")
     private String contact;
@@ -70,17 +92,21 @@ public class User implements Serializable {
     @Column(name = "pre_registation_code")
     private String preRegistationCode;
 
+    @NotNull(message = "Este campo não deve estar vazio")
     @Basic(optional = false)
     @Column(name = "gpa")
     private Integer gpa;
 
+    @NotNull(message = "Este campo não deve estar vazio")
     @Basic(optional = false)
     @Column(name = "high_school_name")
     private String highSchoolName;
 
+    @NotNull(message = "Este campo não deve estar vazio")
     @Basic(optional = false)
     @Column(name = "dob")
     @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dob;
 
     @Basic(optional = false)
@@ -114,6 +140,7 @@ public class User implements Serializable {
 
     @JoinColumn(name = "gender", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
+    @NotNull(message = "Este campo não deve estar vazio")
     private Gender gender;
 
 

@@ -7,10 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import javax.servlet.http.HttpSession;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.Map;
+import java.time.LocalDate;
+import java.time.Period;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 public class Helper {
@@ -57,6 +56,18 @@ public class Helper {
 
         return result;
     }
+
+    public static int getDiffYears(Date first) {
+
+        Calendar calendar = new GregorianCalendar();
+        calendar.setTime(first);
+        int firt = calendar.get(Calendar.YEAR);
+        calendar.setTime(Calendar.getInstance().getTime());
+        int second = calendar.get(Calendar.YEAR);
+
+        return (second-firt);
+    }
+
 
 
     private static String timeFormatter(int value){

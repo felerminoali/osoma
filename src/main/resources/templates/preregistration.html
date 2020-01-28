@@ -25,7 +25,7 @@
             </ol>
 
             <div class="row">
-                <div class="col-md-2">
+                <div class="hidden col-md-2">
                     <div class="panel panel-success">
 
                         <div class="panel-heading">
@@ -33,24 +33,28 @@
                         </div>
 
                         <div class="list-group">
-                            <a class="list-group-item classSideBar" onclick="getClassSection(21)" id="classId21">
-                                Agronomia(0001)
+                            <a class="list-group-item classSideBar" id="classId21">
+                                Licenciatura em Contabilidade Fiscalidade e Auditoria
                                 <span class="badge pull-right"> 1 </span>
                             </a>
-                            <a class="list-group-item classSideBar " onclick="getClassSection(41)" id="classId41">
-                                floresta(001)
+                            <a class="list-group-item classSideBar " id="classId413">
+                                Economia
                                 <span class="glyphicon glyphicon-chevron-right pull-right"></span>
                             </a>
-                            <a class="list-group-item classSideBar " onclick="getClassSection(61)" id="classId61">
-                                pecuaria(02)
+                            <a class="list-group-item classSideBar " id="classId41">
+                                Gestão Empresarial
                                 <span class="glyphicon glyphicon-chevron-right pull-right"></span>
                             </a>
-                            <a class="list-group-item classSideBar " onclick="getClassSection(81)" id="classId81">
-                                Gestao do Ambiente(222)
+                            <a class="list-group-item classSideBar " id="4">
+                                Gestão Empresarial Pós-Laboral
                                 <span class="glyphicon glyphicon-chevron-right pull-right"></span>
                             </a>
-                            <a class="list-group-item classSideBar " onclick="getClassSection(91)" id="classId91">
-                                meio ambiente(223)
+                            <a class="list-group-item classSideBar" id="1">
+                                Licenciatura em Contabilidade Fiscalidade e Auditoria Pós-Laboral
+                                <span class="badge pull-right"> 1 </span>
+                            </a>
+                            <a class="list-group-item classSideBar " id="2">
+                                Economia Pós-Laboral
                                 <span class="glyphicon glyphicon-chevron-right pull-right"></span>
                             </a>
                         </div>
@@ -59,7 +63,7 @@
                 </div>
                 <!-- /col-md-4 -->
 
-                <div class="col-md-10">
+                <div class="col-md-12">
                     <div class="panel panel-success">
                         <!-- Default panel contents -->
                         <div class="panel-heading">Gerir Candidatos</div>
@@ -106,8 +110,16 @@
                                     aria-hidden="true">&times;</span></button>
                             <h4 class="modal-title"></h4>
                         </div>
-                        <form id="form" data-toggle="validator">
-                            <input type="hidden" value="" name="id"/>
+                        <form id="form" action="/user/add" th:object="${user}">
+                            <input type="number"  th:field="*{id}" class="hidden"/>
+
+                            <!--<div class="form-group">-->
+                                <!--<label th:for="name">Primeiro Nome</label>-->
+                                <!--<input type="text" class="form-control"  th:field="*{name}"-->
+                                       <!--placeholder="Nome" autocomplete="off">-->
+                                <!--<span class="help-block"></span>-->
+                            <!--</div>-->
+                            <!--<button class="btn btn-primary" id="btn-save" type="submit">Gravar</button>-->
                             <div class="modal-body">
                                 <div class="panel panel-default">
                                     <div class="panel-body">
@@ -117,60 +129,63 @@
                                                 <legend>Informação do Candidato</legend>
 
                                                 <div class="form-group">
-                                                    <label for="fname">Primeiro Nome</label>
-                                                    <input type="text" class="form-control" id="fname" name="fname"
+                                                    <label th:for="name">Primeiro Nome</label>
+                                                    <input type="text" class="form-control" th:field="*{name}"
                                                            placeholder="Nome" autocomplete="off">
+                                                    <span class="help-block"></span>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="lname">Último Nome</label>
-                                                    <input type="text" class="form-control" id="lname" name="lname"
+                                                    <label th:for="lastName">Último Nome</label>
+                                                    <input type="text" class="form-control" th:field="*{lastName}"
                                                            placeholder="Apelido" autocomplete="off">
+                                                    <span class="help-block"></span>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="dob">Data de Nascimento</label>
-                                                    <input id="dob" name="dob" placeholder="dd/mm/AAA"
-                                                           class="form-control datepicker" type="text">
+                                                    <label th:for="dob">Data de Nascimento</label>
+                                                    <input th:field="*{dob}"
+                                                           class="form-control datepicker" type="date">
+                                                    <span class="help-block"></span>
                                                 </div>
 
 
                                                 <div class="form-group">
-                                                    <label for="gender">Sexo</label>
-                                                    <select class="form-control" name="gender" id="gender">
+                                                    <label th:for="gender">Sexo</label>
+                                                    <select class="form-control" th:field="*{gender}">
                                                         <option th:each="gender: ${genders}"
                                                                 th:value="${gender.id}"
                                                                 th:text="${gender.description}"></option>
                                                     </select>
+                                                    <span class="help-block"></span>
                                                 </div>
 
 
                                                 <div class="form-group">
-                                                    <label for="ms">Estado Civil</label>
-                                                    <select class="form-control" name="ms" id="ms">
-                                                        <option th:each="maritalStatuse: ${maritalStatuses}"
-                                                                th:value="${maritalStatuse.id}"
-                                                                th:text="${maritalStatuse.description}"></option>
+                                                    <label th:for="maritalStatus">Estado Civil</label>
+                                                    <select class="form-control" th:field="*{maritalStatus}">
+                                                        <option th:each="maritalStatus: ${maritalStatuses}"
+                                                                th:value="${maritalStatus.id}"
+                                                                th:text="${maritalStatus.description}"></option>
                                                     </select>
+                                                    <span class="help-block"></span>
                                                 </div>
 
 
                                                 <div class="form-group">
-                                                    <label for="contact">Contacto</label>
-                                                    <input type="text" class="form-control" id="contact"
-                                                           name="contact"
-                                                           placeholder="Contacto" autocomplete="off">
+                                                    <label th:for="contact">Contacto</label>
+                                                    <input type="text" class="form-control" th:field="*{contact}" placeholder="Contacto" autocomplete="off">
+                                                    <span class="help-block"></span>
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label for="email">Email</label>
-                                                    <input type="text" class="form-control" id="email" name="email"
+                                                    <label th:for="email">Email</label>
+                                                    <input type="text" class="form-control" th:field="*{email}"
                                                            placeholder="Email"
                                                            autocomplete="off">
+                                                    <span class="help-block"></span>
                                                 </div>
-
-
                                             </fieldset>
-
-
+                                        </div>
+                                        <div class="col-md-6">
                                             <fieldset>
                                                 <legend>Informação do Endereço</legend>
 
@@ -183,47 +198,71 @@
                                                     </select>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="district">Distrito</label>
-                                                    <select class="form-control" name="district" id="district">
+                                                    <label th:for="district">Distrito</label>
+                                                    <select class="form-control" th:field="*{district}">
                                                         <option th:each="district: ${districts}"
                                                                 th:value="${district.id}"
                                                                 th:text="${district.district}"></option>
                                                     </select>
                                                 </div>
                                             </fieldset>
-
-
-                                        </div>
-                                        <div class="col-md-6">
-
                                             <fieldset>
                                                 <legend>Formação pré-universitária</legend>
 
                                                 <div class="form-group">
-                                                    <label for="instituion">Nome da Instituição</label>
-                                                    <input type="text" class="form-control" id="instituion"
-                                                           name="instituion"
+                                                    <label th:for="highSchoolName">Nome da Instituição</label>
+                                                    <input type="text" class="form-control" th:field="*{highSchoolName}"
                                                            placeholder="Instituição onde frequentou o ensino pré-universitário"
                                                            autocomplete="off">
+                                                    <span class="help-block"></span>
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label for="gpa">Nota Final de conclusão:</label>
-                                                    <input type="number" class="form-control" id="gpa"
-                                                           name="gpa"
+                                                    <label th:for="gpa">Nota Final de conclusão:</label>
+                                                    <input type="number" class="form-control" th:field="*{gpa}"
                                                            placeholder="Nota Final.." autocomplete="off">
+                                                    <span class="help-block"></span>
                                                 </div>
-
                                             </fieldset>
 
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" id="closeModal" data-dismiss="modal">
+                                    Fechar
+                                </button>
+                                <button class="btn btn-primary" id="btn-save">Gravar</button>
+                            </div>
+
+                        </form>
+
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+
+            <div class="modal fade" tabindex="-1" role="dialog" id="formModalCourses">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title"></h4>
+                        </div>
+                        <form id="formCourses" data-toggle="validator">
+                            <input type="hidden" value="" name="id"/>
+                            <div class="modal-body">
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+                                        <div class="col-md-12">
                                             <fieldset>
                                                 <legend>Cursos a candidatar</legend>
 
                                                 <div class="form-group">
 
                                                     <label for="courses">Curso</label>
-
-
                                                     <div class="input-group pull-right">
 
                                                         <div class="input-group">
@@ -254,10 +293,7 @@
                                                         </div><!-- /input-group -->
 
                                                     </div>
-
                                                 </div>
-
-
                                                 <div class="form-group">
 
 
@@ -267,58 +303,50 @@
                                                         <tr>
                                                             <th>#</th>
                                                             <th>Curso <i class="fa fa-sort"></i></th>
-                                                            <th style="text-align: center;">Remover</th>
+                                                            <th style="text-align: center;">Acções</th>
                                                         </tr>
                                                         </thead>
                                                         <tbody>
-                                                        <tr>
-                                                            <td>1</td>
-                                                            <td>Dario Mario</td>
-                                                            <td style="text-align: center;">
-                                                                <a href="#" class="delete" title="Delete"
-                                                                   data-toggle="tooltip"><i
-                                                                        class="fa fa-minus-circle"></i></a>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>1</td>
-                                                            <td>Dario Mario</td>
-                                                            <td style="text-align: center;">
-                                                                <a href="#" class="delete" title="Delete"
-                                                                   data-toggle="tooltip"><i
-                                                                        class="fa fa-minus-circle"></i></a>
-                                                            </td>
-                                                        </tr>
-
-                                                        <tr>
-                                                            <td>1</td>
-                                                            <td>Dario Mario</td>
-                                                            <td style="text-align: center;">
-                                                                <a href="#" class="delete" title="Delete"
-                                                                   data-toggle="tooltip"><i
-                                                                        class="fa fa-minus-circle"></i></a>
-                                                            </td>
-                                                        </tr>
-
+                                                        <!--<tr>-->
+                                                        <!--<td>1</td>-->
+                                                        <!--<td>Dario Mario</td>-->
+                                                        <!--<td style="text-align: center;">-->
+                                                        <!--<a href="#" class="delete" title="Delete"-->
+                                                        <!--data-toggle="tooltip"><i-->
+                                                        <!--class="fa fa-minus-circle"></i></a>-->
+                                                        <!--</td>-->
+                                                        <!--</tr>-->
+                                                        <!--<tr>-->
+                                                        <!--<td>1</td>-->
+                                                        <!--<td>Dario Mario</td>-->
+                                                        <!--<td style="text-align: center;">-->
+                                                        <!--<a href="#" class="delete" title="Delete"-->
+                                                        <!--data-toggle="tooltip"><i-->
+                                                        <!--class="fa fa-minus-circle"></i></a>-->
+                                                        <!--</td>-->
+                                                        <!--</tr>-->
+                                                        <!--<tr>-->
+                                                        <!--<td>1</td>-->
+                                                        <!--<td>Dario Mario</td>-->
+                                                        <!--<td style="text-align: center;">-->
+                                                        <!--<a href="#" class="delete" title="Delete"-->
+                                                        <!--data-toggle="tooltip"><i-->
+                                                        <!--class="fa fa-minus-circle"></i></a>-->
+                                                        <!--</td>-->
+                                                        <!--</tr>-->
                                                         </tbody>
                                                     </table>
                                                 </div>
                                             </fieldset>
-
-                                            <fieldset>
-
-
-                                            </fieldset>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-default" id="closeModal" data-dismiss="modal">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">
                                     Fechar
                                 </button>
-                                <button class="btn btn-primary" id="btn-save">Gravar</button>
+                                <button class="btn btn-primary">Gravar</button>
                             </div>
 
                         </form>
@@ -326,7 +354,6 @@
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal-dialog -->
             </div><!-- /.modal -->
-
 
         </div>
 
@@ -336,7 +363,7 @@
 
     <script type="text/javascript" src="/assets/datatables/datatables.min.js"></script>
     <script type="text/javascript" src="/assets/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
-    <script type="text/javascript" src="/assets/bootstrapvalidator/js/bootstrapValidator.min.js"></script>
+    <!--<script type="text/javascript" src="/assets/bootstrapvalidator/js/bootstrapValidator.min.js"></script>-->
 
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.flash.min.js"></script>

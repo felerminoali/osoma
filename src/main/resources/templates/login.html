@@ -37,102 +37,152 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-sm-7">
+                            <!--<div class="col-sm-7">-->
+                                <!--<form method="post" action="/login" class="login-form"-->
+                                      <!--role="form">-->
+                                    <!--<div class="form-group">-->
+                                        <!--<label for="username">Email ou Contacto</label>-->
+                                        <!--<input type="text" name="username" class="form-control" id="username"-->
+                                               <!--placeholder="O Seu E-mail ou Contacto.." autofocus>-->
+                                    <!--</div>-->
 
-                                <form method="post" action="/login" class="login-form"
-                                      role="form">
-                                    <div class="form-group">
-                                        <label for="username">Email ou Contacto</label>
-                                        <input type="text" name="username" class="form-control" id="username"
-                                               placeholder="O Seu E-mail ou Contacto.." autofocus>
+                                    <!--<div class="form-group">-->
+                                        <!--<label for="password">Senha</label>-->
+                                        <!--<input type="password" name="password" class="form-control" id="password"-->
+                                               <!--placeholder="Senha" autocomplete="off">-->
+                                    <!--</div>-->
+
+                                    <!--<div class="checkbox">-->
+                                        <!--<label>-->
+                                            <!--<input type="checkbox" name="rememberme"/> Lembrar-->
+                                        <!--</label>-->
+                                    <!--</div>-->
+                                    <!--<div align="center">-->
+                                        <!--<input id="login" type="submit" class="btn btn-primary" value="Login"/> <a-->
+                                            <!--href="/forgot" class="btn btn-default">Não se lembra da-->
+                                        <!--senha?</a>-->
+                                    <!--</div>-->
+                                <!--</form>-->
+                            <!--</div>-->
+
+                            <!--<div class="col-sm-5">-->
+                                <!--<form action="/codelogin" method="post">-->
+
+                                    <!--<br/>-->
+                                    <!--<h4 style="text-align: center; color: green"><b>Autenticação por código de-->
+                                        <!--Pre-Inscrição</b></h4>-->
+                                    <!--<br/>-->
+
+                                    <!--<table width="100%">-->
+                                        <!--<tr>-->
+                                            <!--<td>-->
+                                                <!--<div class="form-group">-->
+                                                    <!--<label for="pin"-->
+                                                           <!--class="control-label">Código</label>-->
+                                                    <!--<div>-->
+                                                        <!--<input type="text" class="form-control" id="pin" name="pin">-->
+                                                        <!--<span class="help-block"></span>-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
+                                            <!--</td>-->
+
+                                            <!--<td style="padding-top: 12px; padding-left: 10px;">-->
+                                                <!--<button class="btn btn-success btn-block" type="submit">Login</button>-->
+                                            <!--</td>-->
+                                        <!--</tr>-->
+                                    <!--</table>-->
+
+                                <!--</form>-->
+                            <!--</div>-->
+
+                            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" role="tab" id="headingTwo">
+                                        <h4 class="panel-title">
+                                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-controls="collapseTwo">
+                                                Autenticação por código de pré-inscrição
+                                            </a>
+                                        </h4>
                                     </div>
+                                    <div id="collapseTwo" class="panel-collapse collapse in" aria-expanded="true" role="tabpanel" aria-labelledby="headingTwo">
+                                        <div class="panel-body">
+                                            <form action="/codelogin" method="post">
 
-                                    <div class="form-group">
-                                        <label for="password">Senha</label>
-                                        <input type="password" name="password" class="form-control" id="password"
-                                               placeholder="Senha" autocomplete="off">
+                                                <br/>
+                                                <h4 style="text-align: center; color: green"><b>Autenticação por código de
+                                                    Pre-Inscrição</b></h4>
+                                                <br/>
+
+                                                <table width="100%">
+                                                    <tr>
+                                                        <td>
+                                                            <div class="form-group">
+                                                                <label for="pin"
+                                                                       class="control-label">Código</label>
+                                                                <div>
+                                                                    <input type="text" class="form-control" id="pin" name="pin">
+                                                                    <span class="help-block"></span>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+
+                                                        <td style="padding-top: 12px; padding-left: 10px;">
+                                                            <button class="btn btn-success btn-block" type="submit">Login</button>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+
+                                            </form>
+                                        </div>
                                     </div>
+                                </div>
 
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="rememberme"/> Lembrar
-                                        </label>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" role="tab" id="headingThree">
+                                        <h4 class="panel-title">
+                                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                                Autenticação por credenciais
+                                            </a>
+                                        </h4>
                                     </div>
-                                    <div align="center">
-                                        <input id="login" type="submit" class="btn btn-primary" value="Login"/> <a
-                                            href="/forgot" class="btn btn-default">Não se lembra da
-                                        senha?</a>
-                                    </div>
-                                </form>
-
-                            </div>
-
-                            <div class="col-sm-5">
-
-                                <form action="/codelogin" method="post">
-
-                                    <br/>
-                                    <h4 style="text-align: center; color: green"><b>Autenticação por código de
-                                        Pre-Inscrição</b></h4>
-                                    <br/>
-
-                                    <table width="100%">
-                                        <tr>
-                                            <td>
+                                    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                                        <div class="panel-body">
+                                            <form method="post" action="/login" class="login-form"
+                                                  role="form">
                                                 <div class="form-group">
-                                                    <label for="pin"
-                                                           class="control-label">Código</label>
-                                                    <div>
-                                                        <input type="text" class="form-control" id="pin" name="pin">
-                                                        <span class="help-block"></span>
-                                                    </div>
+                                                    <label for="username">Email ou Contacto</label>
+                                                    <input type="text" name="username" class="form-control" id="username"
+                                                           placeholder="O Seu E-mail ou Contacto.." autofocus>
                                                 </div>
-                                            </td>
 
-                                            <td style="padding-top: 12px; padding-left: 10px;">
-                                                <button class="btn btn-success btn-block" type="submit">Login</button>
-                                            </td>
-                                        </tr>
-                                    </table>
+                                                <div class="form-group">
+                                                    <label for="password">Senha</label>
+                                                    <input type="password" name="password" class="form-control" id="password"
+                                                           placeholder="Senha" autocomplete="off">
+                                                </div>
 
-                                </form>
-
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox" name="rememberme"/> Lembrar
+                                                    </label>
+                                                </div>
+                                                <div align="center">
+                                                    <input id="login" type="submit" class="btn btn-primary" value="Login"/> <a
+                                                        href="/forgot" class="btn btn-default">Não se lembra da
+                                                    senha?</a>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
+
+
                         </div>
 
 
-                        <!--<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">-->
 
-                            <!--<div class="panel panel-default">-->
-                                <!--<div class="panel-heading" role="tab" id="headingTwo">-->
-                                    <!--<h4 class="panel-title">-->
-                                        <!--<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">-->
-                                            <!--Collapsible Group Item #2-->
-                                        <!--</a>-->
-                                    <!--</h4>-->
-                                <!--</div>-->
-                                <!--<div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">-->
-                                    <!--<div class="panel-body">-->
-                                        <!--Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                            <!--</div>-->
-
-                            <!--<div class="panel panel-default">-->
-                                <!--<div class="panel-heading" role="tab" id="headingThree">-->
-                                    <!--<h4 class="panel-title">-->
-                                        <!--<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">-->
-                                            <!--Collapsible Group Item #3-->
-                                        <!--</a>-->
-                                    <!--</h4>-->
-                                <!--</div>-->
-                                <!--<div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">-->
-                                    <!--<div class="panel-body">-->
-                                        <!--Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                            <!--</div>-->
-                        <!--</div>-->
 
 
                     </div>

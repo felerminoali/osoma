@@ -1,6 +1,11 @@
 package mz.co.osoma.config;
 
+import mz.co.osoma.converter.DistrictConverter;
+import mz.co.osoma.converter.GenderConverter;
+import mz.co.osoma.converter.MaritalStatusConverter;
+import mz.co.osoma.converter.ProvinceConverter;
 import mz.co.osoma.formatter.NameFormatter;
+import mz.co.osoma.model.MaritalStatus;
 import mz.co.osoma.utils.ArrayUtil;
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 import nz.net.ultraq.thymeleaf.decorators.strategies.GroupingStrategy;
@@ -12,7 +17,6 @@ import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
-import org.springframework.security.web.session.HttpSessionEventPublisher;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -23,7 +27,6 @@ import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 import org.thymeleaf.extras.java8time.dialect.Java8TimeDialect;
-import org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect;
 import org.thymeleaf.spring5.ISpringTemplateEngine;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
@@ -89,6 +92,10 @@ public class WebMVCConfig implements WebMvcConfigurer , ApplicationContextAware 
     @Description("Custom Conversion Service")
     public void addFormatters(FormatterRegistry registry) {
         registry.addFormatter(new NameFormatter());
+        registry.addConverter((GenderConverter)applicationContext.getBean("genderconverter"));
+        registry.addConverter((MaritalStatusConverter)applicationContext.getBean("maritalstatusconverter"));
+        registry.addConverter((ProvinceConverter)applicationContext.getBean("provinceconverter"));
+        registry.addConverter((DistrictConverter)applicationContext.getBean("districtconverter"));
     }
 
     @Override
@@ -176,5 +183,6 @@ public class WebMVCConfig implements WebMvcConfigurer , ApplicationContextAware 
     {
         registry.addViewController("/login").setViewName("login");
     }
+
 
 }
