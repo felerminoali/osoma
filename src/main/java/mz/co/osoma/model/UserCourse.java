@@ -5,6 +5,8 @@
  */
 package mz.co.osoma.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -31,7 +33,8 @@ public class UserCourse implements Serializable {
     @JoinColumn(name = "course_id", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Course course;
-    @JoinColumn(name = "course_id", referencedColumnName = "id", insertable = false, updatable = false)
+
+    @JoinColumn(name = "user_id", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private User user;
 

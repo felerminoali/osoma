@@ -1,11 +1,11 @@
-
-
 var save_method; //for save method string
 var table;
 
 $(document).ready(function () {
 
     function init() {
+
+
 
         var editBtn = document.getElementsByClassName('edit');
 
@@ -34,6 +34,17 @@ $(document).ready(function () {
                 add_course(id);
             }, false);
         }
+
+        var removeBtn = document.getElementsByClassName('remove-course');
+        for (var i = 0; i < removeBtn.length; i++) {
+            removeBtn[i].addEventListener("click", function () {
+                var id = $(this).attr('rel');
+                var user_course_year = id.split("_");
+                remove_course(user_course_year[0], user_course_year[1], user_course_year[2]);
+            }, false);
+        }
+
+
     }
 
     if ($('#province').length > 0) {
@@ -55,9 +66,11 @@ $(document).ready(function () {
         }));
     }
 
-    if ($('#closeModal').length > 0) {
-        ($('#closeModal').click(function () {
-            // window.location.href = "/ubs/preregistration";
+    if ($('#btn-add-course').length > 0) {
+        ($('#btn-add-course').click(function () {
+            var user = $('[name="user"]').val();
+            var course = $('[name="course"]').val();
+            save_course(user, course);
         }));
     }
 
@@ -86,7 +99,7 @@ $(document).ready(function () {
         //Set column definition initialisation properties.
         "columnDefs": [
             {
-                "targets": [ -1 ], //last column
+                "targets": [-1], //last column
                 "orderable": false, //set not orderable
             },
         ],
@@ -129,6 +142,58 @@ $(document).ready(function () {
         }
     });
     $('.dataTables_length').addClass('bs-select');
+
+    function remove_course(user, course, year) {
+        $.ajax({
+            url: "/course_user/delete/" + user + "/" + course + "/" + year,
+            type: "POST",
+            data: ({user: user, course: course, year: year}),
+            dataType: "JSON",
+            success: function (data) {
+                if (data.status) {
+                    $('#tblcourse').empty();
+                    if (data.courses.length > 0) {
+                        fill_table(data);
+                    }
+                }
+                init();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert('Error deleting data');
+                console.log(jqXHR.statusText);
+                console.log(textStatus);
+                console.log(errorThrown);
+            }
+        });
+    }
+
+    function save_course(user, course) {
+
+        $.ajax({
+            url: "/course/add/" + user + "/" + course,
+            type: "POST",
+            data: ({user: user, course: course}),
+            dataType: "JSON",
+            success: function (data) {
+                if (data.status) {
+                    $('#tblcourse').empty();
+                    $("#alert").addClass("hidden");
+                    if (data.courses.length > 0) {
+                        fill_table(data);
+                    }
+                } else {
+                    $("#alert").removeClass("hidden");
+                }
+                init();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert('Error deleting data');
+                console.log(jqXHR.statusText);
+                console.log(textStatus);
+                console.log(errorThrown);
+            }
+        });
+    }
 });
 
 //datepicker
@@ -141,15 +206,34 @@ $('.datepicker').datepicker({
     todayHighlight: true,
 });
 
+
+function fill_table(data) {
+
+    for (var i = 0; i < data.courses.length; i++) {
+        var html = '<tr>';
+        html += '<td>' + data.courses[i].course.name + ' ' + data.courses[i].course.period.description + '</td>';
+        html += '<td style="text-align: center"><a class="btn btn-sm btn-danger remove-course" href="#" rel="' + data.courses[i].user.id + '_' + data.courses[i].course.id + '_' + data.courses[i].userCoursePK.year + '" title="Remover"><i class="glyphicon glyphicon-remove"></i> Remover</a></td>';
+        html += '</tr>';
+        $('#tblcourse').prepend(html);
+    }
+}
+
+
+
 function add_course(id) {
 
-    // $('.form-group').removeClass('has-error has-feedback');
-    // $('.form-group').find('small.help-block').hide();
-    // $('.form-group').find('i.form-control-feedback').hide();
+    $('[name="user"]').val(id);
 
-    // $('.help-block').empty(); // clear error string
+    $('.form-group').removeClass('has-error has-feedback');
+    $('.form-group').find('small.help-block').hide();
+    $('.form-group').find('i.form-control-feedback').hide();
+    $("#alert").addClass("hidden");
+
+    $('.help-block').empty(); // clear error string
     $('#formModalCourses').modal('show'); // show bootstrap modal
     $('.modal-title').text('Adicionar Cursos'); // Set Title to Bootstrap modal title
+
+
 }
 
 function reload_table() {
@@ -160,21 +244,18 @@ function reload_table() {
 }
 
 function delete_candidate(id) {
-    if(confirm('Tem certeza que deseja remover este dado?'))
-    {
+    if (confirm('Tem certeza que deseja remover este dado?')) {
         // ajax delete data to database
         $.ajax({
-            url : "/user/delete/"+id,
+            url: "/user/delete/" + id,
             type: "POST",
             dataType: "JSON",
-            success: function(data)
-            {
+            success: function (data) {
                 //if success reload ajax table
                 $('#formModal').modal('hide');
                 reload_table();
             },
-            error: function (jqXHR, textStatus, errorThrown)
-            {
+            error: function (jqXHR, textStatus, errorThrown) {
                 alert('Error deleting data');
             }
         });
@@ -189,6 +270,7 @@ function save() {
     $('.form-group').removeClass('has-error has-feedback');
     $('.form-group').find('small.help-block').hide();
     $('.form-group').find('i.form-control-feedback').hide();
+    $('.help-block').empty(); // clear error string
 
     $('#btn-save').text('saving...'); //change button text
     $('#btn-save').attr('disabled', true); //set button disable
@@ -220,7 +302,7 @@ function save() {
 
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            // alert('Error adding / update data');
+            alert('Error adding / update data');
             console.log(jqXHR.statusText);
             console.log(textStatus);
             console.log(errorThrown);
@@ -247,30 +329,31 @@ function edit_candidate(id) {
         dataType: "JSON",
         success: function (data) {
             $('[name="id"]').val(data.id);
-            $('[name="fname"]').val(data.name);
-            $('[name="lname"]').val(data.lastName);
+            $('[name="name"]').val(data.name);
+            $('[name="lastName"]').val(data.lastName);
             $('[name="gender"]').val(data.gender.id);
             $('[name="email"]').val(data.email);
             $('[name="contact"]').val(data.contact);
 
-            if(data.gpa!=null) {
+            if (data.gpa != null) {
                 $('[name="gpa"]').val(data.gpa);
             }
 
-            if(data.highSchoolName!=null){
-                $('[name="instituion"]').val(data.highSchoolName);
+            if (data.highSchoolName != null) {
+                $('[name="highSchoolName"]').val(data.highSchoolName);
             }
 
-            if(data.maritalStatus!=null) {
-                $('[name="ms"]').val(data.maritalStatus.id);
+            if (data.maritalStatus != null) {
+                $('[name="maritalStatus"]').val(data.maritalStatus.id);
             }
 
-            if(data.district.province!=null) {
+            if (data.district.province != null) {
                 $('[name="province"]').val(data.district.province.id);
+                selectDistrict();
                 $('[name="district"]').val(data.district.id);
             }
 
-            if(data.dob!=null) {
+            if (data.dob != null) {
                 $('[name="dob"]').datepicker('update', data.dob);
             }
 
@@ -293,14 +376,11 @@ function add_candidate() {
 
     $('#form')[0].reset(); // reset form on modals
     $('select').prop('selectedIndex', -1);
-    // $('.form-group').removeClass('has-error'); // clear error class
-    // $('.form-control-feedback').removeClass('glyphicon glyphicon-remove');
 
     $('.form-group').removeClass('has-error has-feedback');
     $('.form-group').find('small.help-block').hide();
     $('.form-group').find('i.form-control-feedback').hide();
-
-    // $('.help-block').empty(); // clear error string
+    $('.help-block').empty(); // clear error string
     $('#formModal').modal('show'); // show bootstrap modal
     $('.modal-title').text('Adicionar Candidato'); // Set Title to Bootstrap modal title
 }
@@ -366,7 +446,7 @@ function selectDistrict() {
                 $('#district').append('<option value="' + value.id + '">' + value.district + '</option>');
             });
         },
-        error: function(xhr, textStatus, error){
+        error: function (xhr, textStatus, error) {
             // alert('An error has occurred ::from save answer ajax call --> ' + error);
             console.log(xhr.statusText);
             console.log(textStatus);

@@ -5,6 +5,8 @@
  */
 package mz.co.osoma.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -33,6 +35,7 @@ import javax.persistence.Table;
 public class Course implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -41,9 +44,11 @@ public class Course implements Serializable {
     @Column(name = "name")
     private String name;
 
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "course", fetch = FetchType.LAZY)
     private List<CourseExam> courseExamList;
 
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "course", fetch = FetchType.LAZY)
     private List<UserCourse> userCourseList;
 

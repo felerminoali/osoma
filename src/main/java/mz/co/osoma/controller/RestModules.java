@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -94,7 +95,7 @@ public class RestModules {
                 pregUser.setCode(user.getPreRegistationCode());
                 pregUser.setProvince(user.getDistrict().getProvince().getProvince());
 
-                String html = "<a href=\"#\" class=\"view btn btn-default\" title=\"View\" data-toggle=\"tooltip\">Gerir cursos</a>";
+                String html = "<a href=\"#\" rel=\"" + user.getId() + "\" class=\"view btn btn-default\" title=\"View\" data-toggle=\"tooltip\">Gerir cursos</a>";
                 html += "&nbsp;&nbsp;<a href=\"#\" rel=\"" + user.getId() + "\" class=\"edit\" title=\"Edit\" data-toggle=\"tooltip\"><i class=\"fa fa-edit\"></i></a>";
                 html += "&nbsp;&nbsp;<a href=\"#\" rel=\"" + user.getId() + "\" class=\"delete\" title=\"Delete\" data-toggle=\"tooltip\"><i class=\"fa fa-minus-circle\"></i></a>";
 
@@ -286,6 +287,12 @@ public class RestModules {
         user.setActive(true);
         user.setPreregisted(Short.parseShort("1"));
 
+        Role role_user = crudService.get(Role.class, 3);
+        Set<Role> roles = new  HashSet<Role>();
+        roles.add(role_user);
+
+        user.setRoles(roles);
+
         crudService.Save(user);
         user.setPreRegistationCode(user.getId() + 1000 + "");
         crudService.update(user);
@@ -299,43 +306,36 @@ public class RestModules {
             produces = {MimeTypeUtils.APPLICATION_JSON_VALUE},
             headers = "Accept=application/json"
     )
-    public ResponseEntity<Object> updateUser(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+    public ResponseEntity<Object> updateUser(@Valid @ModelAttribute("user") User user, BindingResult bindingResult) {
 
-        String id = request.getParameter("id");
-        String fname = request.getParameter("fname");
-        String lname = request.getParameter("lname");
-        String gender = request.getParameter("gender");
-        String email = request.getParameter("email");
-        String contact = request.getParameter("contact");
-
-
-        String gpa = request.getParameter("gpa");
-        String instituion = request.getParameter("instituion");
-        String ms = request.getParameter("ms");
-        String district = request.getParameter("district");
-        String dob = request.getParameter("dob");
-
-        User user = crudService.get(User.class, Integer.parseInt(id));
-
-        user.setName(fname);
-        user.setLastName(lname);
-        user.setEmail(email);
-        user.setContact(contact);
-        user.setGender(crudService.get(Gender.class, Integer.parseInt(gender)));
-        user.setGpa(Integer.parseInt(gpa));
-        user.setHighSchoolName(instituion);
-        user.setMaritalStatus(crudService.get(MaritalStatus.class, Integer.parseInt(ms)));
-        user.setDistrict(crudService.get(District.class, Integer.parseInt(district)));
-
-        try {
-            user.setDob(new SimpleDateFormat("dd/MM/yyyy").parse(dob));
-        } catch (ParseException ex) {
-            ex.printStackTrace();
+        List<FieldError> fieldErrors = bindingResult.getFieldErrors();
+        List<FieldError> errors = new ArrayList<>();
+        if (bindingResult.hasErrors()) {
+            for (FieldError fieldError: fieldErrors) {
+                if(!(fieldError.getField().equals("email") ||fieldError.getField().equals("contact"))){
+                    errors.add(fieldError);
+                }
+            }
         }
 
-        crudService.update(user);
-
         Map<String, Object> map = new HashMap<String, Object>();
+        map.put("status", true);
+        if (errors.size()>0) {
+            map.put("inputerror", errors);
+            map.put("status", false);
+            return new ResponseEntity<Object>(map, HttpStatus.OK);
+        }
+
+        User userUpdate = crudService.get(User.class, user.getId());
+
+        user.setUniversity(userUpdate.getUniversity());
+        user.setPassword(userUpdate.getPassword());
+        user.setDatecreated(userUpdate.getDatecreated());
+        user.setActive(userUpdate.getActive());
+        user.setPreregisted(userUpdate.getPreregisted());
+        user.setPreRegistationCode(userUpdate.getPreRegistationCode());
+
+        crudService.update(user);
 
         map.put("status", true);
         return new ResponseEntity<Object>(map, HttpStatus.OK);
@@ -361,17 +361,71 @@ public class RestModules {
         return new ResponseEntity<Object>(map, HttpStatus.OK);
     }
 
-//    @ResponseStatus(HttpStatus.BAD_REQUEST)
-//    @ExceptionHandler(MethodArgumentNotValidException.class)
-//    public Map<String, Object> handleValidationExceptions(
-//            MethodArgumentNotValidException ex) {
-//        Map<String, Object> errors = new HashMap<>();
-//        ex.getBindingResult().getAllErrors().forEach((error) -> {
-//            String fieldName = ((FieldError) error).getField();
-//            String errorMessage = error.getDefaultMessage();
-//            errors.put(fieldName, errorMessage);
-//        });
-//        return errors;
-//    }
+    @RequestMapping(
+            value = "/course/add/{user}/{course}",
+            method = RequestMethod.POST,
+            produces = {MimeTypeUtils.APPLICATION_JSON_VALUE},
+            headers = "Accept=application/json"
+    )
+    public ResponseEntity<Object> addCourse(@PathVariable("user") int user, @PathVariable("course") int course) {
+
+        UserCourse userCourse = new UserCourse();
+
+        userCourse.setUser(crudService.get(User.class, user));
+        userCourse.setCourse(crudService.get(Course.class, course));
+
+        UserCoursePK userCoursePK = new UserCoursePK();
+
+        userCoursePK.setUserId(user);
+        userCoursePK.setCourseId(course);
+        Calendar calendar = new GregorianCalendar();
+        calendar.setTime(Calendar.getInstance().getTime());
+        userCoursePK.setYear(calendar.get(Calendar.YEAR));
+        userCourse.setUserCoursePK(userCoursePK);
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        try {
+            crudService.Save(userCourse);
+        }catch (Exception exception){
+                map.put("status", false);
+                return new ResponseEntity<Object>(map, HttpStatus.OK);
+        }
+
+
+
+        map.put("status", true);
+
+        List<UserCourse> userCourses = crudService.getAll(UserCourse.class);
+        map.put("courses", userCourses);
+        return new ResponseEntity<Object>(map, HttpStatus.OK);
+    }
+
+    @RequestMapping(
+            value = "/course_user/delete/{user}/{course}/{year}",
+            method = RequestMethod.POST,
+            produces = {MimeTypeUtils.APPLICATION_JSON_VALUE},
+            headers = "Accept=application/json"
+    )
+    public ResponseEntity<Object> deleteCourseUser(@PathVariable("user") int user, @PathVariable("course") int course, @PathVariable("year") int year) {
+
+        Map<String, Object> par = new HashMap<String, Object>();
+        par.put("user",user);
+        par.put("course",course);
+        par.put("year",year);
+
+        UserCourse userCourse = crudService.findEntByJPQuery("SELECT u FROM UserCourse u where u.userCoursePK.userId = :user AND u.userCoursePK.courseId = :course AND u.userCoursePK.year = :year", par);
+        Map<String, Object> map = new HashMap<String, Object>();
+
+        if (userCourse == null) {
+            map.put("status", false);
+        }
+        crudService.delete(userCourse);
+
+        List<UserCourse> userCourses = crudService.getAll(UserCourse.class);
+        map.put("courses", userCourses);
+
+        map.put("status", true);
+        return new ResponseEntity<Object>(map, HttpStatus.OK);
+    }
 
 }

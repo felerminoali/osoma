@@ -130,6 +130,10 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "modifiedby", fetch = FetchType.LAZY)
     private List<Question> questionModified;
 
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
+    private List<UserCourse> userCourseList;
+
     @JoinColumn(name = "university", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private University university;
@@ -308,6 +312,10 @@ public class User implements Serializable {
     public List<Question> getQuestionModified() {
         return questionModified;
     }
+
+    public List<UserCourse> getUserCourseList() { return userCourseList; }
+
+    public void setUserCourseList(List<UserCourse> userCourseList) { this.userCourseList = userCourseList; }
 
     public void setQuestionModified(List<Question> questionModified) {
         this.questionModified = questionModified;
