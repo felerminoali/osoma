@@ -30,87 +30,92 @@
                         <br/>
 
                         <div th:if="${param.error}">
-                        <div class="alert alert-danger alert-dismissable">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                            Código ou Credenciais inválidas.
-                        </div>
+                            <div class="alert alert-danger alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;
+                                </button>
+                                Código ou Credenciais inválidas.
+                            </div>
                         </div>
 
                         <div class="row">
                             <!--<div class="col-sm-7">-->
-                                <!--<form method="post" action="/login" class="login-form"-->
-                                      <!--role="form">-->
-                                    <!--<div class="form-group">-->
-                                        <!--<label for="username">Email ou Contacto</label>-->
-                                        <!--<input type="text" name="username" class="form-control" id="username"-->
-                                               <!--placeholder="O Seu E-mail ou Contacto.." autofocus>-->
-                                    <!--</div>-->
+                            <!--<form method="post" action="/login" class="login-form"-->
+                            <!--role="form">-->
+                            <!--<div class="form-group">-->
+                            <!--<label for="username">Email ou Contacto</label>-->
+                            <!--<input type="text" name="username" class="form-control" id="username"-->
+                            <!--placeholder="O Seu E-mail ou Contacto.." autofocus>-->
+                            <!--</div>-->
 
-                                    <!--<div class="form-group">-->
-                                        <!--<label for="password">Senha</label>-->
-                                        <!--<input type="password" name="password" class="form-control" id="password"-->
-                                               <!--placeholder="Senha" autocomplete="off">-->
-                                    <!--</div>-->
+                            <!--<div class="form-group">-->
+                            <!--<label for="password">Senha</label>-->
+                            <!--<input type="password" name="password" class="form-control" id="password"-->
+                            <!--placeholder="Senha" autocomplete="off">-->
+                            <!--</div>-->
 
-                                    <!--<div class="checkbox">-->
-                                        <!--<label>-->
-                                            <!--<input type="checkbox" name="rememberme"/> Lembrar-->
-                                        <!--</label>-->
-                                    <!--</div>-->
-                                    <!--<div align="center">-->
-                                        <!--<input id="login" type="submit" class="btn btn-primary" value="Login"/> <a-->
-                                            <!--href="/forgot" class="btn btn-default">Não se lembra da-->
-                                        <!--senha?</a>-->
-                                    <!--</div>-->
-                                <!--</form>-->
+                            <!--<div class="checkbox">-->
+                            <!--<label>-->
+                            <!--<input type="checkbox" name="rememberme"/> Lembrar-->
+                            <!--</label>-->
+                            <!--</div>-->
+                            <!--<div align="center">-->
+                            <!--<input id="login" type="submit" class="btn btn-primary" value="Login"/> <a-->
+                            <!--href="/forgot" class="btn btn-default">Não se lembra da-->
+                            <!--senha?</a>-->
+                            <!--</div>-->
+                            <!--</form>-->
                             <!--</div>-->
 
                             <!--<div class="col-sm-5">-->
-                                <!--<form action="/codelogin" method="post">-->
+                            <!--<form action="/codelogin" method="post">-->
 
-                                    <!--<br/>-->
-                                    <!--<h4 style="text-align: center; color: green"><b>Autenticação por código de-->
-                                        <!--Pre-Inscrição</b></h4>-->
-                                    <!--<br/>-->
+                            <!--<br/>-->
+                            <!--<h4 style="text-align: center; color: green"><b>Autenticação por código de-->
+                            <!--Pre-Inscrição</b></h4>-->
+                            <!--<br/>-->
 
-                                    <!--<table width="100%">-->
-                                        <!--<tr>-->
-                                            <!--<td>-->
-                                                <!--<div class="form-group">-->
-                                                    <!--<label for="pin"-->
-                                                           <!--class="control-label">Código</label>-->
-                                                    <!--<div>-->
-                                                        <!--<input type="text" class="form-control" id="pin" name="pin">-->
-                                                        <!--<span class="help-block"></span>-->
-                                                    <!--</div>-->
-                                                <!--</div>-->
-                                            <!--</td>-->
+                            <!--<table width="100%">-->
+                            <!--<tr>-->
+                            <!--<td>-->
+                            <!--<div class="form-group">-->
+                            <!--<label for="pin"-->
+                            <!--class="control-label">Código</label>-->
+                            <!--<div>-->
+                            <!--<input type="text" class="form-control" id="pin" name="pin">-->
+                            <!--<span class="help-block"></span>-->
+                            <!--</div>-->
+                            <!--</div>-->
+                            <!--</td>-->
 
-                                            <!--<td style="padding-top: 12px; padding-left: 10px;">-->
-                                                <!--<button class="btn btn-success btn-block" type="submit">Login</button>-->
-                                            <!--</td>-->
-                                        <!--</tr>-->
-                                    <!--</table>-->
+                            <!--<td style="padding-top: 12px; padding-left: 10px;">-->
+                            <!--<button class="btn btn-success btn-block" type="submit">Login</button>-->
+                            <!--</td>-->
+                            <!--</tr>-->
+                            <!--</table>-->
 
-                                <!--</form>-->
+                            <!--</form>-->
                             <!--</div>-->
 
                             <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 
                                 <div class="panel panel-default">
                                     <div class="panel-heading" role="tab" id="headingTwo">
-                                        <h4 class="panel-title">
-                                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-controls="collapseTwo">
+                                        <a class="collapsed" style="text-decoration: none" role="button" data-toggle="collapse"
+                                           data-parent="#accordion" href="#collapseTwo" aria-controls="collapseTwo">
+                                            <h4 class="panel-title">
                                                 Autenticação por código de pré-inscrição
-                                            </a>
-                                        </h4>
+                                                <span ><i class="fa fa-chevron-down pull-right"></i></span>
+                                            </h4>
+                                        </a>
                                     </div>
-                                    <div id="collapseTwo" class="panel-collapse collapse in" aria-expanded="true" role="tabpanel" aria-labelledby="headingTwo">
+                                    <div id="collapseTwo" class="panel-collapse collapse in" aria-expanded="true"
+                                         role="tabpanel" aria-labelledby="headingTwo">
                                         <div class="panel-body">
                                             <form action="/codelogin" method="post">
 
                                                 <br/>
-                                                <h4 style="text-align: center; color: green"><b>Autenticação por código de
+                                                <h4 style="text-align: center; color: green"><b>Autenticação por código
+                                                    de
                                                     Pre-Inscrição</b></h4>
                                                 <br/>
 
@@ -121,14 +126,17 @@
                                                                 <label for="pin"
                                                                        class="control-label">Código</label>
                                                                 <div>
-                                                                    <input type="text" class="form-control" id="pin" name="pin">
+                                                                    <input type="text" class="form-control" id="pin"
+                                                                           name="pin">
                                                                     <span class="help-block"></span>
                                                                 </div>
                                                             </div>
                                                         </td>
 
                                                         <td style="padding-top: 12px; padding-left: 10px;">
-                                                            <button class="btn btn-success btn-block" type="submit">Login</button>
+                                                            <button class="btn btn-success btn-block" type="submit">
+                                                                Login
+                                                            </button>
                                                         </td>
                                                     </tr>
                                                 </table>
@@ -140,13 +148,18 @@
 
                                 <div class="panel panel-default">
                                     <div class="panel-heading" role="tab" id="headingThree">
+                                        <a class="collapsed" style="text-decoration: none" role="button" data-toggle="collapse"
+                                           data-parent="#accordion" href="#collapseThree" aria-expanded="false"
+                                           aria-controls="collapseThree">
                                         <h4 class="panel-title">
-                                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                                                 Autenticação por credenciais
-                                            </a>
+                                            <span ><i class="fa fa-chevron-down pull-right"></i></span>
+
                                         </h4>
+                                        </a>
                                     </div>
-                                    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                                    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel"
+                                         aria-labelledby="headingTwo">
                                         <div class="panel-body">
 
                                             <div class="row">
@@ -156,13 +169,15 @@
                                                           role="form">
                                                         <div class="form-group">
                                                             <label for="username">Email ou Contacto</label>
-                                                            <input type="text" name="username" class="form-control" id="username"
+                                                            <input type="text" name="username" class="form-control"
+                                                                   id="username"
                                                                    placeholder="O Seu E-mail ou Contacto.." autofocus>
                                                         </div>
 
                                                         <div class="form-group">
                                                             <label for="password">Senha</label>
-                                                            <input type="password" name="password" class="form-control" id="password"
+                                                            <input type="password" name="password" class="form-control"
+                                                                   id="password"
                                                                    placeholder="Senha" autocomplete="off">
                                                         </div>
 
@@ -172,7 +187,8 @@
                                                             </label>
                                                         </div>
                                                         <div align="center">
-                                                            <input id="login" type="submit" class="btn btn-primary" value="Login"/> <a
+                                                            <input id="login" type="submit" class="btn btn-primary"
+                                                                   value="Login"/> <a
                                                                 href="/forgot" class="btn btn-default">Não se lembra da
                                                             senha?</a>
                                                         </div>
@@ -185,9 +201,11 @@
                                                     <ul class="list-unstyled" style="line-height: 2">
                                                         <li><span class="fa fa-check text-success"></span> É fácil</li>
                                                         <li><span class="fa fa-check text-success"></span> Rápido</li>
-                                                        <li><span class="fa fa-check text-success"></span> E gratuito</li>
+                                                        <li><span class="fa fa-check text-success"></span> E gratuito
+                                                        </li>
                                                     </ul>
-                                                    <p><a href="/register" class="btn btn-info btn-block">Crier uma conta já</a></p>
+                                                    <p><a href="/register" class="btn btn-info btn-block">Crier uma
+                                                        conta já</a></p>
                                                 </div>
 
                                             </div>
@@ -199,9 +217,6 @@
 
 
                         </div>
-
-
-
 
 
                     </div>
