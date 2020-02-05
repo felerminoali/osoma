@@ -4,8 +4,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
 
 </head>
 
@@ -13,58 +11,64 @@
 <body>
 <th:block layout:fragment="content">
 
-    <div class="container">
+    <div class="container-fluid">
 
         <div class="row">
 
-            <strong>
-                <a href="/" class="btn btn-success"><i class="fa fa-angle-double-left" aria-hidden="true"></i>
-                    Voltar</a>
-            </strong>
+            <ol class="breadcrumb-white">
+                <li><a href="/ubs/">Principal</a></li>
+                <li class="active">Histórico de Exames Feitos</li>
+            </ol>
 
-            <div class="details">
-                <legend>
-                    <h3>Histórico de Exames Feitos</h3>
-                </legend>
+            <div class="row">
+                <div class="col-md-12">
 
+                    <div class="panel panel-success">
 
-                <div th:switch="${examAttempts}">
-                    <h2 th:case="null"><p th:text="Nao há registo de nenhum exame feito Exames"></p></h2>
-                    <br/>
-                    <div th:case="*">
-                        <div class="table-responsive">
-                            <table id="tblhistory" class="table table-bordered table-striped" width="100%">
-                                <thead>
-                                <tr>
-                                    <th>Data e Hora de Início</th>
-                                    <th>Exame</th>
-                                    <th>Duração</th>
-                                    <th>Resultado</th>
-                                    <!--<th>Classificação</th>-->
-                                </tr>
-                                </thead>
+                        <div class="panel-heading">Ver Histórico</div>
 
-                                <tbody>
-                                <tr th:each="attemps: ${examAttempts}">
-                                    <td th:text="${attemps.start}"></td>
-                                    <td><a th:href="@{/ubs/result(exam = ${attemps.exam.id}, timestamp = ${#dates.formatISO(attemps.examAttemptsPK.timestamp)})}" th:text="${attemps.exam.description}"></a></td>
-                                    <td th:text="${T(mz.co.osoma.service.Helper).timeDifferenceInSeconds(attemps.start,attemps.ExamAttemptsPK.timestamp)}"></td>
+                        <div class="panel-body">
+                            <div th:switch="${examAttempts}">
+                                <h2 th:case="null"><p th:text="Nao há registo de nenhum exame feito Exames"></p></h2>
+                                <br/>
+                                <div th:case="*">
+                                    <div class="table-responsive">
+                                        <table id="tblhistory" class="table table-bordered table-striped" width="100%">
+                                            <thead>
+                                            <tr>
+                                                <th>Data e Hora de Início</th>
+                                                <th>Exame</th>
+                                                <th>Duração</th>
+                                                <th>Resultado</th>
+                                                <!--<th>Classificação</th>-->
+                                            </tr>
+                                            </thead>
 
-                                    <td th:text="${attemps.score}"></td>
-                                    <!--<td th:if="${attemps.score>=50}" th:text="Aprovado" style="color: green;"></td>-->
-                                    <!--<td th:if="${attemps.score<50}" th:text="Reprovado" style="color: red;"></td>-->
-                                </tr>
-                                </tbody>
-                            </table>
+                                            <tbody>
+                                            <tr th:each="attemps: ${examAttempts}">
+                                                <td th:text="${attemps.start}"></td>
+                                                <td><a th:href="@{/ubs/result(exam = ${attemps.exam.id}, timestamp = ${#dates.formatISO(attemps.examAttemptsPK.timestamp)})}" th:text="${attemps.exam.description}"></a></td>
+                                                <td th:text="${T(mz.co.osoma.service.Helper).timeDifferenceInSeconds(attemps.start,attemps.ExamAttemptsPK.timestamp)}"></td>
+
+                                                <td th:text="${attemps.score}"></td>
+                                                <!--<td th:if="${attemps.score>=50}" th:text="Aprovado" style="color: green;"></td>-->
+                                                <!--<td th:if="${attemps.score<50}" th:text="Reprovado" style="color: red;"></td>-->
+                                            </tr>
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+
+                                </div>
+                            </div>
 
                         </div>
 
+
                     </div>
+
                 </div>
-
-
             </div>
-
 
         </div>
     </div>

@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50550
 File Encoding         : 65001
 
-Date: 2020-01-23 20:16:32
+Date: 2020-02-04 16:22:39
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -52,36 +52,11 @@ CREATE TABLE `attempt_result` (
   CONSTRAINT `attempt_result_ibfk_2` FOREIGN KEY (`user`) REFERENCES `exam_attempts` (`user`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `attempt_result_ibfk_3` FOREIGN KEY (`timestamp`) REFERENCES `exam_attempts` (`timestamp`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `attempt_result_ibfk_4` FOREIGN KEY (`choice`) REFERENCES `choice` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1971 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1975 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of attempt_result
 -- ----------------------------
-INSERT INTO `attempt_result` VALUES ('1918', '118', '236', '2020-01-15 17:38:14', '1424');
-INSERT INTO `attempt_result` VALUES ('1919', '118', '236', '2020-01-15 17:38:14', '1429');
-INSERT INTO `attempt_result` VALUES ('1920', '118', '236', '2020-01-15 17:38:14', '1433');
-INSERT INTO `attempt_result` VALUES ('1921', '118', '236', '2020-01-15 17:38:14', '1437');
-INSERT INTO `attempt_result` VALUES ('1922', '117', '236', '2020-01-15 17:39:11', '1344');
-INSERT INTO `attempt_result` VALUES ('1923', '117', '236', '2020-01-15 17:39:11', '1348');
-INSERT INTO `attempt_result` VALUES ('1924', '117', '236', '2020-01-15 17:39:11', '1352');
-INSERT INTO `attempt_result` VALUES ('1925', '117', '236', '2020-01-15 17:39:11', '1357');
-INSERT INTO `attempt_result` VALUES ('1939', '117', '237', '2020-01-17 14:41:36', '1343');
-INSERT INTO `attempt_result` VALUES ('1940', '117', '237', '2020-01-17 14:41:36', '1348');
-INSERT INTO `attempt_result` VALUES ('1941', '117', '237', '2020-01-17 14:41:36', '1352');
-INSERT INTO `attempt_result` VALUES ('1946', '118', '236', '2020-01-17 15:03:01', '1424');
-INSERT INTO `attempt_result` VALUES ('1947', '118', '236', '2020-01-17 15:03:01', '1428');
-INSERT INTO `attempt_result` VALUES ('1948', '118', '236', '2020-01-17 15:03:01', '1432');
-INSERT INTO `attempt_result` VALUES ('1949', '117', '237', '2020-01-17 15:07:12', '1343');
-INSERT INTO `attempt_result` VALUES ('1950', '117', '237', '2020-01-17 15:07:12', '1348');
-INSERT INTO `attempt_result` VALUES ('1951', '117', '237', '2020-01-17 15:07:12', '1351');
-INSERT INTO `attempt_result` VALUES ('1952', '117', '237', '2020-01-17 15:07:12', '1356');
-INSERT INTO `attempt_result` VALUES ('1953', '117', '237', '2020-01-17 15:07:12', '1359');
-INSERT INTO `attempt_result` VALUES ('1962', '117', '237', '2020-01-21 11:06:48', '1343');
-INSERT INTO `attempt_result` VALUES ('1963', '117', '237', '2020-01-21 11:06:47', '1343');
-INSERT INTO `attempt_result` VALUES ('1964', '117', '237', '2020-01-21 11:06:48', '1347');
-INSERT INTO `attempt_result` VALUES ('1965', '117', '237', '2020-01-21 11:06:47', '1347');
-INSERT INTO `attempt_result` VALUES ('1966', '117', '237', '2020-01-21 11:06:47', '1352');
-INSERT INTO `attempt_result` VALUES ('1967', '117', '237', '2020-01-21 11:06:48', '1352');
 
 -- ----------------------------
 -- Table structure for `category`
@@ -834,11 +809,17 @@ CREATE TABLE `course` (
   KEY `intitution` (`intitution`),
   CONSTRAINT `course_ibfk_1` FOREIGN KEY (`period`) REFERENCES `period` (`id`),
   CONSTRAINT `course_ibfk_2` FOREIGN KEY (`intitution`) REFERENCES `university` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of course
 -- ----------------------------
+INSERT INTO `course` VALUES ('1', 'Licenciatura em Contabilidade Fiscalidade e Auditoria', '1', '33');
+INSERT INTO `course` VALUES ('2', 'Licenciatura em Contabilidade Fiscalidade e Auditoria', '2', '33');
+INSERT INTO `course` VALUES ('3', 'Economia', '1', '33');
+INSERT INTO `course` VALUES ('4', 'Economia', '2', '33');
+INSERT INTO `course` VALUES ('5', 'Gestão Empresarial', '1', '33');
+INSERT INTO `course` VALUES ('6', 'Gestão Empresarial', '2', '33');
 
 -- ----------------------------
 -- Table structure for `course_exam`
@@ -849,9 +830,9 @@ CREATE TABLE `course_exam` (
   `exam_id` int(11) NOT NULL DEFAULT '0',
   `year` int(11) NOT NULL,
   PRIMARY KEY (`course_id`,`exam_id`,`year`),
-  KEY `exam_id` (`exam_id`),
-  CONSTRAINT `course_exam_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `course` (`id`),
-  CONSTRAINT `course_exam_ibfk_2` FOREIGN KEY (`exam_id`) REFERENCES `exam` (`id`)
+  KEY `course_exam_ibfk_2` (`exam_id`),
+  CONSTRAINT `course_exam_ibfk_2` FOREIGN KEY (`exam_id`) REFERENCES `exam` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `course_exam_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `course` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -869,7 +850,7 @@ CREATE TABLE `district` (
   PRIMARY KEY (`id`),
   KEY `province` (`province`),
   CONSTRAINT `district_ibfk_1` FOREIGN KEY (`province`) REFERENCES `province` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=142 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=167 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of district
@@ -1015,6 +996,31 @@ INSERT INTO `district` VALUES ('138', '4', 'Namarroi');
 INSERT INTO `district` VALUES ('139', '4', 'Nicoadala');
 INSERT INTO `district` VALUES ('140', '4', 'Pebane');
 INSERT INTO `district` VALUES ('141', '4', 'Quelimane');
+INSERT INTO `district` VALUES ('142', '6', 'Bárue');
+INSERT INTO `district` VALUES ('143', '6', 'Chimoio');
+INSERT INTO `district` VALUES ('144', '6', 'Gondola');
+INSERT INTO `district` VALUES ('145', '6', 'Guro');
+INSERT INTO `district` VALUES ('146', '6', 'Macate');
+INSERT INTO `district` VALUES ('147', '6', 'Machaze');
+INSERT INTO `district` VALUES ('148', '6', 'Macossa');
+INSERT INTO `district` VALUES ('149', '6', 'Manica');
+INSERT INTO `district` VALUES ('150', '6', 'Mossurize');
+INSERT INTO `district` VALUES ('151', '6', 'Sussundenga');
+INSERT INTO `district` VALUES ('152', '6', 'Tambara');
+INSERT INTO `district` VALUES ('153', '6', 'Vanduzi');
+INSERT INTO `district` VALUES ('154', '7', 'Beira');
+INSERT INTO `district` VALUES ('155', '7', 'Búzi');
+INSERT INTO `district` VALUES ('156', '7', 'Chemba');
+INSERT INTO `district` VALUES ('157', '7', 'Cheringoma');
+INSERT INTO `district` VALUES ('158', '7', 'Chibabava');
+INSERT INTO `district` VALUES ('159', '7', 'Dondo');
+INSERT INTO `district` VALUES ('160', '7', 'Gorongosa');
+INSERT INTO `district` VALUES ('161', '7', 'Machanga');
+INSERT INTO `district` VALUES ('162', '7', 'Maringué');
+INSERT INTO `district` VALUES ('163', '7', 'Marromeu');
+INSERT INTO `district` VALUES ('164', '7', 'Muanza');
+INSERT INTO `district` VALUES ('165', '7', 'Nhamatanda');
+INSERT INTO `district` VALUES ('166', '11', 'Maputo Cidade');
 
 -- ----------------------------
 -- Table structure for `exam`
@@ -1054,7 +1060,7 @@ INSERT INTO `exam` VALUES ('112', '102', '2005', 'Exame de Portugues', '10', '3'
 INSERT INTO `exam` VALUES ('115', '102', '2020', 'Exame de Português  (Variante A)', '3600', '20', null, null, null, '33', '1');
 INSERT INTO `exam` VALUES ('116', '62', '2020', 'Exame de Inglês (Variante A)', '3600', '20', null, null, null, '33', '1');
 INSERT INTO `exam` VALUES ('117', '2', '2020', 'Exame de Matemática (Variante A)', '3600', '20', null, null, null, '33', '1');
-INSERT INTO `exam` VALUES ('118', '2', '2020', 'Exame de Matemática (Variante B)', '3600', '20', null, null, null, '33', '1');
+INSERT INTO `exam` VALUES ('118', '2', '2020', 'Exame de Matemática (Variante B)', '3600', '20', null, null, null, '2', '1');
 
 -- ----------------------------
 -- Table structure for `exam_attempts`
@@ -1077,6 +1083,7 @@ CREATE TABLE `exam_attempts` (
 -- ----------------------------
 -- Records of exam_attempts
 -- ----------------------------
+INSERT INTO `exam_attempts` VALUES ('115', '236', '2020-01-24 17:27:58', '2020-01-24 17:27:41', '10');
 INSERT INTO `exam_attempts` VALUES ('115', '237', '2020-01-17 14:57:31', '2020-01-17 14:57:13', '0');
 INSERT INTO `exam_attempts` VALUES ('115', '237', '2020-01-19 11:56:26', '2020-01-19 11:56:15', '0');
 INSERT INTO `exam_attempts` VALUES ('115', '237', '2020-01-20 13:17:54', '2020-01-20 13:01:56', '0');
@@ -1330,13 +1337,14 @@ CREATE TABLE `role` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `role` varchar(250) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of role
 -- ----------------------------
 INSERT INTO `role` VALUES ('1', 'ADMIN');
 INSERT INTO `role` VALUES ('2', 'USER');
+INSERT INTO `role` VALUES ('3', 'PREREGISTED');
 
 -- ----------------------------
 -- Table structure for `university`
@@ -1367,7 +1375,7 @@ CREATE TABLE `user` (
   `first_name` varchar(150) NOT NULL,
   `last_name` varchar(150) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
+  `password` varchar(255) DEFAULT NULL,
   `datecreated` datetime DEFAULT NULL,
   `active` tinyint(1) DEFAULT '0',
   `hash` varchar(255) DEFAULT NULL,
@@ -1393,13 +1401,13 @@ CREATE TABLE `user` (
   CONSTRAINT `user_ibfk_2` FOREIGN KEY (`university`) REFERENCES `university` (`id`),
   CONSTRAINT `user_ibfk_3` FOREIGN KEY (`marital_status`) REFERENCES `marital_status` (`id`),
   CONSTRAINT `user_ibfk_4` FOREIGN KEY (`gender`) REFERENCES `gender` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=244 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=259 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('236', 'Dario', 'Mario', 'felasbe@hotmail.com', '$2a$10$1DI/wpMmgCi/TPC0BoNL9O9Y9u.rLixWPNbn/bH7V7JbdKSAQoPyy', '2019-10-09 19:37:52', '1', null, '1', '2', '825407883', '1576', null, null, '1', '11', 'ESN', '1', '2020-01-21', null, null);
-INSERT INTO `user` VALUES ('237', 'Teste', 'Teste', 'osoma.mz@gmail.com', '$2a$10$5.R2WHIolwyY6CRCEs0llOiKfmCOIUeVYDMFeFzVY4RJVXxCA96eW', '2020-01-13 13:11:13', '1', null, '66', '2', '846689637', '1057', null, null, '1', '15', 'lllll', '1', '2020-01-21', null, null);
+INSERT INTO `user` VALUES ('236', 'Dario', 'Mario', 'felasbe@hotmail.com', '$2a$10$1DI/wpMmgCi/TPC0BoNL9O9Y9u.rLixWPNbn/bH7V7JbdKSAQoPyy', '2019-10-09 19:37:52', '1', null, '1', '2', '825407883', '1576', null, null, '1', '11', 'ESN', '1', '2020-01-21', null, '0');
+INSERT INTO `user` VALUES ('237', 'Teste', 'Teste', 'osoma.mz@gmail.com', '$2a$10$5.R2WHIolwyY6CRCEs0llOiKfmCOIUeVYDMFeFzVY4RJVXxCA96eW', '2020-01-13 13:11:13', '1', null, '66', '2', '846689637', '1057', null, null, '1', '15', 'lllll', '1', '2020-01-21', null, '0');
 
 -- ----------------------------
 -- Table structure for `user_course`
@@ -1410,9 +1418,9 @@ CREATE TABLE `user_course` (
   `course_id` int(11) NOT NULL DEFAULT '0',
   `year` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`user_id`,`course_id`,`year`),
-  KEY `course_id` (`course_id`),
-  CONSTRAINT `user_course_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `course` (`id`),
-  CONSTRAINT `user_course_ibfk_2` FOREIGN KEY (`course_id`) REFERENCES `user` (`id`)
+  KEY `user_course_ibfk_2` (`course_id`),
+  CONSTRAINT `user_course_ibfk_2` FOREIGN KEY (`course_id`) REFERENCES `course` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `user_course_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------

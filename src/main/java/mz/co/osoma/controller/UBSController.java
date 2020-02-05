@@ -44,43 +44,48 @@ public class UBSController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView index(@AuthenticationPrincipal final UserDetails userDetails) {
 
-        User user = crudService.findEntByJPQuery("FROM User u WHERE u.email = '" + ((CustomUserDetails) userDetails).getEmail() + "'", null);
-        //int isPreregited = user.getPreregisted().intValue();
-
+//        User user = crudService.findEntByJPQuery("FROM User u WHERE u.email = '" + ((CustomUserDetails) userDetails).getEmail() + "'", null);
         Map<String, Object> par = new HashMap<String, Object>();
-
+//
         List<Exam> exams = null;
+//
+//        Collection<? extends GrantedAuthority> authorities = ((CustomUserDetails) userDetails).getAuthorities();
+//        boolean isPreregited = authorities.contains(new SimpleGrantedAuthority("ROLE_PREREGISTED"));
+//
+//        if(isPreregited){
+//
+//            par.put("userId", user.getId());
+//            par.put("year", 2020);
+//
+//            String hqlQuery = "SELECT u FROM UserCourse u WHERE u.userCoursePK.userId = :userId and u.userCoursePK.year = :year";
+//            List<UserCourse> userCourseList = crudService.findByJPQuery(hqlQuery, par);
+//
+//            Map<Integer, Exam> map = new HashMap<Integer, Exam>();
+//
+//            for (UserCourse uc: userCourseList) {
+//                Course course = uc.getCourse();
+//                List<CourseExam> examsPerCourseList = course.getCourseExamList();
+//                for (CourseExam ce:examsPerCourseList) {
+//                    map.put(ce.getExam().getId(), ce.getExam());
+//                }
+//            }
+//
+//            exams = new ArrayList<Exam>(map.values());
+//
+//
+//        }else{
+//            par.put("uni", 33);
+//            par.put("year", 2020);
+//            String hqlQuery = "SELECT e FROM Exam e WHERE e.university.id = :uni and  e.examYear = :year";
+//            exams = crudService.findByJPQuery(hqlQuery, par);
+//        }
 
-        Collection<? extends GrantedAuthority> authorities = ((CustomUserDetails) userDetails).getAuthorities();
-        boolean isPreregited = authorities.contains(new SimpleGrantedAuthority("ROLE_PREREGISTED"));
 
-        if(isPreregited){
+        par.put("uni", 33);
+        par.put("year", 2020);
+        String hqlQuery = "SELECT e FROM Exam e WHERE e.university.id = :uni and  e.examYear = :year";
+        exams = crudService.findByJPQuery(hqlQuery, par);
 
-            par.put("userId", user.getId());
-            par.put("year", 2020);
-
-            String hqlQuery = "SELECT u FROM UserCourse u WHERE u.userCoursePK.userId = :userId and u.userCoursePK.year = :year";
-            List<UserCourse> userCourseList = crudService.findByJPQuery(hqlQuery, par);
-
-            Map<Integer, Exam> map = new HashMap<Integer, Exam>();
-
-            for (UserCourse uc: userCourseList) {
-                Course course = uc.getCourse();
-                List<CourseExam> examsPerCourseList = course.getCourseExamList();
-                for (CourseExam ce:examsPerCourseList) {
-                    map.put(ce.getExam().getId(), ce.getExam());
-                }
-            }
-
-            exams = new ArrayList<Exam>(map.values());
-
-
-        }else{
-            par.put("uni", 33);
-            par.put("year", 2020);
-            String hqlQuery = "SELECT e FROM Exam e WHERE e.university.id = :uni and  e.examYear = :year";
-            exams = crudService.findByJPQuery(hqlQuery, par);
-        }
 
         ModelAndView model = new ModelAndView("exam-ubs");
         model.addObject("exams", exams);
