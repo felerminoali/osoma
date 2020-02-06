@@ -207,8 +207,7 @@ $(document).ready(function () {
         $("#alert").addClass("hidden");
 
         $('.help-block').empty(); // clear error string
-        $('#formModalCourses').modal('show'); // show bootstrap modal
-        $('.modal-title').text('Adicionar Cursos'); // Set Title to Bootstrap modal title
+
 
 
         $.ajax({
@@ -246,6 +245,10 @@ $(document).ready(function () {
                 console.log(errorThrown);
             }
         });
+
+        $('#formModalCourses').modal('show'); // show bootstrap modal
+        $('.modal-title').text('Adicionar Cursos'); // Set Title to Bootstrap modal title
+
         return false;
 
     }
