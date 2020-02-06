@@ -207,8 +207,7 @@ $(document).ready(function () {
         $("#alert").addClass("hidden");
 
         $('.help-block').empty(); // clear error string
-
-
+        $('#tblcourse').empty();
 
         $.ajax({
             url: "/course/" + id,
@@ -216,8 +215,6 @@ $(document).ready(function () {
             data: ({user: id}),
             dataType: "JSON",
             success: function (data) {
-
-                $('#tblcourse').empty();
 
                 if (data.status) {
                     $("#alert").addClass("hidden");
