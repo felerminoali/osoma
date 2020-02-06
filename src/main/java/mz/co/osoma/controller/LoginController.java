@@ -74,7 +74,7 @@ public class LoginController {
 
         crudService.update(user);
 
-        final Authentication auth = new UsernamePasswordAuthenticationToken(userDetailsService.loadUserByUsername(user.getEmail()), null, new CustomUserDetails(user).getAuthorities());
+        final Authentication auth = new UsernamePasswordAuthenticationToken(userDetailsService.loadUserByUsername(user.getContact()), null, new CustomUserDetails(user).getAuthorities());
         SecurityContext sc = SecurityContextHolder.getContext();
         sc.setAuthentication(auth);
 
