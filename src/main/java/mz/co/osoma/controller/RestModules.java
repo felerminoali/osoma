@@ -288,7 +288,7 @@ public class RestModules {
         user.setPreregisted(Short.parseShort("1"));
 
         Role role_user = crudService.get(Role.class, 3);
-        Set<Role> roles = new  HashSet<Role>();
+        Set<Role> roles = new HashSet<Role>();
         roles.add(role_user);
 
         user.setRoles(roles);
@@ -311,8 +311,8 @@ public class RestModules {
         List<FieldError> fieldErrors = bindingResult.getFieldErrors();
         List<FieldError> errors = new ArrayList<>();
         if (bindingResult.hasErrors()) {
-            for (FieldError fieldError: fieldErrors) {
-                if(!(fieldError.getField().equals("email") ||fieldError.getField().equals("contact"))){
+            for (FieldError fieldError : fieldErrors) {
+                if (!(fieldError.getField().equals("email") || fieldError.getField().equals("contact"))) {
                     errors.add(fieldError);
                 }
             }
@@ -320,7 +320,7 @@ public class RestModules {
 
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("status", true);
-        if (errors.size()>0) {
+        if (errors.size() > 0) {
             map.put("inputerror", errors);
             map.put("status", false);
             return new ResponseEntity<Object>(map, HttpStatus.OK);
@@ -386,16 +386,33 @@ public class RestModules {
         Map<String, Object> map = new HashMap<String, Object>();
         try {
             crudService.Save(userCourse);
-        }catch (Exception exception){
-                map.put("status", false);
-                return new ResponseEntity<Object>(map, HttpStatus.OK);
+        } catch (Exception exception) {
+            map.put("status", false);
+            return new ResponseEntity<Object>(map, HttpStatus.OK);
         }
-
-
 
         map.put("status", true);
 
         List<UserCourse> userCourses = crudService.getAll(UserCourse.class);
+        map.put("courses", userCourses);
+        return new ResponseEntity<Object>(map, HttpStatus.OK);
+    }
+
+
+    @RequestMapping(
+            value = "/course/{user}",
+            method = RequestMethod.POST,
+            produces = {MimeTypeUtils.APPLICATION_JSON_VALUE},
+            headers = "Accept=application/json"
+    )
+    public ResponseEntity<Object> courseByUser(@PathVariable("user") int user) {
+        Map<String, Object> map = new HashMap<String, Object>();
+
+        List<UserCourse> userCourses = crudService.findByJPQuery("SELECT u FROM UserCourse u where u.userCoursePK.userId = " + user, null);
+        map.put("status", true);
+        if (userCourses == null) {
+            map.put("status", false);
+        }
         map.put("courses", userCourses);
         return new ResponseEntity<Object>(map, HttpStatus.OK);
     }
@@ -409,9 +426,9 @@ public class RestModules {
     public ResponseEntity<Object> deleteCourseUser(@PathVariable("user") int user, @PathVariable("course") int course, @PathVariable("year") int year) {
 
         Map<String, Object> par = new HashMap<String, Object>();
-        par.put("user",user);
-        par.put("course",course);
-        par.put("year",year);
+        par.put("user", user);
+        par.put("course", course);
+        par.put("year", year);
 
         UserCourse userCourse = crudService.findEntByJPQuery("SELECT u FROM UserCourse u where u.userCoursePK.userId = :user AND u.userCoursePK.courseId = :course AND u.userCoursePK.year = :year", par);
         Map<String, Object> map = new HashMap<String, Object>();

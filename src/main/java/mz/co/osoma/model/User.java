@@ -46,8 +46,8 @@ public class User implements Serializable {
     @Column(name = "last_name")
     private String lastName;
 
-    @NotNull(message = "Este campo não deve estar vazio")
-    @Email
+//    @NotNull(message = "Este campo não deve estar vazio")
+    @Email(message="O Email deve seguir o formato de um email")
     @EmailOrContactDuplication(message="Este email/contacto já existe no sistema")
     @Basic(optional = false)
     @Column(name = "email")
@@ -79,7 +79,7 @@ public class User implements Serializable {
 
     @NotNull(message = "Este campo não deve estar vazio")
     @EmailOrContactDuplication(message="Este email/contacto já existe no sistema")
-    @Size(min = 9, max = 15)
+    @Size(min = 9, max = 15, message = "O contacto de ter no mínimo 9 caracteres e máximo de 15")
     @Basic(optional = false)
     @Column(name = "contact")
     private String contact;

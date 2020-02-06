@@ -6,45 +6,46 @@ $(document).ready(function () {
     function init() {
 
 
-
-        var editBtn = document.getElementsByClassName('edit');
-
-        for (var i = 0; i < editBtn.length; i++) {
-            editBtn[i].addEventListener("click", function () {
-                var id = $(this).attr('rel');
-                edit_candidate(id);
-            }, false);
+        if ($('.edit').length > 0) {
+            var editBtn = document.getElementsByClassName('edit');
+            for (var i = 0; i < editBtn.length; i++) {
+                editBtn[i].addEventListener("click", function () {
+                    var id = $(this).attr('rel');
+                    edit_candidate(id);
+                }, false);
+            }
         }
 
-        var deleteBtn = document.getElementsByClassName('delete');
-
-        for (var i = 0; i < deleteBtn.length; i++) {
-            deleteBtn[i].addEventListener("click", function () {
-                var id = $(this).attr('rel');
-                delete_candidate(id);
-            }, false);
+        if ($('.delete').length > 0) {
+            var deleteBtn = document.getElementsByClassName('delete');
+            for (var i = 0; i < deleteBtn.length; i++) {
+                deleteBtn[i].addEventListener("click", function () {
+                    var id = $(this).attr('rel');
+                    delete_candidate(id);
+                }, false);
+            }
         }
 
-
-        var viewBtn = document.getElementsByClassName('view');
-
-        for (var i = 0; i < viewBtn.length; i++) {
-            viewBtn[i].addEventListener("click", function () {
-                var id = $(this).attr('rel');
-                add_course(id);
-            }, false);
+        if ($('.view').length > 0) {
+            var viewBtn = document.getElementsByClassName('view');
+            for (var i = 0; i < viewBtn.length; i++) {
+                viewBtn[i].addEventListener("click", function () {
+                    var id = $(this).attr('rel');
+                    add_course(id);
+                }, false);
+            }
         }
 
-        var removeBtn = document.getElementsByClassName('remove-course');
-        for (var i = 0; i < removeBtn.length; i++) {
-            removeBtn[i].addEventListener("click", function () {
-                var id = $(this).attr('rel');
-                var user_course_year = id.split("_");
-                remove_course(user_course_year[0], user_course_year[1], user_course_year[2]);
-            }, false);
+        if ($('.remove-course').length > 0) {
+            var removeBtn = document.getElementsByClassName('remove-course');
+            for (var i = 0; i < removeBtn.length; i++) {
+                removeBtn[i].addEventListener("click", function () {
+                    var id = $(this).attr('rel');
+                    var user_course_year = id.split("_");
+                    remove_course(user_course_year[0], user_course_year[1], user_course_year[2]);
+                }, false);
+            }
         }
-
-
     }
 
     if ($('#province').length > 0) {
@@ -194,6 +195,61 @@ $(document).ready(function () {
             }
         });
     }
+
+    function add_course(id) {
+
+
+        $('[name="user"]').val(id);
+
+        $('.form-group').removeClass('has-error has-feedback');
+        $('.form-group').find('small.help-block').hide();
+        $('.form-group').find('i.form-control-feedback').hide();
+        $("#alert").addClass("hidden");
+
+        $('.help-block').empty(); // clear error string
+        $('#formModalCourses').modal('show'); // show bootstrap modal
+        $('.modal-title').text('Adicionar Cursos'); // Set Title to Bootstrap modal title
+
+
+        $.ajax({
+            url: "/course/" + id,
+            type: "POST",
+            data: ({user: id}),
+            dataType: "JSON",
+            success: function (data) {
+
+                $('#tblcourse').empty();
+
+                if (data.status) {
+                    $("#alert").addClass("hidden");
+                    if (data.courses.length > 0) {
+                        fill_table(data);
+                    }
+                }
+                if ($('.remove-course').length > 0) {
+                    var removeBtn = document.getElementsByClassName('remove-course');
+                    for (var i = 0; i < removeBtn.length; i++) {
+                        removeBtn[i].addEventListener("click", function () {
+                            var id = $(this).attr('rel');
+                            var user_course_year = id.split("_");
+                            remove_course(user_course_year[0], user_course_year[1], user_course_year[2]);
+                        }, false);
+                    }
+                }
+
+                return false;
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert('Error deleting data');
+                console.log(jqXHR.statusText);
+                console.log(textStatus);
+                console.log(errorThrown);
+            }
+        });
+        return false;
+
+    }
+
 });
 
 //datepicker
@@ -216,24 +272,6 @@ function fill_table(data) {
         html += '</tr>';
         $('#tblcourse').prepend(html);
     }
-}
-
-
-
-function add_course(id) {
-
-    $('[name="user"]').val(id);
-
-    $('.form-group').removeClass('has-error has-feedback');
-    $('.form-group').find('small.help-block').hide();
-    $('.form-group').find('i.form-control-feedback').hide();
-    $("#alert").addClass("hidden");
-
-    $('.help-block').empty(); // clear error string
-    $('#formModalCourses').modal('show'); // show bootstrap modal
-    $('.modal-title').text('Adicionar Cursos'); // Set Title to Bootstrap modal title
-
-
 }
 
 function reload_table() {

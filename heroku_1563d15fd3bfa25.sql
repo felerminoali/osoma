@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localMysql
-Source Server Version : 50550
-Source Host           : localhost:3306
-Source Database       : osoma
+Source Server         : ouloookheroku
+Source Server Version : 50646
+Source Host           : us-mm-dca-b7add399344a.g5.cleardb.net:3306
+Source Database       : heroku_c7035568cd423c2
 
 Target Server Type    : MYSQL
-Target Server Version : 50550
+Target Server Version : 50646
 File Encoding         : 65001
 
-Date: 2020-02-04 16:22:39
+Date: 2020-02-05 08:56:21
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -309,20 +309,20 @@ INSERT INTO `choice` VALUES ('1272', '340', 'SMS', null, null, '1');
 INSERT INTO `choice` VALUES ('1273', '340', 'TCPA', null, null, '0');
 INSERT INTO `choice` VALUES ('1274', '341', '90% of text messages            ', null, null, '0');
 INSERT INTO `choice` VALUES ('1275', '341', '40% of text messages', null, null, '0');
-INSERT INTO `choice` VALUES ('1276', '341', '20% of text messages', null, null, '1');
-INSERT INTO `choice` VALUES ('1277', '341', '99% of text messages ', null, null, '0');
+INSERT INTO `choice` VALUES ('1276', '341', '20% of text messages', null, null, '0');
+INSERT INTO `choice` VALUES ('1277', '341', '99% of text messages ', null, null, '1');
 INSERT INTO `choice` VALUES ('1278', '342', 'Excellent', null, null, '0');
 INSERT INTO `choice` VALUES ('1279', '342', 'same', null, null, '0');
 INSERT INTO `choice` VALUES ('1280', '342', 'utilize', null, null, '1');
 INSERT INTO `choice` VALUES ('1281', '342', 'message', null, null, '0');
 INSERT INTO `choice` VALUES ('1282', '343', 'the registration is in open doors', null, null, '0');
 INSERT INTO `choice` VALUES ('1283', '343', 'the registration is in closed doors', null, null, '0');
-INSERT INTO `choice` VALUES ('1284', '343', 'the registration is free of charge', null, null, '0');
-INSERT INTO `choice` VALUES ('1285', '343', 'the registration is paid', null, null, '1');
+INSERT INTO `choice` VALUES ('1284', '343', 'the registration is free of charge', null, null, '1');
+INSERT INTO `choice` VALUES ('1285', '343', 'the registration is paid', null, null, '0');
 INSERT INTO `choice` VALUES ('1286', '344', 'Monday', null, null, '0');
-INSERT INTO `choice` VALUES ('1287', '344', '01/11/2019', null, null, '1');
+INSERT INTO `choice` VALUES ('1287', '344', '01/11/2019', null, null, '0');
 INSERT INTO `choice` VALUES ('1288', '344', 'Thursday', null, null, '0');
-INSERT INTO `choice` VALUES ('1289', '344', 'Friday', null, null, '0');
+INSERT INTO `choice` VALUES ('1289', '344', 'Friday', null, null, '1');
 INSERT INTO `choice` VALUES ('1290', '345', 'are', null, null, '0');
 INSERT INTO `choice` VALUES ('1291', '345', 'is', null, null, '1');
 INSERT INTO `choice` VALUES ('1292', '345', 'am', null, null, '0');
@@ -831,8 +831,8 @@ CREATE TABLE `course_exam` (
   `year` int(11) NOT NULL,
   PRIMARY KEY (`course_id`,`exam_id`,`year`),
   KEY `course_exam_ibfk_2` (`exam_id`),
-  CONSTRAINT `course_exam_ibfk_2` FOREIGN KEY (`exam_id`) REFERENCES `exam` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `course_exam_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `course` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `course_exam_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `course` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `course_exam_ibfk_2` FOREIGN KEY (`exam_id`) REFERENCES `exam` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -1083,22 +1083,8 @@ CREATE TABLE `exam_attempts` (
 -- ----------------------------
 -- Records of exam_attempts
 -- ----------------------------
-INSERT INTO `exam_attempts` VALUES ('115', '236', '2020-01-24 17:27:58', '2020-01-24 17:27:41', '10');
-INSERT INTO `exam_attempts` VALUES ('115', '237', '2020-01-17 14:57:31', '2020-01-17 14:57:13', '0');
-INSERT INTO `exam_attempts` VALUES ('115', '237', '2020-01-19 11:56:26', '2020-01-19 11:56:15', '0');
-INSERT INTO `exam_attempts` VALUES ('115', '237', '2020-01-20 13:17:54', '2020-01-20 13:01:56', '0');
-INSERT INTO `exam_attempts` VALUES ('115', '237', '2020-01-20 17:48:14', '2020-01-20 17:47:54', '0');
-INSERT INTO `exam_attempts` VALUES ('115', '237', '2020-01-21 22:03:38', '2020-01-21 22:03:33', '0');
-INSERT INTO `exam_attempts` VALUES ('116', '236', '2020-01-15 17:37:19', '2020-01-15 17:37:03', '10');
-INSERT INTO `exam_attempts` VALUES ('116', '236', '2020-01-15 17:40:12', '2020-01-15 17:39:30', '40');
-INSERT INTO `exam_attempts` VALUES ('117', '236', '2020-01-15 17:39:11', '2020-01-15 17:38:53', '5');
-INSERT INTO `exam_attempts` VALUES ('117', '237', '2020-01-17 14:41:36', '2020-01-17 14:41:21', '0');
-INSERT INTO `exam_attempts` VALUES ('117', '237', '2020-01-17 15:07:12', '2020-01-17 15:06:40', '5');
-INSERT INTO `exam_attempts` VALUES ('117', '237', '2020-01-21 11:06:47', '2020-01-21 11:06:32', '5');
-INSERT INTO `exam_attempts` VALUES ('117', '237', '2020-01-21 11:06:48', '2020-01-21 11:06:32', '5');
-INSERT INTO `exam_attempts` VALUES ('117', '237', '2020-01-22 18:35:01', '2020-01-22 18:33:31', '0');
-INSERT INTO `exam_attempts` VALUES ('118', '236', '2020-01-15 17:38:14', '2020-01-15 17:37:56', '0');
-INSERT INTO `exam_attempts` VALUES ('118', '236', '2020-01-17 15:03:01', '2020-01-17 15:02:45', '5');
+INSERT INTO `exam_attempts` VALUES ('116', '237', '2020-02-05 06:43:25', '2020-02-05 06:42:34', '0');
+INSERT INTO `exam_attempts` VALUES ('117', '237', '2020-02-05 06:53:57', '2020-02-05 06:52:33', '0');
 
 -- ----------------------------
 -- Table structure for `gender`
@@ -1419,8 +1405,8 @@ CREATE TABLE `user_course` (
   `year` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`user_id`,`course_id`,`year`),
   KEY `user_course_ibfk_2` (`course_id`),
-  CONSTRAINT `user_course_ibfk_2` FOREIGN KEY (`course_id`) REFERENCES `course` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `user_course_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `user_course_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `user_course_ibfk_2` FOREIGN KEY (`course_id`) REFERENCES `course` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -1444,4 +1430,5 @@ CREATE TABLE `user_role` (
 -- Records of user_role
 -- ----------------------------
 INSERT INTO `user_role` VALUES ('236', '1');
+INSERT INTO `user_role` VALUES ('237', '1');
 INSERT INTO `user_role` VALUES ('237', '2');
