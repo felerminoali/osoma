@@ -8,21 +8,9 @@ package mz.co.osoma.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  *
@@ -57,6 +45,12 @@ public class Exam implements Serializable {
     private String elearning;
     @Column(name = "hassimulation")
     private Boolean hassimulation;
+
+    @Basic(optional = false)
+    @Column(name = "exam_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date examDate;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "exam", fetch = FetchType.LAZY)
     @JsonIgnore
     private List<ExamAttempts> examAttemptsList;
@@ -153,6 +147,14 @@ public class Exam implements Serializable {
 
     public void setHassimulation(Boolean hassimulation) {
         this.hassimulation = hassimulation;
+    }
+
+    public Date getExamDate() {
+        return examDate;
+    }
+
+    public void setExamDate(Date examDate) {
+        this.examDate = examDate;
     }
 
     public List<ExamAttempts> getExamAttemptsList() {

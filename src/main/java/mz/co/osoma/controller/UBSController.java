@@ -104,7 +104,7 @@ public class UBSController {
         Exam exam = crudService.findEntByJPQueryT("SELECT e FROM Exam e where e.id = " + id, null);
 
 
-
+        model.addObject("exame", null);
 
         if (exam != null) {
 
@@ -133,10 +133,13 @@ public class UBSController {
             model.addObject("nrQuestions", exam.getQuestionList().size());
             model.addObject("attemptAllowed", attemptAllowed);
 
-        } else {
-
-            model.addObject("exame", null);
+            if(exam.getExamDate() != null){
+                SimpleDateFormat df = new SimpleDateFormat("MMM dd, yyyy HH:mm:ss");
+//                System.out.println("--------->"+df.format(exam.getExamDate()).toString());
+                model.addObject("starttime", df.format(exam.getExamDate()).toString());
+            }
         }
+
 
         return model;
     }

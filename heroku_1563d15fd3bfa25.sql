@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : ouloookheroku
-Source Server Version : 50646
-Source Host           : us-mm-dca-b7add399344a.g5.cleardb.net:3306
-Source Database       : heroku_c7035568cd423c2
+Source Server         : localMysql
+Source Server Version : 50550
+Source Host           : localhost:3306
+Source Database       : osoma
 
 Target Server Type    : MYSQL
-Target Server Version : 50646
+Target Server Version : 50550
 File Encoding         : 65001
 
-Date: 2020-02-05 08:56:21
+Date: 2020-02-07 11:55:46
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -52,7 +52,7 @@ CREATE TABLE `attempt_result` (
   CONSTRAINT `attempt_result_ibfk_2` FOREIGN KEY (`user`) REFERENCES `exam_attempts` (`user`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `attempt_result_ibfk_3` FOREIGN KEY (`timestamp`) REFERENCES `exam_attempts` (`timestamp`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `attempt_result_ibfk_4` FOREIGN KEY (`choice`) REFERENCES `choice` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1975 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of attempt_result
@@ -1038,6 +1038,7 @@ CREATE TABLE `exam` (
   `elearning` varchar(250) DEFAULT NULL,
   `university` int(11) NOT NULL,
   `hassimulation` tinyint(1) DEFAULT NULL,
+  `exam_date` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `category` (`category`),
   KEY `exam_ibfk_2` (`university`),
@@ -1048,19 +1049,19 @@ CREATE TABLE `exam` (
 -- ----------------------------
 -- Records of exam
 -- ----------------------------
-INSERT INTO `exam` VALUES ('2', '2', '2005', 'Exame de Matemática', '10', '3', null, 'https://drive.google.com/open?id=0B-dOo9jrft_6ZHcwZXNGa0xxblk', null, '2', '1');
-INSERT INTO `exam` VALUES ('12', '52', '2007', 'Exame de Frances', '30', '3', null, null, null, '12', '0');
-INSERT INTO `exam` VALUES ('22', '32', '2005', 'Exame de Geografia', '10', '3', null, 'https://drive.google.com/open?id=0B-dOo9jrft_6Z0Jmd3JlU3FCT3M', null, '22', '0');
-INSERT INTO `exam` VALUES ('32', '82', '2013', 'Exame de Filosofia', '10', '3', null, null, null, '2', '0');
-INSERT INTO `exam` VALUES ('52', '92', '2005', 'Exame de Biologia', '10', '3', null, 'https://drive.google.com/open?id=0B-dOo9jrft_6cTVNMHNESGNUMEk', null, '2', '0');
-INSERT INTO `exam` VALUES ('62', '12', '2005', 'Exame de Fisica', '10', '3', null, 'https://drive.google.com/open?id=0B-dOo9jrft_6eDVLRkRrcUFwLVE', null, '2', '0');
-INSERT INTO `exam` VALUES ('72', '22', '2005', 'Exame de Química', '10', '3', null, 'https://drive.google.com/open?id=0B-dOo9jrft_6OGVvdFhYZ0hvcUE', null, '2', '0');
-INSERT INTO `exam` VALUES ('92', '62', '2005', 'Exame de Ingles', '10', '3', null, 'https://drive.google.com/open?id=0B-dOo9jrft_6UmloVHozRWFodHM', null, '2', '0');
-INSERT INTO `exam` VALUES ('112', '102', '2005', 'Exame de Portugues', '10', '3', null, 'https://drive.google.com/open?id=0B-dOo9jrft_6SklCWXdZQkFNQWc', null, '2', '0');
-INSERT INTO `exam` VALUES ('115', '102', '2020', 'Exame de Português  (Variante A)', '3600', '20', null, null, null, '33', '1');
-INSERT INTO `exam` VALUES ('116', '62', '2020', 'Exame de Inglês (Variante A)', '3600', '20', null, null, null, '33', '1');
-INSERT INTO `exam` VALUES ('117', '2', '2020', 'Exame de Matemática (Variante A)', '3600', '20', null, null, null, '33', '1');
-INSERT INTO `exam` VALUES ('118', '2', '2020', 'Exame de Matemática (Variante B)', '3600', '20', null, null, null, '2', '1');
+INSERT INTO `exam` VALUES ('2', '2', '2005', 'Exame de Matemática', '10', '3', null, 'https://drive.google.com/open?id=0B-dOo9jrft_6ZHcwZXNGa0xxblk', null, '2', '1', null);
+INSERT INTO `exam` VALUES ('12', '52', '2007', 'Exame de Frances', '30', '3', null, null, null, '12', '0', null);
+INSERT INTO `exam` VALUES ('22', '32', '2005', 'Exame de Geografia', '10', '3', null, 'https://drive.google.com/open?id=0B-dOo9jrft_6Z0Jmd3JlU3FCT3M', null, '22', '0', null);
+INSERT INTO `exam` VALUES ('32', '82', '2013', 'Exame de Filosofia', '10', '3', null, null, null, '2', '0', null);
+INSERT INTO `exam` VALUES ('52', '92', '2005', 'Exame de Biologia', '10', '3', null, 'https://drive.google.com/open?id=0B-dOo9jrft_6cTVNMHNESGNUMEk', null, '2', '0', null);
+INSERT INTO `exam` VALUES ('62', '12', '2005', 'Exame de Fisica', '10', '3', null, 'https://drive.google.com/open?id=0B-dOo9jrft_6eDVLRkRrcUFwLVE', null, '2', '0', null);
+INSERT INTO `exam` VALUES ('72', '22', '2005', 'Exame de Química', '10', '3', null, 'https://drive.google.com/open?id=0B-dOo9jrft_6OGVvdFhYZ0hvcUE', null, '2', '0', null);
+INSERT INTO `exam` VALUES ('92', '62', '2005', 'Exame de Ingles', '10', '3', null, 'https://drive.google.com/open?id=0B-dOo9jrft_6UmloVHozRWFodHM', null, '2', '0', null);
+INSERT INTO `exam` VALUES ('112', '102', '2005', 'Exame de Portugues', '10', '3', null, 'https://drive.google.com/open?id=0B-dOo9jrft_6SklCWXdZQkFNQWc', null, '2', '0', null);
+INSERT INTO `exam` VALUES ('115', '102', '2020', 'Exame de Português  (Variante A)', '3600', '20', null, null, null, '33', '1', '2020-02-11 09:00:00');
+INSERT INTO `exam` VALUES ('116', '62', '2020', 'Exame de Inglês (Variante A)', '3600', '20', null, null, null, '33', '1', '2020-02-11 11:00:00');
+INSERT INTO `exam` VALUES ('117', '2', '2020', 'Exame de Matemática (Variante A)', '3600', '20', null, null, null, '33', '1', '2020-02-11 13:00:00');
+INSERT INTO `exam` VALUES ('118', '2', '2020', 'Exame de Matemática (Variante B)', '3600', '20', null, null, null, '2', '1', null);
 
 -- ----------------------------
 -- Table structure for `exam_attempts`
@@ -1083,6 +1084,8 @@ CREATE TABLE `exam_attempts` (
 -- ----------------------------
 -- Records of exam_attempts
 -- ----------------------------
+INSERT INTO `exam_attempts` VALUES ('115', '236', '2020-02-07 10:10:10', '2020-02-07 10:10:03', '0');
+INSERT INTO `exam_attempts` VALUES ('116', '236', '2020-02-06 13:46:28', '2020-02-06 13:46:24', '0');
 INSERT INTO `exam_attempts` VALUES ('116', '237', '2020-02-05 06:43:25', '2020-02-05 06:42:34', '0');
 INSERT INTO `exam_attempts` VALUES ('117', '237', '2020-02-05 06:53:57', '2020-02-05 06:52:33', '0');
 
@@ -1330,7 +1333,6 @@ CREATE TABLE `role` (
 -- ----------------------------
 INSERT INTO `role` VALUES ('1', 'ADMIN');
 INSERT INTO `role` VALUES ('2', 'USER');
-INSERT INTO `role` VALUES ('3', 'PREREGISTED');
 
 -- ----------------------------
 -- Table structure for `university`
@@ -1360,11 +1362,10 @@ CREATE TABLE `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `first_name` varchar(150) NOT NULL,
   `last_name` varchar(150) NOT NULL,
-  `email` varchar(255) NOT NULL,
+  `email` varchar(255) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
   `datecreated` datetime DEFAULT NULL,
   `active` tinyint(1) DEFAULT '0',
-  `hash` varchar(255) DEFAULT NULL,
   `district` int(11) DEFAULT NULL,
   `university` int(11) DEFAULT NULL,
   `contact` varchar(255) DEFAULT NULL,
@@ -1387,13 +1388,16 @@ CREATE TABLE `user` (
   CONSTRAINT `user_ibfk_2` FOREIGN KEY (`university`) REFERENCES `university` (`id`),
   CONSTRAINT `user_ibfk_3` FOREIGN KEY (`marital_status`) REFERENCES `marital_status` (`id`),
   CONSTRAINT `user_ibfk_4` FOREIGN KEY (`gender`) REFERENCES `gender` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=259 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=242 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
 INSERT INTO `user` VALUES ('236', 'Dario', 'Mario', 'felasbe@hotmail.com', '$2a$10$1DI/wpMmgCi/TPC0BoNL9O9Y9u.rLixWPNbn/bH7V7JbdKSAQoPyy', '2019-10-09 19:37:52', '1', null, '1', '2', '825407883', '1576', null, null, '1', '11', 'ESN', '1', '2020-01-21', null, '0');
 INSERT INTO `user` VALUES ('237', 'Teste', 'Teste', 'osoma.mz@gmail.com', '$2a$10$5.R2WHIolwyY6CRCEs0llOiKfmCOIUeVYDMFeFzVY4RJVXxCA96eW', '2020-01-13 13:11:13', '1', null, '66', '2', '846689637', '1057', null, null, '1', '15', 'lllll', '1', '2020-01-21', null, '0');
+INSERT INTO `user` VALUES ('238', 'Felerminofdsf dfs fdsf fsddf ', 'Ali', 'felerminoali@gmail.com', '$2a$10$LoyUl8qHH.oZgDWCPYCILOd4JsVHskuhqpursrSnNiUwILel/1Dm.', '2020-02-06 13:04:34', '1', null, '89', '33', '1212121212121', null, null, '1238', '2', '4', 'Felermino Dario Mario Antino Ali', '2', '2020-02-20', null, '1');
+INSERT INTO `user` VALUES ('239', 'Felermino', 'Ali', 'felerminoali@gmamil.com', '$2a$10$RhUfW/RAS2FX.jlHSlFvJeOJOTAl9s/37TFQblW21nkQQ1aU2lZfu', '2020-02-06 13:05:18', '1', null, '89', '33', '177474747', null, null, '1239', '1', '3', 'fdsfs', '2', '2020-02-21', null, '1');
+INSERT INTO `user` VALUES ('241', 'Felermino', 'Ali', null, '$2a$10$Bp69GW.bI4nLOnDGYTwOh.4BUXwaVuaSQo6eAiusCWNQs1z3xlJLy', '2020-02-06 15:08:06', '1', null, '89', '33', '444444444', null, null, '1241', '2', '11', 'Felermino Dario Mario Antino Ali', '2', '2020-02-19', '2020-02-06 16:20:40', '1');
 
 -- ----------------------------
 -- Table structure for `user_course`
