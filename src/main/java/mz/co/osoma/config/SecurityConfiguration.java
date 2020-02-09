@@ -58,6 +58,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(
                         "/",
+                        "/loaderio-ef77d64ab70042da62c743457f3feda7/*",
                         "/mod/save_answer",
                         "/districts/*",
                         "/users/contact/*",
