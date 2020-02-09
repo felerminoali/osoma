@@ -51,7 +51,7 @@ public class HomeController {
 
     @RequestMapping(value = "/loaderio-ef77d64ab70042da62c743457f3feda7", method = RequestMethod.GET)
     public String verifyToken(){
-        return "loaderio-ef77d64ab70042da62c743457f3feda7";
+        return "verify-token";
     }
 
 

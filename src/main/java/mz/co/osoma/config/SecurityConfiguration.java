@@ -58,7 +58,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(
                         "/",
-                        "/loaderio-ef77d64ab70042da62c743457f3feda7/*",
+
                         "/mod/save_answer",
                         "/districts/*",
                         "/users/contact/*",
@@ -87,7 +87,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/vendor/**").permitAll() // permit JS resources
                 .antMatchers("/css/**").permitAll() // permit CSS resources
                 .antMatchers("/assets/**").permitAll() // permit Assets resources
-                .antMatchers("/resources/**").permitAll() // permit Assets resources
+                .antMatchers("/resources/**", "/loaderio-ef77d64ab70042da62c743457f3feda7/*").permitAll() // permit Assets resources
                 .anyRequest().fullyAuthenticated()
                 .and()
                 .httpBasic()
