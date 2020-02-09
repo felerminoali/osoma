@@ -37,18 +37,18 @@ public class HibernateConf {
 
        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
 ////
-        dataSource.setUrl("jdbc:mysql://localhost:3306/osoma");
-        dataSource.setUsername("root");
-        dataSource.setPassword("root");
+//        dataSource.setUrl("jdbc:mysql://localhost:3306/osoma");
+//        dataSource.setUsername("root");
+//        dataSource.setPassword("root");
 
 //        dataSource.setUrl("jdbc:mysql://us-cdbr-iron-east-03.cleardb.net:3306/heroku_9a0deeafda252b2");
 //        dataSource.setUsername("bfaa4dbfc34090");
 //        dataSource.setPassword("637b79e7");
 
         // heroku: felermino@outlook.com
-//        dataSource.setUrl("jdbc:mysql://us-mm-dca-b7add399344a.g5.cleardb.net:3306/heroku_c7035568cd423c2");
-//        dataSource.setUsername("b8b80c31776c4a");
-//        dataSource.setPassword("28db730f");
+        dataSource.setUrl("jdbc:mysql://us-mm-dca-b7add399344a.g5.cleardb.net:3306/heroku_c7035568cd423c2");
+        dataSource.setUsername("b8b80c31776c4a");
+        dataSource.setPassword("28db730f");
 
         return dataSource;
     }
