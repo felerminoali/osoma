@@ -25,13 +25,13 @@
                         <div class="page-header">
                             <fieldset>
                                 <legend>
-                                    <h1 th:text="${exame.description}">  </h1>
-                                    <small th:text="${university.shortname}+' ('+${exame.examYear}+')'">
+                                    <h1 th:text="${exam.description}">  </h1>
+                                    <small th:text="${university.shortname}+' ('+${exam.examYear}+')'">
                                     </small>
                                 </legend>
 
                                 <div>
-                                    <img th:src="${'/'+category}" th:alt="${exame.category.name}" class="img-responsive">
+                                    <img th:src="${'/'+category}" th:alt="${exam.category.name}" class="img-responsive">
                                 </div>
 
 
@@ -42,8 +42,8 @@
                                             <span th:text="${nrQuestions}"></span>
                                             &nbsp;
                                             <span class="glyphicon glyphicon-time"></span>
-                                            <span th:if="${exame.duration}<60" th:text="${exame.duration+' Segundos'}"></span>
-                                            <span th:if="${exame.duration}>=60" th:text="${(exame.duration)/60+' Minutos'}"></span>
+                                            <span th:if="${exam.duration}<60" th:text="${exam.duration+' Segundos'}"></span>
+                                            <span th:if="${exam.duration}>=60" th:text="${(exam.duration)/60+' Minutos'}"></span>
                                         </p>
                                     </h4>
                                 </div>
@@ -72,10 +72,10 @@
 
                                         <div class="container-share">
 
-                                                <!--<a th:if="${exame.hassimulation and attemptAllowed}" th:href="@{/ubs/online-test(id = ${exame.id})}" class="btn btn-success" role="button" id="start-simulation">Iniciar Diagonostico </a>-->
+                                                <!--<a th:if="${exam.hassimulation and attemptAllowed}" th:href="@{/ubs/online-test(id = ${exam.id})}" class="btn btn-success" role="button" id="start-simulation">Iniciar Diagonostico </a>-->
                                                 <!--<a th:if="not ${attemptAllowed}" th:href="@{/ubs/history}" class="btn btn-success" role="button">Monstrar Histórico de Exames feitos </a>-->
 
-                                            <input type="hidden" id="exam_id" th:value="${exame.id}">
+                                            <input type="hidden" id="exam_id" th:value="${exam.id}">
                                             <input type="hidden" id="starttime" th:value="${starttime}">
 
                                             <div id="demo"></div>

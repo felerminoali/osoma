@@ -3,50 +3,7 @@ var table;
 
 $(document).ready(function () {
 
-    function init() {
-
-
-        if ($('.edit').length > 0) {
-            var editBtn = document.getElementsByClassName('edit');
-            for (var i = 0; i < editBtn.length; i++) {
-                editBtn[i].addEventListener("click", function () {
-                    var id = $(this).attr('rel');
-                    edit_candidate(id);
-                }, false);
-            }
-        }
-
-        if ($('.delete').length > 0) {
-            var deleteBtn = document.getElementsByClassName('delete');
-            for (var i = 0; i < deleteBtn.length; i++) {
-                deleteBtn[i].addEventListener("click", function () {
-                    var id = $(this).attr('rel');
-                    delete_candidate(id);
-                }, false);
-            }
-        }
-
-        if ($('.view').length > 0) {
-            var viewBtn = document.getElementsByClassName('view');
-            for (var i = 0; i < viewBtn.length; i++) {
-                viewBtn[i].addEventListener("click", function () {
-                    var id = $(this).attr('rel');
-                    add_course(id);
-                }, false);
-            }
-        }
-
-        if ($('.remove-course').length > 0) {
-            var removeBtn = document.getElementsByClassName('remove-course');
-            for (var i = 0; i < removeBtn.length; i++) {
-                removeBtn[i].addEventListener("click", function () {
-                    var id = $(this).attr('rel');
-                    var user_course_year = id.split("_");
-                    remove_course(user_course_year[0], user_course_year[1], user_course_year[2]);
-                }, false);
-            }
-        }
-    }
+    init();
 
     if ($('#province').length > 0) {
         selectDistrict();
@@ -81,6 +38,226 @@ $(document).ready(function () {
         }));
     }
 
+    fill_datatable_user();
+    fill_datatable_course();
+
+
+    $('#filter').click(function () {
+        var filter_course = $('#filter_course').val();
+        if (filter_course != '') {
+            $('#tbluser').DataTable().destroy();
+            fill_datatable_user(filter_course);
+        }
+        else {
+            alert('Select Both filter option');
+            $('#tbluser').DataTable().destroy();
+            fill_datatable_user();
+        }
+    });
+
+    // $('.dataTables_length').addClass('bs-select');
+});
+
+//datepicker
+$('.datepicker').datepicker({
+    autoclose: true,
+    format: "yyyy-mm-dd",
+    todayHighlight: true,
+    orientation: "top auto",
+    todayBtn: true,
+    todayHighlight: true,
+});
+
+function init() {
+
+
+    if ($('.edit').length > 0) {
+        var editBtn = document.getElementsByClassName('edit');
+        for (var i = 0; i < editBtn.length; i++) {
+            editBtn[i].addEventListener("click", function () {
+                var id = $(this).attr('rel');
+                edit_candidate(id);
+            }, false);
+        }
+    }
+
+    if ($('.delete').length > 0) {
+        var deleteBtn = document.getElementsByClassName('delete');
+        for (var i = 0; i < deleteBtn.length; i++) {
+            deleteBtn[i].addEventListener("click", function () {
+                var id = $(this).attr('rel');
+                delete_candidate(id);
+            }, false);
+        }
+    }
+
+    if ($('.view').length > 0) {
+        var viewBtn = document.getElementsByClassName('view');
+        for (var i = 0; i < viewBtn.length; i++) {
+            viewBtn[i].addEventListener("click", function () {
+                var id = $(this).attr('rel');
+                add_course(id);
+            }, false);
+        }
+    }
+
+    if ($('.remove-course').length > 0) {
+        var removeBtn = document.getElementsByClassName('remove-course');
+        for (var i = 0; i < removeBtn.length; i++) {
+            removeBtn[i].addEventListener("click", function () {
+                var id = $(this).attr('rel');
+                var user_course_year = id.split("_");
+                remove_course(user_course_year[0], user_course_year[1], user_course_year[2]);
+            }, false);
+        }
+    }
+}
+
+function save_course(user, course) {
+
+    $.ajax({
+        url: "/course/add/" + user + "/" + course,
+        type: "POST",
+        data: ({user: user, course: course}),
+        dataType: "JSON",
+        success: function (data) {
+            if (data.status) {
+                $('#tblcourse').empty();
+                $("#alert").addClass("hidden");
+                if (data.courses.length > 0) {
+                    //fill_table(data);
+                    $('#tblcourse').DataTable().destroy();
+                    fill_datatable_course(user);
+                }
+            } else {
+                $("#alert").removeClass("hidden");
+            }
+            init();
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert('Error deleting data');
+            console.log(jqXHR.statusText);
+            console.log(textStatus);
+            console.log(errorThrown);
+        }
+    });
+}
+
+function add_course(id) {
+    $('[name="user"]').val(id);
+    $('.form-group').removeClass('has-error has-feedback');
+    $('.form-group').find('small.help-block').hide();
+    $('.form-group').find('i.form-control-feedback').hide();
+    $("#alert").addClass("hidden");
+    $('.help-block').empty(); // clear error string
+    $('#tblcourse').DataTable().destroy();
+    fill_datatable_course(id);
+    $('#formModalCourses').modal('show'); // show bootstrap modal
+    $('.modal-title').text('Adicionar Cursos'); // Set Title to Bootstrap modal title
+}
+
+function remove_course(user, course, year) {
+    $.ajax({
+        url: "/course_user/delete/" + user + "/" + course + "/" + year,
+        type: "POST",
+        data: ({user: user, course: course, year: year}),
+        dataType: "JSON",
+        success: function (data) {
+            if (data.status) {
+                $('#tblcourse').empty();
+                if (data.courses.length > 0) {
+                    $('#tblcourse').DataTable().destroy();
+                    fill_datatable_course(user);
+                }
+            }
+            //init();
+            // if ($('.remove-course').length > 0) {
+            //     var removeBtn = document.getElementsByClassName('remove-course');
+            //     for (var i = 0; i < removeBtn.length; i++) {
+            //         removeBtn[i].addEventListener("click", function () {
+            //             var id = $(this).attr('rel');
+            //             var user_course_year = id.split("_");
+            //             remove_course(user_course_year[0], user_course_year[1], user_course_year[2]);
+            //         }, false);
+            //     }
+            // }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert('Error deleting data');
+            console.log(jqXHR.statusText);
+            console.log(textStatus);
+            console.log(errorThrown);
+        }
+    });
+}
+
+
+function fill_datatable_course(user = -1) {
+
+    $('#tblcourse').DataTable({
+        // "processing": true, //Feature control the processing indicator.
+        "serverSide": true, //Feature control DataTables' server-side processing mode.
+        "order": [], //Initial no order.
+
+        // Load data for the table's content from an Ajax source
+        "ajax": {
+            "url": "/course/"+user,
+            data: {
+                user: user
+            },
+            "complete": function (xhr, responseText) {
+
+                if ($('.remove-course').length > 0) {
+                    var removeBtn = document.getElementsByClassName('remove-course');
+                    for (var i = 0; i < removeBtn.length; i++) {
+                        removeBtn[i].addEventListener("click", function () {
+                            var id = $(this).attr('rel');
+                            var user_course_year = id.split("_");
+                            remove_course(user_course_year[0], user_course_year[1], user_course_year[2]);
+                        }, false);
+                    }
+                }
+                // console.log(xhr);
+                // console.log(responseText); //*** responseJSON: Array[0]
+            }
+        },
+
+        //Set column definition initialisation properties.
+        "columnDefs": [
+            {
+                "targets": [-1], //last column
+                "orderable": false, //set not orderable
+            },
+        ],
+        "columns": [
+            {"data": "course"},
+            {"data": "action"}
+        ],
+
+        "searching": false,
+        "paging": false,
+        "info": false,
+        "lengthMenu": false,
+        "language": {
+            "lengthMenu": "Mostrar _MENU_ itens por página",
+            "zeroRecords": "Não foi encontrado nenhum registo",
+            "info": "Mostrando página _PAGE_ de _PAGES_",
+            "infoEmpty": "Nenhum registo encontrado",
+            "infoFiltered": "(fitrados apartir _MAX_ dos registos)",
+            "paginate": {
+                "first": "Primeiro",
+                "last": "Último",
+                "next": "Próximo",
+                "previous": "Anterior"
+            },
+            "search": "Pesquisar: "
+        }
+    });
+}
+
+function fill_datatable_user(filter_course = -1) {
+
+
     table = $('#tbluser').DataTable({
         // "processing": true, //Feature control the processing indicator.
         "serverSide": true, //Feature control DataTables' server-side processing mode.
@@ -88,12 +265,17 @@ $(document).ready(function () {
 
         // Load data for the table's content from an Ajax source
         "ajax": {
-            "url": "/users/preregisted",
+            "url": "/users/preregisted/"+filter_course,
+            data: {
+                course: filter_course
+            },
             "complete": function (xhr, responseText) {
                 init();
                 console.log(xhr);
                 console.log(responseText); //*** responseJSON: Array[0]
             }
+
+
 
         },
 
@@ -123,7 +305,7 @@ $(document).ready(function () {
         "scrollY": "35vh",
         "scrollCollapse": true,
 
-        "searching": true,
+        "searching": false,
         "paging": true,
         "info": false,
         "lengthMenu": false,
@@ -142,126 +324,7 @@ $(document).ready(function () {
             "search": "Pesquisar: "
         }
     });
-    $('.dataTables_length').addClass('bs-select');
-
-    function remove_course(user, course, year) {
-        $.ajax({
-            url: "/course_user/delete/" + user + "/" + course + "/" + year,
-            type: "POST",
-            data: ({user: user, course: course, year: year}),
-            dataType: "JSON",
-            success: function (data) {
-                if (data.status) {
-                    $('#tblcourse').empty();
-                    if (data.courses.length > 0) {
-                        fill_table(data);
-                    }
-                }
-                init();
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                alert('Error deleting data');
-                console.log(jqXHR.statusText);
-                console.log(textStatus);
-                console.log(errorThrown);
-            }
-        });
-    }
-
-    function save_course(user, course) {
-
-        $.ajax({
-            url: "/course/add/" + user + "/" + course,
-            type: "POST",
-            data: ({user: user, course: course}),
-            dataType: "JSON",
-            success: function (data) {
-                if (data.status) {
-                    $('#tblcourse').empty();
-                    $("#alert").addClass("hidden");
-                    if (data.courses.length > 0) {
-                        fill_table(data);
-                    }
-                } else {
-                    $("#alert").removeClass("hidden");
-                }
-                init();
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                alert('Error deleting data');
-                console.log(jqXHR.statusText);
-                console.log(textStatus);
-                console.log(errorThrown);
-            }
-        });
-    }
-
-    function add_course(id) {
-
-
-        $('[name="user"]').val(id);
-
-        $('.form-group').removeClass('has-error has-feedback');
-        $('.form-group').find('small.help-block').hide();
-        $('.form-group').find('i.form-control-feedback').hide();
-        $("#alert").addClass("hidden");
-
-        $('.help-block').empty(); // clear error string
-        $('#tblcourse').empty();
-
-        $.ajax({
-            url: "/course/" + id,
-            type: "POST",
-            data: ({user: id}),
-            dataType: "JSON",
-            success: function (data) {
-
-                if (data.status) {
-                    $("#alert").addClass("hidden");
-                    if (data.courses.length > 0) {
-                        fill_table(data);
-                    }
-                }
-                if ($('.remove-course').length > 0) {
-                    var removeBtn = document.getElementsByClassName('remove-course');
-                    for (var i = 0; i < removeBtn.length; i++) {
-                        removeBtn[i].addEventListener("click", function () {
-                            var id = $(this).attr('rel');
-                            var user_course_year = id.split("_");
-                            remove_course(user_course_year[0], user_course_year[1], user_course_year[2]);
-                        }, false);
-                    }
-                }
-
-                return false;
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                alert('Error deleting data');
-                console.log(jqXHR.statusText);
-                console.log(textStatus);
-                console.log(errorThrown);
-            }
-        });
-
-        $('#formModalCourses').modal('show'); // show bootstrap modal
-        $('.modal-title').text('Adicionar Cursos'); // Set Title to Bootstrap modal title
-
-        return false;
-
-    }
-
-});
-
-//datepicker
-$('.datepicker').datepicker({
-    autoclose: true,
-    format: "yyyy-mm-dd",
-    todayHighlight: true,
-    orientation: "top auto",
-    todayBtn: true,
-    todayHighlight: true,
-});
-
+}
 
 function fill_table(data) {
 
@@ -275,10 +338,14 @@ function fill_table(data) {
 }
 
 function reload_table() {
-    window.location.href = "/ubs/preregistration";
-    //table.ajax.reload(null, false); //reload datatable ajax
+    // window.location.href = "/ubs/preregistration";
+    // table.ajax.reload(); //reload datatable ajax
     // $('#tbluser').ajax.reload(null, false); //reload datatable ajax
     // $('#tbluser').DataTable().ajax.reload();
+    $('#tbluser').DataTable().destroy();
+    fill_datatable_user();
+
+
 }
 
 function delete_candidate(id) {

@@ -1,0 +1,167 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout-no-header}">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+</head>
+
+
+<body>
+<th:block layout:fragment="content">
+
+    <div class="container-fluid">
+
+        <div class="row">
+
+            <ol class="breadcrumb-white">
+                <li><a href="/ubs/">Principal</a></li>
+                <li class="active">Resultado de Exames Feitos</li>
+            </ol>
+
+            <div class="row">
+                <div class="col-md-12">
+
+                    <div class="panel panel-success">
+
+                        <div class="panel-heading">Ver Resultados</div>
+
+                        <div class="panel-body">
+
+                            <div class="form-group pull-right">
+                                <label for="filter_exam">Curso</label>
+                                <div class="input-group">
+                                    <div class="input-group">
+                                        <select class="form-control" name="filter_exam" id="filter_exam">
+                                            <option value="-1">Todos</option>
+                                            <option th:each="exam: ${exams}"
+                                                    th:value="${exam.id}"
+                                                    th:text="${exam.description}"></option>
+                                        </select>
+                                        <div class="input-group-btn">
+                                            <button type="button" name="filter" id="filter" class="btn btn-info">
+                                                Filtrar
+                                            </button>
+                                        </div>
+                                    </div><!-- /input-group -->
+                                </div>
+                            </div>
+
+
+                            <table id="tblresults" class="table table-hover" width="100%">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Código</th>
+                                    <th>Nome Completo</th>
+                                    <th>Contacto</th>
+                                    <th>Exame</th>
+                                    <th>Resultado</th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                </tbody>
+                            </table>
+
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.flash.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.print.min.js"></script>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            fill_datatable();
+
+            function fill_datatable(filter_exam = -1) {
+                var dataTable = $('#tblresults').DataTable({
+                    // "processing": true,
+                    "serverSide": true,
+                    "order": [],
+                    "searching": false,
+                    "ajax": {
+                        url: "/results-list/" + filter_exam,
+                        type: "GET",
+                        data: {
+                            exam: filter_exam
+                        },
+                    },
+
+                    "columnDefs": [
+                        {
+                            "targets": [-1], //last column
+                            "orderable": false, //set not orderable
+                        },
+                    ],
+                    "columns": [
+                        {"data": "count"},
+                        {"data": "code"},
+                        {"data": "fullname"},
+                        {"data": "contact"},
+                        {"data": "exam"},
+                        {"data": "score"}
+                    ],
+
+                    dom: 'Bfrtip',
+                    buttons: [
+                        'copy', 'csv', 'excel', 'pdf', 'print'
+                    ],
+                    "scrollY": "35vh",
+                    "scrollCollapse": true,
+                    // "searching": false,
+                    "language": {
+                        "lengthMenu": "Mostrar _MENU_ itens por página",
+                        "zeroRecords": "Não foi encontrado nenhum registo",
+                        "info": "Mostrando página _PAGE_ de _PAGES_",
+                        "infoEmpty": "Nenhum registo encontrado",
+                        "infoFiltered": "(fitrados apartir _MAX_ dos registos)",
+                        "paginate": {
+                            "first": "Primeiro",
+                            "last": "Último",
+                            "next": "Proximo",
+                            "previous": "Anterior"
+                        },
+                        "search": "Pesquisar:"
+                    }
+                });
+            }
+
+            $('#filter').click(function () {
+                var filter_exam = $('#filter_exam').val();
+                if (filter_exam != '') {
+                    $('#tblresults').DataTable().destroy();
+                    fill_datatable(filter_exam);
+                }
+                else {
+                    alert('Select Both filter option');
+                    $('#tblresults').DataTable().destroy();
+                    fill_datatable();
+                }
+            });
+        });
+
+    </script>
+
+
+</th:block>
+
+</body>
+</html>

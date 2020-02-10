@@ -40,8 +40,8 @@
                             <fieldset>
 
                                 <legend>
-                                    <h1 th:text="${exame.description}">  </h1>
-                                    <small th:text="${university.shortname}+' ('+${exame.examYear}+')'">
+                                    <h1 th:text="${exam.description}">  </h1>
+                                    <small th:text="${university.shortname}+' ('+${exam.examYear}+')'">
                                     </small>
 
 
@@ -50,7 +50,7 @@
 
                                 <div
                                 >
-                                    <img th:src="${category}" th:alt="${exame.category.name}"
+                                    <img th:src="${category}" th:alt="${exam.category.name}"
                                          class="img-responsive">
 
                                 </div>
@@ -64,7 +64,7 @@
                                             <span th:text="${nrQuestions}"></span>
                                             &nbsp;
                                             <span class="glyphicon glyphicon-time"></span>
-                                            <span th:text="${(exame.duration)/60}"></span>
+                                            <span th:text="${(exam.duration)/60}"></span>
                                             Minutos
                                         </p>
                                     </h4>
@@ -107,7 +107,7 @@
                                                 <!--<i class="fa fa-facebook-official fa-lg"></i>-->
                                                 <!--Share </a>-->
 
-                                            <a th:if="${exame.hassimulation and attemptAllowed}" th:href="@{/online-test(id = ${exame.id})}" class="btn btn-success" role="button" id="start-simulation">Iniciar Diagonostico </a>
+                                            <a th:if="${exam.hassimulation and attemptAllowed}" th:href="@{/online-test(id = ${exam.id})}" class="btn btn-success" role="button" id="start-simulation">Iniciar Diagonostico </a>
                                                 <a th:if="not ${attemptAllowed}" th:href="@{/history}" class="btn btn-success" role="button">Monstrar Histórico de Exames feitos </a>
 
                                         </div>
@@ -136,15 +136,15 @@
                                     <h3>Faça o Download(</h3>
                                 </legend>
 
-                                <p>Clique no botão abaixo para ter acesso no ficheiro do exame no formato PDF</p>
+                                <p>Clique no botão abaixo para ter acesso no ficheiro do exam no formato PDF</p>
 
 
-                                <a th:if="${exame.pdfresource}!=null" th:href="${exame.pdfresource}" class="btn btn-success"
+                                <a th:if="${exam.pdfresource}!=null" th:href="${exam.pdfresource}" class="btn btn-success"
                                    role="button" target="_blank">
                                     Download <i class="fa fa-cloud-download fa-lg"></i>
                                 </a>
-                                <a th:if="${exame.pdfresource}==null" aria-label="Back" style='color: #C6C4C6'>
-                                    <span style='color: red' aria-hidden="true">O exame não está disponível</span>
+                                <a th:if="${exam.pdfresource}==null" aria-label="Back" style='color: #C6C4C6'>
+                                    <span style='color: red' aria-hidden="true">O exam não está disponível</span>
                                 </a>
                                 <br>
                             </div>

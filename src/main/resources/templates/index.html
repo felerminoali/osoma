@@ -110,7 +110,7 @@
                                                 <input type="checkbox" name="SubcheckFilter"
                                                        th:id="'exame_' + ${category.id}  "
                                                        th:value="'exame_' + ${category.id}"
-                                                       th:checked="${exame == category.id} ? 'checked'"/>
+                                                       th:checked="${exam == category.id} ? 'checked'"/>
                                                 <span th:text="${category.description}"> </span>
                                                 <span class="pull-right" th:text="${category.count}"> </span>
                                             </div>

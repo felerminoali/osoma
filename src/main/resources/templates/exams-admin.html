@@ -169,7 +169,7 @@
             var url = "exams-admin?remove=" + id;
             xhttp.open("GET", url, true);
             xhttp.send();
-            //alert("Chegou aqui , id do exame"+id);
+            //alert("Chegou aqui , id do exam"+id);
             //mostrar();
         }
     </script>
@@ -241,7 +241,7 @@
                                 <h4 class="modal-title">MENSAGEM DE AVISO...!</h4>
                             </div>
                             <div class="modal-body">
-                                <p>Você realmente deseja eliminar o exame?&hellip;</p>
+                                <p>Você realmente deseja eliminar o exam?&hellip;</p>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-outline pull-left" onclick="closeModal()">Fechar
@@ -261,7 +261,7 @@
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true" onclick="closeModal()">&times;</span></button>
-                                <h4 class="modal-title">Formulário de exame</h4>
+                                <h4 class="modal-title">Formulário de exam</h4>
                             </div>
                             <div class="modal-body">
                                 <form id="examRegister" action="/exams-admin/exam-add/exam-save" method="POST"
@@ -287,7 +287,7 @@
 
                                     <div class="form-group row">
                                         <label for="year"
-                                               class="col-xs-5 col-form-label">Ano do exame: *</label>
+                                               class="col-xs-5 col-form-label">Ano do exam: *</label>
                                         <div class="col-xs-7">
                                             <input type="number" class="form-control" name="examYear" id="year"
                                                    value="" min="">

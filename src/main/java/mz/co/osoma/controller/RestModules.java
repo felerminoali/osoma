@@ -9,18 +9,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.util.MimeTypeUtils;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.sql.SQLIntegrityConstraintViolationException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 @RestController
@@ -65,12 +60,61 @@ public class RestModules {
 
 
     @RequestMapping(
-            value = "/users/preregisted",
+            value = "/results-list/{exam}",
             method = RequestMethod.GET,
             produces = {MimeTypeUtils.APPLICATION_JSON_VALUE},
             headers = "Accept=application/json"
     )
-    public ResponseEntity<Object> preregistedList() {
+    public ResponseEntity<Object> resultList(@PathVariable("exam") int exam) {
+        try {
+
+
+            String sqlSufix = (exam!=-1)? " and e.exam.id = "+exam: " ";
+            List<ExamAttempts> examAttempts = crudService.findByJPQuery("SELECT e from ExamAttempts e WHERE e.start = (SELECT MAX(y.start) from ExamAttempts y WHERE y.user.id = e.user.id and y.exam.id = e.exam.id)"+sqlSufix, null);
+
+
+            if (examAttempts == null) {
+                return new ResponseEntity<Object>(new EmptyJsonResponse(), HttpStatus.OK);
+            }
+
+            List<Object> list = new ArrayList<>();
+            for (int i = 0; i < examAttempts.size(); i++) {
+
+                ExamAttempts eA = examAttempts.get(i);
+                Results results = new Results();
+
+                results.setCount(i + 1);
+                results.setCode(eA.getUser().getPreRegistationCode());
+                results.setFullname(eA.getUser().getName()+" "+eA.getUser().getLastName());
+                results.setContact(eA.getUser().getContact());
+                results.setScore(eA.getScore());
+                results.setExam(eA.getExam().getDescription());
+
+                list.add(results);
+            }
+
+
+
+            Map<String, Object> result = new HashMap<String, Object>();
+            result.put("data", list);
+            result.put("recordsTotal", examAttempts.size());
+            result.put("draw", 1);
+            result.put("recordsFiltered", examAttempts.size());
+
+            return new ResponseEntity<Object>(result, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+
+    @RequestMapping(
+            value = "/users/preregisted/{course}",
+            method = RequestMethod.GET,
+            produces = {MimeTypeUtils.APPLICATION_JSON_VALUE},
+            headers = "Accept=application/json"
+    )
+    public ResponseEntity<Object> preregistedList(@PathVariable("course") int course) {
         try {
             Map<String, Object> par = new HashMap<String, Object>();
             par.put("preregisted", Short.parseShort("1"));
@@ -85,36 +129,44 @@ public class RestModules {
 
                 User user = users.get(i);
 
-                PreregistedUser pregUser = new PreregistedUser();
+                UserCourse userCourse = null;
+                if(course!=-1) {
+                    userCourse = crudService.findEntByJPQuery("FROM UserCourse u Where u.course.id = " + course + " and u.user.id= " + user.getId(), null);
+                }
 
-                pregUser.setCount(i + 1);
-                pregUser.setName(user.getName() + " " + user.getLastName());
-                pregUser.setEmail(user.getEmail());
-                pregUser.setContact(user.getContact());
-                pregUser.setAge(Helper.getDiffYears(user.getDob()));
-                pregUser.setCode(user.getPreRegistationCode());
-                pregUser.setProvince(user.getDistrict().getProvince().getProvince());
+                if(userCourse!=null || course==-1){
+                    PreregistedUser pregUser = new PreregistedUser();
 
-                String html = "<a href=\"#\" rel=\"" + user.getId() + "\" class=\"view btn btn-default\" title=\"View\" data-toggle=\"tooltip\">Gerir cursos</a>";
-                html += "&nbsp;&nbsp;<a href=\"#\" rel=\"" + user.getId() + "\" class=\"edit\" title=\"Edit\" data-toggle=\"tooltip\"><i class=\"fa fa-edit\"></i></a>";
-                html += "&nbsp;&nbsp;<a href=\"#\" rel=\"" + user.getId() + "\" class=\"delete\" title=\"Delete\" data-toggle=\"tooltip\"><i class=\"fa fa-minus-circle\"></i></a>";
+                    pregUser.setCount(i + 1);
+                    pregUser.setName(user.getName() + " " + user.getLastName());
+                    pregUser.setEmail(user.getEmail());
+                    pregUser.setContact(user.getContact());
+                    pregUser.setAge(Helper.getDiffYears(user.getDob()));
+                    pregUser.setCode(user.getPreRegistationCode());
+                    pregUser.setProvince(user.getDistrict().getProvince().getProvince());
 
-                pregUser.setAction(html);
+                    String html = "<a href=\"#\" rel=\"" + user.getId() + "\" class=\"view btn btn-default\" title=\"View\" data-toggle=\"tooltip\">Gerir cursos</a>";
+                    html += "&nbsp;&nbsp;<a href=\"#\" rel=\"" + user.getId() + "\" class=\"edit\" title=\"Edit\" data-toggle=\"tooltip\"><i class=\"fa fa-edit\"></i></a>";
+                    html += "&nbsp;&nbsp;<a href=\"#\" rel=\"" + user.getId() + "\" class=\"delete\" title=\"Delete\" data-toggle=\"tooltip\"><i class=\"fa fa-minus-circle\"></i></a>";
+                    pregUser.setAction(html);
+                    list.add(pregUser);
+                }
 
-                list.add(pregUser);
             }
 
             Map<String, Object> result = new HashMap<String, Object>();
             result.put("data", list);
             result.put("recordsTotal", users.size());
             result.put("draw", 1);
-            result.put("recordsFiltered", users.size());
+            result.put("recordsFiltered", list.size());
 
             return new ResponseEntity<Object>(result, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
+
+
 
     @RequestMapping(
             value = "/users/{type}/{value}",
@@ -401,19 +453,42 @@ public class RestModules {
 
     @RequestMapping(
             value = "/course/{user}",
-            method = RequestMethod.POST,
+            method = RequestMethod.GET,
             produces = {MimeTypeUtils.APPLICATION_JSON_VALUE},
             headers = "Accept=application/json"
     )
     public ResponseEntity<Object> courseByUser(@PathVariable("user") int user) {
         Map<String, Object> map = new HashMap<String, Object>();
 
+
         List<UserCourse> userCourses = crudService.findByJPQuery("SELECT u FROM UserCourse u where u.userCoursePK.userId = " + user, null);
         map.put("status", true);
-        if (userCourses == null) {
+        if (userCourses == null || user ==-1) {
             map.put("status", false);
         }
-        map.put("courses", userCourses);
+        //map.put("courses", userCourses);
+
+        List<CourseTableDisplay> list = new ArrayList<>();
+        for (UserCourse uc: userCourses) {
+            CourseTableDisplay row = new CourseTableDisplay();
+            row.setCourse(uc.getCourse().getName()+" "+uc.getCourse().getPeriod().getDescription());
+            row.setAction("<a\n" +
+                    "class=\"btn btn-sm btn-danger remove-course\" href=\"#\"\n" +
+                    "rel=\""+uc.getUser().getId()+"_"+uc.getCourse().getId()+"_2020"+"\"\n" +
+                    "title=\"Remover\"><i\n" +
+                    "class=\"glyphicon glyphicon-remove\"></i> Remover</a>");
+            list.add(row);
+
+        }
+
+
+
+        map.put("data", list);
+        map.put("recordsTotal", userCourses.size());
+        map.put("draw", 1);
+        map.put("recordsFiltered", userCourses.size());
+
+
         return new ResponseEntity<Object>(map, HttpStatus.OK);
     }
 

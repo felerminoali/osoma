@@ -463,6 +463,20 @@ public class UBSController {
         return modelo;
     }
 
+    @RequestMapping(value = "/show-results", method = RequestMethod.GET)
+    public ModelAndView showResults() {
+        ModelAndView modelo = new ModelAndView("show-results");
+
+        Map<String, Object> par = new HashMap<String, Object>();
+        par.put("uni", 33);
+        par.put("year", 2020);
+        String hqlQuery = "SELECT e FROM Exam e WHERE e.university.id = :uni and  e.examYear = :year";
+        List<Exam> exams = crudService.findByJPQuery(hqlQuery, par);
+
+        modelo.addObject("exams",exams);
+
+        return modelo;
+    }
 
 
     private Date stringToDate(String strDate, Locale locale) throws ParseException {

@@ -77,7 +77,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/dashboard",
                         "/exam/*",
                         "/mod/saved_answer/*",
-                        "/mod/saved_answers/*"
+                        "/mod/saved_answers/*",
+                        "/results-list/*"
 
                 ).permitAll()
                 .antMatchers("/admin/**", "/ubs/preregistration").hasRole("ADMIN") // permit JS resources

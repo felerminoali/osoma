@@ -36,7 +36,7 @@
                         <fieldset>
 
                             <legend>
-                                <h1 th:text="${exame.description}">
+                                <h1 th:text="${exam.description}">
                                     <small th:text="${university.shortname}">-
                                         UEM (2005)
                                     </small>
@@ -47,7 +47,7 @@
 
                             <div
                             >
-                                <img th:src="${category}" th:alt="${exame.category.name}"
+                                <img th:src="${category}" th:alt="${exam.category.name}"
                                      class="img-responsive">
 
                             </div>
@@ -57,9 +57,9 @@
 
                                 <h4>
                                     <p>
-                                        <span class="glyphicon glyphicon-question-sign " th:text="${exame.noquestion}"></span>
+                                        <span class="glyphicon glyphicon-question-sign " th:text="${exam.noquestion}"></span>
                                         Questions &nbsp;
-                                        <span class="glyphicon glyphicon-time" th:text="${exame.duration}"></span>
+                                        <span class="glyphicon glyphicon-time" th:text="${exam.duration}"></span>
                                         Minutes
                                     </p>
                                 </h4>
@@ -140,11 +140,11 @@
                                 Click the button below to access the electronic file in PDF format. </p>
 
 
-                            <a th:if="${exame.pdfresource}!=null" th:href="${exame.pdfresource}" class="btn btn-success"
+                            <a th:if="${exam.pdfresource}!=null" th:href="${exam.pdfresource}" class="btn btn-success"
                                role="button" target="_blank">
                                 Download <i class="fa fa-cloud-download fa-lg"></i>
                             </a>
-                            <a th:if="${exame.pdfresource}==null" aria-label="Back" style='color: #C6C4C6'>
+                            <a th:if="${exam.pdfresource}==null" aria-label="Back" style='color: #C6C4C6'>
                                 <span style='color: red' aria-hidden="true">exam not available for download</span>
                             </a>
                             <br>

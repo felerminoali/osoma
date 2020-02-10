@@ -27,6 +27,7 @@
                                 <li class="nav-header">Links Úteis</li>
                                 <li sec:authorize="hasRole('ROLE_ADMIN')" class="active"><a href="/ubs/preregistration">Pré-Inscrição</a></li>
                                 <li><a href="/ubs/history">Histórico de Exames Feitos</a></li>
+                                <li sec:authorize="hasRole('ROLE_ADMIN')"><a href="/ubs/show-results">Ver Resultados</a></li>
                             </ul>
                         </div>
 

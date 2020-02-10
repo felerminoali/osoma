@@ -69,7 +69,56 @@
 
                             <div class="result">
 
-                                <button class="btn btn-default pull-right" id="btn-add">Adicionar</button>
+
+                                <!--<div class="form-row">-->
+                                <!---->
+                                <!--<div class="col">-->
+                                <!--<button class="btn btn-default pull-right" id="btn-add">Adicionar</button>-->
+                                <!--</div>-->
+
+
+                                <!--</div>-->
+
+                                <div class="row">
+                                    <div class="col-lg-5">
+                                        <div class="form-group">
+                                            <label for="filter_course">Curso</label>
+                                            <select class="form-control" name="filter_course" id="filter_course">
+                                                <option value="-1">Todos</option>
+                                                <option th:each="course: ${courses}"
+                                                        th:value="${course.id}"
+                                                        th:text="${course.name+' '+course.period.description}">
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div><!-- /.col-lg-6 -->
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label for="filter_name">Nome ou Apelido </label>
+                                            <input type="text" class="form-control" id="filter_name" name="filter_name"
+                                                   autocomplete="off">
+                                        </div>
+                                    </div><!-- /.col-lg-6 -->
+                                    <div class="col-lg-2">
+                                        <div class="form-group">
+                                            <label for="filter_code">Código </label>
+                                            <input type="text" class="form-control" id="filter_code" name="filter_code"
+                                                   autocomplete="off">
+                                        </div>
+                                    </div><!-- /.col-lg-6 -->
+                                    <div class="col-lg-2">
+                                        <div class="form-group">
+                                            <label for="filter"></label>
+                                            <button type="button" name="filter" id="filter" class="form-control btn btn-info">
+                                                Filtrar
+                                            </button>
+                                        </div>
+                                       
+                                    </div><!-- /.col-lg-6 -->
+                                </div><!-- /.row -->
+
+
+                                <button class="btn btn-success pull-right" id="btn-add">Adicionar</button>
 
                                 <br/>
                                 <table class="table table-hover" id="tbluser" style="width:100%">
@@ -107,13 +156,13 @@
                             <h4 class="modal-title"></h4>
                         </div>
                         <form id="form" action="/user/add" th:object="${user}">
-                            <input type="number"  th:field="*{id}" class="hidden"/>
+                            <input type="number" th:field="*{id}" class="hidden"/>
 
                             <!--<div class="form-group">-->
-                                <!--<label th:for="name">Primeiro Nome</label>-->
-                                <!--<input type="text" class="form-control"  th:field="*{name}"-->
-                                       <!--placeholder="Nome" autocomplete="off">-->
-                                <!--<span class="help-block"></span>-->
+                            <!--<label th:for="name">Primeiro Nome</label>-->
+                            <!--<input type="text" class="form-control"  th:field="*{name}"-->
+                            <!--placeholder="Nome" autocomplete="off">-->
+                            <!--<span class="help-block"></span>-->
                             <!--</div>-->
                             <!--<button class="btn btn-primary" id="btn-save" type="submit">Gravar</button>-->
                             <div class="modal-body">
@@ -168,7 +217,8 @@
 
                                                 <div class="form-group">
                                                     <label th:for="contact">Contacto</label>
-                                                    <input type="text" class="form-control" th:field="*{contact}" placeholder="Contacto" autocomplete="off">
+                                                    <input type="text" class="form-control" th:field="*{contact}"
+                                                           placeholder="Contacto" autocomplete="off">
                                                     <span class="help-block"></span>
                                                 </div>
 
@@ -272,14 +322,15 @@
                                                                 </option>
                                                             </select>
                                                             <div class="input-group-btn">
-                                                                <a href="#" role="button" class="btn btn-success" id="btn-add-course">Adicionar</a>
+                                                                <a href="#" role="button" class="btn btn-success"
+                                                                   id="btn-add-course">Adicionar</a>
                                                             </div>
                                                         </div><!-- /input-group -->
                                                     </div>
                                                     <span class="help-block"></span>
                                                 </div>
                                                 <div class="form-group">
-                                                    <table class="table table-hover table-bordered" id="tblcourse"
+                                                    <table class="table table-hover" id="tblcourse"
                                                            style="width:100%">
                                                         <thead>
                                                         <tr>
@@ -290,8 +341,15 @@
                                                         <tbody>
                                                         <tr th:each="ucourses: ${userCourses}">
                                                             <td th:text="${ucourses.course.name+' '+ucourses.course.period.description}"></td>
-                                                            <td style="text-align: center"><a class="btn btn-sm btn-danger remove-course" href="#" th:rel="${ucourses.user.id+'_'+ucourses.course.id+'_'+ucourses.userCoursePK.year}" title="Remover"><i class="glyphicon glyphicon-remove"></i> Remover</a></td>
+                                                            <td style="text-align: center"><a
+                                                                    class="btn btn-sm btn-danger remove-course" href="#"
+                                                                    th:rel="${ucourses.user.id+'_'+ucourses.course.id+'_'+ucourses.userCoursePK.year}"
+                                                                    title="Remover"><i
+                                                                    class="glyphicon glyphicon-remove"></i> Remover</a>
+                                                            </td>
                                                         </tr>
+
+
                                                         </tbody>
                                                     </table>
                                                 </div>
