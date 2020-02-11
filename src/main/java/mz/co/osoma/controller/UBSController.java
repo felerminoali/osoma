@@ -121,7 +121,7 @@ public class UBSController {
             model.addObject("category", "../" + category.getCover());
             model.addObject("exam", exam);
 
-            User user = crudService.findEntByJPQuery("FROM User u WHERE u.email = '" + ((CustomUserDetails) userDetails).getEmail() + "'", null);
+            User user = crudService.findEntByJPQuery("FROM User u WHERE u.contacty = '" + ((CustomUserDetails) userDetails).getContact() + "'", null);
             List<ExamAttempts> examAttempts = crudService.findByJPQuery("SELECT e FROM ExamAttempts e where e.user.id = " + user.getId() + " and e.exam.id=" + id, null);;
 
 
@@ -135,11 +135,11 @@ public class UBSController {
             model.addObject("nrQuestions", exam.getQuestionList().size());
             model.addObject("attemptAllowed", attemptAllowed);
 
-            if(exam.getExamDate() != null){
-                SimpleDateFormat df = new SimpleDateFormat("MMM dd, yyyy HH:mm:ss");
+//            if(exam.getExamDate() != null){
+//                SimpleDateFormat df = new SimpleDateFormat("MMM dd, yyyy HH:mm:ss");
 //                System.out.println("--------->"+df.format(exam.getExamDate()).toString());
-                model.addObject("starttime", df.format(exam.getExamDate()).toString());
-            }
+//                model.addObject("starttime", df.format(exam.getExamDate()).toString());
+//            }
         }
 
 
