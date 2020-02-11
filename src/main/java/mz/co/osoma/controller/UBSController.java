@@ -126,7 +126,9 @@ public class UBSController {
 
 
             boolean attemptAllowed = true;
-            if(examAttempts!=null && examAttempts.size()>0){
+            if(examAttempts!=null){
+
+                if(examAttempts.size()>0)
                 attemptAllowed = false;
             }
 
