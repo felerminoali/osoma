@@ -126,9 +126,9 @@ public class UBSController {
 
 
             boolean attemptAllowed = true;
-//            if(examAttempts!=null && examAttempts.size()>0){
-//                attemptAllowed = false;
-//            }
+            if(examAttempts!=null && examAttempts.size()>0){
+                attemptAllowed = false;
+            }
 
             model.addObject("nrQuestions", exam.getQuestionList().size());
             model.addObject("attemptAllowed", attemptAllowed);
