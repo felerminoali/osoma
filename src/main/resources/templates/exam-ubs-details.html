@@ -72,45 +72,45 @@
 
                                         <div class="container-share">
 
-                                                <!--<a th:if="${exam.hassimulation and attemptAllowed}" th:href="@{/ubs/online-test(id = ${exam.id})}" class="btn btn-success" role="button" id="start-simulation">Iniciar Diagonostico </a>-->
-                                                <!--<a th:if="not ${attemptAllowed}" th:href="@{/ubs/history}" class="btn btn-success" role="button">Monstrar Histórico de Exames feitos </a>-->
+                                                <a th:if="${exam.hassimulation and attemptAllowed}" th:href="@{/ubs/online-test(id = ${exam.id})}" class="btn btn-success" role="button" id="start-simulation">Iniciar Diagonostico </a>
+                                                <a th:if="not ${attemptAllowed}" th:href="@{/ubs/history}" class="btn btn-success" role="button">Monstrar Histórico de Exames feitos </a>
 
-                                            <input type="hidden" id="exam_id" th:value="${exam.id}">
-                                            <input type="hidden" id="starttime" th:value="${starttime}">
+                                            <!--<input type="hidden" id="exam_id" th:value="${exam.id}">-->
+                                            <!--<input type="hidden" id="starttime" th:value="${starttime}">-->
 
-                                            <div id="demo"></div>
-                                            <script>
-                                                // Set the date we're counting down to
-                                                var starttime = $('#starttime').val();
-                                                var countDownDate = new Date(starttime).getTime();
+                                            <!--<div id="demo"></div>-->
+                                            <!--<script>-->
+                                                <!--// Set the date we're counting down to-->
+                                                <!--var starttime = $('#starttime').val();-->
+                                                <!--var countDownDate = new Date(starttime).getTime();-->
 
-                                                // Update the count down every 1 second
-                                                var x = setInterval(function() {
+                                                <!--// Update the count down every 1 second-->
+                                                <!--var x = setInterval(function() {-->
 
-                                                    // Get today's date and time
-                                                    var now = new Date().getTime();
+                                                    <!--// Get today's date and time-->
+                                                    <!--var now = new Date().getTime();-->
 
-                                                    // Find the distance between now and the count down date
-                                                    var distance = countDownDate - now;
+                                                    <!--// Find the distance between now and the count down date-->
+                                                    <!--var distance = countDownDate - now;-->
 
-                                                    // Time calculations for days, hours, minutes and seconds
-                                                    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                                                    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                                                    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                                                    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                                                    <!--// Time calculations for days, hours, minutes and seconds-->
+                                                    <!--var days = Math.floor(distance / (1000 * 60 * 60 * 24));-->
+                                                    <!--var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));-->
+                                                    <!--var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));-->
+                                                    <!--var seconds = Math.floor((distance % (1000 * 60)) / 1000);-->
 
-                                                    // Output the result in an element with id="demo"
-                                                    document.getElementById("demo").innerHTML = "<p>O teste começa em: </p><h3>"+days + " Dias " + hours + " Horas "
-                                                        + minutes + " Minutos " + seconds + " Segundos "+"</h3>";
+                                                    <!--// Output the result in an element with id="demo"-->
+                                                    <!--document.getElementById("demo").innerHTML = "<p>O teste começa em: </p><h3>"+days + " Dias " + hours + " Horas "-->
+                                                        <!--+ minutes + " Minutos " + seconds + " Segundos "+"</h3>";-->
 
-                                                    // If the count down is over, write some text
-                                                    if (distance < 0) {
-                                                        clearInterval(x);
-                                                        var exam_id = $('#exam_id').val();
-                                                        document.getElementById("demo").innerHTML = ' <a href="/ubs/online-test?id='+exam_id+'" class="btn btn-success" role="button" id="start-simulation">Iniciar Diagonostico </a>';
-                                                    }
-                                                }, 1000);
-                                            </script>
+                                                    <!--// If the count down is over, write some text-->
+                                                    <!--if (distance < 0) {-->
+                                                        <!--clearInterval(x);-->
+                                                        <!--var exam_id = $('#exam_id').val();-->
+                                                        <!--document.getElementById("demo").innerHTML = ' <a href="/ubs/online-test?id='+exam_id+'" class="btn btn-success" role="button" id="start-simulation">Iniciar Diagonostico </a>';-->
+                                                    <!--}-->
+                                                <!--}, 1000);-->
+                                            <!--</script>-->
                                         </div>
                                     </div>
 

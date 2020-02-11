@@ -104,7 +104,7 @@ public class UBSController {
         Exam exam = crudService.findEntByJPQueryT("SELECT e FROM Exam e where e.id = " + id, null);
 
 
-        model.addObject("exame", null);
+        model.addObject("exam", null);
 
         if (exam != null) {
 
@@ -119,7 +119,7 @@ public class UBSController {
             Category category = crudService.findEntByJPQueryT("SELECT c FROM Category c where c.id = " + exam.getCategory().getId(), null);
             model.addObject("university", university);
             model.addObject("category", "../" + category.getCover());
-            model.addObject("exame", exam);
+            model.addObject("exam", exam);
 
             User user = crudService.findEntByJPQuery("FROM User u WHERE u.email = '" + ((CustomUserDetails) userDetails).getEmail() + "'", null);
             List<ExamAttempts> examAttempts = crudService.findByJPQuery("SELECT e FROM ExamAttempts e where e.user.id = " + user.getId() + " and e.exam.id=" + id, null);;
