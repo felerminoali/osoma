@@ -121,7 +121,7 @@ public class UBSController {
             model.addObject("category", "../" + category.getCover());
             model.addObject("exam", exam);
 
-            User user = crudService.findEntByJPQuery("FROM User u WHERE u.contacty = '" + ((CustomUserDetails) userDetails).getContact() + "'", null);
+            User user = crudService.findEntByJPQuery("FROM User u WHERE u.contact = '" + ((CustomUserDetails) userDetails).getContact() + "'", null);
             List<ExamAttempts> examAttempts = crudService.findByJPQuery("SELECT e FROM ExamAttempts e where e.user.id = " + user.getId() + " and e.exam.id=" + id, null);;
 
 
