@@ -243,7 +243,7 @@ public class UBSController {
         if (idExam.isPresent()) {
 
             Exam exam = crudService.get(Exam.class, idExam.get());
-            User user = crudService.findEntByJPQuery("FROM User u WHERE u.email = '" + ((CustomUserDetails) userDetails).getEmail() + "'", null);
+            User user = crudService.findEntByJPQuery("FROM User u WHERE u.contact = '" + ((CustomUserDetails) userDetails).getContact() + "'", null);
 
             Map<String, Object> parm = new HashMap<String, Object>();
             parm.put("exam", exam.getId());
@@ -348,7 +348,7 @@ public class UBSController {
 
         int correct = 0;
 
-        User user = crudService.findEntByJPQuery("FROM User u WHERE u.email = '" + ((CustomUserDetails) userDetails).getEmail() + "'", null);
+        User user = crudService.findEntByJPQuery("FROM User u WHERE u.contact = '" + ((CustomUserDetails) userDetails).getContact() + "'", null);
 
         ExamAttempts attempts = new ExamAttempts();
         ExamAttemptsPK examAttemptsPK = new ExamAttemptsPK();
@@ -418,7 +418,7 @@ public class UBSController {
 
         ModelAndView modelo = new ModelAndView("exam-history");
 
-        User user = crudService.findEntByJPQuery("FROM User u WHERE u.email = '" + ((CustomUserDetails) userDetails).getEmail() + "'", null);
+        User user = crudService.findEntByJPQuery("FROM User u WHERE u.contact = '" + ((CustomUserDetails) userDetails).getContact() + "'", null);
         List<ExamAttempts> examAttempts = crudService.findByJPQuery("SELECT e FROM ExamAttempts e where e.user.id = " + user.getId() + " ORDER BY e.examAttemptsPK.timestamp DESC", null);;
 
         modelo.addObject("examAttempts", examAttempts);
