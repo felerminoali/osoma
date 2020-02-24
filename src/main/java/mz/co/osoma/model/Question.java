@@ -77,6 +77,11 @@ public class Question implements Serializable {
     @OneToMany(mappedBy = "question", fetch = FetchType.LAZY)
     private List<Choice> choiceList;
 
+
+    @JoinColumn(name = "tag", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Tag tag;
+
     public Question() {
     }
 
@@ -187,6 +192,15 @@ public class Question implements Serializable {
     public void setChoiceList(List<Choice> choiceList) {
         this.choiceList = choiceList;
     }
+
+    public Tag getTag() {
+        return tag;
+    }
+
+    public void setTag(Tag tag) {
+        this.tag = tag;
+    }
+
 
     @Override
     public int hashCode() {

@@ -46,9 +46,14 @@ public class HibernateConf {
 //        dataSource.setPassword("637b79e7");
 
         // heroku: felermino@outlook.com
-        dataSource.setUrl("jdbc:mysql://us-mm-dca-b7add399344a.g5.cleardb.net:3306/heroku_c7035568cd423c2");
-        dataSource.setUsername("b8b80c31776c4a");
-        dataSource.setPassword("28db730f");
+//        dataSource.setUrl("jdbc:mysql://us-mm-dca-b7add399344a.g5.cleardb.net:3306/heroku_c7035568cd423c2");
+//        dataSource.setUsername("b8b80c31776c4a");
+//        dataSource.setPassword("28db730f");
+
+        dataSource.setUrl("jdbc:mysql://us-cdbr-iron-east-04.cleardb.net:3306/heroku_ad4ebfd03e7bde2");
+        dataSource.setUsername("b4dde9c8e245fd");
+        dataSource.setPassword("bea87dec");
+
 
         return dataSource;
     }
