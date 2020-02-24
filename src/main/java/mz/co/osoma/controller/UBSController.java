@@ -278,7 +278,7 @@ public class UBSController {
                 Choice answers = crudService.findEntByJPQuery("FROM Choice p WHERE p.question.id = :q AND p.rightchoice = :r", par);
 
 
-                System.out.println(session.getAttribute(q.getId().toString()) +" vs "+answers.getId());
+//                System.out.println(session.getAttribute(q.getId().toString()) +" vs "+answers.getId());
 
                 // AnswerSession = 1223_A
                 String[] sessionAnswers = session.getAttribute(q.getId().toString())!=null ? ((String) session.getAttribute(q.getId() + "")).split("_") : null;
