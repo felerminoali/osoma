@@ -16,7 +16,7 @@
         <div class="row">
 
             <ol class="breadcrumb-white">
-                <li><a href="/ubs/">Principal</a></li>
+                <li><a href="/exams/">Principal</a></li>
                 <li class="active">Histórico de Exames Feitos</li>
             </ol>
 
@@ -47,7 +47,7 @@
                                             <tbody>
                                             <tr th:each="attemps: ${examAttempts}">
                                                 <td th:text="${attemps.start}"></td>
-                                                <td><a th:href="@{/ubs/result(exam = ${attemps.exam.id}, timestamp = ${#dates.formatISO(attemps.examAttemptsPK.timestamp)})}" th:text="${attemps.exam.description}"></a></td>
+                                                <td><a th:href="@{/exams/result(exam = ${attemps.exam.id}, timestamp = ${#dates.formatISO(attemps.examAttemptsPK.timestamp)})}" th:text="${attemps.exam.description}"></a></td>
                                                 <td th:text="${T(mz.co.osoma.service.Helper).timeDifferenceInSeconds(attemps.start,attemps.ExamAttemptsPK.timestamp)}"></td>
 
                                                 <td th:text="${attemps.score}"></td>

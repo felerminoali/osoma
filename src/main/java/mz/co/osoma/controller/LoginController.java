@@ -81,7 +81,7 @@ public class LoginController {
         HttpSession session = request.getSession(true);
         session.setAttribute("SPRING_SECURITY_CONTEXT", sc);
 
-        return new ModelAndView("redirect:" + "/ubs/");
+        return new ModelAndView("redirect:" + "/exams/");
     }
 
 

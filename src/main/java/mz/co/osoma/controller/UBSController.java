@@ -34,15 +34,15 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 @Controller
-@RequestMapping("ubs")
+@RequestMapping("exams")
 public class UBSController {
 
     @Autowired
     @Qualifier("CRUDServiceImpl")
     public CRUDService crudService;
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public ModelAndView index(@AuthenticationPrincipal final UserDetails userDetails) {
+    @RequestMapping(value = "/{university}", method = RequestMethod.GET)
+    public ModelAndView index(@AuthenticationPrincipal final UserDetails userDetails, @PathVariable("university") int university) {
 
 //        User user = crudService.findEntByJPQuery("FROM User u WHERE u.email = '" + ((CustomUserDetails) userDetails).getEmail() + "'", null);
         Map<String, Object> par = new HashMap<String, Object>();
@@ -81,7 +81,7 @@ public class UBSController {
 //        }
 
 
-        par.put("uni", 33);
+        par.put("uni", university);
         par.put("year", 2020);
         String hqlQuery = "SELECT e FROM Exam e WHERE e.university.id = :uni and  e.examYear = :year";
         exams = crudService.findByJPQuery(hqlQuery, par);

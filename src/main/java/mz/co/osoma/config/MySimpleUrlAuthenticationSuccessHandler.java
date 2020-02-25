@@ -67,7 +67,7 @@ public class MySimpleUrlAuthenticationSuccessHandler extends SimpleUrlAuthentica
         if (isUser) {
             return "/ubs";
         } else if (isAdmin) {
-            return "/ubs/admin";
+            return "/exams/admin";
         } else {
             throw new IllegalStateException();
         }

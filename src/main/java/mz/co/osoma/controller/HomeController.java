@@ -55,26 +55,26 @@ public class HomeController {
     }
 
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String index(){
-        return "redirect:/ubs/";
-
-    }
-
+//    @RequestMapping(value = "/", method = RequestMethod.GET)
+//    public String index(){
+//        return "redirect:/exams/";
 //
-//    @RequestMapping(value = "/", method = {RequestMethod.GET, RequestMethod.POST})
-//    public ModelAndView index(@RequestParam("ano") Optional<Integer> ano, @RequestParam Optional<Integer> universidade,
-//                              @RequestParam("pg") Optional<Integer> pg, Optional<Integer> exame, Optional<String> search) {
-//
-//        model = new ModelAndView("index");
-//        exams = filterExam(ano, universidade, exame, search);
-//
-//        SetupModelAttributes(ano, universidade, exame);
-//        pagination(pg);
-//
-//        model.addObject("exams", exams);
-//        return model;
 //    }
+
+//
+    @RequestMapping(value = "/", method = {RequestMethod.GET, RequestMethod.POST})
+    public ModelAndView index(@RequestParam("ano") Optional<Integer> ano, @RequestParam Optional<Integer> universidade,
+                              @RequestParam("pg") Optional<Integer> pg, Optional<Integer> exame, Optional<String> search) {
+
+        model = new ModelAndView("index");
+        exams = filterExam(ano, universidade, exame, search);
+
+        SetupModelAttributes(ano, universidade, exame);
+        pagination(pg);
+
+        model.addObject("exams", exams);
+        return model;
+    }
 
     public void SetupModelAttributes(Optional<Integer> ano, Optional<Integer> universidade, Optional<Integer> exame) {
 

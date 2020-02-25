@@ -37,9 +37,9 @@ public class HibernateConf {
 
        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
 
-//        dataSource.setUrl("jdbc:mysql://localhost:3306/osoma");
-//        dataSource.setUsername("root");
-//        dataSource.setPassword("root");
+        dataSource.setUrl("jdbc:mysql://localhost:3306/osoma");
+        dataSource.setUsername("root");
+        dataSource.setPassword("root");
 
 //        dataSource.setUrl("jdbc:mysql://us-cdbr-iron-east-03.cleardb.net:3306/heroku_9a0deeafda252b2");
 //        dataSource.setUsername("bfaa4dbfc34090");
@@ -50,10 +50,10 @@ public class HibernateConf {
 //        dataSource.setUsername("b8b80c31776c4a");
 //        dataSource.setPassword("28db730f");
 
-        dataSource.setUrl("jdbc:mysql://us-cdbr-iron-east-04.cleardb.net:3306/heroku_ad4ebfd03e7bde2");
-        dataSource.setUsername("b4dde9c8e245fd");
-        dataSource.setPassword("bea87dec");
-
+//        dataSource.setUrl("jdbc:mysql://us-cdbr-iron-east-04.cleardb.net:3306/heroku_ad4ebfd03e7bde2");
+//        dataSource.setUsername("b4dde9c8e245fd");
+//        dataSource.setPassword("bea87dec");
+//
 
         return dataSource;
     }

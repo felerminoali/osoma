@@ -72,8 +72,8 @@
 
                                         <div class="container-share">
 
-                                                <a th:if="${exam.hassimulation and attemptAllowed}" th:href="@{/ubs/online-test(id = ${exam.id})}" class="btn btn-success" role="button" id="start-simulation">Iniciar Diagonostico </a>
-                                                <a th:if="not ${attemptAllowed}" th:href="@{/ubs/history}" class="btn btn-success" role="button">Monstrar Histórico de Exames feitos </a>
+                                                <a th:if="${exam.hassimulation and attemptAllowed}" th:href="@{/exams/online-test(id = ${exam.id})}" class="btn btn-success" role="button" id="start-simulation">Iniciar Diagonostico </a>
+                                                <a th:if="not ${attemptAllowed}" th:href="@{/exams/history}" class="btn btn-success" role="button">Monstrar Histórico de Exames feitos </a>
 
                                             <!--<input type="hidden" id="exam_id" th:value="${exam.id}">-->
                                             <!--<input type="hidden" id="starttime" th:value="${starttime}">-->
@@ -107,7 +107,7 @@
                                                     <!--if (distance < 0) {-->
                                                         <!--clearInterval(x);-->
                                                         <!--var exam_id = $('#exam_id').val();-->
-                                                        <!--document.getElementById("demo").innerHTML = ' <a href="/ubs/online-test?id='+exam_id+'" class="btn btn-success" role="button" id="start-simulation">Iniciar Diagonostico </a>';-->
+                                                        <!--document.getElementById("demo").innerHTML = ' <a href="/exams/online-test?id='+exam_id+'" class="btn btn-success" role="button" id="start-simulation">Iniciar Diagonostico </a>';-->
                                                     <!--}-->
                                                 <!--}, 1000);-->
                                             <!--</script>-->

@@ -34,7 +34,7 @@ $(document).ready(function () {
 
     if ($('.close').length > 0) {
         ($('.close').click(function () {
-            // window.location.href = "/ubs/preregistration";
+            // window.location.href = "/exams/preregistration";
         }));
     }
 
@@ -338,7 +338,7 @@ function fill_table(data) {
 }
 
 function reload_table() {
-    // window.location.href = "/ubs/preregistration";
+    // window.location.href = "/exams/preregistration";
     // table.ajax.reload(); //reload datatable ajax
     // $('#tbluser').ajax.reload(null, false); //reload datatable ajax
     // $('#tbluser').DataTable().ajax.reload();

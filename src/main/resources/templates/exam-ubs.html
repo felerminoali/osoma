@@ -25,9 +25,9 @@
 
                             <ul class="nav nav-list">
                                 <li class="nav-header">Links Úteis</li>
-                                <li sec:authorize="hasRole('ROLE_ADMIN')" class="active"><a href="/ubs/preregistration">Pré-Inscrição</a></li>
-                                <li><a href="/ubs/history">Histórico de Exames Feitos</a></li>
-                                <li sec:authorize="hasRole('ROLE_ADMIN')"><a href="/ubs/show-results">Ver Resultados</a></li>
+                                <li sec:authorize="hasRole('ROLE_ADMIN')" class="active"><a href="/exams/preregistration">Pré-Inscrição</a></li>
+                                <li><a href="/exams/history">Histórico de Exames Feitos</a></li>
+                                <li sec:authorize="hasRole('ROLE_ADMIN')"><a href="/exams/show-results">Ver Resultados</a></li>
                             </ul>
                         </div>
 
@@ -53,7 +53,7 @@
                     <div th:case="*">
                         <div th:each="exam: ${exams}">
                             <div class="col-sm-6 col-md-3">
-                                <a th:href="@{/ubs/exam-details/{id}(id = ${exam.id})}" class="thumb">
+                                <a th:href="@{/exams/exam-details/{id}(id = ${exam.id})}" class="thumb">
                                     <div class="thumbnail">
                                         <img th:src="${'/'+exam.category.image}" th:alt="${exam.category.name}"
                                              class="img-rounded responsive">
