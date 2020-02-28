@@ -12,8 +12,8 @@ before_install:
 notifications:
   email:
     recipients:
-      - rvalentim@unilurio.ac.mz
-      - guerzeneldo@gmail.com
+#      - rvalentim@unilurio.ac.mz
+#      - guerzeneldo@gmail.com
       - felerminoali@gmail.com
     on_success: always # default: change
     on_failure: always # default: always

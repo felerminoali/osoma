@@ -339,7 +339,7 @@ public class RestModules {
         user.setActive(true);
         user.setPreregisted(Short.parseShort("1"));
 
-        Role role_user = crudService.get(Role.class, 3);
+        Role role_user = crudService.get(Role.class, 4);
         Set<Role> roles = new HashSet<Role>();
         roles.add(role_user);
 

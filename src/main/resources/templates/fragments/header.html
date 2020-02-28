@@ -23,26 +23,32 @@
         </div>
 
         <div id="navbar" class="navbar-collapse collapse">
-
             <ul class="nav navbar-nav navbar-right">
-                <div >
-                    <li sec:authorize="isAnonymous()">
+                <div sec:authorize="isAnonymous()" >
+                    <li class="dropdown">
                         <a href="/login"><i class="fa fa-createdby"></i>Entrar</a>
                         <span>/</span>
                         <a href="/register">Registar</a>
                     </li>
-                </div>
 
-                <div sec:authorize="isAuthenticated()">
+                </div>
+                <div sec:authorize="isAuthenticated()" >
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                           aria-expanded="false"><span sec:authentication="name"></span> <i class="fa fa-createdby fa-lg"></i></a>
+                           aria-expanded="false"><span sec:authentication="name"></span> <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li class="dropdown-item"><a th:href="@{/exams/history}">Histórico</a></li>
                             <li class="dropdown-item"><a th:href="@{/logout}">Sair</a></li>
                         </ul>
                     </li>
                 </div>
+            </ul>
+
+            <ul  sec:authorize="isAuthenticated()" class="nav navbar-nav navbar-right">
+                <li >
+                    <a href="/exams/"><i class="fa fa-bell"></i> &nbsp;Exames&nbsp;
+                        <span class="badge badge-error">1</span></a>
+                </li>
             </ul>
         </div>
     </div>

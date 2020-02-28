@@ -2110,3 +2110,10 @@ i.icon-rss {
     /*color: #999;*/
     color: #3c763d;
 }
+
+.badge-error {
+    background-color: #b94a48;
+}
+.badge-error:hover {
+    background-color: #953b39;
+}
