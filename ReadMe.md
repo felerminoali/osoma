@@ -114,3 +114,13 @@ Qualquer dificuldade que encontrar para correr o projeto, consultar a equipe ant
  CLEARDB_DATABASE_URL: mysql://b8b80c31776c4a:28db730f@us-cdbr-iron-east-05.cleardb.net/heroku_c7035568cd423c2?recon
  nect=true
 
+
+Docker and jenkins
+
+mvn -T 8C clean install -DskipTests
+
+docker run --name mysql-osoma -p 3307:3306 -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=osoma -e MYSQL_PASSWORD=root -d mysql:5.6
+
+docker build . -t osoma
+
+docker run -p 8085:8085 --name osoma --link mysql-osoma:mysql -d osoma
