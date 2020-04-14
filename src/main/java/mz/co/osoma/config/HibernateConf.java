@@ -43,9 +43,9 @@ public class HibernateConf {
         dataSource.setUsername("root");
         dataSource.setPassword("root");
 
-//        dataSource.setUrl("jdbc:mysql://localhost:3306/osoma");
-//        dataSource.setUsername("root");
-//        dataSource.setPassword("root");
+        dataSource.setUrl("jdbc:mysql://localhost:3306/osoma");
+        dataSource.setUsername("root");
+        dataSource.setPassword("root");
 
 //        dataSource.setUrl("jdbc:mysql://us-cdbr-iron-east-03.cleardb.net:3306/heroku_9a0deeafda252b2");
 //        dataSource.setUsername("bfaa4dbfc34090");

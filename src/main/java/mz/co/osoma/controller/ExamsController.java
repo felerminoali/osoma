@@ -65,7 +65,6 @@ public class ExamsController {
 
             Map<Integer, Exam> map = new HashMap<Integer, Exam>();
 
-            System.out.println("************ entre "+userCourseList.size());
             for (UserCourse uc: userCourseList) {
                 Course course = uc.getCourse();
                 List<CourseExam> examsPerCourseList = course.getCourseExamList();
@@ -123,11 +122,11 @@ public class ExamsController {
 
 
             boolean attemptAllowed = true;
-            if(examAttempts!=null){
-
-                if(examAttempts.size()>0)
-                attemptAllowed = false;
-            }
+//            if(examAttempts!=null){
+//
+//                if(examAttempts.size()>0)
+//                attemptAllowed = false;
+//            }
 
             model.addObject("nrQuestions", exam.getQuestionList().size());
             model.addObject("attemptAllowed", attemptAllowed);

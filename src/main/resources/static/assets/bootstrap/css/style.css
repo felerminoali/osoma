@@ -2117,3 +2117,9 @@ i.icon-rss {
 .badge-error:hover {
     background-color: #953b39;
 }
+
+.col-white{
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: white;
+}
