@@ -1,10 +1,31 @@
 /**
  * Created by feler on 7/21/2016.
  */
+
+
+
+// $("#modal-btn-si").on("click", function () {
+//
+//     $('#modal-btn-si').attr('disabled',true);
+//
+//     $("#mi-modal").modal('hide');
+//     saveAnswer();
+//     redirect2Results();
+// });
+
 $(document).ready(function () {
 
-    initComponents();
 
+    $('body').on('click','#modal-btn-si',function(){
+        $('#modal-btn-si').attr('disabled',true);
+
+        $("#mi-modal").modal('hide');
+        saveAnswer();
+        redirect2Results();
+    });
+
+
+    initComponents();
 
     function validateAnswer(e) {
         // if ($('input[name=q_choice]:checked').val() == null) {
@@ -30,7 +51,6 @@ $(document).ready(function () {
     }
 
     function initComponents() {
-
 
         $(document).ajaxSend(function () {
             $("#overlay").fadeIn(300);
@@ -107,17 +127,7 @@ $(document).ready(function () {
             }));
         }
 
-        $('#qfinish').attr("data-toggle", "modal");
-        $('#qfinish').attr("data-target", "#mi-modal");
 
-        $("#modal-btn-si").on("click", function () {
-
-            $('#modal-btn-si').attr('disabled',true);
-
-            $("#mi-modal").modal('hide');
-            saveAnswer();
-            redirect2Results();
-        });
     }
 
     function getAnswerById(questionId) {
@@ -143,7 +153,6 @@ $(document).ready(function () {
         });
         return result;
     }
-
 
     function getAnswerByExam(examId) {
 
@@ -271,7 +280,7 @@ $(document).ready(function () {
                 if (data.questionList.length - 1 !== index) {
                     div_next += '<a id="qnext" class="btn btn-danger next">Seguinte<i class="glyphicon glyphicon-chevron-right"></i></a>&nbsp;';
                 }
-                div_next += '<a href="#" id="qfinish" class="btn btn-success t_finish">Terminar<i class="glyphicon glyphicon-chevron-up"></i></a>&nbsp;';
+                div_next += '<a href="#" id="qfinish" class="btn btn-success t_finish" data-toggle="modal" data-target="#mi-modal">Terminar<i class="glyphicon glyphicon-chevron-up"></i></a>&nbsp;';
                 div_next += '<a href="#" class="btn btn-info showlist" id="btnShow">Respostas</a>&nbsp;';
                 $('.nextbox').html(div_next);
 
@@ -293,7 +302,6 @@ $(document).ready(function () {
 
 
     }
-
 
     function fetchQuestions(pointer) {
 
@@ -401,7 +409,7 @@ $(document).ready(function () {
                 if (data.questionList.length - 1 !== index) {
                     div_next += '<a id="qnext" class="btn btn-danger next">Seguinte<i class="glyphicon glyphicon-chevron-right"></i></a>&nbsp;';
                 }
-                div_next += '<a href="#" id="qfinish" class="btn btn-success t_finish">Terminar<i class="glyphicon glyphicon-chevron-up"></i></a>&nbsp;';
+                div_next += '<a href="#" id="qfinish" class="btn btn-success t_finish" data-toggle="modal" data-target="#mi-modal">Terminar<i class="glyphicon glyphicon-chevron-up"></i></a>&nbsp;';
                 div_next += '<a href="#" class="btn btn-info showlist" id="btnShow">Respostas</a>&nbsp;';
                 $('.nextbox').html(div_next);
 
@@ -424,8 +432,8 @@ $(document).ready(function () {
 
     }
 
-
 });
+
 
 
 

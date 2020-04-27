@@ -4,6 +4,8 @@ import mz.co.osoma.model.*;
 import mz.co.osoma.service.CRUDService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -57,7 +59,7 @@ public class HomeController {
 
 
     @RequestMapping(value = "/", method = {RequestMethod.GET, RequestMethod.POST})
-    public ModelAndView index(@RequestParam("ano") Optional<Integer> ano, @RequestParam Optional<Integer> universidade,
+    public ModelAndView index(@AuthenticationPrincipal final UserDetails userDetails, @RequestParam("ano") Optional<Integer> ano, @RequestParam Optional<Integer> universidade,
                               @RequestParam("pg") Optional<Integer> pg, Optional<Integer> exame, Optional<String> search) {
 
         model = new ModelAndView("index");
@@ -67,6 +69,7 @@ public class HomeController {
         pagination(pg);
 
         model.addObject("exams", exams);
+
         return model;
     }
 
@@ -92,7 +95,7 @@ public class HomeController {
         HashMap<String, Object> parameter = new HashMap<String, Object>(1);
 
         StringBuilder sql = new StringBuilder();
-        sql.append("SELECT COUNT(e.id), e.examYear FROM Exam e");
+        sql.append("SELECT COUNT(e.id), e.examYear FROM Exam e ");
 
         if (!isNull(university)) {
             sql.append(", University u ");
@@ -102,36 +105,39 @@ public class HomeController {
         }
         boolean control = false;
 
+        sql.append(" WHERE e.accessibility = 1 ");
+
         if (!isNull(ano)) {
-            sql.append(" WHERE e.examYear = :ano ");
+            sql.append(" AND e.examYear = :ano ");
             parameter.put("ano", ano);
             control = true;
         }
         if (!isNull(university)) {
             if (control) {
                 sql.append(" AND ");
-            } else {
-                sql.append(" WHERE ");
+
+                sql.append(" e.university = u.id AND u.id = :university ");
+                parameter.put("university", university);
+                control = true;
+
             }
-            sql.append(" e.university = u.id AND u.id = :university ");
-            parameter.put("university", university);
-            control = true;
+
         }
         if (!isNull(exame)) {
             if (control) {
                 sql.append(" AND ");
-            } else {
-                sql.append(" WHERE ");
+
+                sql.append(" e.category = c.id AND c.id = :exam ");
+                parameter.put("exam", exame);
+                control = true;
+
             }
-            sql.append(" e.category = c.id AND c.id = :exam ");
-            parameter.put("exam", exame);
-            control = true;
+
         }
         if (!control) {
             parameter = null;
         }
         sql.append(" GROUP BY e.examYear");
-
         List listResult = crudService.findByJPQuery(sql.toString(), parameter);
 
         List<ExamGroup> examGroupList = new ArrayList<ExamGroup>();
@@ -148,9 +154,9 @@ public class HomeController {
         List<ExamGroup> examGroupList = new ArrayList<>();
         StringBuilder sql = new StringBuilder();
 
-        String query = "SELECT COUNT(e.id), c.name, c.id FROM Category c, Exam e WHERE e.category = c.id ";
+        String query = "SELECT COUNT(e.id), c.name, c.id FROM Category c, Exam e WHERE e.category = c.id AND e.accessibility = 1 ";
         if (!isNull(university)) {
-            query = "SELECT COUNT(e.id), c.name, c.id FROM Category c, University u, Exam e WHERE e.category = c.id ";
+            query = "SELECT COUNT(e.id), c.name, c.id FROM Category c, University u, Exam e WHERE e.category = c.id AND e.accessibility = 1 ";
         }
         sql.append(query);
 
@@ -180,12 +186,12 @@ public class HomeController {
         List<ExamGroup> examGroupList;
 
         sql.append("SELECT COUNT(e.id), u.shortname, u.id  FROM Exam e, University u " +
-                "WHERE e.university = u.id ");
+                "WHERE e.university = u.id AND e.accessibility = 1 ");
 
         if(!isNull(exame)){
             sql = new StringBuilder();
             sql.append("SELECT COUNT(e.id), u.shortname, u.id  FROM Exam e, University u, Category c " +
-                    "WHERE e.university = u.id ");
+                    "WHERE e.university = u.id AND e.accessibility = 1 ");
         }
         if (!isNull(ano)) {
             sql.append(" AND e.examYear = :ano ");
@@ -237,11 +243,12 @@ public class HomeController {
 
         boolean control = false;
 
-        sql.append(sqlQuery("Exam"));
+        sql.append(sqlQuery("Exam")).append("WHERE e.accessibility = 1 ");
 
         if (universidade.hashCode() != 0 || ano.hashCode() != 0 || exame.hashCode() != 0
                 || search.toString() != "Optional.empty") {
-            sql.append("WHERE ");
+            sql.append("AND ");
+//            sql.append("WHERE ");
         }
 
         if (universidade.hashCode() != 0) {
@@ -299,6 +306,7 @@ public class HomeController {
             sql.append(" e.description like :search ");
             param.put("search", "%" + search.get() + "%");
         }
+
 
         List<Exam> exams = crudService.findByJPQuery(sql.toString(), param);
         return exams;

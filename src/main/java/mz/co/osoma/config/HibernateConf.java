@@ -39,7 +39,11 @@ public class HibernateConf {
 
 
 //       docker jenkins
-        dataSource.setUrl("jdbc:mysql://mysql-osoma:3306/osoma");
+//        dataSource.setUrl("jdbc:mysql://mysql-osoma:3306/osoma");
+//        dataSource.setUsername("root");
+//        dataSource.setPassword("root");
+
+        dataSource.setUrl("jdbc:mysql://localhost:3306/osoma");
         dataSource.setUsername("root");
         dataSource.setPassword("root");
 

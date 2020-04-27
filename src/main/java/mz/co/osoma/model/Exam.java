@@ -64,6 +64,10 @@ public class Exam implements Serializable {
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JsonIgnore
     private University university;
+    @JsonIgnore
+    @JoinColumn(name = "accessibility", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Accessibility accessibility;
 
     public Exam() {
     }
@@ -187,6 +191,14 @@ public class Exam implements Serializable {
 
     public void setUniversity(University university) {
         this.university = university;
+    }
+
+    public Accessibility getAccessibility() {
+        return accessibility;
+    }
+
+    public void setAccessibility(Accessibility accessibility) {
+        this.accessibility = accessibility;
     }
 
     @Override

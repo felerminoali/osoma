@@ -77,25 +77,13 @@ function countDown(secs, secsMax, elem) {
 
     if (secs < 1) {
 
-
-
-        // element.innerHTML = '<h2><p style="text-align: center; color: red;">Terminou</p></h2>';
-
-        // var image = "<div style=\"text-align:center\">";
-        // image = image + "<img src=\"images/loadinfo.net.gif\"";
-        // image = image + " alt=\"Proceeding to PayPal\" />";
-        // image = image + "<br />Por favor espere enquanto o reediciona para os resultados...";
-        // image = image + "</div>";
-
         var message = '<div style="text-align: center">';
         message = message + "<br /><p>Por favor espere enquanto o reediciona para os resultados...</p>";
         message = message + '</div>';
 
         $('#ajax-container').fadeOut(200, function () {
-            // $(this).html(message).fadeIn(200, function () {
             saveAnswer();
             redirect2Results();
-            // });
         });
 
     }
@@ -119,13 +107,6 @@ function redirect2Results() {
 
 
     $('#modal-btn-si').attr('disabled',false);
-    // $("form#questionform").submit(function() {
-    //     $(this).find('input[type="submit"]').prop("disabled", true);
-    // })
-
-    // $("#finishnowinput").attr("disabled", "disabled");
-
-
 }
 
 function checkAndSave() {

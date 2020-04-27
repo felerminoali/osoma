@@ -24,6 +24,7 @@ public class Helper {
 
 
     public static String shortenPlainText(String plainText){
+        if(plainText.length()<120) return plainText;
         return plainText.substring(0, 120);
     }
 

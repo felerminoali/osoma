@@ -51,7 +51,6 @@ public class ExamsController {
         Collection<? extends GrantedAuthority> authorities = ((CustomUserDetails) userDetails).getAuthorities();
         boolean isPreregited = authorities.contains(new SimpleGrantedAuthority("ROLE_PREREGISTED"));
 
-        System.out.println("obaaa");
         if(isPreregited){
 
 

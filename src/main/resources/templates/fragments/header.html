@@ -44,12 +44,14 @@
                 </div>
             </ul>
 
-            <ul  sec:authorize="isAuthenticated()" class="nav navbar-nav navbar-right">
-                <li >
-                    <a href="/exams/"><i class="fa fa-bell"></i> &nbsp;Exames&nbsp;
-                        <span class="badge badge-error">1</span></a>
-                </li>
-            </ul>
+            <!--<ul sec:authorize="isAuthenticated()" class="nav navbar-nav navbar-right">-->
+                <!--<li th:if="${user.preregisted} == 1">-->
+                    <!--<a href="/exams/"><i class="fa fa-bell"></i> &nbsp;Exames&nbsp;-->
+                        <!--<span class="badge badge-error">1</span></a>-->
+                <!--</li>-->
+            <!--</ul>-->
+
+
         </div>
     </div>
 </nav>
