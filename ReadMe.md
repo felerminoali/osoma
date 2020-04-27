@@ -123,4 +123,4 @@ docker run --name mysql-osoma -p 3307:3306 -e MYSQL_ROOT_PASSWORD=root -e MYSQL_
 
 docker build . -t osoma
 
-docker run -p 8085:8085 --name osoma --link mysql-osoma:mysql -d osoma
+docker run -p 80:8080 --name osoma --link mysql-osoma:mysql -d osoma
