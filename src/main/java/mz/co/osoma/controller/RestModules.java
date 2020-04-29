@@ -59,6 +59,11 @@ public class RestModules {
     }
 
 
+
+    @GetMapping(value = "/exams/all")
+    public List<Exam> exams(){
+        return crudService.getAll(Exam.class);
+    }
     @RequestMapping(
             value = "/results-list/{exam}",
             method = RequestMethod.GET,
@@ -144,6 +149,8 @@ public class RestModules {
                     pregUser.setAge(Helper.getDiffYears(user.getDob()));
                     pregUser.setCode(user.getPreRegistationCode());
                     pregUser.setProvince(user.getDistrict().getProvince().getProvince());
+
+
 
                     String html = "<a href=\"#\" rel=\"" + user.getId() + "\" class=\"view btn btn-default\" title=\"View\" data-toggle=\"tooltip\">Gerir cursos</a>";
                     html += "&nbsp;&nbsp;<a href=\"#\" rel=\"" + user.getId() + "\" class=\"edit\" title=\"Edit\" data-toggle=\"tooltip\"><i class=\"fa fa-edit\"></i></a>";

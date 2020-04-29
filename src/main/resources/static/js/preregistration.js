@@ -269,14 +269,17 @@ function fill_datatable_user(filter_course = -1) {
             data: {
                 course: filter_course
             },
+
             "complete": function (xhr, responseText) {
                 init();
                 console.log(xhr);
                 console.log(responseText); //*** responseJSON: Array[0]
+            },
+            error: function (xhr, textStatus, error) {
+                console.log(xhr.statusText);
+                console.log(textStatus);
+                console.log(error);
             }
-
-
-
         },
 
         //Set column definition initialisation properties.
@@ -290,11 +293,10 @@ function fill_datatable_user(filter_course = -1) {
             {"data": "count"},
             {"data": "code"},
             {"data": "name"},
-            {"data": "email"},
-
-            // {"data": "contact"},
-            {"data": "age"},
-            {"data": "province"},
+        //     // {"data": "email"},
+            {"data": "contact"},
+        //     {"data": "age"},
+        //     // {"data": "province"},
             {"data": "action"}
         ],
 

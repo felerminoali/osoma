@@ -92,17 +92,17 @@ public class User implements Serializable {
     @Column(name = "pre_registation_code")
     private String preRegistationCode;
 
-    @NotNull(message = "Este campo não deve estar vazio")
+//    @NotNull(message = "Este campo não deve estar vazio")
     @Basic(optional = false)
     @Column(name = "gpa")
     private Integer gpa;
 
-    @NotNull(message = "Este campo não deve estar vazio")
+//    @NotNull(message = "Este campo não deve estar vazio")
     @Basic(optional = false)
     @Column(name = "high_school_name")
     private String highSchoolName;
 
-    @NotNull(message = "Este campo não deve estar vazio")
+//    @NotNull(message = "Este campo não deve estar vazio")
     @Basic(optional = false)
     @Column(name = "dob")
     @Temporal(TemporalType.DATE)
@@ -144,7 +144,7 @@ public class User implements Serializable {
 
     @JoinColumn(name = "gender", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
-    @NotNull(message = "Este campo não deve estar vazio")
+//    @NotNull(message = "Este campo não deve estar vazio")
     private Gender gender;
 
 

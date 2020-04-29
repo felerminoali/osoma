@@ -130,7 +130,7 @@ public class Email {
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
 
             // Set Subject: header field
-            message.setSubject("Sistema Osoma");
+            message.setSubject("No Reply");
 
             // Now set the actual message
             message.setContent(emailBody.create(), "text/html");
