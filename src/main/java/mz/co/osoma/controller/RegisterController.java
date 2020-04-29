@@ -82,7 +82,7 @@ public class RegisterController {
 
         Email email = new Email();
         email.setTo(user.getEmail());
-        email.send(new SuccessfulRegisted(user));
+//        email.send(new SuccessfulRegisted(user));
 
         model.addObject("user",user);
         return model;
