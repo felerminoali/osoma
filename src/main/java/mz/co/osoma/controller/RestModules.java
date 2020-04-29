@@ -2,6 +2,8 @@ package mz.co.osoma.controller;
 
 import mz.co.osoma.model.*;
 import mz.co.osoma.service.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -20,6 +22,8 @@ import java.util.*;
 
 @RestController
 public class RestModules {
+
+    private static Logger logger = LoggerFactory.getLogger(RestModules.class);
 
     @Autowired
     @Qualifier("CRUDServiceImpl")
@@ -146,12 +150,12 @@ public class RestModules {
                     pregUser.setName(user.getName() + " " + user.getLastName());
                     pregUser.setEmail(user.getEmail());
                     pregUser.setContact(user.getContact());
-                    pregUser.setAge(Helper.getDiffYears(user.getDob()));
+//                    pregUser.setAge(Helper.getDiffYears(user.getDob()));
                     pregUser.setCode(user.getPreRegistationCode());
-                    pregUser.setProvince(user.getDistrict().getProvince().getProvince());
-
-
-
+//                    pregUser.setProvince(user.getDistrict().getProvince().getProvince());
+//
+//
+//
                     String html = "<a href=\"#\" rel=\"" + user.getId() + "\" class=\"view btn btn-default\" title=\"View\" data-toggle=\"tooltip\">Gerir cursos</a>";
                     html += "&nbsp;&nbsp;<a href=\"#\" rel=\"" + user.getId() + "\" class=\"edit\" title=\"Edit\" data-toggle=\"tooltip\"><i class=\"fa fa-edit\"></i></a>";
                     html += "&nbsp;&nbsp;<a href=\"#\" rel=\"" + user.getId() + "\" class=\"delete\" title=\"Delete\" data-toggle=\"tooltip\"><i class=\"fa fa-minus-circle\"></i></a>";
@@ -169,6 +173,7 @@ public class RestModules {
 
             return new ResponseEntity<Object>(result, HttpStatus.OK);
         } catch (Exception e) {
+            logger.error(e.getMessage());
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
